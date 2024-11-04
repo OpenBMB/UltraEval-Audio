@@ -1,0 +1,7 @@
+chord-recognition:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: chord_recognition
+    name: TwinkStart/chord_recoganition
+    split: test
+    ref_col: Label

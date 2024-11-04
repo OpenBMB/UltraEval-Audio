@@ -1,0 +1,28 @@
+cv-15-en:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr
+    name: TwinkStart/CommonVoice_15
+    split: en
+    ref_col: sentence
+cv-15-zh:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr-zh
+    name: TwinkStart/CommonVoice_15
+    split: zh
+    ref_col: sentence
+cv-15-fr:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr
+    name: TwinkStart/CommonVoice_15
+    split: fr
+    ref_col: sentence
+cv-15-yue:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr-yue
+    name: TwinkStart/CommonVoice_15
+    split: yue
+    ref_col: sentence

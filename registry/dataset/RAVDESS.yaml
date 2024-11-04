@@ -1,0 +1,14 @@
+ravdess-emo:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: ravdess_emotion_analysis
+    name: TwinkStart/RAVDESS
+    split: ravdess_emo
+    ref_col: emotion
+ravdess-gender:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: gender_analysis
+    name: TwinkStart/RAVDESS
+    split: ravdess_gender
+    ref_col: Gender

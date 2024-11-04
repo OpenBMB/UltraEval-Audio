@@ -1,0 +1,7 @@
+vocalsound:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    name: TwinkStart/vocalsound
+    split: test
+    default_task: vocalsound_analysis
+    ref_col: label

@@ -1,0 +1,42 @@
+dump:
+  class: audio_evals.evaluator.base.Dump
+  args: {}
+
+em:
+  class: audio_evals.evaluator.base.EM
+  args: {}
+
+prefix-match:
+  class: audio_evals.evaluator.base.PrefixMatch
+  args: {}
+
+wer:
+  class: audio_evals.evaluator.wer.WER
+  args:
+    ignore_case: true
+
+wer-sensitive-case:
+  class: audio_evals.evaluator.wer.WER
+  args: {}
+
+cer:
+  class: audio_evals.evaluator.wer.CER
+  args: {}
+
+bleu:
+  class: audio_evals.evaluator.bleu.BLEU
+  args: {}
+
+bleu-zh:
+  class: audio_evals.evaluator.bleu.BLEU
+  args:
+    lang: zh
+
+bleu-jp:
+  class: audio_evals.evaluator.bleu.BLEU
+  args:
+    lang: jp
+
+coco:
+  class: audio_evals.evaluator.coco.Coco
+  args: {}

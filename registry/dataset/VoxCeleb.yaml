@@ -1,0 +1,14 @@
+voxceleb1:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: gender_analysis
+    name: TwinkStart/VoxCeleb
+    split: voxceleb1
+    ref_col: Gender
+voxceleb2:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: gender_analysis
+    name: TwinkStart/VoxCeleb
+    split: voxceleb2
+    ref_col: Gender

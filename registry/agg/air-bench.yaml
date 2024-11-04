@@ -1,0 +1,3 @@
+airbench-chat:
+  class: audio_evals.agg.air_chat.AirChat
+  args: {}

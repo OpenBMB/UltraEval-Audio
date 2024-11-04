@@ -1,0 +1,14 @@
+respiratory-crackles:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: Respiratory-crackles-recognizer
+    name: TwinkStart/RespiratorySound
+    split: respiratory_crackles
+    ref_col: Crackles
+respiratory-wheezes:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: Respiratory-wheezes-recognizer
+    name: TwinkStart/RespiratorySound
+    split: respiratory_wheezes
+    ref_col: Wheezes

@@ -1,0 +1,32 @@
+instrument_recognition:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "listen the music and judge instrument of the music, the answer must be one of [Bass,Brass,Flute,Guitar,Keyboard,Mallet,Organ,Reed,String,Synth Lead,Vocal], answer without explain"
+
+chord_recognition:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "Listen to the music and determine the chord quality. The answer should be either 'Major' or 'Minor', answer without explain"
+
+music_genre:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "Listen to the provided music clip and identify the genre. the answer must be one of [blues,classical,country,disco,hiphop,jazz,metal,pop,reggae,rock], answer without explain"

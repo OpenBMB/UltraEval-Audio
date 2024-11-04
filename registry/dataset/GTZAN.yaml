@@ -1,0 +1,7 @@
+GTZAN:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: music_genre
+    name: TwinkStart/GTZAN
+    split: test
+    ref_col: label

@@ -1,0 +1,7 @@
+audiocaps:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: caption
+    name: TwinkStart/AudioCaps
+    split: test
+    ref_col: caption

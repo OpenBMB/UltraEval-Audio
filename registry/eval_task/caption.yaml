@@ -1,0 +1,8 @@
+caption:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: air-foundation
+    prompt: caption
+    model: qwen-audio-chat
+    evaluator: dump
+    agg: coco

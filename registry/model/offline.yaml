@@ -1,0 +1,60 @@
+qwen2-audio-offline:
+  class: audio_evals.models.qwen.Qwen2audioPretrain
+  args:
+    path: Qwen/Qwen2-Audio-7B
+    sample_params:
+      do_sample: false
+      max_new_tokens: 256
+      min_new_tokens: 1
+      length_penalty: 1.0
+      num_return_sequences: 1
+      repetition_penalty: 1.0
+      use_cache: True
+
+qwen2-audio-chat:
+   class: audio_evals.models.qwen.Qwen2audio
+   args:
+     path: Qwen/Qwen2-Audio-7B-Instruct
+     sample_params:
+       do_sample: false
+       max_new_tokens: 256
+       min_new_tokens: 1
+       length_penalty: 1.0
+       num_return_sequences: 1
+       repetition_penalty: 1.0
+       use_cache: True
+
+qwen-audio-chat-offline:
+   class: audio_evals.models.offline_model.OfflineModel
+   args:
+     is_chat: True
+     path: Qwen/Qwen-Audio-Chat
+     sample_params:
+       do_sample: false
+       max_new_tokens: 256
+       min_new_tokens: 1
+       length_penalty: 1.0
+       num_return_sequences: 1
+       repetition_penalty: 1.0
+       use_cache: True
+
+qwen-audio-pretrain-offline:
+  class: audio_evals.models.offline_model.OfflinePretrainModel
+  args:
+    is_chat: False
+    path: Qwen/Qwen-Audio
+    padding_side: left
+    sample_params:
+      do_sample: false
+      max_new_tokens: 256
+      min_new_tokens: 1
+      length_penalty: 1.0
+      num_return_sequences: 1
+      repetition_penalty: 1.0
+      use_cache: True
+
+whisper:
+  class: audio_evals.models.whisper.WhisperModel
+  args:
+    path: openai/whisper-large-v3
+    sample_params: {}

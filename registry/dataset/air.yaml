@@ -1,0 +1,14 @@
+air-foundation:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: single_choice
+    name: TwinkStart/air-foundation
+    split: test
+    ref_col: answer
+air-chat:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: air_chat
+    name: TwinkStart/air_chat
+    split: test
+    ref_col: answer_gt

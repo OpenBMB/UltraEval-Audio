@@ -1,0 +1,15 @@
+meld-emo:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    name: TwinkStart/MELD
+    split: test
+    default_task: emotion_analysis
+    ref_col: Emotion
+
+meld-sentiment:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    name: TwinkStart/MELD
+    split: test
+    default_task: sentiment_analysis
+    ref_col: Sentiment

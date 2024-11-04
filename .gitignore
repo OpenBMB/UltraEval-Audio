@@ -1,0 +1,75 @@
+# 忽略操作系统生成的文件
+*.DS_Store
+.DS_Store
+._*
+
+# 忽略编辑器和IDE生成的文件
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.swo
+
+# 忽略构建和编译生成的文件
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+dist/
+build/
+*.egg-info/
+node_modules/
+*.log
+*.tmp
+*.bak
+*.swp
+
+# 忽略配置文件
+*.env
+
+# 忽略数据库文件
+*.sqlite
+*.sqlite3
+*.db
+
+# 忽略压缩文件
+*.zip
+*.tar
+*.gz
+*.bz2
+*.7z
+
+# 忽略临时文件
+*.tmp
+*.temp
+
+
+# 忽略虚拟环境
+venv/
+env/
+
+# 忽略测试生成的文件
+coverage/
+.coverage
+
+# 忽略其他可能的敏感信息
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.der
+
+# 忽略其他可能的临时文件
+*.log
+*.out
+*.pid
+*.pid.lock
+
+# 忽略其他可能的缓存文件
+*.cache
+*.tmp
+
+# 忽略其他可能的备份文件
+*.bak
+*.old

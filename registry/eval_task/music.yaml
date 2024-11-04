@@ -1,0 +1,26 @@
+instrument_recognition:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: nsyth
+    prompt: instrument_recognition
+    model: qwen-audio-chat
+    evaluator: prefix-match
+    agg: acc
+
+chord_recognition:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: nsyth
+    prompt: chord_recognition
+    model: qwen-audio-chat
+    evaluator: prefix-match
+    agg: acc
+
+music_genre:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: nsyth
+    prompt: music_genre
+    model: qwen-audio-chat
+    evaluator: prefix-match
+    agg: acc

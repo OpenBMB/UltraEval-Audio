@@ -1,0 +1,4 @@
+air-bench-geval:
+  class: audio_evals.evaluator.air_chat.AIRChatEvaluator
+  args:
+    model_name: gpt4o-mini

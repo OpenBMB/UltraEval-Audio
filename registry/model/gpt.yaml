@@ -1,0 +1,9 @@
+gpt4:
+  class: audio_evals.models.openai.GPT
+  args:
+    model_name: 'gpt-4'
+
+gpt4o_audio:
+  class: audio_evals.models.openai_realtime.GPT4oAudio
+  args:
+    model_name: 'gpt-4o-realtime-preview-2024-10-01'

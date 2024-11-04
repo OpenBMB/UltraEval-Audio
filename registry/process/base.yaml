@@ -1,0 +1,28 @@
+json_content:
+  class: audio_evals.process.base.ContentExtract
+  args: {}
+
+
+qwen_pretrain_asr_tractor_zh:
+  class: audio_evals.process.qwen.QwenAudioASRExtract
+  args:
+    lang: zh
+
+qwen_pretrain_asr_tractor:
+  class: audio_evals.process.qwen.QwenAudioASRExtract
+  args:
+    lang: en
+
+zh_text_normalizer:
+  class: audio_evals.process.normalization.TextNormalization
+  args:
+    lang: zh
+
+en_text_normalizer:
+  class: audio_evals.process.normalization.TextNormalization
+  args:
+    lang: en
+
+text_normalizer:
+  class: audio_evals.process.normalization.TextNormalization
+  args: {}

@@ -1,0 +1,26 @@
+single_choice:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: air-foundation
+    prompt: single_choice
+    model: qwen-audio-chat
+    evaluator: prefix-match
+    agg: acc
+
+air_chat:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: air-chat
+    prompt: qa
+    model: qwen-audio-chat
+    evaluator: air-bench-geval
+    agg: airbench-chat
+
+single_choice_with_answer:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: mmau
+    prompt: single_choice_with_answer
+    model: qwen-audio-chat
+    evaluator: choice-strings-match
+    agg: acc

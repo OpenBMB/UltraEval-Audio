@@ -1,0 +1,7 @@
+TESS:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: emotion_analysis
+    name: TwinkStart/TESS
+    split: test
+    ref_col: label

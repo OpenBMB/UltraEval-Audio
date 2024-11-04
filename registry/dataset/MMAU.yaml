@@ -1,0 +1,7 @@
+mmau-test-mini:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: single_choice_with_answer
+    name: TwinkStart/MMAU
+    split: test_mini
+    ref_col: answer

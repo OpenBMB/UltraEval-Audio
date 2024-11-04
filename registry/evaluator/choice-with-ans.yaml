@@ -1,0 +1,3 @@
+choice-strings-match:
+  class: audio_evals.evaluator.string_match.ChoiceStringMatch
+  args: {}

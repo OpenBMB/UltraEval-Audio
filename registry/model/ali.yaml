@@ -1,0 +1,4 @@
+qwen-audio:
+  class: audio_evals.models.ali.AliApi
+  args:
+    model_name: 'qwen-audio-chat'

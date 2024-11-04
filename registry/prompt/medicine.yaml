@@ -1,0 +1,44 @@
+COVID-recognizer:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "Listen to the provided audio and determine the health status, answer one of ['healthy', 'symptomatic', 'COVID-19'] without explain"
+
+Heartbeat-recognizer:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "Listen to the heartbeat sound and determine the type of heart sound present, answer one of ['normal', 'murmur', 'extrastole'] without explain"
+
+
+Respiratory-crackles-recognizer:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "Listen to the respiratory sound and determine if crackles are present. Answer with either 'present' or 'absent' without explanation."
+
+Respiratory-wheezes-recognizer:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "Listen to the respiratory sound and determine if wheezes are present. Answer with either 'present' or 'absent' without explanation."

@@ -1,0 +1,15 @@
+clotho-aqa-sample:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    name: TwinkStart/ClothoAQA
+    split: sample
+    default_task: aqa
+    ref_col: answer
+
+clotho-aqa:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    name: TwinkStart/ClothoAQA
+    split: test
+    default_task: aqa
+    ref_col: answer

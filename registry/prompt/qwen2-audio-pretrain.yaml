@@ -1,0 +1,77 @@
+qwen2-audio-pretrain-aqa:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: '<|audio_bos|><|{{WavPath}}|><|audio_eos|>answer the question without
+      explain
+
+      # Question: {{QuestionText}}'
+
+qwen2-audio-pretrain-asr-zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: '<|audio_bos|><|{{WavPath}}|><|audio_eos|>Detect the language and recognize the speech: <|zh|>'
+
+qwen2-audio-pretrain-asr-en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: '<|audio_bos|><|{{WavPath}}|><|audio_eos|>Detect the language and recognize the speech: <|en|>'
+
+qwen2-audio-pretrain-asr-fr:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: '<|audio_bos|><|{{WavPath}}|><|audio_eos|>Detect the language and recognize the speech: <|fr|>'
+
+qwen2-audio-pretrain-asr-yue:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: '<|audio_bos|><|{{WavPath}}|><|audio_eos|>Detect the language and recognize the speech: <|yue|>'
+
+qwen2-audio-pretrain-sst-en2zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: '<|audio_bos|><|{{WavPath}}|><|audio_eos|>Detect the language and translate the speech into Mandarin: <|en|>'
+
+qwen2-audio-pretrain-sst-zh2en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: '<|audio_bos|><|{{WavPath}}|><|audio_eos|>Detect the language and translate the speech into English: <|zh|>'
+
+qwen2-audio-pretrain-sst-en2de:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: '<|audio_bos|><|{{WavPath}}|><|audio_eos|>Detect the language and translate the speech into German: <|en|>'
+
+qwen2-audio-pretrain-sst-de2en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: '<|audio_bos|><|{{WavPath}}|><|audio_eos|>Detect the language and translate the speech into English: <|de|>'
+
+qwen2-audio-pretrain-sst-es2en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: '<|audio_bos|><|{{WavPath}}|><|audio_eos|>Detect the language and translate the speech into English: <|es|>'
+
+qwen2-audio-pretrain-sst-fr2en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: '<|audio_bos|><|{{WavPath}}|><|audio_eos|>Detect the language and translate the speech into English: <|fr|>'
+
+qwen2-audio-pretrain-sst-it2en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: '<|audio_bos|><|{{WavPath}}|><|audio_eos|>Detect the language and translate the speech into English: <|it|>'
+
+qwen2-audio-pretrain-emo:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: '<|audio_bos|><|{{WavPath}}|><|audio_eos|>Recognize the emotion with keywords in English:'
+
+qwen2-audio-pretrain-sentiment:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: '<|audio_bos|><|{{WavPath}}|><|audio_eos|>Recognize the sentiment with keywords in English:'
+
+qwen2-audio-pretrain-vocalsound:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: '<|audio_bos|><|{{WavPath}}|><|audio_eos|>Classify the human vocal sound to VocalSound in English:'

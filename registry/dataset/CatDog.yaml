@@ -1,0 +1,7 @@
+catdog:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: catdog_identify
+    name: TwinkStart/CatDog
+    split: test
+    ref_col: label

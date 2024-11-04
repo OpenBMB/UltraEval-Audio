@@ -1,0 +1,129 @@
+qwen-audio-zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|zh|><|transcribe|><|zh|><|notimestamps|><|wo_itn|>"
+
+qwen-audio-en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|en|><|transcribe|><|en|><|notimestamps|><|wo_itn|>"
+
+qwen-audio-de:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|de|><|transcribe|><|de|><|notimestamps|><|wo_itn|>"
+
+qwen-audio-fr:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|fr|><|transcribe|><|fr|><|notimestamps|><|wo_itn|>"
+
+qwen-audio-yue:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|yue|><|transcribe|><|yue|><|notimestamps|><|wo_itn|>"
+
+qwen-audio-nl:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|nl|><|transcribe|><|nl|><|notimestamps|><|wo_itn|>"
+
+qwen-audio-it:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|it|><|transcribe|><|it|><|notimestamps|><|wo_itn|>"
+
+qwen-audio-pl:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|pl|><|transcribe|><|pl|><|notimestamps|><|wo_itn|>"
+
+qwen-audio-pt:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|pt|><|transcribe|><|pt|><|notimestamps|><|wo_itn|>"
+
+qwen-audio-es:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|es|><|transcribe|><|es|><|notimestamps|><|wo_itn|>"
+
+qwen-audio-en2zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|en|><|translate|><|zh|><|notimestamps|><|itn|>"
+
+qwen-audio-en2de:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|en|><|translate|><|de|><|notimestamps|><|itn|>"
+
+qwen-audio-en2ar:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|en|><|translate|><|ar|><|notimestamps|><|itn|>"
+
+qwen-audio-en2ca:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|en|><|translate|><|ca|><|notimestamps|><|itn|>"
+
+qwen-audio-en2cy:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|en|><|translate|><|cy|><|notimestamps|><|itn|>"
+
+qwen-audio-en2et:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|en|><|translate|><|cy|><|notimestamps|><|itn|>"
+
+qwen-audio-de2en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|de|><|translate|><|en|><|notimestamps|><|itn|>"
+
+qwen-audio-zh2en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|zh|><|translate|><|en|><|notimestamps|><|itn|>"
+
+qwen-audio-es2en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|es|><|translate|><|en|><|notimestamps|><|itn|>"
+
+qwen-audio-fr2en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|fr|><|translate|><|en|><|notimestamps|><|itn|>"
+
+qwen-audio-it2en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startoftranscript|><|it|><|translate|><|en|><|notimestamps|><|itn|>"
+
+qwen-audio-aqa:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startofanalysis|><|en|><|question|>{{QuestionText}}<|answer|>"
+
+qwen-audio-nsynth:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startofanalysis|><|unknown|><|keyword|><|en|><|notimestamps|><|note_analysis|>"
+
+qwen-audio-emo:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startofanalysis|><|en|><|keyword|><|en|><|notimestamps|><|emotion_recognition|>"
+
+qwen-audio-vocalsound:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startofanalysis|><|en|><|keyword|><|en|><|notimestamps|><|vocal_classification|>"
+
+qwen-audio-caption:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template: "<audio>{{WavPath}}</audio><|startofanalysis|><|unknown|><|caption|><|en|><|notimestamps|><|caption_clotho|>"

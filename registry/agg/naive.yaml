@@ -1,0 +1,47 @@
+dump:
+  class: audio_evals.agg.base.Dump
+  args: {}
+
+acc:
+  class: audio_evals.agg.base.ACC
+  args: {}
+
+mean:
+  class: audio_evals.agg.base.ACC
+  args: {}
+
+wer-zh:
+  class: audio_evals.agg.base.PracticeWER
+  args:
+    lang: zh
+
+wer-yue:
+  class: audio_evals.agg.base.PracticeWER
+  args:
+    lang: yue
+
+wer:
+  class: audio_evals.agg.base.PracticeWER
+  args: {}
+
+cer:
+  class: audio_evals.agg.base.CER
+  args: {}
+
+bleu:
+  class: audio_evals.agg.base.BLEU
+  args: {}
+
+bleu-zh:
+  class: audio_evals.agg.base.BLEU
+  args:
+    lang: zh
+
+bleu-jp:
+  class: audio_evals.agg.base.BLEU
+  args:
+    lang: jp
+
+coco:
+  class: audio_evals.agg.base.Coco
+  args: {}

@@ -1,0 +1,29 @@
+asr:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: KeSpeech
+    prompt: asr
+    model: qwen-audio
+    post_process: ['json_content']
+    evaluator: wer
+    agg: wer
+
+asr-zh:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: KeSpeech
+    prompt: asr
+    model: qwen-audio
+    post_process: ['json_content']
+    evaluator: cer
+    agg: wer-zh
+
+asr-yue:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: KeSpeech
+    prompt: asr
+    model: qwen-audio
+    post_process: ['json_content']
+    evaluator: cer
+    agg: wer-yue

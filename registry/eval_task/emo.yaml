@@ -1,0 +1,35 @@
+emotion_analysis:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: meld
+    prompt: emo_analysis
+    model: qwen-audio-chat
+    evaluator: prefix-match
+    agg: acc
+
+ravdess_emotion_analysis:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: meld
+    prompt: ravdess_emo_analysis
+    model: qwen-audio-chat
+    evaluator: prefix-match
+    agg: acc
+
+sentiment_analysis:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: meld
+    prompt: sentiment_analysis
+    model: qwen-audio-chat
+    evaluator: prefix-match
+    agg: acc
+
+desed_sound_analysis:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: desed
+    prompt: sound_analysis
+    model: qwen-audio-chat
+    evaluator: prefix-match
+    agg: acc

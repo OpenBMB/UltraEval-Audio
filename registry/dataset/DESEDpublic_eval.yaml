@@ -1,0 +1,7 @@
+desed:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: desed_sound_analysis
+    name: TwinkStart/DESEDpublic_eval
+    split: test
+    ref_col: event_label

@@ -1,0 +1,7 @@
+audio-MNIST:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: digit
+    name: TwinkStart/audio-MNIST
+    split: test
+    ref_col: Digit

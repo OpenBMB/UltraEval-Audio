@@ -1,0 +1,7 @@
+peoples-speech:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr
+    name: TwinkStart/peoples_speech
+    split: test
+    ref_col: label

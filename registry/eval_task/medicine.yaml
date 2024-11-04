@@ -1,0 +1,35 @@
+COVID-recognizer:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: clotho-aqa
+    prompt: COVID-recognizer
+    model: qwen-audio-chat
+    evaluator: prefix-match
+    agg: acc
+
+Heartbeat-recognizer:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: clotho-aqa
+    prompt: Heartbeat-recognizer
+    model: qwen-audio-chat
+    evaluator: prefix-match
+    agg: acc
+
+Respiratory-crackles-recognizer:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: clotho-aqa
+    prompt: Respiratory-crackles-recognizer
+    model: qwen-audio-chat
+    evaluator: prefix-match
+    agg: acc
+
+Respiratory-wheezes-recognizer:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: clotho-aqa
+    prompt: Respiratory-wheezes-recognizer
+    model: qwen-audio-chat
+    evaluator: prefix-match
+    agg: acc

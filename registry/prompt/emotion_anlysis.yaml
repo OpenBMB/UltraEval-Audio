@@ -1,0 +1,56 @@
+emo_analysis:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "listen the audio and judge the emotion of the speaker, the answer must be one of [surprise,anger,neutral,joy,sadness,fear,disgust], answer without explain"
+
+ravdess_emo_analysis:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "listen the audio and judge the emotion of the speaker, the answer must be one of [neutral,calm,happy,sad,angry,fearful,disgust,surprised], answer without explain"
+
+sentiment_analysis:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "listen the audio and judge the sentiment of the speaker, the answer must be one of [positive,negative,neutral], answer without explain"
+
+vocal_sound_analysis:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "listen the audio and judge the vocal sound, the answer must be one of [Cough,Sigh,Throat clearing,Sneeze,Laughter,Sniff], answer without explain"
+
+sound_analysis:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "listen the audio and judge the sound, the answer must be one of ['Speech', 'Frying', 'Dishes',
+            'Running_water', 'Blender', 'Electric_shaver_toothbrush', 'Cat',
+            'Alarm_bell_ringing', 'Dog', 'Vacuum_cleaner'], answer without explain"

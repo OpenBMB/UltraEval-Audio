@@ -1,0 +1,7 @@
+heartbeat_sound:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: Heartbeat-recognizer
+    name: TwinkStart/heart_beat
+    split: test
+    ref_col: label

@@ -1,0 +1,14 @@
+gemini-pro:
+  class: audio_evals.models.google.Gemini
+  args:
+    model_name: 'gemini-pro'
+
+gemini-1.5-pro:
+  class: audio_evals.models.google.Gemini
+  args:
+    model_name: 'gemini-1.5-pro'
+
+gemini-1.5-flash:
+  class: audio_evals.models.google.Gemini
+  args:
+    model_name: 'gemini-1.5-flash'

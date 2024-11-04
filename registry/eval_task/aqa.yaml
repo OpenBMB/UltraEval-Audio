@@ -1,0 +1,8 @@
+aqa:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: clotho-aqa
+    prompt: aqa
+    model: qwen-audio-chat
+    evaluator: prefix-match
+    agg: acc

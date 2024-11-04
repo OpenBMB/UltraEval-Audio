@@ -1,0 +1,21 @@
+tedlium-release1:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr
+    name: TwinkStart/tedlium
+    split: tedlium_release1
+    ref_col: text
+tedlium-release2:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr
+    name: TwinkStart/tedlium
+    split: tedlium_release2
+    ref_col: text
+tedlium-release3:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr
+    name: TwinkStart/tedlium
+    split: tedlium_release3
+    ref_col: text

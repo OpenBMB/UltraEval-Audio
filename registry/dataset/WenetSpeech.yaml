@@ -1,0 +1,15 @@
+WenetSpeech-test-meeting:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr-zh
+    name: TwinkStart/WenetSpeech
+    split: test_meeting
+    ref_col: text
+
+WenetSpeech-test-net:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr-zh
+    name: TwinkStart/WenetSpeech
+    split: test_net
+    ref_col: text

@@ -1,0 +1,7 @@
+aishell-1:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr-zh
+    name: TwinkStart/AISHELL-1
+    split: test
+    ref_col: text

@@ -1,0 +1,23 @@
+single_choice:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "Choose the most suitable answer from options A, B, C, and D to
+            respond the question in next line, you may only choose A or B or C or D
+            .\n{{question}}\nA. {{choice_a}}\nB. {{choice_b}}\nC. {{choice_c}}\nD. {{choice_d}}"
+
+single_choice_with_answer:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "{{question}}  Select one option from the provided choices.\n{{choices}}"

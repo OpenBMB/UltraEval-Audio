@@ -1,0 +1,8 @@
+inference:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: covost2-local
+    prompt: covost2-en-zh
+    model: qwen-audio
+    evaluator: dump
+    agg: dump

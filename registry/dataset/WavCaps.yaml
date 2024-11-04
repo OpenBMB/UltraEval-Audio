@@ -1,0 +1,21 @@
+wavcaps-audioset:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: caption
+    name: TwinkStart/wavcaps-audioset
+    split: test
+    ref_col: caption
+wavcaps-freesound:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: caption
+    name: TwinkStart/wavcaps-freesound
+    split: test
+    ref_col: caption
+wavcaps-soundbible:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: caption
+    name: TwinkStart/wavcaps_soundbible
+    split: test
+    ref_col: caption

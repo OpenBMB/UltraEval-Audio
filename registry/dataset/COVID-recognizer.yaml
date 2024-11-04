@@ -1,0 +1,7 @@
+COVID-recognizer:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: COVID-recognizer
+    name: TwinkStart/COVID-recognizer
+    split: test
+    ref_col: status

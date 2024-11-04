@@ -1,0 +1,55 @@
+mls_dutch:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr
+    name: TwinkStart/facebook_multilingual_librispeech
+    split: mls_dutch
+    ref_col: Text
+
+mls_french:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr
+    name: TwinkStart/facebook_multilingual_librispeech
+    split: mls_french
+    ref_col: Text
+
+mls_german:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr
+    name: TwinkStart/facebook_multilingual_librispeech
+    split: mls_german
+    ref_col: Text
+
+mls_italian:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr
+    name: TwinkStart/facebook_multilingual_librispeech
+    split: mls_italian
+    ref_col: Text
+
+mls_polish:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr
+    name: TwinkStart/facebook_multilingual_librispeech
+    split: mls_polish
+    ref_col: Text
+
+mls_portuguese:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr
+    name: TwinkStart/facebook_multilingual_librispeech
+    split: mls_portuguese
+    ref_col: Text
+
+mls_spanish:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr
+    name: TwinkStart/facebook_multilingual_librispeech
+    split: mls_spanish
+    ref_col: Text
