@@ -16,6 +16,6 @@ wavcaps-soundbible:
   class: audio_evals.dataset.huggingface.Huggingface
   args:
     default_task: caption
-    name: TwinkStart/wavcaps_soundbible
+    name: TwinkStart/wavcaps-soundbible
     split: test
     ref_col: caption
