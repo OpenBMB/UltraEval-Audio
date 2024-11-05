@@ -13,7 +13,5 @@ logging.basicConfig(
 def test_gpt_audio():
     model = registry.get_model("gpt4o_audio")
     prompt = registry.get_prompt("asr")
-    real_prompt = prompt.load(
-        WavPath="/tmp/jfs-training-root/training-root/user/hf-download/AudioEvals/aishell-1/data_aishell/wav/test/S0764/BAC009S0764W0121.wav"
-    )
+    real_prompt = prompt.load(WavPath="/Users/a1/Downloads/test.flac")
     print(model.inference(real_prompt))

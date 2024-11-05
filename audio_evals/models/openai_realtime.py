@@ -120,6 +120,16 @@ def resample_audio(audio_data, original_sample_rate, target_sample_rate):
     return resampled_audio.astype(np.int16)
 
 
+def get_audio_with_rate(audio_file_path):
+    audio = AudioSegment.from_file(audio_file_path)
+
+    # 获取音频数据和采样率
+    audio_data = np.array(audio.get_array_of_samples(), dtype="int16")
+    sample_rate = audio.frame_rate
+
+    return audio_data, sample_rate
+
+
 async def stream_audio_files(websocket, file_paths):
     """Stream audio files to the API."""
     for audio_file_path in file_paths:
@@ -128,24 +138,11 @@ async def stream_audio_files(websocket, file_paths):
         samples_per_chunk = sample_rate * (duration_ms / 1000)
         bytes_per_sample = 2
         bytes_per_chunk = int(samples_per_chunk * bytes_per_sample)
-
-        extra_params = (
-            {
-                "samplerate": sample_rate,
-                "channels": 1,
-                "subtype": "PCM_16",
-            }
-            if audio_file_path.endswith(".raw")
-            else {}
-        )
-
         try:
-            audio_data, original_sample_rate = sf.read(
-                audio_file_path, dtype="int16", **extra_params
-            )
+            audio_data, original_sample_rate = get_audio_with_rate(audio_file_path)
         except Exception as e:
             logger.error(f"Error reading audio file: {e}")
-            raise EarlyStop(f"sf reading audio file failed {e}")
+            raise EarlyStop(f"reading audio file failed {e}")
 
         if original_sample_rate != sample_rate:
             audio_data = resample_audio(audio_data, original_sample_rate, sample_rate)
