@@ -1,4 +1,6 @@
 import logging
+import subprocess
+import tempfile
 from typing import Dict, Any
 from audio_evals.models.model import APIModel
 from audio_evals.base import PromptStruct, EarlyStop
@@ -14,8 +16,11 @@ import numpy as np
 import soundfile as sf
 from scipy.signal import resample
 
+
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 OPENAI_URL = os.getenv("OPENAI_URL", "api.openai.com")
+
+PYDUB_SUPPORTED_FORMATS = ["wav", "mp3", "flac", "aac", "m4a"]
 
 logger = logging.getLogger(__name__)
 
@@ -121,8 +126,18 @@ def resample_audio(audio_data, original_sample_rate, target_sample_rate):
 
 
 def get_audio_with_rate(audio_file_path):
-    audio = AudioSegment.from_file(audio_file_path)
+    _, file_extension = os.path.splitext(audio_file_path)
+    if file_extension not in PYDUB_SUPPORTED_FORMATS:
+        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as wav_file:
+            subprocess.run(
+                ["ffmpeg", "-y", "-i", audio_file_path, wav_file.name],
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+            audio_file_path = wav_file.name
 
+    audio = AudioSegment.from_file(audio_file_path)
     # 获取音频数据和采样率
     audio_data = np.array(audio.get_array_of_samples(), dtype="int16")
     sample_rate = audio.frame_rate
@@ -229,6 +244,7 @@ async def audio_inf(url, text, audio_file):
                     return event["text"]
                 elif event["type"] == "error":
                     logger.warning("Error:", event["error"])
+                    print(event["error"])
                 elif event["type"] == "input_audio_buffer.speech_started":
                     logger.debug("Speech started")
                 elif event["type"] == "input_audio_buffer.speech_stopped":
