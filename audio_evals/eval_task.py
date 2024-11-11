@@ -44,14 +44,25 @@ class EvalTask:
         self, idx, prompt: Union[str, List[Dict[str, str]]], reference: str, **kwargs
     ) -> Tuple[ScoreUnit, str]:
         self.recorder.add({"type": "prompt", "id": idx, "data": {"content": prompt}})
-        output = self.predictor.inference(prompt)
+        if "eval_info" in kwargs and "inference" in kwargs["eval_info"]:
+            output = kwargs["eval_info"]["inference"]["content"]
+        else:
+            output = self.predictor.inference(prompt)
         self.recorder.add({"type": "inference", "id": idx, "data": {"content": output}})
-        for p in self.post_process:
-            output = p(output)
+
+        if "eval_info" in kwargs and "post_process" in kwargs["eval_info"]:
+            output = kwargs["eval_info"]["post_process"]["content"]
+        else:
+            for p in self.post_process:
+                output = p(output)
         self.recorder.add(
             {"type": "post_process", "id": idx, "data": {"content": output}}
         )
-        score = self.evaluator(output, reference, **kwargs)
+
+        if "eval_info" in kwargs and "eval" in kwargs["eval_info"]:
+            score = kwargs["eval_info"]["eval"]
+        else:
+            score = self.evaluator(output, reference, **kwargs)
         self.recorder.add({"type": "eval", "id": idx, "data": score})
         return score, output
 

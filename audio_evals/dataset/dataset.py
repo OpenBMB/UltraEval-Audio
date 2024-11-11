@@ -3,6 +3,8 @@ import os.path
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Generator, List
 
+from tqdm import tqdm
+
 
 class Dataset(ABC):
     def __init__(self, default_task: str, ref_col: str):
@@ -36,7 +38,7 @@ class RelativePath(JsonlFile):
     def load(self) -> List[Dict[str, any]]:
         res = []
         with open(self.f_name) as f:
-            for line in f:
+            for line in tqdm(f):
                 doc = json.loads(line)
                 for k, v in doc.items():
                     # automatically convert relative paths to absolute paths

@@ -20,7 +20,7 @@ from scipy.signal import resample
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 OPENAI_URL = os.getenv("OPENAI_URL", "api.openai.com")
 
-PYDUB_SUPPORTED_FORMATS = ["wav", "mp3", "flac", "aac", "m4a"]
+PYDUB_SUPPORTED_FORMATS = [".wav", ".mp3", ".flac", ".aac", ".m4a"]
 
 logger = logging.getLogger(__name__)
 
@@ -264,6 +264,11 @@ async def audio_inf(url, text, audio_file):
                         sf.write(wav_file, audio_array, samplerate=24000)
                     audio_buffer.clear()
                     logger.debug("🔵 AI finished speaking.")
+                elif event["type"] == "response.done":
+                    if event["response"]["status"] == "failed":
+                        raise EarlyStop(
+                            "AI failed: {}".format(event["response"]["status_details"])
+                        )
 
         except websockets.exceptions.ConnectionClosed as e:
             logger.error(f"{e} Disconnected from OpenAI Realtime API")
