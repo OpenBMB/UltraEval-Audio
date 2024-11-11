@@ -1,7 +1,7 @@
 
 ![assets/logo.png](assets/logo.png)
 
-# leaderboard
+# Leaderboard
 > **Foundation Modal**: Audio + Limited Text (Optional) → Text
 > - This modal primarily focuses on traditional audio tasks such as Automatic Speech Recognition (ASR) and Text-to-Speech (TTS).
 >
@@ -15,18 +15,20 @@
 </tr>
 </table>
 
-# support datasets
+# Support datasets
 
 ![assets/dataset_distribute.png](assets/dataset_distribute.png)
-# News/Updates:
+# Changelog🔥
 
-2024/10/8 🎉 we support 30+ datasets!
+- [2024/11/11] We support gpt-4o-realtime-preview-2024-10-01(use as `gpt4o_audio`)
 
-2024/9/7 🎉 we support `vocalsound`, `MELD` benchmark!
+- [2024/10/8] We support 30+ datasets!
 
-2024/9/6 🎉 we support `Qwen/Qwen2-Audio-7B`, `Qwen/Qwen2-Audio-7B-Instruct` models!
+- [2024/9/7] We support `vocalsound`, `MELD` benchmark!
 
-# OVERVIEW
+- [2024/9/6] We support `Qwen/Qwen2-Audio-7B`, `Qwen/Qwen2-Audio-7B-Instruct` models!
+
+# Overview
 
 AudioEvals is an open-source framework designed for the evaluation of large audio models (Audio LLMs).
 With this tool, you can easily evaluate any Audio LLM in one go.
@@ -66,14 +68,14 @@ python audio_evals/main.py --dataset KeSpeech-sample --model qwen2-audio-offline
 
 ## res
 
-after program executed, you will get the performance in console and detail result as below:
+After program executed, you will get the performance in console and detail result as below:
 
 ```txt
 - res
     |-- $time-$name-$dataset.jsonl
 ```
 
-# performance
+## Performance
 
 ![assets/performance.png](assets/performance.png)
 
@@ -81,7 +83,7 @@ after program executed, you will get the performance in console and detail resul
 > () is offical performance
 
 
-# Usage
+## Usage
 
 ![assets/img_1.png](assets/img_1.png)
 
