@@ -33,7 +33,9 @@ def save_audio_to_local(ds: Dataset, save_path: str):
     return ds
 
 
-def load_audio_hf_dataset(name, subset=None, split="", local_path=""):
+def load_audio_hf_dataset(name, subset=None, split="", local_path="", col_aliases=None):
+    if col_aliases is None:
+        col_aliases = {}
     if local_path:
         ds = load_from_disk(local_path)
     else:
@@ -43,6 +45,11 @@ def load_audio_hf_dataset(name, subset=None, split="", local_path=""):
         if split:
             load_args["split"] = split
         ds = load_dataset(**load_args)
+
+    for k, v in col_aliases.items():
+        if v in ds.column_names:
+            raise ValueError(f"col_aliases conflict with existing column name: {v}")
+        ds[v] = ds[k]
 
     def conv2ds(ds):
         save_path = f"raw/{name}/"
@@ -71,8 +78,9 @@ class Huggingface(BaseDataset):
         subset: Optional[str] = None,
         split: str = "",
         local_path: str = "",
+        col_aliases: Dict[str, str] = None
     ):
-        super().__init__(default_task, ref_col)
+        super().__init__(default_task, ref_col, col_aliases)
         self.name = name
         self.subset = subset
         self.split = split

@@ -51,8 +51,16 @@ MIME_TYPE_MAP = {
     ".aac": "audio/aac",
     ".m4a": "audio/mp4",
     ".opus": "audio/opus",
+    ".webm": "audio/webm",
     # 可以根据需要添加更多文件格式的支持
 }
+
+
+def get_base64_from_file(file_path):
+    with open(file_path, "rb") as file:
+        file_content = file.read()
+        base64_encoded = base64.b64encode(file_content).decode("utf-8")
+        return base64_encoded
 
 
 def convbase64(file_path):
@@ -68,12 +76,9 @@ def convbase64(file_path):
 
         if not mime_type:
             raise ValueError(f"Unsupported file format: {file_extension}")
-
-        with open(file_path, "rb") as file:
-            file_content = file.read()
-            base64_encoded = base64.b64encode(file_content).decode("utf-8")
-            data_uri = f"data:{mime_type};base64,{base64_encoded}"
-            return data_uri
+        base64_encoded = get_base64_from_file(file_path)
+        data_uri = f"data:{mime_type};base64,{base64_encoded}"
+        return data_uri
     except Exception as e:
         print(f"Error converting file to Base64: {e}")
         return None
