@@ -73,7 +73,7 @@ git clone https://github.com//AduioEval.git
 cd AduioEval
 conda create -n aduioeval python=3.10 -y
 conda activate aduioeval
-pip install -r requirements.txt
+pip install -r requirments.txt
 ```
 
 ## run
