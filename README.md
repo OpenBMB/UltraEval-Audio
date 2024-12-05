@@ -3,27 +3,27 @@
 
 # Leaderboard
 > **Foundation Modal**: Audio + Limited Text (Optional) → Text
-> - This modal primarily focuses on traditional audio tasks such as Automatic Speech Recognition (ASR) and Text-to-Speech (TTS).
+> - This modal primarily focuses on traditional audio tasks such as Automatic Speech Recognition (ASR) and Automatic Speech Translation (AST)
 >
 > **Chat Modal**: Audio + Text → Text
 > - This modal is designed for interactive applications like chatbots and voice assistants. It includes tasks such as Audio Question Answering, Music Question Answering, Medicine Classification and emotional recognition.
 
-## Foundation Leaderboard
+## Traditional Audio Task Leaderboard
 
-| rank | 任务                           | model type | avg        | asr(100-wer) | ast     |
+| rank | 任务                           | model type | avg        | asr | ast     |
 |------|--------------------------------|------------|------------|--------------|---------|
-| 1    | qwen2-audio                    | foundation | 66.69675   | 95.346       | 38.0475 |
+| 1    | qwen2-audio                    | base       | 66.69675   | 95.346       | 38.0475 |
 | 2    | gemini-1.5-pro                 | chat       | 64.80675   | 94.201       | 35.4125 |
-| 3    | qwen2-audio-instruction        |   chat         | 63.94425   | 93.366       | 34.5225 |
-| 4    | whisper                        | foundation   | 61.20925   | 93.491       | 28.9275 |
-| 5    | qwen-audio                     | foundation   | 51.58375   | 73.025       | 30.1425 |
-| 6    | gpt4o-realtime                 |     chat       | 44.41400   | 61.193       | 27.6350 |
-| 7    | gemini-1.5-flash               |     chat       | 38.90675   | 51.891       | 25.9225 |
-| 8    | qwen-audio-chat                |     chat       | 13.14925   | 15.501       | 10.7975 |
-| 9    | ultravox                       |    chat        | -107.61175 | -221.746     | 6.5225 |
+| 3    | qwen2-audio-instruction        | chat       | 63.94425   | 93.366       | 34.5225 |
+| 4    | whisper                        | base | 61.20925   | 93.491       | 28.9275 |
+| 5    | qwen-audio                     | base | 51.58375   | 73.025       | 30.1425 |
+| 6    | gpt4o-realtime                 | chat       | 44.41400   | 61.193       | 27.6350 |
+| 7    | gemini-1.5-flash               | chat       | 38.90675   | 51.891       | 25.9225 |
+| 8    | qwen-audio-chat                | chat       | 13.14925   | 15.501       | 10.7975 |
+| 9    | ultravox                       | chat       | -107.61175 | -221.746     | 6.5225 |
 
 
-## Chat Leaderboard
+## Audio Language Model Leaderboard
 
 | rank | 领域                       | medicine | music      | sound      | speech     | score      |
 |------|----------------------------|----------|------------|------------|------------|------------|
