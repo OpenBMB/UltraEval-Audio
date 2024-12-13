@@ -3,6 +3,19 @@
 .DS_Store
 ._*
 
+local_registry/
+cyb_dev_registry/
+res/
+log/
+script/
+raw_data/
+tmp/
+synthetic_data/
+.run/
+
+*.xlsx
+
+
 # 忽略编辑器和IDE生成的文件
 .idea/
 *.sublime-workspace
