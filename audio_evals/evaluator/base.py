@@ -32,6 +32,28 @@ class EM(Evaluator):
         return {"match": 1 if pred == label else 0, "pred": pred, "ref": label}
 
 
+class ExistMatch(Evaluator):
+
+    def _eval(self, pred, label, **kwargs) -> Dict[str, any]:
+        if isinstance(label, list):
+            for item in label:
+                ans = self._eval(pred, item, **kwargs)
+                if ans["match"] == 1:
+                    return ans
+            return {"match": 0, "pred": pred, "ref": label}
+
+        if type(label) in [int, float]:
+            pred, label = float(pred), float(label)
+        elif isinstance(label, str):
+            pred, label = str(pred).strip().lower(), label.strip().lower()
+
+        match = 0
+        if label in pred:
+            match = 1
+
+        return {"match": match, "pred": label if match else pred, "ref": label}
+
+
 class PrefixMatch(Evaluator):
 
     def __init__(self, ignore_case: bool = True):

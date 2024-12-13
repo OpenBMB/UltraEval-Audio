@@ -6,6 +6,10 @@ em:
   class: audio_evals.evaluator.base.EM
   args: {}
 
+exist-match:
+  class: audio_evals.evaluator.base.ExistMatch
+  args: {}
+
 prefix-match:
   class: audio_evals.evaluator.base.PrefixMatch
   args: {}

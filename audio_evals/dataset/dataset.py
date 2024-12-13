@@ -9,7 +9,8 @@ from tqdm import tqdm
 class Dataset(ABC):
     def __init__(self, default_task: str, ref_col: str, col_aliases=None):
         if col_aliases is None:
-            self.col_aliases = {}
+            col_aliases = {}
+        self.col_aliases = col_aliases
         self.task_name = default_task
         self.ref_col = ref_col
 

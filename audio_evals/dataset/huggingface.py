@@ -49,7 +49,7 @@ def load_audio_hf_dataset(name, subset=None, split="", local_path="", col_aliase
     for k, v in col_aliases.items():
         if v in ds.column_names:
             raise ValueError(f"col_aliases conflict with existing column name: {v}")
-        ds[v] = ds[k]
+        ds = ds.rename_column(k, v)
 
     def conv2ds(ds):
         save_path = f"raw/{name}/"
@@ -91,5 +91,5 @@ class Huggingface(BaseDataset):
             "start load data, it will take a while for download dataset when first load dataset"
         )
         return load_audio_hf_dataset(
-            self.name, self.subset, self.split, self.local_path
+            self.name, self.subset, self.split, self.local_path, self.col_aliases
         )

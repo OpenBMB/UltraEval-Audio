@@ -77,6 +77,8 @@ class EvalTask:
         quiz = self.dataset.load()
         if limit:
             quiz = quiz[:limit]
+
+        error_count = 0
         for i, doc in tqdm(enumerate(quiz), total=len(quiz)):
             real_prompt = self.prompt.load(**doc)
             try:
@@ -89,7 +91,11 @@ class EvalTask:
                     {"type": "error", "id": i, "data": {"info": error_traceback}}
                 )
                 print(error_traceback)
+                error_count += 1
                 continue
             res.append(score)
             answers.append(ans)
-        return self.agg(res), res, answers
+
+        final_res = self.agg(res)
+        final_res["fail_rate(%d)"] = error_count / len(quiz) * 100
+        return final_res, res, answers

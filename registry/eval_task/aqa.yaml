@@ -6,3 +6,23 @@ aqa:
     model: qwen-audio-chat
     evaluator: prefix-match
     agg: acc
+
+loose-aqa:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: clotho-aqa
+    prompt: direct-aqa
+    model: qwen-audio-chat
+    post_process: ['extract_text']
+    evaluator: qa-exist-match
+    agg: acc
+
+s2s-aqa:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: clotho-aqa
+    prompt: direct-aqa
+    model: qwen-audio-chat
+    post_process: ['extract_audio', 'speech2text']
+    evaluator: qa-exist-match
+    agg: acc

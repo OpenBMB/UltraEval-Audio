@@ -45,3 +45,15 @@ bleu-jp:
 coco:
   class: audio_evals.agg.base.Coco
   args: {}
+
+naive-acc:
+  class: audio_evals.agg.base.NaiveACC
+  args:
+    need_score_col:
+      - acc
+
+geval:
+  class: audio_evals.agg.base.NaiveACC
+  args:
+    need_score_col:
+      - geval

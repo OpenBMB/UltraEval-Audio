@@ -1,0 +1,4 @@
+qa-exist-match:
+  class: audio_evals.evaluator.qa_exact_match.QAExistMatchEvaluator
+  args: {}
+

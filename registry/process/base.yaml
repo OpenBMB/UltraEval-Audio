@@ -26,3 +26,7 @@ en_text_normalizer:
 text_normalizer:
   class: audio_evals.process.normalization.TextNormalization
   args: {}
+
+trivia_qa_normalizer:
+  class: audio_evals.process.triviaqa.TriviaQaNormalizer
+  args: {}

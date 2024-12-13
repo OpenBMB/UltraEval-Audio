@@ -18,6 +18,16 @@ asr-zh:
     evaluator: cer
     agg: wer-zh
 
+asr-jp:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: fleurs-ja_jp
+    prompt: asr
+    model: qwen-audio
+    post_process: ['json_content']
+    evaluator: cer
+    agg: cer
+
 asr-yue:
   class: audio_evals.base.EvalTaskCfg
   args:

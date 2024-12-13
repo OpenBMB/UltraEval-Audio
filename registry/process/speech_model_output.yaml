@@ -1,0 +1,14 @@
+extract_audio:
+  class: audio_evals.process.base.JsonExtract
+  args:
+    extract_key: audio
+
+extract_text:
+  class: audio_evals.process.base.JsonExtract
+  args:
+    extract_key: text
+
+speech2text:
+  class: audio_evals.process.speech.Speech2text
+  args:
+    whisper_model: local-whisper-server

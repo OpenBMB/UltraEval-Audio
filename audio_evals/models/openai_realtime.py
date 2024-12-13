@@ -1,7 +1,7 @@
 import logging
 import subprocess
 import tempfile
-from typing import Dict, Any
+from typing import Dict, Any, List
 from audio_evals.models.model import APIModel
 from audio_evals.base import PromptStruct, EarlyStop
 import asyncio
@@ -130,18 +130,30 @@ def get_audio_with_rate(audio_file_path):
     if file_extension not in PYDUB_SUPPORTED_FORMATS:
         with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as wav_file:
             subprocess.run(
-                ["ffmpeg", "-y", "-i", audio_file_path, wav_file.name],
+                ["ffmpeg", "-y", "-i", audio_file_path, "-ar", "24000", wav_file.name],
                 capture_output=True,
                 text=True,
                 check=True,
             )
-            audio_file_path = wav_file.name
+            audio = AudioSegment.from_file( wav_file.name)
+            # 获取音频数据和采样率
+            sample_rate = audio.frame_rate
+    else:
+        audio = AudioSegment.from_file(audio_file_path)
+        # 获取音频数据和采样率
+        sample_rate = audio.frame_rate
+    if sample_rate != 24000:
+        with tempfile.NamedTemporaryFile(suffix=".wav",) as wav_file:
+            subprocess.run(
+                ["ffmpeg", "-y", "-i",  audio_file_path, "-ar", "24000", wav_file.name],
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+            audio = AudioSegment.from_file(wav_file.name)
+            sample_rate = audio.frame_rate
 
-    audio = AudioSegment.from_file(audio_file_path)
-    # 获取音频数据和采样率
     audio_data = np.array(audio.get_array_of_samples(), dtype="int16")
-    sample_rate = audio.frame_rate
-
     return audio_data, sample_rate
 
 
@@ -178,46 +190,47 @@ async def stream_audio_files(websocket, file_paths):
     await send_event(websocket, {"type": "input_audio_buffer.commit"})
 
 
-async def audio_inf(url, text, audio_file):
+async def audio_inf(url, text, audio_file, save_path, modalities):
     headers = {
         "Authorization": f"Bearer {OPENAI_API_KEY}",
+        "api-key": os.getenv("AZURE_OPENAI_API_KEY"),
         "OpenAI-Beta": "realtime=v1",
     }
 
-    async with websockets.connect(url, extra_headers=headers) as websocket:
+    async with websockets.connect(url, extra_headers=headers, max_size=2 ** 40) as websocket:
 
         print("Connected to OpenAI Realtime API")
-
-        # Set up the session
-        session_update_event = {
-            "type": "session.update",
-            "session": {
-                "modalities": ["text"],
-                "instructions": text,
-                "tools": [],
-                "voice": "alloy",
-                "turn_detection": {
-                    "type": "server_vad",
-                    "threshold": 0.5,
-                    "prefix_padding_ms": 300,
-                    "silence_duration_ms": 200,
+        if modalities == ["text"]:
+            # Set up the session
+            session_update_event = {
+                "type": "session.update",
+                "session": {
+                    "modalities": ["text"],
+                    "tools": [],
+                    "voice": "alloy",
+                    "turn_detection": {
+                        "type": "server_vad",
+                        "threshold": 0.5,
+                        "prefix_padding_ms": 300,
+                        "silence_duration_ms": 200,
+                    },
                 },
-            },
-        }
-        await send_event(websocket, session_update_event)
+            }
+            if text:
+                session_update_event["session"]["instructions"] = text
+            await send_event(websocket, session_update_event)
         audio_files = [audio_file]
         await stream_audio_files(websocket, audio_files)
-        audio_buffer = bytearray()
         response_create_event = {
             "type": "response.create",
             "response": {
-                "modalities": [
-                    "text",
-                ],
+                "modalities": modalities
             },
         }
         await send_event(websocket, response_create_event)
 
+        audio_buffer = bytearray()
+        audio_text = ''
         try:
             while True:
                 message = await websocket.recv()
@@ -251,6 +264,8 @@ async def audio_inf(url, text, audio_file):
                     logger.debug("Speech stopped")
                 elif event["type"] == "input_audio_buffer.committed":
                     logger.debug("Audio buffer committed")
+                elif event['type'] == 'response.audio_transcript.delta':
+                    audio_text += event['delta']
                 elif event["type"] == "response.audio.delta":
                     audio_content = base64.b64decode(event["delta"])
                     audio_buffer.extend(audio_content)
@@ -259,30 +274,48 @@ async def audio_inf(url, text, audio_file):
                     )
                 elif event["type"] == "response.audio.done":
                     # 创建WAV文件
-                    with open("assistant_response.wav", "wb") as wav_file:
+                    with open(save_path, "wb") as wav_file:
                         audio_array = np.frombuffer(audio_buffer, dtype=np.int16)
                         sf.write(wav_file, audio_array, samplerate=24000)
-                    audio_buffer.clear()
                     logger.debug("🔵 AI finished speaking.")
+                    return save_path, audio_text
                 elif event["type"] == "response.done":
                     if event["response"]["status"] == "failed":
                         raise EarlyStop(
                             "AI failed: {}".format(event["response"]["status_details"])
                         )
-
-        except websockets.exceptions.ConnectionClosed as e:
-            logger.error(f"{e} Disconnected from OpenAI Realtime API")
+        except websockets.exceptions.ConnectionClosedOK:
+            logger.info("Connection closed by server")
+            if len(audio_buffer) == 0:
+                raise Exception("No response from AI")
+            with open(save_path, "wb") as wav_file:
+                audio_array = np.frombuffer(audio_buffer, dtype=np.int16)
+                sf.write(wav_file, audio_array, samplerate=24000)
+            logger.debug("🔵 AI finished speaking.")
+            return save_path, audio_text
+        except Exception as e:
             raise e
 
 
 class GPT4oAudio(APIModel):
-    def __init__(self, model_name: str, sample_params: Dict[str, Any] = None):
+    def __init__(self, model_name: str, modalities: List[str], is_azure: bool = False, sample_params: Dict[str, Any] = None):
         super().__init__(True, sample_params)
-        self.url = "wss://{}/v1/realtime?model={}".format(OPENAI_URL, model_name)
-        assert "OPENAI_API_KEY" in os.environ, ValueError(
-            "not found OPENAI_API_KEY in your ENV"
-        )
+        if is_azure:
+            assert "AZURE_OPENAI_URL" in os.environ, ValueError(
+                "not found AZURE_OPENAI_URL in your ENV"
+            )
+            assert "AZURE_OPENAI_API_KEY" in os.environ, ValueError(
+                "not found AZURE_OPENAI_API_KEY in your ENV"
+            )
+            self.url = "wss://{}".format(os.environ["AZURE_OPENAI_URL"])
+        else:
+            assert "OPENAI_API_KEY" in os.environ, ValueError(
+                "not found OPENAI_API_KEY in your ENV"
+            )
+            self.url = "wss://{}/v1/realtime?model={}".format(OPENAI_URL, model_name)
+
         logger.info(f"OpenAI Realtime API URL: {self.url}")
+        self.modalities = modalities
 
     def _inference(self, prompt: PromptStruct, **kwargs) -> str:
         audio, text = None, None
@@ -292,4 +325,11 @@ class GPT4oAudio(APIModel):
             if line["type"] == "text":
                 text = line["value"]
         assert os.path.exists(audio), EarlyStop(f"not found audio file: {audio}")
-        return asyncio.run(audio_inf(self.url, text, audio))
+
+        if self.modalities == ["text"]:
+            return asyncio.run(audio_inf(self.url, text, audio, None, self.modalities))
+        save_path = os.path.join(os.getcwd(), "tmp/")
+        os.makedirs(save_path, exist_ok=True)
+        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False, dir=save_path) as f:
+            audio, text = asyncio.run(audio_inf(self.url, text, audio, f.name, self.modalities))
+            return json.dumps({"audio": audio, "text": text}, ensure_ascii=False)

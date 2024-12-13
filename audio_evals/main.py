@@ -42,8 +42,8 @@ def main():
     logger.propagate = False
 
     if not args.save:
-        os.makedirs("res/", exist_ok=True)
-        args.save = f"res/{time_id}-{args.model}-{args.dataset}.jsonl"
+        os.makedirs(f"res/{args.model}/{args.dataset}", exist_ok=True)
+        args.save = f"res/{args.model}/{args.dataset}/{time_id}.jsonl"
     overall_save = args.save.replace(".jsonl", "-overall.json")
 
     if args.registry_path:

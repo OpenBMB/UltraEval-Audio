@@ -1,0 +1,4 @@
+llama_speech_eval_gpt4:
+  class: audio_evals.evaluator.alpaca_eval.AlpacaEvaluator
+  args:
+    model_name: gpt4o-mini

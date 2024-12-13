@@ -1,0 +1,30 @@
+glm-4-voice:
+  class: audio_evals.models.glm4voice.GLM4Voice
+  args:
+    url: http://10.17.20.130:30069/generate_stream
+    sr: 22500
+    volume: 32767
+
+speech-gpt:
+  class: audio_evals.models.glm4voice.GLM4Voice
+  args:
+    url: http://10.17.20.130:31505/chat
+    sr: 16000
+    volume: 32767
+
+moshi:
+  class: audio_evals.models.glm4voice.GLM4Voice
+  args:
+    url: http://10.17.8.181:60888/chat
+#    url: http://10.17.20.130:31610/chat
+    sr: 22500
+
+llama-omni:
+  class: audio_evals.models.llama_omni.LlamaOmni
+  args:
+    url: http://10.17.20.130:32039/worker_generate_stream
+
+mini-omni:
+  class: audio_evals.models.mini_omni.MiniOmni
+  args:
+    url: http://10.17.20.130:32213/chat

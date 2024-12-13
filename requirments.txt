@@ -19,5 +19,5 @@ zhconv
 pycocoevalcap
 regex
 openai
-websockets
+websockets==12.0
 pydub

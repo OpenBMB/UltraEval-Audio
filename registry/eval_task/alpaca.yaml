@@ -1,0 +1,18 @@
+alpaca-eval:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: alpaca-eval-audio
+    prompt: direct-aqa
+    model: qwen-audio-chat
+    evaluator: alpaca_eval_gpt4
+    agg: naive-acc
+
+glm-alpaca-eval:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: speech-chatbot-alpaca-eval
+    prompt: direct-aqa
+    model: qwen-audio-chat
+    post_process: ['extract_audio', 'speech2text']
+    evaluator: chatbot_eval
+    agg: geval

@@ -2,7 +2,7 @@
 ![assets/logo.png](assets/logo.png)
 
 # Leaderboard
-> **Foundation Modal**: Audio + Limited Text (Optional) → Text
+> **Base Modal**: Audio + Limited Text (Optional) → Text
 > - This modal primarily focuses on traditional audio tasks such as Automatic Speech Recognition (ASR) and Automatic Speech Translation (AST)
 >
 > **Chat Modal**: Audio + Text → Text

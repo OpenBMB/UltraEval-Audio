@@ -70,6 +70,18 @@ class ACC(AggPolicy):
         return {"acc(%)": accuracy_score(refl, predl) * 100}
 
 
+class NaiveACC(AggPolicy):
+    def __init__(self, need_score_col: List[str] = None):
+        super().__init__(need_score_col)
+
+    def _agg(self, score_detail: List[Dict[str, any]]) -> Dict[str, float]:
+        res = {}
+        for item in self.need_score_col:
+            valid_l = [c[item] for c in score_detail if c.get(item) is not None]
+            res[f'{item}(%)'] = sum(valid_l) / len(valid_l) * 100
+        return res
+
+
 class CER(AggPolicy):
     def __init__(self, need_score_col: List[str] = None, ignore_case: bool = False):
         super().__init__(need_score_col)

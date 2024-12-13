@@ -8,3 +8,12 @@ aqa:
             value: "{{WavPath}}"
           - type: text
             value: "answer the question without explain\n# Question: {{QuestionText}}"
+
+direct-aqa:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
