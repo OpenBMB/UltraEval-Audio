@@ -2,32 +2,176 @@ sst2zh:
   class: audio_evals.prompt.base.Prompt
   args:
     template:
-      - role: user
-        contents:
-          - type: audio
-            value: "{{audio}}"
-          - type: text
-            value: "translate this audio to chinese, output the content with format {\"content\": \"\"}"
-
-
+    - role: user
+      contents:
+      - type: audio
+        value: '{{audio}}'
+      - type: text
+        value: 'translate this audio to chinese, output the content with format {"content":
+          ""}'
 sst2en:
   class: audio_evals.prompt.base.Prompt
   args:
     template:
-      - role: user
-        contents:
-          - type: audio
-            value: "{{audio}}"
-          - type: text
-            value: "translate this audio to english, output the content with format {\"content\": \"\"}"
-
+    - role: user
+      contents:
+      - type: audio
+        value: '{{audio}}'
+      - type: text
+        value: 'translate this audio to english, output the content with format {"content":
+          ""}'
 sst2de:
   class: audio_evals.prompt.base.Prompt
   args:
     template:
-      - role: user
-        contents:
-          - type: audio
-            value: "{{audio}}"
-          - type: text
-            value: "translate this audio to German, output the content with format {\"content\": \"\"}"
+    - role: user
+      contents:
+      - type: audio
+        value: '{{audio}}'
+      - type: text
+        value: 'translate this audio to German, output the content with format {"content":
+          ""}'
+sst2ar:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{audio}}'
+      - type: text
+        value: 'translate this audio to Arabic, output the content with format {"content":
+          ""}'
+sst2ja:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{audio}}'
+      - type: text
+        value: 'translate this audio to Japanese, output the content with format {"content":
+          ""}'
+sst2ca:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{audio}}'
+      - type: text
+        value: 'translate this audio to Catalan, output the content with format {"content":
+          ""}'
+sst2cy:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{audio}}'
+      - type: text
+        value: 'translate this audio to Welsh, output the content with format {"content":
+          ""}'
+sst2et:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{audio}}'
+      - type: text
+        value: 'translate this audio to Estonian, output the content with format {"content":
+          ""}'
+sst2fa:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{audio}}'
+      - type: text
+        value: 'translate this audio to Persian, output the content with format {"content":
+          ""}'
+sst2id:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{audio}}'
+      - type: text
+        value: 'translate this audio to Indonesian, output the content with format {"content":
+          ""}'
+
+sst2lv:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{audio}}'
+      - type: text
+        value: 'translate this audio to Latvian, output the content with format {"content":
+          ""}'
+sst2mn:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{audio}}'
+      - type: text
+        value: 'translate this audio to Mongolian, output the content with format {"content":
+          ""}'
+sst2sl:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{audio}}'
+      - type: text
+        value: 'translate this audio to Slovenian, output the content with format {"content":
+          ""}'
+sst2sv:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{audio}}'
+      - type: text
+        value: 'translate this audio to Swedish, output the content with format {"content":
+          ""}'
+sst2ta:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{audio}}'
+      - type: text
+        value: 'translate this audio to Tamil, output the content with format {"content":
+          ""}'
+sst2tr:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{audio}}'
+      - type: text
+        value: 'translate this audio to Turkish, output the content with format {"content":
+          ""}'

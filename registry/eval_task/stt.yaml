@@ -4,26 +4,167 @@ sst2zh:
     dataset: covost2-sample
     prompt: sst2zh
     model: qwen-audio
-    post_process: ['json_content']
+    post_process:
+    - json_content
     evaluator: bleu-zh
     agg: bleu-zh
-
 sst2en:
   class: audio_evals.base.EvalTaskCfg
   args:
     dataset: covost2-sample
     prompt: sst2en
     model: qwen-audio
-    post_process: ['json_content']
+    post_process:
+    - json_content
     evaluator: bleu
     agg: bleu
-
 sst2de:
   class: audio_evals.base.EvalTaskCfg
   args:
     dataset: covost2-en-de
     prompt: sst2de
     model: qwen-audio
-    post_process: ['json_content']
+    post_process:
+    - json_content
+    evaluator: bleu
+    agg: bleu
+sst2ar:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: covost2-en-ar
+    prompt: sst2ar
+    model: qwen-audio
+    post_process:
+    - json_content
+    evaluator: bleu
+    agg: bleu
+sst2jp:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: covost2-en-ja
+    prompt: sst2jp
+    model: qwen-audio
+    post_process:
+    - json_content
+    evaluator: bleu-jp
+    agg: bleu-jp
+sst2ca:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: covost2-en-ca
+    prompt: sst2ca
+    model: qwen-audio
+    post_process:
+    - json_content
+    evaluator: bleu
+    agg: bleu
+sst2cy:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: covost2-en-cy
+    prompt: sst2cy
+    model: qwen-audio
+    post_process:
+    - json_content
+    evaluator: bleu
+    agg: bleu
+sst2et:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: covost2-en-et
+    prompt: sst2et
+    model: qwen-audio
+    post_process:
+    - json_content
+    evaluator: bleu
+    agg: bleu
+sst2fa:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: covost2-en-fa
+    prompt: sst2fa
+    model: qwen-audio
+    post_process:
+    - json_content
+    evaluator: bleu
+    agg: bleu
+sst2id:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: covost2-en-id
+    prompt: sst2id
+    model: qwen-audio
+    post_process:
+    - json_content
+    evaluator: bleu
+    agg: bleu
+sst2ja:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: covost2-en-ja
+    prompt: sst2ja
+    model: qwen-audio
+    post_process:
+    - json_content
+    evaluator: bleu
+    agg: bleu
+sst2lv:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: covost2-en-lv
+    prompt: sst2lv
+    model: qwen-audio
+    post_process:
+    - json_content
+    evaluator: bleu
+    agg: bleu
+sst2mn:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: covost2-en-mn
+    prompt: sst2mn
+    model: qwen-audio
+    post_process:
+    - json_content
+    evaluator: bleu
+    agg: bleu
+sst2sl:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: covost2-en-sl
+    prompt: sst2sl
+    model: qwen-audio
+    post_process:
+    - json_content
+    evaluator: bleu
+    agg: bleu
+sst2sv:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: covost2-en-sv
+    prompt: sst2sv
+    model: qwen-audio
+    post_process:
+    - json_content
+    evaluator: bleu
+    agg: bleu
+sst2ta:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: covost2-en-ta
+    prompt: sst2ta
+    model: qwen-audio
+    post_process:
+    - json_content
+    evaluator: bleu
+    agg: bleu
+sst2tr:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: covost2-en-tr
+    prompt: sst2tr
+    model: qwen-audio
+    post_process:
+    - json_content
     evaluator: bleu
     agg: bleu
