@@ -5,7 +5,7 @@ sst2zh:
     - role: user
       contents:
       - type: audio
-        value: '{{audio}}'
+        value: '{{WavPath}}'
       - type: text
         value: 'translate this audio to chinese, output the content with format {"content":
           ""}'
@@ -16,7 +16,7 @@ sst2en:
     - role: user
       contents:
       - type: audio
-        value: '{{audio}}'
+        value: '{{WavPath}}'
       - type: text
         value: 'translate this audio to english, output the content with format {"content":
           ""}'
@@ -27,7 +27,7 @@ sst2de:
     - role: user
       contents:
       - type: audio
-        value: '{{audio}}'
+        value: '{{WavPath}}'
       - type: text
         value: 'translate this audio to German, output the content with format {"content":
           ""}'
@@ -38,7 +38,7 @@ sst2ar:
     - role: user
       contents:
       - type: audio
-        value: '{{audio}}'
+        value: '{{WavPath}}'
       - type: text
         value: 'translate this audio to Arabic, output the content with format {"content":
           ""}'
@@ -49,7 +49,7 @@ sst2ja:
     - role: user
       contents:
       - type: audio
-        value: '{{audio}}'
+        value: '{{WavPath}}'
       - type: text
         value: 'translate this audio to Japanese, output the content with format {"content":
           ""}'
@@ -60,7 +60,7 @@ sst2ca:
     - role: user
       contents:
       - type: audio
-        value: '{{audio}}'
+        value: '{{WavPath}}'
       - type: text
         value: 'translate this audio to Catalan, output the content with format {"content":
           ""}'
@@ -71,7 +71,7 @@ sst2cy:
     - role: user
       contents:
       - type: audio
-        value: '{{audio}}'
+        value: '{{WavPath}}'
       - type: text
         value: 'translate this audio to Welsh, output the content with format {"content":
           ""}'
@@ -82,7 +82,7 @@ sst2et:
     - role: user
       contents:
       - type: audio
-        value: '{{audio}}'
+        value: '{{WavPath}}'
       - type: text
         value: 'translate this audio to Estonian, output the content with format {"content":
           ""}'
@@ -93,7 +93,7 @@ sst2fa:
     - role: user
       contents:
       - type: audio
-        value: '{{audio}}'
+        value: '{{WavPath}}'
       - type: text
         value: 'translate this audio to Persian, output the content with format {"content":
           ""}'
@@ -104,7 +104,7 @@ sst2id:
     - role: user
       contents:
       - type: audio
-        value: '{{audio}}'
+        value: '{{WavPath}}'
       - type: text
         value: 'translate this audio to Indonesian, output the content with format {"content":
           ""}'
@@ -116,7 +116,7 @@ sst2lv:
     - role: user
       contents:
       - type: audio
-        value: '{{audio}}'
+        value: '{{WavPath}}'
       - type: text
         value: 'translate this audio to Latvian, output the content with format {"content":
           ""}'
@@ -127,7 +127,7 @@ sst2mn:
     - role: user
       contents:
       - type: audio
-        value: '{{audio}}'
+        value: '{{WavPath}}'
       - type: text
         value: 'translate this audio to Mongolian, output the content with format {"content":
           ""}'
@@ -138,7 +138,7 @@ sst2sl:
     - role: user
       contents:
       - type: audio
-        value: '{{audio}}'
+        value: '{{WavPath}}'
       - type: text
         value: 'translate this audio to Slovenian, output the content with format {"content":
           ""}'
@@ -149,7 +149,7 @@ sst2sv:
     - role: user
       contents:
       - type: audio
-        value: '{{audio}}'
+        value: '{{WavPath}}'
       - type: text
         value: 'translate this audio to Swedish, output the content with format {"content":
           ""}'
@@ -160,7 +160,7 @@ sst2ta:
     - role: user
       contents:
       - type: audio
-        value: '{{audio}}'
+        value: '{{WavPath}}'
       - type: text
         value: 'translate this audio to Tamil, output the content with format {"content":
           ""}'
@@ -171,7 +171,7 @@ sst2tr:
     - role: user
       contents:
       - type: audio
-        value: '{{audio}}'
+        value: '{{WavPath}}'
       - type: text
         value: 'translate this audio to Turkish, output the content with format {"content":
           ""}'
