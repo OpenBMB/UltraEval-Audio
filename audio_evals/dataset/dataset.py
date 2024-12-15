@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 from typing import Any, Dict, Generator, List
 import pandas as pd
 from tqdm import tqdm
+tqdm.pandas()
 
 
 class Dataset(ABC):
@@ -53,8 +54,9 @@ class RelativePath(JsonlFile):
             temp = os.path.join(self.file_path, str(x))
             if os.path.exists(temp) and os.path.isfile(temp):
                 return temp
+            raise ValueError(f"File {temp} does not exist")
             return x
 
-        df = df.applymap(abs_path)
+        df['WavPath'] = df['WavPath'].progress_apply(abs_path)
         df = self.add_col_alias(df)
         return df.to_dict(orient="records")
