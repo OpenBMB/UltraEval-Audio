@@ -231,6 +231,7 @@ async def audio_inf(url, text, audio_file, save_path, modalities):
 
         audio_buffer = bytearray()
         audio_text = ''
+        text = ''
         try:
             while True:
                 message = await websocket.recv()
@@ -252,6 +253,8 @@ async def audio_inf(url, text, audio_file, save_path, modalities):
                         await handle_function_call(
                             websocket, event["item"]["function_call"]
                         )
+                elif event["type"] == "response.text.delta":
+                    text += event["delta"]
                 elif event["type"] == "response.text.done":
                     logger.debug("Assistant:", event["text"])
                     return event["text"]
@@ -280,7 +283,7 @@ async def audio_inf(url, text, audio_file, save_path, modalities):
                     logger.debug("🔵 AI finished speaking.")
                     return save_path, audio_text
                 elif event["type"] == "response.done":
-                    if event["response"]["status"] == "failed":
+                    if event["response"]["status"] in ["failed", "cancelled", "incomplete"]:
                         raise EarlyStop(
                             "AI failed: {}".format(event["response"]["status_details"])
                         )
