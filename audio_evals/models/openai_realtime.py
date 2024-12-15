@@ -128,7 +128,7 @@ def resample_audio(audio_data, original_sample_rate, target_sample_rate):
 def get_audio_with_rate(audio_file_path):
     _, file_extension = os.path.splitext(audio_file_path)
     if file_extension not in PYDUB_SUPPORTED_FORMATS:
-        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as wav_file:
+        with tempfile.NamedTemporaryFile(suffix=".wav") as wav_file:
             subprocess.run(
                 ["ffmpeg", "-y", "-i", audio_file_path, "-ar", "24000", wav_file.name],
                 capture_output=True,
