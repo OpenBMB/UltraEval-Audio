@@ -54,7 +54,6 @@ class RelativePath(JsonlFile):
             temp = os.path.join(self.file_path, str(x))
             if os.path.exists(temp) and os.path.isfile(temp):
                 return temp
-            raise ValueError(f"File {temp} does not exist")
             return x
 
         df['WavPath'] = df['WavPath'].progress_apply(abs_path)
