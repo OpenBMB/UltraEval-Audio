@@ -71,7 +71,7 @@ Please directly answer the questions in the user's speech.<|eot_id|><|start_head
             'audio': audio_base64,
             "temperature": 0,
             "top_p": 0.7,
-            "max_new_tokens": 512,
+            "max_new_tokens": 1024,
             "stop": '<|eot_id|>',
         }
         response = requests.post(self.url, headers=headers, data=json.dumps(data), stream=True)
