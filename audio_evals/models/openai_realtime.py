@@ -200,22 +200,22 @@ async def audio_inf(url, text, audio_file, save_path, modalities):
     async with websockets.connect(url, extra_headers=headers, max_size=2 ** 40) as websocket:
 
         print("Connected to OpenAI Realtime API")
-        if modalities == ["text"]:
+        # if modalities == ["text"]:
             # Set up the session
-            session_update_event = {
-                "type": "session.update",
-                "session": {
-                    "modalities": ["text"],
-                    "tools": [],
-                    "voice": "alloy",
-                    # very important, must be None: https://platform.openai.com/docs/guides/realtime-model
-                    # -capabilities#voice-activity-detection-vad
-                    "turn_detection": None,
-                },
-            }
-            if text:
-                session_update_event["session"]["instructions"] = text
-            await send_event(websocket, session_update_event)
+        session_update_event = {
+            "type": "session.update",
+            "session": {
+                "modalities": modalities,
+                "tools": [],
+                "voice": "alloy",
+                # very important, must be None: https://platform.openai.com/docs/guides/realtime-model
+                # -capabilities#voice-activity-detection-vad
+                "turn_detection": None,
+            },
+        }
+        if text:
+            session_update_event["session"]["instructions"] = text
+        await send_event(websocket, session_update_event)
         audio_files = [audio_file]
         await stream_audio_files(websocket, audio_files)
         response_create_event = {
