@@ -82,3 +82,46 @@ def convbase64(file_path):
     except Exception as e:
         print(f"Error converting file to Base64: {e}")
         return None
+
+
+def decode_base64_to_file(data_uri, output_path):
+    """
+    将包含MIME类型的Base64编码数据URI转化为文件并保存。
+
+    :param data_uri: 包含MIME类型的Base64编码数据URI
+    :param output_path: 输出文件的路径
+    """
+    try:
+        # 分离MIME类型和Base64编码部分
+        if not data_uri.startswith("data:"):
+            raise ValueError("Invalid data URI format")
+
+        header, base64_data = data_uri.split(",", 1)
+
+        # 从头部解析MIME类型
+        mime_type = header.split(";")[0][5:]
+        file_extension = None
+
+        # 反向查找 MIME 类型映射的文件扩展名
+        for ext, mtype in MIME_TYPE_MAP.items():
+            if mtype == mime_type:
+                file_extension = ext
+                break
+
+        if not file_extension:
+            raise ValueError(f"Unsupported MIME type: {mime_type}")
+
+        # 如果输出路径没有扩展名，添加一个默认扩展名
+        if not os.path.splitext(output_path)[1]:
+            output_path += file_extension
+
+        # 解码 Base64 数据
+        file_data = base64.b64decode(base64_data)
+
+        # 写入文件
+        with open(output_path, "wb") as file:
+            file.write(file_data)
+
+        print(f"File successfully saved to {output_path}")
+    except Exception as e:
+        print(f"Error decoding Base64 to file: {e}")
