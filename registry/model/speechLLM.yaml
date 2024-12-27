@@ -15,9 +15,10 @@ speech-gpt:
 moshi:
   class: audio_evals.models.glm4voice.GLM4Voice
   args:
-    url: http://10.17.8.181:60888/chat
-#    url: http://10.17.20.130:31610/chat
+    url: http://10.17.20.130:31610/chat
     sr: 22500
+    cut_greeting: True
+
 
 llama-omni:
   class: audio_evals.models.llama_omni.LlamaOmni
