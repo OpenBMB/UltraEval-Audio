@@ -8,3 +8,25 @@ asr:
             value: "{{WavPath}}"
           - type: text
             value: "listen the audio, output the audio content with format {\"content\": \"\"}"
+
+asr-en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "Please focus on the audio clip and write down everything you hear."
+
+asr-zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "Please focus on the audio clip and write down everything you hear."

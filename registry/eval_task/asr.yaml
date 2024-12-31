@@ -8,6 +8,24 @@ asr:
     evaluator: wer
     agg: wer
 
+asr-3o:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: KeSpeech
+    prompt: asr-zh
+    model: qwen-audio
+    evaluator: wer
+    agg: wer
+
+asr-zh-3o:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: KeSpeech
+    prompt: asr-en
+    model: qwen-audio
+    evaluator: cer
+    agg: wer-zh
+
 asr-zh:
   class: audio_evals.base.EvalTaskCfg
   args:
