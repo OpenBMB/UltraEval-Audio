@@ -24,9 +24,11 @@ def save_audio_response(response, output_file):
             if chunk:
                 data = json.loads(chunk.decode())
                 text += data["text"]
-                audios += data["audio"]
+                if data.get("audio", None):
+                    audios += data["audio"]
 
-        decode_base64_to_file(audios, output_file)
+        if audios:
+            decode_base64_to_file(audios, output_file)
         return output_file, text
     else:
         raise Exception(f"下载失败，状态码: {response.status_code}")
