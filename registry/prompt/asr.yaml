@@ -29,4 +29,4 @@ asr-zh:
           - type: audio
             value: "{{WavPath}}"
           - type: text
-            value: "Please focus on the audio clip and write down everything you hear."
+            value: "请仔细听取音频片段，并将内容准确记录下来。"
