@@ -12,6 +12,7 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", default="KeSpeech")
     parser.add_argument("--model", default="qwen-audio")
+    parser.add_argument("--task", default="")
     parser.add_argument("--prompt", default="")
     parser.add_argument("--evaluator", default="")
     parser.add_argument("--agg", default="")
@@ -52,6 +53,8 @@ def main():
 
     dataset = registry.get_dataset(args.dataset)
     task_cfg = registry.get_eval_task(dataset.task_name)
+    if args.task:
+        task_cfg = registry.get_eval_task(args.task)
 
     attrs = dir(task_cfg)
     for attr in dir(args):
