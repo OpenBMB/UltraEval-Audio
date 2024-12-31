@@ -62,3 +62,36 @@ class CPM3o(APIModel):
             audio, text = save_audio_response(response, f.name)
             return json.dumps({"audio": audio, "text": text}, ensure_ascii=False)
 
+
+class CPM3oAudio(APIModel):
+    def __init__(
+        self, url: str, sample_params: Dict[str, any] = None
+    ):
+        super().__init__(True, sample_params)
+        self.url = url
+
+    def _inference(self, prompt: PromptStruct, **kwargs) -> str:
+
+        audio_file = ""
+        text = ""
+        for content in prompt:
+            if content["role"] == "user":
+                for line in content["contents"]:
+                    if line["type"] == "audio":
+                        audio_file = line["value"]
+                    elif line["type"] == "text":
+                        text = line["value"]
+
+        audio_base64 = get_base64_from_file(audio_file)
+        headers = {
+            'Content-Type': 'application/json'
+        }
+        data = {
+            'audio': audio_base64,
+            'text': text,
+            **kwargs
+        }
+        response = requests.post(self.url, headers=headers, data=json.dumps(data), stream=True)
+        audio, text = save_audio_response(response, 'temp')
+        return text
+
