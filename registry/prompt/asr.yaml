@@ -18,9 +18,7 @@ asr-en:
           - type: audio
             value: "{{WavPath}}"
           - type: text
-            value: "
-            Please focus on the audio clip and write down everything you hear.
-            "
+            value: "\nPlease focus on the audio clip and write down everything you hear.\n"
 
 asr-zh:
   class: audio_evals.prompt.base.Prompt
@@ -31,6 +29,4 @@ asr-zh:
           - type: audio
             value: "{{WavPath}}"
           - type: text
-            value: "
-            请仔细听取音频片段，并将内容准确记录下来。
-            "
+            value: "\n请仔细听取音频片段，并将内容准确记录下来。\n"
