@@ -67,7 +67,7 @@ class EvalTask:
         return score, output
 
     @lru_cache(maxsize=None)
-    def run(self, limit=None) -> Tuple[ScoreUnit, List[ScoreUnit], List[str]]:
+    def run(self, limit=None, rand_size=None) -> Tuple[ScoreUnit, List[ScoreUnit], List[str]]:
         """
         eval
         :param :
@@ -77,6 +77,9 @@ class EvalTask:
         quiz = self.dataset.load()
         if limit:
             quiz = quiz[:limit]
+        if rand_size:
+            import random
+            quiz = random.sample(quiz, rand_size)
 
         error_count = 0
         for i, doc in tqdm(enumerate(quiz), total=len(quiz)):
