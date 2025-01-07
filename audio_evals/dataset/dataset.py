@@ -16,7 +16,7 @@ class Dataset(ABC):
         self.ref_col = ref_col
 
     @abstractmethod
-    def load(self) -> List[Dict[str, any]]:
+    def load(self, limit=0) -> List[Dict[str, any]]:
         raise NotImplementedError()
 
 
@@ -32,8 +32,10 @@ class JsonlFile(Dataset):
             df[v] = df[k]
         return df
 
-    def load(self) -> List[Dict[str, any]]:
+    def load(self, limit=0) -> List[Dict[str, any]]:
         df = pd.read_json(self.f_name, lines=True)
+        if limit > 0:
+            df = df[:limit]
         df = self.add_col_alias(df)
         return df.to_dict(orient="records")
 
@@ -47,9 +49,10 @@ class RelativePath(JsonlFile):
             file_path_prefix += "/"
         self.file_path = file_path_prefix
 
-    def load(self) -> List[Dict[str, any]]:
+    def load(self, limit=0) -> List[Dict[str, any]]:
         df = pd.read_json(self.f_name, lines=True)
-
+        if limit > 0:
+            df = df[:limit]
         def abs_path(x):
             temp = os.path.join(self.file_path, str(x))
             if os.path.exists(temp) and os.path.isfile(temp):

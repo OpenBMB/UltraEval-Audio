@@ -86,10 +86,11 @@ class Huggingface(BaseDataset):
         self.split = split
         self.local_path = local_path
 
-    def load(self) -> List[Dict[str, any]]:
+    def load(self, limit=0) -> List[Dict[str, any]]:
         logger.info(
             "start load data, it will take a while for download dataset when first load dataset"
         )
-        return load_audio_hf_dataset(
+        res = load_audio_hf_dataset(
             self.name, self.subset, self.split, self.local_path, self.col_aliases
         )
+        return res[:limit] if limit > 0 else res

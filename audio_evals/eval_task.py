@@ -74,7 +74,7 @@ class EvalTask:
         :return:
         """
         res, answers = [], []
-        quiz = self.dataset.load()
+        quiz = self.dataset.load(limit)
         if limit:
             quiz = quiz[:limit]
         if rand_size:
