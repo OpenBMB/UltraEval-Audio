@@ -50,5 +50,5 @@ class WhisperModel(Model):
             torch_dtype=self.torch_dtype,
             device=self.device,
         )
-        result = pipe(audio, **kwargs)
+        result = pipe(audio, return_timestamps=True, **kwargs)
         return result["text"]
