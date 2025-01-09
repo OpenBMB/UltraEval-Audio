@@ -18,10 +18,10 @@ class WhisperModel(Model):
         sample_params: Dict[str, any] = None,
     ):
         super().__init__(True, sample_params)  # as a chat model
-        logger.debug("start load model from {}".format(path))
-
         # Load the speech recognition model
         self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
+        logger.info("start load model from {} to device {}".format(path, self.device))
+
         self.torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
         self.model = AutoModelForSpeechSeq2Seq.from_pretrained(
             path,
@@ -31,7 +31,7 @@ class WhisperModel(Model):
         ).eval()
         self.model.to(self.device)
 
-        logger.debug("successfully load model from {}".format(path))
+        logger.info("successfully load model from {}".format(path))
 
         # Load the processor
         self.processor = AutoProcessor.from_pretrained(path)

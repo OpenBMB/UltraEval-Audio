@@ -23,6 +23,8 @@ def save_audio_response(response, output_file):
         for chunk in response.iter_lines(decode_unicode=False, delimiter=b"\0"):
             if chunk:
                 data = json.loads(chunk.decode())
+                if data["error_code"] == 1:
+                    raise Exception(f"service: {data['error']}")
                 text += data["text"]
                 if data.get("audio", None):
                     audios += data["audio"]
