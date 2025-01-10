@@ -14,8 +14,8 @@ class ResumeDataset:
         self.ref_col = raw_dataset.ref_col
         self.resume_file = resume_file
 
-    def load(self) -> List[Dict[str, any]]:
-        data = self.raw_dataset.load()
+    def load(self, limit=0) -> List[Dict[str, any]]:
+        data = self.raw_dataset.load(limit)
         with open(self.resume_file, "r") as f:
             for line in tqdm(f):
                 doc = json.loads(line)
