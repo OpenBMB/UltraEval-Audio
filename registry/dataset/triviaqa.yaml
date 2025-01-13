@@ -1,0 +1,15 @@
+speech-triviaqa:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: s2s-aqa
+    name: TwinkStart/speech-triavia-qa
+    ref_col: answer
+    split: test
+
+speech-triviaqa-s2t:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: loose-aqa
+    name: TwinkStart/speech-triavia-qa
+    ref_col: answer
+    split: test

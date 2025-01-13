@@ -1,0 +1,15 @@
+llama-questions:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: s2s-aqa
+    name: TwinkStart/llama-questions
+    split: test
+    ref_col: Answer
+
+llama-questions-s2t:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: loose-aqa
+    name: TwinkStart/llama-questions
+    split: test
+    ref_col: Answer

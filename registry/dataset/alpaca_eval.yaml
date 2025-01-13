@@ -1,0 +1,7 @@
+speech-chatbot-alpaca-eval:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: glm-alpaca-eval
+    name: TwinkStart/speech-chatbot-alpaca-eval
+    split: test
+    ref_col: output

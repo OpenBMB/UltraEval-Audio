@@ -2,39 +2,39 @@
 ![assets/logo.png](assets/logo.png)
 
 # Leaderboard
-> **Audio Understanding Models**: Speech + Text → Text
+> **Audio Understanding LLM**: Speech + Text → Text
 > 
-> **Aduio Understanding and Generation Models**: Speech → Speech
+> **Aduio Understanding and Generation LLM**: Speech → Speech
 
-## Audio Understanding Models
+## Audio Understanding LLM Leaderboard
 
-
-
-| rank | model                  | score | asr | ast |
-|---|------------------------|-------|-----|-----|
-| 🏅  | Gemini-1.5-Pro           | 66  | 94  | 38  |
-| 🥈  |   GPT-4o-Realtime      | 56 | 85  | 30  |
-| 🥉  | qwen2-audio-instruction | 55 | 78  | 32  |
-| 4 | Gemini-1.5-Flash   |   42| 55  | 29  |
-| 5 | Qwen-Audio-Chat         | 3 | -5  | 11|
-
-
-## Aduio Understanding and Generation Models
+| rank | model                   | asr | ast |
+|------|-------------------------|-----|-----|
+| 🏅   | MiniCPM-Omni            | 96  | 38  |
+| 🥈   | Gemini-1.5-Pro          | 94  | 35  |
+| 🥉   | qwen2-audio-instruction | 94  | 31  |
+| 4    | GPT-4o-Realtime         | 92  | 26  |
+| 5    | Gemini-1.5-Flash        | 49  | 21  |
+| 6    | Qwen-Audio-Chat         | 3   | 12  |
 
 
-| rank | model       | Semantic | Acoustic | AudioArena |
-|---|-------------|-----|---------|-----------|
-|🏅|             GPT-4o-Realtime| 69      | 84        |1212|
-| 🥈 | GLM-4-Voice | 42| 80      | 1099      |
-| 🥉|             Mini-Omni| 16      | 64        |961|
-| 4| Llama-Omni  |17| 54      | 909       |
-| 5| Moshi       |2|66|823|
+## Aduio Understanding and Generation LLM Leaderboard
+
+
+| rank | model           | Semantic | Acoustic | AudioArena |
+|------|-----------------|----------|----------|------------|
+| 🏅   | GPT-4o-Realtime | 67       | 84       | 1200       |
+| 🥈   | MiniCPM-Omni    | 48       | 80       | 1131       |
+| 🥉   | GLM-4-Voice     | 42       | 82       | 1035       |
+| 4    | Mini-Omni       | 16       | 64       | 897        |
+| 5    | Llama-Omni      | 29       | 54       | 875        |
+| 6    | Moshi           | 27       | 68       | 865        |
 
 
 <table>
 <tr>
-<td><img src="assets/audio_foundation.png" alt="图片 1 描述"></td>
-<td><img src="assets/audio_chat_leaderboard.png" alt="图片 2 描述"></td>
+<td><img src="assets/audio_understanding_leaderboard.png" alt="图片 1 描述"></td>
+<td><img src="assets/s2s_leaderboard.png" alt="图片 2 描述"></td>
 </tr>
 </table>
 
@@ -42,14 +42,7 @@
 
 ![assets/dataset_distribute.png](assets/dataset_distribute.png)
 # Changelog🔥
-
-- [2024/11/11] We support gpt-4o-realtime-preview-2024-10-01(use as `gpt4o_audio`)
-
-- [2024/10/8] We support 30+ datasets!
-
-- [2024/9/7] We support `vocalsound`, `MELD` benchmark!
-
-- [2024/9/6] We support `Qwen/Qwen2-Audio-7B`, `Qwen/Qwen2-Audio-7B-Instruct` models!
+- [2025/01/13] release v1.0.0
 
 # Overview
 
@@ -75,18 +68,21 @@ pip install -r requirments.txt
 ## run
 ```bash
 export PYTHONPATH=$PWD:$PYTHONPATH
-mkdir log/
-# eval gemini model only when you are in USA
+
+# eval gpt-4o-realtime model
+export OPENAI_API_KEY=$your-key
+python audio_evals/main.py --dataset KeSpeech-sample --model gpt4o_audio
+
+# eval gemini model
 export GOOGLE_API_KEY=$your-key
 python audio_evals/main.py --dataset KeSpeech-sample --model gemini-pro
 
-# eval qwen-audio api model
-export DASHSCOPE_API_KEY=$your-key
-python audio_evals/main.py --dataset KeSpeech-sample --model qwen-audio
 
 # eval qwen2-audio  offline model in local
 pip install -r requirments-offline-model.txt
 python audio_evals/main.py --dataset KeSpeech-sample --model qwen2-audio-offline
+
+
 ```
 
 ## res
@@ -97,12 +93,6 @@ After program executed, you will get the performance in console and detail resul
 - res
     |-- $time-$name-$dataset.jsonl
 ```
-
-## Performance
-
-
-
-> () is offical performance
 
 
 ## Usage
