@@ -10,7 +10,7 @@
 
 | rank | model                   | asr | ast |
 |------|-------------------------|-----|-----|
-| 🏅   | MiniCPM-Omni            | 96  | 38  |
+| 🏅   | MiniCPM-o 2.6           | 96  | 38  |
 | 🥈   | Gemini-1.5-Pro          | 94  | 35  |
 | 🥉   | qwen2-audio-instruction | 94  | 31  |
 | 4    | GPT-4o-Realtime         | 92  | 26  |
@@ -24,7 +24,7 @@
 | rank | model           | Semantic | Acoustic | AudioArena |
 |------|-----------------|----------|----------|------------|
 | 🏅   | GPT-4o-Realtime | 67       | 84       | 1200       |
-| 🥈   | MiniCPM-Omni    | 48       | 80       | 1131       |
+| 🥈   | MiniCPM-o 2.6   | 48       | 80       | 1131       |
 | 🥉   | GLM-4-Voice     | 42       | 82       | 1035       |
 | 4    | Mini-Omni       | 16       | 64       | 897        |
 | 5    | Llama-Omni      | 29       | 54       | 875        |
