@@ -3,7 +3,7 @@
 
 # Leaderboard
 > **Audio Understanding LLM**: Speech + Text → Text
-> 
+>
 > **Aduio Understanding and Generation LLM**: Speech → Speech
 
 ## Audio Understanding LLM Leaderboard
@@ -69,9 +69,19 @@ pip install -r requirments.txt
 ```bash
 export PYTHONPATH=$PWD:$PYTHONPATH
 
-# eval gpt-4o-realtime model
+# eval gpt-4o-realtime text modal model
 export OPENAI_API_KEY=$your-key
 python audio_evals/main.py --dataset KeSpeech-sample --model gpt4o_audio
+
+# eval gpt-4o-realtime audio modal model
+export OPENAI_API_KEY=$your-key
+python audio_evals/main.py --dataset KeSpeech-sample --model gpt4o_speech
+
+# you can use gpt-4o-realtime in AZURE
+export AZURE_OPENAI_URL=$your-key
+export AZURE_OPENAI_API_KEY=$your-key
+python audio_evals/main.py --dataset KeSpeech-sample --model gpt4o_speech
+
 
 # eval gemini model
 export GOOGLE_API_KEY=$your-key
