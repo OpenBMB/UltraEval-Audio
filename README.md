@@ -1,6 +1,19 @@
 
 ![assets/logo.png](assets/logo.png)
 
+# Overview
+
+
+🚀 Exceptional Experience with UltraEval-Audio 🚀
+
+UltraEval-Audio -- the world's first open-source framework that simultaneously supports both **speech understanding and speech generation** evaluation, specifically designed for assessing large audio models. It integrates 34 authoritative benchmarks, covering four major fields: speech, sound, healthcare, and music, supporting ten languages and twelve types of tasks. With UltraEval-Audio, you will experience unprecedented convenience and efficiency:
+
+- One-Click Benchmark Management 📥: Say goodbye to tedious manual downloads and data processing. UltraEval-Audio automates all of this, allowing you to easily access the benchmark test data you need.
+- Built-In Evaluation Tools ⚙️: No need to search for evaluation tools elsewhere. UltraEval-Audio comes equipped with eight commonly used evaluation methods (e.g., WER, WER-ZH, BLEU, G-Eval), meeting your needs whether they are rule-based or model-driven.
+- Powerful and User-Friendly 🛠️: Supports preview testing, random sampling, error retries, and checkpoint resuming, ensuring a flexible and controllable evaluation process while improving efficiency and accuracy.
+- Seamless Custom Dataset Integration 💼: Not only does it support public benchmarks, but it also provides robust custom dataset functionality, enabling quick application in various engineering scenarios.
+- Easy Integration with Existing Systems 🔗: With excellent scalability and standardized design, UltraEval-Audio can seamlessly integrate even if you already have a well-established evaluation system, simplifying project management and delivering unified, standardized results.
+
 # Leaderboard
 > **Audio Understanding LLM**: Speech + Text → Text
 >
@@ -8,7 +21,7 @@
 
 ## Audio Understanding LLM Leaderboard
 
-| rank | model                   | asr | ast |
+| Rank | Model                   | ASR | AST |
 |------|-------------------------|-----|-----|
 | 🏅   | MiniCPM-o 2.6           | 96  | 38  |
 | 🥈   | Gemini-1.5-Pro          | 94  | 35  |
@@ -21,7 +34,7 @@
 ## Aduio Understanding and Generation LLM Leaderboard
 
 
-| rank | model           | Semantic | Acoustic | AudioArena |
+| Rank | Model           | Semantic | Acoustic | AudioArena |
 |------|-----------------|----------|----------|------------|
 | 🏅   | GPT-4o-Realtime | 67       | 84       | 1200       |
 | 🥈   | MiniCPM-o 2.6   | 48       | 80       | 1131       |
@@ -44,14 +57,6 @@
 # Changelog🔥
 - [2025/01/13] release v1.0.0
 
-# Overview
-
-AudioEvals is an open-source framework designed for the evaluation of large audio models (Audio LLMs).
-With this tool, you can easily evaluate any Audio LLM in one go.
-
-Not only do we offer a ready-to-use solution that includes a collection of
-audio benchmarks and evaluation methodologies, but we also provide the capability for
-you to customize your evaluations.
 
 
 # Quick Start
@@ -91,7 +96,6 @@ python audio_evals/main.py --dataset KeSpeech-sample --model gemini-pro
 # eval qwen2-audio  offline model in local
 pip install -r requirments-offline-model.txt
 python audio_evals/main.py --dataset KeSpeech-sample --model qwen2-audio-offline
-
 
 ```
 
