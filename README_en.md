@@ -258,10 +258,23 @@ eval your dataset: [docs/how add a dataset.md](docs%2Fhow%20add%20a%20dataset.md
 
 The `--model` parameter allows you to specify which model to use for evaluation. The following options are available:
 
-- `qwen2-audio`: Use the Qwen2 Audio model.
-- `gemini-pro`: Use the Gemini 1.5 Pro model.
+- `gpt4o_audio`: Use the gpt-4o-realtime-preview-2024-10-01 audio to text modal model.
+- `gpt4o_speech`: Use the gpt-4o-realtime-preview-2024-10-01 audio to speech modal model.
+- `gpt4o_audio_ms`: Use the gpt-4o-realtime-preview-2024-10-01(in AZURE)  audio to text modal model.
+- `gpt4o_speech_ms`: Use the gpt-4o-realtime-preview-2024-10-01(in AZURE)  audio to speech modal model.
+- `gpt4o_speech`: Use the Ggpt-4o-realtime-preview-2024-10-01 audio to speech modal model.
+- `gemini-pro`: Use the Gemini Pro model.
+- `gemini-1.5-pro`: Use the Gemini 1.5 Pro model.
 - `gemini-1.5-flash`: Use the Gemini 1.5 Flash model.
-- `qwen-audio`: Use the qwen2-audio-instruct Audio API model.
+- `gemini-2.0-flash-exp`: Use the Gemini 2.0 Flash model.
+- `qwen-audio`: Use the qwen-audio-chat API model.
+- `qwen2-audio-offline`: Use the Qwen2-Audio-7B offline model.
+- `qwen2-audio-chat`: Use the Qwen2-Audio-7B-Instruct offline model.
+- `qwen-audio-chat-offline`: Use the Qwen-Audio-Chat offline model.
+- `qwen-audio-pretrain-offline`: Use the Qwen-Audio offline model.
+- `ultravox`: Use the ultravox-v0_4 offline model.
+
+> offline speech2speech models(e.g. glm4voice,mini-omni...) coming soon...
 
 eval your model: [docs/how eval your model.md](docs%2Fhow%20eval%20your%20model.md)
 

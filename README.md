@@ -259,10 +259,24 @@ python audio_evals/main.py --dataset <dataset_name> --model <model_name>
 
 `--model` 指定要评测的模型，支持的模型如下:
 
-- `qwen2-audio`: Use the Qwen2 Audio model.
-- `gemini-pro`: Use the Gemini 1.5 Pro model.
-- `gemini-1.5-flash`: Use the Gemini 1.5 Flash model.
-- `qwen-audio`: Use the qwen2-audio-instruct Audio API model.
+- **`gpt4o_audio`**：使用 `gpt-4o-realtime-preview-2024-10-01` 的音频转文本模态模型。
+- **`gpt4o_speech`**：使用 `gpt-4o-realtime-preview-2024-10-01` 的音频转语音模态模型。
+- **`gpt4o_audio_ms`**：使用 `gpt-4o-realtime-preview-2024-10-01`（在 AZURE 上）的音频转文本模态模型。
+- **`gpt4o_speech_ms`**：使用 `gpt-4o-realtime-preview-2024-10-01`（在 AZURE 上）的音频转语音模态模型。
+- **`gpt4o_speech`**：使用 `Ggpt-4o-realtime-preview-2024-10-01` 的音频转语音模态模型。
+- **`gemini-pro`**：使用 `Gemini Pro` 模型。
+- **`gemini-1.5-pro`**：使用 `Gemini 1.5 Pro` 模型。
+- **`gemini-1.5-flash`**：使用 `Gemini 1.5 Flash` 模型。
+- **`gemini-2.0-flash-exp`**：使用 `Gemini 2.0 Flash` 模型。
+- **`qwen-audio`**：使用 `qwen-audio-chat`  API 模型。
+- **`qwen2-audio-offline`**：使用 `Qwen2-Audio-7B` 离线模型。
+- **`qwen2-audio-chat`**：使用 `Qwen2-Audio-7B-Instruct` 离线模型。
+- **`qwen-audio-chat-offline`**：使用 `Qwen-Audio-Chat` 离线模型。
+- **`qwen-audio-pretrain-offline`**：使用 `Qwen-Audio` 离线模型。
+- **`ultravox`**：使用 `ultravox-v0_4` 离线模型。
+
+> speech2speech 模型(glm4voice,mini-omni...)稍后支持。
+
 
 评测你自己的模型 [docs/how eval your model.md](docs%2Fhow%20eval%20your%20model.md)
 
