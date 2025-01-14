@@ -2,7 +2,7 @@
 ![assets/logo.png](assets/logo.png)
  <h4 align="center">
     <p>
-        <b>中文</b> | <a href="https://github.com/OpenBMB/UltraEval-Audio/blob/main/README-en.md">English</a> |
+        <b>中文</b> | <a href="https://github.com/OpenBMB/UltraEval-Audio/blob/main/README_en.md">English</a> |
 <a href="https://discord.gg/PHGy66QP" target="_blank">💬discord</a>
  </h4>
 
