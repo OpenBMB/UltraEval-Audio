@@ -89,6 +89,8 @@ pip install -r requirments.txt
 ```bash
 export PYTHONPATH=$PWD:$PYTHONPATH
 
+# 针对部分地区可能需要加速下载 需要设置：export HF_ENDPOINT=https://hf-mirror.com
+
 # 测试GPT-4o-Realtime语音理解能力
 export OPENAI_API_KEY=$your-key
 python audio_evals/main.py --dataset sample --model gpt4o_audio
