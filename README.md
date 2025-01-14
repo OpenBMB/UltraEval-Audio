@@ -8,11 +8,11 @@
 
 UltraEval-Audio -- the world's first open-source framework that simultaneously supports both **speech understanding and speech generation** evaluation, specifically designed for assessing large audio models. It integrates 34 authoritative benchmarks, covering four major fields: speech, sound, healthcare, and music, supporting ten languages and twelve types of tasks. With UltraEval-Audio, you will experience unprecedented convenience and efficiency:
 
-- One-Click Benchmark Management 📥: Say goodbye to tedious manual downloads and data processing. UltraEval-Audio automates all of this, allowing you to easily access the benchmark test data you need.
-- Built-In Evaluation Tools ⚙️: No need to search for evaluation tools elsewhere. UltraEval-Audio comes equipped with eight commonly used evaluation methods (e.g., WER, WER-ZH, BLEU, G-Eval), meeting your needs whether they are rule-based or model-driven.
-- Powerful and User-Friendly 🛠️: Supports preview testing, random sampling, error retries, and checkpoint resuming, ensuring a flexible and controllable evaluation process while improving efficiency and accuracy.
-- Seamless Custom Dataset Integration 💼: Not only does it support public benchmarks, but it also provides robust custom dataset functionality, enabling quick application in various engineering scenarios.
-- Easy Integration with Existing Systems 🔗: With excellent scalability and standardized design, UltraEval-Audio can seamlessly integrate even if you already have a well-established evaluation system, simplifying project management and delivering unified, standardized results.
+- **One-Click Benchmark Management 📥**: Say goodbye to tedious manual downloads and data processing. UltraEval-Audio automates all of this, allowing you to easily access the benchmark test data you need.
+- **Built-In Evaluation Tools ⚙️**: No need to search for evaluation tools elsewhere. UltraEval-Audio comes equipped with eight commonly used evaluation methods (e.g., WER, WER-ZH, BLEU, G-Eval), meeting your needs whether they are rule-based or model-driven.
+- **Powerful and User-Friendly 🛠️**: Supports preview testing, random sampling, error retries, and checkpoint resuming, ensuring a flexible and controllable evaluation process while improving efficiency and accuracy.
+- **Seamless Custom Dataset Integration 💼**: Not only does it support public benchmarks, but it also provides robust custom dataset functionality, enabling quick application in various engineering scenarios.
+- **Easy Integration with Existing Systems 🔗**: With excellent scalability and standardized design, UltraEval-Audio can seamlessly integrate even if you already have a well-established evaluation system, simplifying project management and delivering unified, standardized results.
 
 # Leaderboard
 > **Audio Understanding LLM**: Speech + Text → Text
