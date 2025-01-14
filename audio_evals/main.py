@@ -19,7 +19,7 @@ def get_args():
     parser.add_argument("--post_process", default="")
     parser.add_argument("--save", default="")
     parser.add_argument("--registry_path", default="")
-    parser.add_argument("--debug_mode", type=int, default=0)
+    parser.add_argument("--debug_mode", type=int, default=1)
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--rand", type=int, default=0)
 

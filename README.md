@@ -1,25 +1,35 @@
 
 ![assets/logo.png](assets/logo.png)
+ <h4 align="center">
+    <p>
+        <b>中文</b> | <a href="https://github.com/OpenBMB/UltraEval-Audio/blob/main/README-en.md">English</a> |
+<a href="https://discord.gg/PHGy66QP" target="_blank">💬discord</a>
+ </h4>
+
 
 # Overview
 
+### 🚀超凡体验，尽在UltraEval-Audio🚀
 
-🚀 Exceptional Experience with UltraEval-Audio 🚀
+UltraEval-Audio——全球首个同时支持语音理解和语音生成评估的开源框架，专为语音大模型评估打造，集合了34项权威Benmark，覆盖语音、声音、医疗及音乐四大领域，支持十种语言，涵盖十二类任务。选择UltraEval-Audio，您将体验到前所未有的便捷与高效：
 
-UltraEval-Audio -- the world's first open-source framework that simultaneously supports both **speech understanding and speech generation** evaluation, specifically designed for assessing large audio models. It integrates 34 authoritative benchmarks, covering four major fields: speech, sound, healthcare, and music, supporting ten languages and twelve types of tasks. With UltraEval-Audio, you will experience unprecedented convenience and efficiency:
-
-- **One-Click Benchmark Management 📥**: Say goodbye to tedious manual downloads and data processing. UltraEval-Audio automates all of this, allowing you to easily access the benchmark test data you need.
-- **Built-In Evaluation Tools ⚙️**: No need to search for evaluation tools elsewhere. UltraEval-Audio comes equipped with eight commonly used evaluation methods (e.g., WER, WER-ZH, BLEU, G-Eval), meeting your needs whether they are rule-based or model-driven.
-- **Powerful and User-Friendly 🛠️**: Supports preview testing, random sampling, error retries, and checkpoint resuming, ensuring a flexible and controllable evaluation process while improving efficiency and accuracy.
-- **Seamless Custom Dataset Integration 💼**: Not only does it support public benchmarks, but it also provides robust custom dataset functionality, enabling quick application in various engineering scenarios.
-- **Easy Integration with Existing Systems 🔗**: With excellent scalability and standardized design, UltraEval-Audio can seamlessly integrate even if you already have a well-established evaluation system, simplifying project management and delivering unified, standardized results.
+- **一键式基准管理 📥**：告别繁琐的手动下载与数据处理，UltraEval-Audio为您自动化完成这一切，轻松获取所需基准测试数据。
+- **内置评估利器 ⚙️**：无需再四处搜寻评估工具，UltraEval-Audio内置八种常用的评估方法（如WER、WER-ZH、BLEU、G-Eval），无论是基于规则还是模型驱动，都能满足您的需求。
+- **功能强大，灵活易用 🛠️**：支持预览测试、随机样本、错误重试、断点重跑等功能，确保评估过程灵活可控，提升效率与准确性。
+- **无缝集成自定义数据集 💼**：不仅支持公开benchmark，还提供强大的自定义数据集功能，让您在各种工程场景下也能迅速应用。
+- **轻松对接现有系统 🔗**：具备优秀的扩展性和标准化设计，即使您已拥有一套完善的评估体系，UltraEval-Audio也能无缝对接，简化项目管理流程，输出结果统一规范。
 
 # Leaderboard
+
 > **Audio Understanding LLM**: Speech + Text → Text
 >
-> **Aduio Understanding and Generation LLM**: Speech → Speech
+> **Audio Generation LLM**: Speech → Speech
+
+<div style="display: flex;">
+  <div style="flex: 1; margin-right: 10px;">
 
 ## Audio Understanding LLM Leaderboard
+
 
 | Rank | Model                   | ASR | AST |
 |------|-------------------------|-----|-----|
@@ -30,9 +40,10 @@ UltraEval-Audio -- the world's first open-source framework that simultaneously s
 | 5    | Gemini-1.5-Flash        | 49  | 21  |
 | 6    | Qwen-Audio-Chat         | 3   | 12  |
 
+  </div>
+  <div style="flex: 1;">
 
-## Aduio Understanding and Generation LLM Leaderboard
-
+## Audio Generation LLM Leaderboard
 
 | Rank | Model           | Semantic | Acoustic | AudioArena |
 |------|-----------------|----------|----------|------------|
@@ -44,6 +55,10 @@ UltraEval-Audio -- the world's first open-source framework that simultaneously s
 | 6    | Moshi           | 27       | 68       | 865        |
 
 
+</div>
+</div>
+
+
 <table>
 <tr>
 <td><img src="assets/audio_understanding_leaderboard.png" alt="图片 1 描述"></td>
@@ -51,61 +66,58 @@ UltraEval-Audio -- the world's first open-source framework that simultaneously s
 </tr>
 </table>
 
-# Support datasets
+# 支持数据集
 
 ![assets/dataset_distribute.png](assets/dataset_distribute.png)
-# Changelog🔥
+# 更新日志🔥
 - [2025/01/13] release v1.0.0
 
 
 
-# Quick Start
+# 快速上手
 
-## ready env
+## 环境准备
 ```shell
-git clone https://github.com//AduioEval.git
-cd AduioEval
+git clone https://github.com/OpenBMB/UltraEval-Audio.git
+cd UltraEval-Audio
 conda create -n aduioeval python=3.10 -y
 conda activate aduioeval
 pip install -r requirments.txt
 ```
 
-## run
+## 运行示例
 ```bash
 export PYTHONPATH=$PWD:$PYTHONPATH
 
-# eval gpt-4o-realtime text modal model
+# 测试GPT-4o-Realtime语音理解能力
 export OPENAI_API_KEY=$your-key
-python audio_evals/main.py --dataset KeSpeech-sample --model gpt4o_audio
+python audio_evals/main.py --dataset sample --model gpt4o_audio
 
-# eval gpt-4o-realtime audio modal model
+# 测试GPT-4o-Realtime语音理解能力
 export OPENAI_API_KEY=$your-key
-python audio_evals/main.py --dataset KeSpeech-sample --model gpt4o_speech
+python audio_evals/main.py --dataset llama-questions-s2t --model gpt4o_speech
 
-# you can use gpt-4o-realtime in AZURE
-export AZURE_OPENAI_URL=$your-key
-export AZURE_OPENAI_API_KEY=$your-key
-python audio_evals/main.py --dataset KeSpeech-sample --model gpt4o_speech
-
-
-# eval gemini model
+# 测试gemini-1.5-pro语音理解能力
 export GOOGLE_API_KEY=$your-key
-python audio_evals/main.py --dataset KeSpeech-sample --model gemini-pro
+python audio_evals/main.py --dataset sample --model gemini-pro
 
 
-# eval qwen2-audio  offline model in local
+# 测试qwen2-audio-offline语音理解能力
 pip install -r requirments-offline-model.txt
-python audio_evals/main.py --dataset KeSpeech-sample --model qwen2-audio-offline
+python audio_evals/main.py --dataset sample --model qwen2-audio-chat
 
 ```
 
 ## res
 
-After program executed, you will get the performance in console and detail result as below:
+评测完毕，结果文件如下:
 
 ```txt
 - res
-    |-- $time-$name-$dataset.jsonl
+    |-- $model-name
+        |-- $dataset
+            |-- $time.jsonl
+            |-- $time-overview.jsonl
 ```
 
 
@@ -113,16 +125,20 @@ After program executed, you will get the performance in console and detail resul
 
 ![assets/img_1.png](assets/img_1.png)
 
-To run the evaluation script, use the following command:
+评测命令:
 
 ```bash
 python audio_evals/main.py --dataset <dataset_name> --model <model_name>
 ```
 
-## Dataset Options
+## 数据集选择
 
-The `--dataset` parameter allows you to specify which dataset to use for evaluation. The following options are available:
+`--dataset` 指定要评测的数据集，支持的数据集如下:
 
+- `speech-chatbot-alpaca-eval`
+- `llama-questions`
+- `speech-web-questions`
+- `speech-triviaqa`
 - `tedlium-release1`
 - `tedlium-release2`
 - `tedlium-release3`
@@ -195,57 +211,60 @@ The `--dataset` parameter allows you to specify which dataset to use for evaluat
 - `cv-15-yue`
 
 
-### support dataset detail
-| <dataset_name>    | name                     | task                              | domain             | metric     |
-|-------------------|--------------------------|-----------------------------------|--------------------|------------|
-| tedlium-*         | tedlium                  | ASR(Automatic Speech Recognition) | speech             | wer        |
-| clotho-aqa        | ClothoAQA                | AQA(AudioQA)                      | sound              | acc        |
-| catdog            | catdog                   | AQA                               | sound              | acc        |
-| mls-*             | multilingual_librispeech | ASR                               | speech             | wer        |
-| KeSpeech          | KeSpeech                 | ASR                               | speech             | cer        |
-| librispeech-*     | librispeech              | ASR                               | speech             | wer        |
-| fleurs-*          | FLEURS                   | ASR                               | speech             | wer        |
-| aisheel1          | AISHELL-1                | ASR                               | speech             | wer        |
-| WenetSpeech-*     | WenetSpeech              | ASR                               | speech             | wer        |
-| covost2-*         | covost2                  | STT(Speech Text Translation)      | speech             | BLEU       |
-| GTZAN             | GTZAN                    | MQA(MusicQA)                      | music              | acc        |
-| TESS              | TESS                     | EMO(emotional recognition)        | speech             | acc        |
-| nsynth            | nsynth                   | MQA                               | music              | acc        |
-| meld-emo          | meld                     | EMO                               | speech             | acc        |
-| meld-sentiment    | meld                     | SEN(sentiment recognition)        | speech             | acc        |
-| ravdess-emo       | ravdess                  | EMO                               | speech             | acc        |
-| ravdess-gender    | ravdess                  | GEND(gender recognition)          | speech             | acc        |
-| COVID-recognizer  | COVID                    | MedicineCls                       | medicine           | acc        |
-| respiratory-*     | respiratory              | MedicineCls                       | medicine           | acc        |
-| audio-MNIST       | audio-MNIST              | AQA                               | speech             | acc        |
-| heartbeat_sound   | heartbeat                | MedicineCls                       | medicine           | acc        |
-| vocalsound        | vocalsound               | MedicineCls                       | medicine           | acc        |
-| voxceleb*         | voxceleb                 | GEND                              | speech             | acc        |
-| chord-recognition | chord                    | MQA                               | music              | acc        |
-| wavcaps-*         | wavcaps                  | AC(AudioCaption)                  | sound              | acc        |
-| air-foundation    | AIR-BENCH                | AC,GEND,MQA,EMO                   | sound,music,speech | acc        |
-| air-chat          | AIR-BENCH                | AC,GEND,MQA,EMO                   | sound,music,speech | GPT4-score |
-| desed             | desed                    | AQA                               | sound              | acc        |
-| peoples-speech    | peoples-speech           | ASR                               | speech             | wer        |
-| gigaspeech        | gigaspeech               | ASR                               | speech             | wer        |
-| cv-15-*           | common voice 15          | ASR                               | speech             | wer        |
+### 数据集详细说明
+| <dataset_name>             | name                       | task                              | domain             | metric     |
+|----------------------------|----------------------------|-----------------------------------|--------------------|------------|
+| speech-chatbot-alpaca-eval | speech-chatbot-alpaca-eval | SpeechQA                          | speech2speech      | GPT-score  |
+| llama-questions            | llama-questions            | SpeechQA                          | speech2speech      | acc        |
+| speech-web-questions       | speech-web-questions       | SpeechQA                          | speech2speech      | acc        |
+| speech-triviaqa            | speech-triviaqa            | SpeechQA                          | speech2speech      | acc        |
+| tedlium-*                  | tedlium                    | ASR(Automatic Speech Recognition) | speech             | wer        |
+| clotho-aqa                 | ClothoAQA                  | AQA(AudioQA)                      | sound              | acc        |
+| catdog                     | catdog                     | AQA                               | sound              | acc        |
+| mls-*                      | multilingual_librispeech   | ASR                               | speech             | wer        |
+| KeSpeech                   | KeSpeech                   | ASR                               | speech             | cer        |
+| librispeech-*              | librispeech                | ASR                               | speech             | wer        |
+| fleurs-*                   | FLEURS                     | ASR                               | speech             | wer        |
+| aisheel1                   | AISHELL-1                  | ASR                               | speech             | wer        |
+| WenetSpeech-*              | WenetSpeech                | ASR                               | speech             | wer        |
+| covost2-*                  | covost2                    | STT(Speech Text Translation)      | speech             | BLEU       |
+| GTZAN                      | GTZAN                      | MQA(MusicQA)                      | music              | acc        |
+| TESS                       | TESS                       | EMO(emotional recognition)        | speech             | acc        |
+| nsynth                     | nsynth                     | MQA                               | music              | acc        |
+| meld-emo                   | meld                       | EMO                               | speech             | acc        |
+| meld-sentiment             | meld                       | SEN(sentiment recognition)        | speech             | acc        |
+| ravdess-emo                | ravdess                    | EMO                               | speech             | acc        |
+| ravdess-gender             | ravdess                    | GEND(gender recognition)          | speech             | acc        |
+| COVID-recognizer           | COVID                      | MedicineCls                       | medicine           | acc        |
+| respiratory-*              | respiratory                | MedicineCls                       | medicine           | acc        |
+| audio-MNIST                | audio-MNIST                | AQA                               | speech             | acc        |
+| heartbeat_sound            | heartbeat                  | MedicineCls                       | medicine           | acc        |
+| vocalsound                 | vocalsound                 | MedicineCls                       | medicine           | acc        |
+| voxceleb*                  | voxceleb                   | GEND                              | speech             | acc        |
+| chord-recognition          | chord                      | MQA                               | music              | acc        |
+| wavcaps-*                  | wavcaps                    | AC(AudioCaption)                  | sound              | acc        |
+| air-foundation             | AIR-BENCH                  | AC,GEND,MQA,EMO                   | sound,music,speech | acc        |
+| air-chat                   | AIR-BENCH                  | AC,GEND,MQA,EMO                   | sound,music,speech | GPT4-score |
+| desed                      | desed                      | AQA                               | sound              | acc        |
+| peoples-speech             | peoples-speech             | ASR                               | speech             | wer        |
+| gigaspeech                 | gigaspeech                 | ASR                               | speech             | wer        |
+| cv-15-*                    | common voice 15            | ASR                               | speech             | wer        |
 
-eval your dataset: [docs/how add a dataset.md](docs%2Fhow%20add%20a%20dataset.md)
+构造你自己的数据集: [docs/how add a dataset.md](docs%2Fhow%20add%20a%20dataset.md)
 
 
-### Model Options
+### 模型选择
 
-The `--model` parameter allows you to specify which model to use for evaluation. The following options are available:
+`--model` 指定要评测的模型，支持的模型如下:
 
 - `qwen2-audio`: Use the Qwen2 Audio model.
 - `gemini-pro`: Use the Gemini 1.5 Pro model.
 - `gemini-1.5-flash`: Use the Gemini 1.5 Flash model.
 - `qwen-audio`: Use the qwen2-audio-instruct Audio API model.
 
-eval your model: [docs/how eval your model.md](docs%2Fhow%20eval%20your%20model.md)
+评测你自己的模型 [docs/how eval your model.md](docs%2Fhow%20eval%20your%20model.md)
 
 # Contact us
-If you have questions, suggestions, or feature requests regarding AudioEvals, please submit GitHub Issues to jointly build an open and transparent UltraEval evaluation community.
+如果你有任何建议或疑问可以提issue或者加入discord群组: https://discord.gg/PHGy66QP
 
-
-# Citation**
+# Citation

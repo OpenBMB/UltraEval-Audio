@@ -1,9 +1,0 @@
-llama-questions:
-  class: audio_evals.dataset.huggingface.Huggingface
-  args:
-    default_task: loose-aqa
-    name: fixie-ai/llama-questions
-    split: test
-    ref_col: answer
-    col_aliases:
-      question: QuestionText

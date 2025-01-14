@@ -1,0 +1,15 @@
+sample:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr-zh
+    name: TwinkStart/sample
+    split: sample
+    ref_col: Text
+
+sample-en:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: asr
+    name: TwinkStart/sample
+    split: sample-en
+    ref_col: Text
