@@ -97,24 +97,24 @@ python audio_evals/main.py --dataset catdog --model gpt4o_audio
 
 # eval gpt-4o-realtime audio modal model
 export OPENAI_API_KEY=$your-key
-python audio_evals/main.py --dataset llama-questions --model gpt4o_speech
+python audio_evals/main.py --dataset llama-questions-s2t --model gpt4o_speech
 
 # you can use gpt-4o-realtime in AZURE
 export AZURE_OPENAI_URL=$your-key
 export AZURE_OPENAI_API_KEY=$your-key
-python audio_evals/main.py --dataset catdog --model gpt4o_speech
+python audio_evals/main.py --dataset catdog --model gpt4o_speech_ms
 
 
-# eval gemini model
+# eval gemini-1.5-pro model
 export GOOGLE_API_KEY=$your-key
 python audio_evals/main.py --dataset catdog --model gemini-pro
 
 
 # eval qwen2-audio  offline model in local
 pip install -r requirments-offline-model.txt
-python audio_evals/main.py --dataset KeSpeech-sample --model qwen2-audio-chat
-
+CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset sample --model qwen2-audio-chat
 ```
+If you encounter an error, you can first check [FAQ](FAQ.md)
 
 ## res
 

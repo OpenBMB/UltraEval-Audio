@@ -106,9 +106,9 @@ python audio_evals/main.py --dataset sample --model gemini-pro
 
 # 测试qwen2-audio-offline语音理解能力
 pip install -r requirments-offline-model.txt
-python audio_evals/main.py --dataset sample --model qwen2-audio-chat
-
+CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset sample --model qwen2-audio-chat
 ```
+遇到报错可以先看[常见问题](FAQ.md)
 
 ## res
 
