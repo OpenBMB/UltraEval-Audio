@@ -95,7 +95,7 @@ export PYTHONPATH=$PWD:$PYTHONPATH
 export OPENAI_API_KEY=$your-key
 python audio_evals/main.py --dataset sample --model gpt4o_audio
 
-# 测试GPT-4o-Realtime语音理解能力
+# 测试GPT-4o-Realtime语音生成能力
 export OPENAI_API_KEY=$your-key
 python audio_evals/main.py --dataset llama-questions-s2t --model gpt4o_speech
 
