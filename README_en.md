@@ -60,6 +60,7 @@ UltraEval-Audio -- the world's first open-source framework that simultaneously s
 </div>
 </div>
 
+> For detailed performance metrics of audio LLMs, please refer to [leaderboard.md](assets/leaderboard.md)
 
 <table>
 <tr>
@@ -278,8 +279,9 @@ The `--model` parameter allows you to specify which model to use for evaluation.
 
 eval your model: [docs/how eval your model.md](docs%2Fhow%20eval%20your%20model.md)
 
+# Acknowledgement
+
+We refer to `registry` code in [evals](https://github.com/openai/evals)
+
 # Contact us
 If you have any questions, suggestions, or feature requests related to AudioEvals, we encourage you to submit GitHub Issues to help us collaboratively build an open and transparent UltraEval evaluation community. Alternatively, you can join our Discord group: https://discord.gg/PHGy66QP.
-
-
-# Citation

@@ -58,6 +58,8 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
 </div>
 </div>
 
+> 详细模型指标见[leaderboard.md](assets/leaderboard.md)
+
 
 <table>
 <tr>
@@ -280,7 +282,9 @@ python audio_evals/main.py --dataset <dataset_name> --model <model_name>
 
 评测你自己的模型 [docs/how eval your model.md](docs%2Fhow%20eval%20your%20model.md)
 
-# Contact us
-如果你有任何建议或疑问可以提issue或者加入discord群组: https://discord.gg/PHGy66QP
+# 致谢
 
-# Citation
+我们参考了[evals](https://github.com/openai/evals) 中`registry`代码
+
+# 联系我们
+如果你有任何建议或疑问可以提issue或者加入discord群组: https://discord.gg/PHGy66QP
