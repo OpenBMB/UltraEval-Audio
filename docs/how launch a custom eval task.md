@@ -76,5 +76,5 @@ qwen_pretrain_asr_tractor_zh:
 
 ### launch
 ```shell
-python audio_evals/main.py --dataset local-fleurs-zh --model qwen2-audio-offline --prompt qwen2-audio-pretrain-asr-zh --post_process qwen_pretrain_asr_tractor_zh
+python audio_evals/main.py --dataset fleurs-zh --model qwen2-audio-offline --prompt qwen2-audio-pretrain-asr-zh --post_process qwen_pretrain_asr_tractor_zh
 ```
