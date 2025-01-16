@@ -3,5 +3,5 @@ gigaspeech:
   args:
     default_task: asr
     name: speechcolab/gigaspeech
-    split: test
+    subset: test
     ref_col: text

@@ -44,7 +44,11 @@ def load_audio_hf_dataset(name, subset=None, split="", local_path="", col_aliase
             load_args["name"] = subset
         if split:
             load_args["split"] = split
-        ds = load_dataset(**load_args)
+        try:
+            ds = load_dataset(**load_args, trust_remote_code=True)
+        except Exception as e:
+            logger.error(f"load args is {load_args}load dataset error: {e}")
+            raise e
 
     for k, v in col_aliases.items():
         if v in ds.column_names:
@@ -78,7 +82,7 @@ class Huggingface(BaseDataset):
         subset: Optional[str] = None,
         split: str = "",
         local_path: str = "",
-        col_aliases: Dict[str, str] = None
+        col_aliases: Dict[str, str] = None,
     ):
         super().__init__(default_task, ref_col, col_aliases)
         self.name = name
