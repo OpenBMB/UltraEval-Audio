@@ -1,5 +1,30 @@
 
-# Benchmarks in Leaderboard
+# UltraEval-Audio Leaderboard
+
+## Audio Understanding LLM Leaderboard
+
+
+| Rank | Model                   | ASR | AST |
+|------|-------------------------|-----|-----|
+| 🏅   | MiniCPM-o 2.6           | 96  | 38  |
+| 🥈   | Gemini-1.5-Pro          | 94  | 35  |
+| 🥉   | qwen2-audio-instruction | 94  | 31  |
+| 4    | GPT-4o-Realtime         | 92  | 26  |
+| 5    | Gemini-1.5-Flash        | 49  | 21  |
+| 6    | Qwen-Audio-Chat         | 3   | 12  |
+
+
+## Audio Generation LLM Leaderboard
+
+| Rank | Model           | Semantic | Acoustic | AudioArena |
+|------|-----------------|----------|----------|------------|
+| 🏅   | GPT-4o-Realtime | 67       | 84       | 1200       |
+| 🥈   | MiniCPM-o 2.6   | 48       | 80       | 1131       |
+| 🥉   | GLM-4-Voice     | 42       | 82       | 1035       |
+| 4    | Mini-Omni       | 16       | 64       | 897        |
+| 5    | Llama-Omni      | 29       | 54       | 875        |
+| 6    | Moshi           | 27       | 68       | 865        |
+
 
 
 > [AudioArena](https://huggingface.co/spaces/openbmb/AudioArena) an open platform that enables users
