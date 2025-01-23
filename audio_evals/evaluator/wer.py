@@ -1,5 +1,3 @@
-from jiwer import cer
-
 from audio_evals.evaluator.base import Evaluator
 from audio_evals.lib.wer import compute_wer
 
@@ -23,4 +21,4 @@ class CER(Evaluator):
         pred, label = str(pred), str(label)
         if self.ignore_case:
             pred, label = pred.lower(), label.lower()
-        return {"cer%": cer(label, pred) * 100}
+        return {"cer%": compute_wer([label], [pred], language="zh") * 100}

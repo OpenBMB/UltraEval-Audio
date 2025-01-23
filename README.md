@@ -11,7 +11,7 @@
 
 ### 🚀超凡体验，尽在UltraEval-Audio🚀
 
-UltraEval-Audio——全球首个同时支持语音理解和语音生成评估的开源框架，专为语音大模型评估打造，集合了34项权威Benmark，覆盖语音、声音、医疗及音乐四大领域，支持十种语言，涵盖十二类任务。选择UltraEval-Audio，您将体验到前所未有的便捷与高效：
+UltraEval-Audio——全球首个同时支持语音理解和语音生成评估的开源框架，专为语音大模型评估打造，集合了34项权威Benchmark，覆盖语音、声音、医疗及音乐四大领域，支持十种语言，涵盖十二类任务。选择UltraEval-Audio，您将体验到前所未有的便捷与高效：
 
 - **一键式基准管理 📥**：告别繁琐的手动下载与数据处理，UltraEval-Audio为您自动化完成这一切，轻松获取所需基准测试数据。
 - **内置评估利器 ⚙️**：无需再四处搜寻评估工具，UltraEval-Audio内置八种常用的评估方法（如WER、WER-ZH、BLEU、G-Eval），无论是基于规则还是模型驱动，都能满足您的需求。
@@ -92,6 +92,9 @@ pip install -r requirments.txt
 export PYTHONPATH=$PWD:$PYTHONPATH
 
 # 针对部分地区可能需要加速下载 需要设置：export HF_ENDPOINT=https://hf-mirror.com
+# 测试MiniCPM-o 2.6语音理解能力
+pip install -r requirments/minicpm_o2_6.txt
+CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset sample --prompt mini-cpm-omni-asr-zh --model MiniCPMo2_6-audio
 
 # 测试GPT-4o-Realtime语音理解能力
 export OPENAI_API_KEY=$your-key

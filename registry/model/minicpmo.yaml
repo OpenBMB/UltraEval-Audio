@@ -1,0 +1,17 @@
+MiniCPMo2_6-audio:
+  class: audio_evals.models.mini_cpm.MiniCPMoAudio
+  args:
+    path: openbmb/MiniCPM-o-2_6
+    sample_params:
+      sampling: false
+      num_beams: 5
+      max_new_tokens: 128
+
+MiniCPMo2_6-speech:
+  class: audio_evals.models.mini_cpm.MiniCPMoSpeech
+  args:
+    path: openbmb/MiniCPM-o-2_6
+    sample_params:
+      sampling: True
+      max_new_tokens: 512
+      temperature: 0.3

@@ -4,10 +4,10 @@ mini-cpm-omni-asr-zh:
     template:
     - role: user
       contents:
-      - type: audio
-        value: '{{WavPath}}'
       - type: text
         value: '请仔细听取音频片段，并将内容准确记录下来。'
+      - type: audio
+        value: '{{WavPath}}'
 
 mini-cpm-omni-asr-en:
   class: audio_evals.prompt.base.Prompt
@@ -15,10 +15,11 @@ mini-cpm-omni-asr-en:
     template:
     - role: user
       contents:
-      - type: audio
-        value: '{{WavPath}}'
       - type: text
         value: 'Please listen to the audio snippet carefully and transcribe the content. Please output in lower case.'
+      - type: audio
+        value: '{{WavPath}}'
+
 
 mini-cpm-omni-ast-en:
   class: audio_evals.prompt.base.Prompt
@@ -26,10 +27,10 @@ mini-cpm-omni-ast-en:
     template:
     - role: user
       contents:
-      - type: audio
-        value: '{{WavPath}}'
       - type: text
         value: 'Please listen to the audio snippet carefully and transcribe the content.'
+      - type: audio
+        value: '{{WavPath}}'
 
 mini-cpm-omni-emotion_analysis:
   class: audio_evals.prompt.base.Prompt
@@ -37,27 +38,29 @@ mini-cpm-omni-emotion_analysis:
     template:
     - role: user
       contents:
-      - type: audio
-        value: '{{WavPath}}'
-      - type: text
-        value: '
+        - type: text
+          value: '
           listen the audio and judge the emotion of the speaker, the answer must be
           one of [surprise,anger,neutral,joy,sadness,fear,disgust], answer without
           explain
           '
+        - type: audio
+          value: '{{WavPath}}'
+
 mini-cpm-omni-sentiment_analysis:
   class: audio_evals.prompt.base.Prompt
   args:
     template:
     - role: user
       contents:
-      - type: audio
-        value: '{{WavPath}}'
-      - type: text
-        value: '
-          listen the audio and judge the sentiment of the speaker, the answer must
-          be one of [positive,negative,neutral], answer without explain
-          '
+        - type: text
+          value: '
+            listen the audio and judge the sentiment of the speaker, the answer must
+            be one of [positive,negative,neutral], answer without explain
+            '
+        - type: audio
+          value: '{{WavPath}}'
+
 
 mini-cpm-omni-caption:
   class: audio_evals.prompt.base.Prompt
@@ -65,98 +68,98 @@ mini-cpm-omni-caption:
     template:
     - role: user
       contents:
-      - type: audio
-        value: '{{WavPath}}'
-      - type: text
-        value: '
-          please listen carefully to the content of the audio and roughly guess and
-          summarize what the sound is doing. Only output the content of the audio
-          without other explain.
-          '
+        - type: text
+          value: '
+            please listen carefully to the content of the audio and roughly guess and
+            summarize what the sound is doing. Only output the content of the audio
+            without other explain.
+            '
+        - type: audio
+          value: '{{WavPath}}'
+
 mini-cpm-omni-gender_analysis:
   class: audio_evals.prompt.base.Prompt
   args:
     template:
     - role: user
       contents:
-      - type: audio
-        value: '{{WavPath}}'
-      - type: text
-        value: '
-
+        - type: text
+          value: '
           listen the audio and judge the gender of the speaker, the answer must be
           one of [female, male], using only 1 word, answer without explain
-
           '
+        - type: audio
+          value: '{{WavPath}}'
+
 mini-cpm-omni-audioset_label:
   class: audio_evals.prompt.base.Prompt
   args:
     template:
     - role: user
       contents:
-      - type: audio
-        value: '{{WavPath}}'
-      - type: text
-        value: '
-
+        - type: text
+          value: '
           Use one or a few keywords to describe the content or scene of this audio.
-
           '
+        - type: audio
+          value: '{{WavPath}}'
+
 mini-cpm-omni-catdog_identify:
   class: audio_evals.prompt.base.Prompt
   args:
     template:
     - role: user
       contents:
-      - type: audio
-        value: '{{WavPath}}'
-      - type: text
-        value: '
+        - type: text
+          value: '
           Listen to the audio and determine if it''s a dog or a cat. The answer must
           be one of the following: [dog, cat]. Provide the answer without explanation.
           '
+        - type: audio
+          value: '{{WavPath}}'
+
 mini-cpm-omni-desed_sound_analysis:
   class: audio_evals.prompt.base.Prompt
   args:
     template:
     - role: user
       contents:
-      - type: audio
-        value: '{{WavPath}}'
-      - type: text
-        value: '
-
+        - type: text
+          value: '
           listen the audio and judge the sound, the answer must be one of [''Speech'',
           ''Frying'', ''Dishes'', ''Running_water'', ''Blender'', ''Electric_shaver_toothbrush'',
           ''Cat'', ''Alarm_bell_ringing'', ''Dog'', ''Vacuum_cleaner''], answer without
           explain
-
           '
+        - type: audio
+          value: '{{WavPath}}'
+
 mini-cpm-omni-vocalsound_analysis:
   class: audio_evals.prompt.base.Prompt
   args:
     template:
     - role: user
       contents:
-      - type: audio
-        value: '{{WavPath}}'
-      - type: text
-        value: '
+        - type: text
+          value: '
           Based on the speaker''s content, speculate on their health status. The answer
           must be one of [Cough,Sigh,Throat clearing,Sneeze,Laughter,Sniff], answer
           without explain
           '
+        - type: audio
+          value: '{{WavPath}}'
+
 mini-cpm-omni-ravdess_emotion_analysis:
   class: audio_evals.prompt.base.Prompt
   args:
     template:
     - role: user
       contents:
-      - type: audio
-        value: '{{WavPath}}'
-      - type: text
-        value: '
+        - type: text
+          value: '
           listen the audio and judge the emotion of the speaker, the answer must be
           one of [neutral,calm,happy,sad,angry,fearful,disgust,surprised], answer
           without explain
           '
+        - type: audio
+          value: '{{WavPath}}'
