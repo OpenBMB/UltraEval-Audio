@@ -27,6 +27,26 @@
 | 6    | Moshi           | 27       | 68       | 865        |
 
 
+## Models details
+
+> Currently, some famous audio LLMs, such as Step-1o-Audio by StepFun and ByteDance's Doubao,
+> are product-level offerings that do not provide external API access.
+> Additionally, Gemini-2.0-Exp is still in the experimental phase and does not offer standard API capabilities(only 2 QPM).
+> As a result, these models are not included in the evaluation.
+
+| Models                  | Organization | Open-Source | Audio Understanding | Audio Generation | Languages        | Notes (Evaluation of closed-source models may be affected by security reviews, so evaluation dates are specified)               |
+|:------------------------|:-------------|:------------|:--------------------|:-----------------|:-----------------|:--------------------------------------------------------------------------------------------------------------------------------|
+| MiniCPM-o 2.6           | OpenBMB      | Yes         | ✅                   | ✅                | Chinese, English |                                                                                                                                 |
+| GPT-4o-Realtime         | OpenAI       | No          | ✅                   | ✅                | Multilingual     | Model version evaluated: preview-2024-10-01. Audio Understanding evaluation date: 2024-12-23. Audio Generation date: 2024-10-29 |
+| Gemini-1.5-Pro          | GOOGLE       | No          | ✅                   | ❌                | Multilingual     | Evaluation date: 2024-12-16                                                                                                     |
+| Qwen2-Audio-Instruction | ALI          | Yes         | ✅                   | ❌                | Multilingual     |                                                                                                                                 |
+| Gemini-1.5-Flash        | GOOGLE       | No          | ✅                   | ❌                | Multilingual     | Evaluation date: 2024-12-18                                                                                                     |
+| Qwen-Audio-Chat         | ALI          | Yes         | ✅                   | ❌                | Multilingual     |                                                                                                                                 |
+| GLM-4-Voice             | ZhiPu        | Yes         | ❌                   | ✅                | Chinese, English |                                                                                                                                 |
+| LLama-Omni              | ITCNLP       | Yes         | ❌                   | ✅                | English          |                                                                                                                                 |
+| Mini-Omni               | gpt-omni     | Yes         | ❌                   | ✅                | English          |                                                                                                                                 |
+| Moshi                   | Kyutai       | Yes         | ❌                   | ✅                | English          |                                                                                                                                 |
+
 
 > [AudioArena](https://huggingface.co/spaces/openbmb/AudioArena) an open platform that enables users
 > to compare the performance of speech large language models through blind testing and voting, providing a fair
