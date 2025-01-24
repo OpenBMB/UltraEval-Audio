@@ -96,6 +96,9 @@ export PYTHONPATH=$PWD:$PYTHONPATH
 pip install -r requirments/minicpm_o2_6.txt
 CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset sample --prompt mini-cpm-omni-asr-zh --model MiniCPMo2_6-audio
 
+# 测试MiniCPM-o 2.6语音生成能力
+CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset llama-questions-s2t --model MiniCPMo2_6-speech
+
 # 测试GPT-4o-Realtime语音理解能力
 export OPENAI_API_KEY=$your-key
 python audio_evals/main.py --dataset sample --model gpt4o_audio

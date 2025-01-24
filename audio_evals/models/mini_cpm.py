@@ -59,6 +59,10 @@ class MiniCPMoAudio(Model):
 
 
 class MiniCPMoSpeech(MiniCPMoAudio):
+    def __init__(self, path: str, sample_params: Dict[str, any] = None):
+        super().__init__(path, sample_params)
+        self.model.config.stream_input = True
+
     def _inference(self, prompt: PromptStruct, **kwargs) -> str:
         sys_msg = {
             "role": "user",
