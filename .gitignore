@@ -1,4 +1,5 @@
 # 忽略操作系统生成的文件
+tests/
 *.DS_Store
 .DS_Store
 ._*

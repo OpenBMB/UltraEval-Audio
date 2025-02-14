@@ -1,5 +1,6 @@
 import json
 import traceback
+from concurrent.futures import as_completed, ThreadPoolExecutor
 from functools import lru_cache
 from typing import Dict, List, Tuple, Union
 
@@ -66,39 +67,58 @@ class EvalTask:
         self.recorder.add({"type": "eval", "id": idx, "data": score})
         return score, output
 
+    def _run(self, i, doc):
+        """单个任务处理逻辑"""
+        real_prompt = self.prompt.load(**doc)
+        try:
+            score, ans = self._eval(
+                i, real_prompt, doc.get(self.dataset.ref_col, ""), **doc
+            )
+            return i, score, ans, 0
+        except Exception:
+            error_traceback = traceback.format_exc()
+            self.recorder.add(
+                {"type": "error", "id": i, "data": {"info": error_traceback}}
+            )
+            print(error_traceback)
+            return i, None, None, 1
+
     @lru_cache(maxsize=None)
-    def run(self, limit=None, rand_size=None) -> Tuple[ScoreUnit, List[ScoreUnit], List[str]]:
+    def run(
+        self, limit=None, rand_size=None, max_workers=1
+    ) -> Tuple[ScoreUnit, List[ScoreUnit], List[str]]:
         """
         eval
         :param :
         :return:
         """
-        res, answers = [], []
         quiz = self.dataset.load(limit)
         if limit:
             quiz = quiz[:limit]
         if rand_size:
             import random
+
             quiz = random.sample(quiz, rand_size)
 
+        res = [None] * len(quiz)
+        answers = [None] * len(quiz)
         error_count = 0
-        for i, doc in tqdm(enumerate(quiz), total=len(quiz)):
-            real_prompt = self.prompt.load(**doc)
-            try:
-                score, ans = self._eval(
-                    i, real_prompt, doc.get(self.dataset.ref_col, ""), **doc
-                )
-            except Exception:
-                error_traceback = traceback.format_exc()
-                self.recorder.add(
-                    {"type": "error", "id": i, "data": {"info": error_traceback}}
-                )
-                print(error_traceback)
-                error_count += 1
-                continue
-            res.append(score)
-            answers.append(ans)
 
+        # 使用进程池并控制最大并发量
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            future_to_index = [
+                executor.submit(self._run, i, doc) for i, doc in enumerate(quiz)
+            ]
+            for future in tqdm(as_completed(future_to_index), total=len(quiz)):
+                index, score, ans, has_error = future.result()
+                error_count += has_error
+                if score is not None and ans is not None:
+                    res[index] = score
+                    answers[index] = ans
+
+        res, answers = [item for item in res if item is not None], [
+            item for item in answers if item is not None
+        ]
         final_res = self.agg(res)
         final_res["fail_rate(%d)"] = error_count / len(quiz) * 100
         return final_res, res, answers

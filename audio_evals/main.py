@@ -22,6 +22,7 @@ def get_args():
     parser.add_argument("--debug_mode", type=int, default=0)
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--rand", type=int, default=0)
+    parser.add_argument("--workers", type=int, default=1)
 
     args = parser.parse_args()
     args.post_process = args.post_process.split()
@@ -72,12 +73,13 @@ def main():
         agg=registry.get_agg(task_cfg.agg),
         recorder=Recorder(args.save),
     )
-    res = t.run(args.limit, args.rand)
+    res = t.run(args.limit, args.rand, args.workers)
     with open(overall_save, "w") as f:
         f.write(str(res[0]))
     with open(args.save, "r") as f:
         print(f.read())
     print(res[0])
+    print(f"Results saved to {args.save}")
 
 
 # Press the green button in the gutter to run the script.
