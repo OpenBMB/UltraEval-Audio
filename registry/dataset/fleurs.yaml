@@ -1,7 +1,7 @@
 fleurs-zh:
   class: audio_evals.dataset.huggingface.Huggingface
   args:
-    cfg: cmn_hans_cn
+    subset: cmn_hans_cn
     default_task: asr-zh
     name: google/fleurs
     ref_col: raw_transcription
@@ -9,7 +9,7 @@ fleurs-zh:
 fleurs-hi_in:
   class: audio_evals.dataset.huggingface.Huggingface
   args:
-    cfg: hi_in
+    subset: hi_in
     default_task: asr
     name: google/fleurs
     ref_col: raw_transcription
@@ -17,7 +17,7 @@ fleurs-hi_in:
 fleurs-de_de:
   class: audio_evals.dataset.huggingface.Huggingface
   args:
-    cfg: de_de
+    subset: de_de
     default_task: asr
     name: google/fleurs
     ref_col: raw_transcription
@@ -25,7 +25,7 @@ fleurs-de_de:
 fleurs-ja_jp:
   class: audio_evals.dataset.huggingface.Huggingface
   args:
-    cfg: ja_jp
+    subset: ja_jp
     default_task: asr-jp
     name: google/fleurs
     ref_col: raw_transcription
@@ -33,7 +33,7 @@ fleurs-ja_jp:
 fleurs-ru_ru:
   class: audio_evals.dataset.huggingface.Huggingface
   args:
-    cfg: ru_ru
+    subset: ru_ru
     default_task: asr
     name: google/fleurs
     ref_col: raw_transcription
@@ -41,7 +41,7 @@ fleurs-ru_ru:
 fleurs-en_us:
   class: audio_evals.dataset.huggingface.Huggingface
   args:
-    cfg: en_us
+    subset: en_us
     default_task: asr
     name: google/fleurs
     ref_col: raw_transcription
@@ -49,7 +49,7 @@ fleurs-en_us:
 fleurs-fa_ir:
   class: audio_evals.dataset.huggingface.Huggingface
   args:
-    cfg: fa_ir
+    subset: fa_ir
     default_task: asr
     name: google/fleurs
     ref_col: raw_transcription
@@ -57,7 +57,7 @@ fleurs-fa_ir:
 fleurs-ar_eg:
   class: audio_evals.dataset.huggingface.Huggingface
   args:
-    cfg: ar_eg
+    subset: ar_eg
     default_task: asr
     name: google/fleurs
     ref_col: raw_transcription
@@ -65,7 +65,7 @@ fleurs-ar_eg:
 fleurs-fr_fr:
   class: audio_evals.dataset.huggingface.Huggingface
   args:
-    cfg: fr_fr
+    subset: fr_fr
     default_task: asr
     name: google/fleurs
     ref_col: raw_transcription
@@ -73,7 +73,7 @@ fleurs-fr_fr:
 fleurs-ko_kr:
   class: audio_evals.dataset.huggingface.Huggingface
   args:
-    cfg: ko_kr
+    subset: ko_kr
     default_task: asr
     name: google/fleurs
     ref_col: raw_transcription
