@@ -1,5 +1,5 @@
 gigaspeech:
-  class: audio_evals.dataset.huggingface.Huggingface
+  class: audio_evals.dataset.giga.GigaSpeechDataset
   args:
     default_task: asr
     name: speechcolab/gigaspeech
