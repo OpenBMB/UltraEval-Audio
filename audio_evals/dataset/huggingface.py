@@ -21,6 +21,9 @@ def save_audio_to_local(ds: Dataset, save_path: str):
     def save_audio(example):
         audio_array = example["audio"]["array"]
         output_path = os.path.join(save_path, example["audio"]["path"])
+        file_name, file_extension = os.path.splitext(output_path)
+        if file_extension != ".wav":
+            output_path = file_name + ".wav"
         example["WavPath"] = output_path
         d = os.path.dirname(output_path)
         os.makedirs(d, exist_ok=True)
