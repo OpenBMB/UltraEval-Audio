@@ -1,9 +1,9 @@
 import logging
 from typing import List, Dict
 from audio_evals.dataset.huggingface import Huggingface, load_audio_hf_dataset
+from huggingface_hub import login
 
 logger = logging.getLogger(__name__)
-
 
 conversational_filler = [
     "UH",
@@ -57,6 +57,10 @@ def asr_text_post_processing(text):
 
 
 class GigaSpeechDataset(Huggingface):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        logger.info(f"very import!!!  GigaSpeech need to login to huggingface hub")
+        login()
 
     def load(self, limit=0) -> List[Dict[str, any]]:
         logger.info(
