@@ -18,12 +18,9 @@ def save_audio_to_local(ds: Dataset, save_path: str):
     :return:
     """
 
-    def save_audio(example):
+    def save_audio(example, index):
         audio_array = example["audio"]["array"]
-        output_path = os.path.join(save_path, example["audio"]["path"])
-        file_name, file_extension = os.path.splitext(output_path)
-        if file_extension != ".wav":
-            output_path = file_name + ".wav"
+        output_path = os.path.join(save_path, f"{index}.wav")
         example["WavPath"] = output_path
         d = os.path.dirname(output_path)
         os.makedirs(d, exist_ok=True)
@@ -32,7 +29,7 @@ def save_audio_to_local(ds: Dataset, save_path: str):
             logger.info(f"save audio to {output_path}")
         return example
 
-    ds = ds.map(save_audio)
+    ds = ds.map(save_audio, with_indices=True)
     return ds
 
 
@@ -71,7 +68,14 @@ def load_audio_hf_dataset(name, subset=None, split="", local_path="", col_aliase
     if isinstance(ds, DatasetDict):
         result = []
         for k in ds:
-            result.extend(load_audio_hf_dataset(name, k))
+            reload_ds = {
+                "name": name,
+                "subset": subset,
+                "split": k,
+                "local_path": local_path,
+                "col_aliases": col_aliases,
+            }
+            result.extend(load_audio_hf_dataset(**reload_ds))
         return result
     return conv2ds(ds)
 
