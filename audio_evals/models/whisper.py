@@ -50,5 +50,7 @@ class WhisperModel(Model):
             torch_dtype=self.torch_dtype,
             device=self.device,
         )
-        result = pipe(audio, return_timestamps=True, **kwargs)
+        if "return_timestamps" not in kwargs:
+            kwargs["return_timestamps"] = True
+        result = pipe(audio, **kwargs)
         return result["text"]
