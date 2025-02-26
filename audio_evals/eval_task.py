@@ -14,6 +14,7 @@ from audio_evals.models.model import Model
 from audio_evals.process.base import Process
 from audio_evals.prompt.base import Prompt
 from audio_evals.recorder import Recorder
+from audio_evals.utils import merge_data4view
 
 
 def extract_score(s: str):
@@ -119,6 +120,9 @@ class EvalTask:
         res, answers = [item for item in res if item is not None], [
             item for item in answers if item is not None
         ]
+        merge_data4view(
+            quiz, self.recorder.name, self.recorder.name.replace(".jsonl", ".xlsx")
+        )
         final_res = self.agg(res)
         final_res["fail_rate(%d)"] = error_count / len(quiz) * 100
         return final_res, res, answers

@@ -16,7 +16,7 @@ def get_args():
     parser.add_argument("--prompt", default="")
     parser.add_argument("--evaluator", default="")
     parser.add_argument("--agg", default="")
-    parser.add_argument("--post_process", default="")
+    parser.add_argument("--post_process", nargs="+", default=[])
     parser.add_argument("--save", default="")
     parser.add_argument("--registry_path", default="")
     parser.add_argument("--debug_mode", type=int, default=0)
@@ -25,7 +25,6 @@ def get_args():
     parser.add_argument("--workers", type=int, default=1)
 
     args = parser.parse_args()
-    args.post_process = args.post_process.split()
     return args
 
 

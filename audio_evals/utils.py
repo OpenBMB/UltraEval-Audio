@@ -3,8 +3,11 @@ import functools
 import importlib
 import logging
 import os
+import re
 import time
 import typing
+
+import pandas as pd
 
 from audio_evals.base import EarlyStop
 
@@ -125,3 +128,34 @@ def decode_base64_to_file(data_uri, output_path):
         print(f"File successfully saved to {output_path}")
     except Exception as e:
         print(f"Error decoding Base64 to file: {e}")
+
+
+def clean_illegal_chars(text):
+    if isinstance(text, str):
+        # 移除控制字符（ASCII码小于32的字符）
+        return re.sub(r"[\x00-\x1F\x7F]", "", text)
+    return text
+
+
+def merge_data4view(
+    quiz: typing.List[dict], eval_df: typing.Union[pd.DataFrame, str], save_name
+):
+    quiz = pd.DataFrame(quiz)
+    quiz["id"] = range(len(quiz))
+    if isinstance(eval_df, str):
+        eval_df = pd.read_json(eval_df, lines=True)
+
+    def concat_gdf(gdf):
+        r = {}
+        for i in gdf.index:
+            if "content" in gdf.loc[i, "data"]:
+                r[gdf.loc[i, "type"]] = gdf.loc[i, "data"]["content"]
+            else:
+                r.update(gdf.loc[i, "data"])
+        return r
+
+    real_eval = eval_df.groupby("id").apply(concat_gdf).apply(pd.Series)
+    real_eval = real_eval.reset_index()
+    df = pd.merge(quiz, real_eval, on="id", how="left")
+    df = df.applymap(clean_illegal_chars)
+    df.to_excel(save_name, index=False)
