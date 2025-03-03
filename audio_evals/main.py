@@ -23,6 +23,7 @@ def get_args():
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--rand", type=int, default=0)
     parser.add_argument("--workers", type=int, default=1)
+    parser.add_argument("--resume", type=str, default="")
 
     args = parser.parse_args()
     return args
@@ -53,6 +54,9 @@ def main():
         registry.add_registry_paths(paths)
 
     dataset = registry.get_dataset(args.dataset)
+    if args.resume:
+        logger.info(f"Resuming from {args.resume}")
+        dataset = dataset.resume_from(args.resume)
     task_cfg = registry.get_eval_task(dataset.task_name)
     if args.task:
         task_cfg = registry.get_eval_task(args.task)

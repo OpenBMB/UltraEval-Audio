@@ -38,7 +38,7 @@ class JsonExtract(Process):
     otherwise raise a KeyError.
     """
 
-    def __init__(self, extract_key: str, default_value: str = None):
+    def __init__(self, extract_key: str = None, default_value: str = None):
         """
         Initialize the JsonExtract process.
         Args:
@@ -61,11 +61,17 @@ class JsonExtract(Process):
 
         """
         if isinstance(answer, str):
-            d = json.loads(answer.strip())
+            try:
+                d = json.loads(answer.strip())
+            except Exception as e:
+                logger.warning(f"load json `{answer}` fail: {str(e)}")
+                return answer
         elif isinstance(answer, dict):
             d = answer
         else:
-            raise ValueError("answer must be a string or a dict")
+            raise ValueError(f"Unsupported answer type: {type(answer)}")
+        if self.extract_key is None:
+            return d
 
         if self.default_value is not None:
             return d.get(self.extract_key, self.default_value)
