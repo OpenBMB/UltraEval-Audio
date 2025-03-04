@@ -68,10 +68,14 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
 </tr>
 </table>
 
-# 支持数据集
+    # 支持数据集
 
 ![assets/dataset_distribute.png](assets/dataset_distribute.png)
 # 更新日志🔥
+- [2025/03/04]
+  - 支持断点[续评] [resume evaluation](docs/Procedures for Restarting an Incomplete Evaluation.md), 命令行参数 `--resume $checkpoint_res_file`
+  - glm-4-voice服务部署，支持UltraEval-Audio评测, 详情见[GLM-4-Voice](https://github.com/UltraEval/GLM-4-Voice)
+  - 并行评测支持，命令行参数 `--workers $num_workers`
 - [2025/01/13] release v1.0.0
 
 

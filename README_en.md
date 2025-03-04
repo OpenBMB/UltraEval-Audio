@@ -73,6 +73,10 @@ UltraEval-Audio -- the world's first open-source framework that simultaneously s
 
 ![assets/dataset_distribute.png](assets/dataset_distribute.png)
 # Changelog🔥
+- [2025/03/04]
+  - support [resume evaluation](docs/Procedures for Restarting an Incomplete Evaluation.md) with `--resume $checkpoint_res_file`
+  - release glm-4-voice server for UltraEval-Audio: [GLM-4-Voice](https://github.com/UltraEval/GLM-4-Voice)
+  - support parallel evaluation with `--workers $num_workers`
 - [2025/01/13] release v1.0.0
 
 
