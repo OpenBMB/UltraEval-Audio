@@ -1,0 +1,15 @@
+tencent-zh:
+  class: audio_evals.models.asr.tencent.TencentASRModel
+  args:
+    secret_id:
+    secret_key:
+    sample_params:
+      EngSerViceType: 16k_zh
+
+tencent-en:
+  class: audio_evals.models.asr.tencent.TencentASRModel
+  args:
+    secret_id:
+    secret_key:
+    sample_params:
+      EngSerViceType: 16k_en
