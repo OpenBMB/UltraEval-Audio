@@ -120,7 +120,7 @@ python audio_evals/main.py --dataset sample --model gemini-pro
 pip install -r requirments-offline-model.txt
 CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset sample --model qwen2-audio-chat
 ```
-遇到报错可以先看[常见问题](FAQ.md)
+遇到报错或者不能复现Mini-CPM-o 2.6的结果，可以先看[常见问题](FAQ.md)
 
 ## res
 
