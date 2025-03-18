@@ -21,3 +21,4 @@ regex
 openai
 websockets==12.0
 pydub
+openpyxl
