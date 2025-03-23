@@ -37,8 +37,9 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
 | 🥈   | Gemini-1.5-Pro          | 94  | 35  |
 | 🥉   | qwen2-audio-instruction | 94  | 31  |
 | 4    | GPT-4o-Realtime         | 92  | 26  |
-| 5    | Gemini-1.5-Flash        | 49  | 21  |
-| 6    | Qwen-Audio-Chat         | 3   | 12  |
+| 5    | Step-Audio-Chat         | 93  | 20  |
+| 6    | Gemini-1.5-Flash        | 49  | 21  |
+| 7    | Qwen-Audio-Chat         | 3   | 12  |
 
   </div>
   <div style="flex: 1;">
@@ -48,11 +49,12 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
 | Rank | Model           | Semantic | Acoustic | AudioArena |
 |------|-----------------|----------|----------|------------|
 | 🏅   | GPT-4o-Realtime | 67       | 84       | 1200       |
-| 🥈   | MiniCPM-o 2.6   | 48       | 80       | 1131       |
-| 🥉   | GLM-4-Voice     | 42       | 82       | 1035       |
-| 4    | Mini-Omni       | 16       | 64       | 897        |
-| 5    | Llama-Omni      | 29       | 54       | 875        |
-| 6    | Moshi           | 27       | 68       | 865        |
+| 🥈   | Step-Audio-Chat | 48       | 88       | -          |
+| 🥉   | MiniCPM-o 2.6   | 48       | 80       | 1131       |
+| 4    | GLM-4-Voice     | 42       | 82       | 1035       |
+| 5    | Mini-Omni       | 16       | 64       | 897        |
+| 6    | Llama-Omni      | 29       | 54       | 875        |
+| 7    | Moshi           | 27       | 68       | 865        |
 
 
 </div>
@@ -72,6 +74,10 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
 
 ![assets/dataset_distribute.png](assets/dataset_distribute.png)
 # 更新日志🔥
+- [2025/03/23]
+  - 新增支持step-audio模型评测和排名
+    - 排名详情见：[leaderboard.md](assets/leaderboard.md)
+    - 评测支持：[Step-Audio-Chat](https://github.com/UltraEval/Step-Audio)
 - [2025/03/04]
   - 支持断点[续评] [resume evaluation](docs/Procedures for Restarting an Incomplete Evaluation.md), 命令行参数 `--resume $checkpoint_res_file`
   - glm-4-voice服务部署，支持UltraEval-Audio评测, 详情见[GLM-4-Voice](https://github.com/UltraEval/GLM-4-Voice)

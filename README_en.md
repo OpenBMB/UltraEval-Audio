@@ -39,23 +39,26 @@ UltraEval-Audio -- the world's first open-source framework that simultaneously s
 | 🥈   | Gemini-1.5-Pro          | 94  | 35  |
 | 🥉   | qwen2-audio-instruction | 94  | 31  |
 | 4    | GPT-4o-Realtime         | 92  | 26  |
-| 5    | Gemini-1.5-Flash        | 49  | 21  |
-| 6    | Qwen-Audio-Chat         | 3   | 12  |
+| 5    | Step-Audio-Chat         | 93  | 20  |
+| 6    | Gemini-1.5-Flash        | 49  | 21  |
+| 7    | Qwen-Audio-Chat         | 3   | 12  |
+
 
   </div>
   <div style="flex: 1;">
 
 ## Audio Generation LLM Leaderboard
 
+
 | Rank | Model           | Semantic | Acoustic | AudioArena |
 |------|-----------------|----------|----------|------------|
 | 🏅   | GPT-4o-Realtime | 67       | 84       | 1200       |
-| 🥈   | MiniCPM-o 2.6   | 48       | 80       | 1131       |
-| 🥉   | GLM-4-Voice     | 42       | 82       | 1035       |
-| 4    | Mini-Omni       | 16       | 64       | 897        |
-| 5    | Llama-Omni      | 29       | 54       | 875        |
-| 6    | Moshi           | 27       | 68       | 865        |
-
+| 🥈   | Step-Audio-Chat | 48       | 88       | -          |
+| 🥉   | MiniCPM-o 2.6   | 48       | 80       | 1131       |
+| 4    | GLM-4-Voice     | 42       | 82       | 1035       |
+| 5    | Mini-Omni       | 16       | 64       | 897        |
+| 6    | Llama-Omni      | 29       | 54       | 875        |
+| 7    | Moshi           | 27       | 68       | 865        |
 
 </div>
 </div>
@@ -73,6 +76,10 @@ UltraEval-Audio -- the world's first open-source framework that simultaneously s
 
 ![assets/dataset_distribute.png](assets/dataset_distribute.png)
 # Changelog🔥
+- [2025/03/23]
+  - support for evaluating and ranking the step-audio model:
+    - Ranking details can be found here: [leaderboard.md](assets/leaderboard.md)
+    - Evaluation support: [Step-Audio-Chat](https://github.com/UltraEval/Step-Audio)
 - [2025/03/04]
   - support [resume evaluation](docs/Procedures for Restarting an Incomplete Evaluation.md) with `--resume $checkpoint_res_file`
   - release glm-4-voice server for UltraEval-Audio: [GLM-4-Voice](https://github.com/UltraEval/GLM-4-Voice)
@@ -119,7 +126,7 @@ python audio_evals/main.py --dataset catdog --model gemini-pro
 pip install -r requirments-offline-model.txt
 CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset sample --model qwen2-audio-chat
 ```
-If you encounter an error, you can first check [FAQ](FAQ.md)
+If you encounter any errors or are unable to reproduce the results of Mini-CPM-o 2.6, you can first check [FAQ](FAQ.md)
 
 ## res
 
