@@ -17,3 +17,12 @@ direct-aqa:
         contents:
           - type: audio
             value: "{{WavPath}}"
+
+text-aqa:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: text
+            value: "{{question_text}}"
