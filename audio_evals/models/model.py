@@ -1,4 +1,5 @@
 import logging
+import threading
 from abc import ABC, abstractmethod
 from copy import deepcopy
 from typing import Dict
@@ -31,6 +32,17 @@ class Model(ABC):
         sample_params.update(kwargs)
         logger.debug(f"sample_params: {sample_params}\nprompt: {prompt}")
         return self._inference(prompt, **sample_params)
+
+
+class OfflineModel(Model, ABC):
+
+    def __init__(self, is_chat: bool, sample_params: Dict[str, any] = None):
+        super().__init__(is_chat, sample_params)
+        self.lock = threading.Lock()
+
+    def inference(self, prompt: PromptStruct, **kwargs) -> str:
+        with self.lock:
+            return super().inference(prompt, **kwargs)
 
 
 class APIModel(Model, ABC):

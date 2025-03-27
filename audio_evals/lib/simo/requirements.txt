@@ -1,0 +1,8 @@
+librosa
+omegaconf
+pyyaml
+s3prl
+torch==2.2.0
+torchaudio
+tqdm
+transformers

@@ -11,4 +11,4 @@ extract_text:
 speech2text:
   class: audio_evals.process.speech.Speech2text
   args:
-    whisper_model: whisper
+    model_name: whisper

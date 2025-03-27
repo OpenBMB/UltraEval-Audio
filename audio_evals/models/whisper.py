@@ -6,12 +6,12 @@ import torch
 from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 
 from audio_evals.base import PromptStruct
-from audio_evals.models.model import Model
+from audio_evals.models.model import OfflineModel
 
 logger = logging.getLogger(__name__)
 
 
-class WhisperModel(Model):
+class WhisperModel(OfflineModel):
     def __init__(
         self,
         path: str,
