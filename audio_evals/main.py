@@ -35,7 +35,7 @@ def main():
     os.makedirs("log/", exist_ok=True)
     logging.basicConfig(
         level=logging.DEBUG if args.debug_mode else logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        format="%(asctime)s - %(name)s - %(levelname)s - %(filename)s:%(lineno)d- %(message)s",
         handlers=[
             logging.FileHandler(f"log/app-{time_id}.log"),
             logging.StreamHandler(),
@@ -47,6 +47,10 @@ def main():
     if not args.save:
         os.makedirs(f"res/{args.model}/{args.dataset}", exist_ok=True)
         args.save = f"res/{args.model}/{args.dataset}/{time_id}.jsonl"
+    else:
+        if not args.save.endswith(".jsonl"):
+            args.save = f"res/{args.model}/{args.dataset}/{args.save}.jsonl"
+        os.makedirs(os.path.dirname(args.save), exist_ok=True)
     overall_save = args.save.replace(".jsonl", "-overall.json")
 
     if args.registry_path:
