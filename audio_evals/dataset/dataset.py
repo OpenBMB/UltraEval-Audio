@@ -71,6 +71,7 @@ class RelativePath(JsonlFile):
                 return temp
             return x
 
-        df["WavPath"] = df["WavPath"].progress_apply(abs_path)
+        for item in df.columns:
+            df[item] = df[item].progress_apply(abs_path)
         df = self.add_col_alias(df)
         return df.to_dict(orient="records")
