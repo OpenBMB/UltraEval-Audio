@@ -47,7 +47,7 @@ class WER(AggPolicy):
 
 
 class PracticeWER(AggPolicy):
-    def __init__(self, need_score_col: List[str] = None, lang: str = "13a"):
+    def __init__(self, need_score_col: List[str] = None, lang: str = "en"):
         super().__init__(need_score_col)
         self.lang = lang
         if lang == "ja":
@@ -78,7 +78,7 @@ class NaiveACC(AggPolicy):
         res = {}
         for item in self.need_score_col:
             valid_l = [c[item] for c in score_detail if c.get(item) is not None]
-            res[f'{item}(%)'] = sum(valid_l) / len(valid_l) * 100
+            res[f"{item}(%)"] = sum(valid_l) / len(valid_l) * 100
         return res
 
 
