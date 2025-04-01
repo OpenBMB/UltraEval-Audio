@@ -1,0 +1,5 @@
+#git+https://github.com/huggingface/transformers@3a1ead0aabed473eafe527915eea8c197d424356
+accelerate
+qwen-omni-utils[decord]
+torchvision
+transformers
