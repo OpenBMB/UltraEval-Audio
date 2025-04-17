@@ -33,18 +33,14 @@ def compute_wer(refs, hyps, language="en"):
         ref = refs[i]
         pred = hyps[i]
 
-        if language in ["en"]:
-            ref = english_normalizer(ref)
-            pred = english_normalizer(pred)
-        elif language in ["zh"]:
+        ref = english_normalizer(ref)
+        pred = english_normalizer(pred)
+        if language in ["zh"]:
             ref = chinese_normalizer(ref)
             pred = chinese_normalizer(pred)
-        elif language in ["yue"]:
+        if language in ["yue"]:
             ref = zhconv.convert(ref, "zh-cn")
             pred = zhconv.convert(pred, "zh-cn")
-        else:
-            ref = basic_normalizer(ref)
-            pred = basic_normalizer(pred)
 
         ref_items = tokenizer.tokenize(ref).split()
         pred_items = tokenizer.tokenize(pred).split()
