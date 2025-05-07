@@ -245,7 +245,7 @@ python audio_evals/main.py --dataset <dataset_name> --model <model_name>
 | KeSpeech                   | KeSpeech                   | ASR                               | speech             | cer        |
 | librispeech-*              | librispeech                | ASR                               | speech             | wer        |
 | fleurs-*                   | FLEURS                     | ASR                               | speech             | wer        |
-| aisheel1                   | AISHELL-1                  | ASR                               | speech             | wer        |
+| aishell-1                   | AISHELL-1                  | ASR                               | speech             | wer        |
 | WenetSpeech-*              | WenetSpeech                | ASR                               | speech             | wer        |
 | covost2-*                  | covost2                    | STT(Speech Text Translation)      | speech             | BLEU       |
 | GTZAN                      | GTZAN                      | MQA(MusicQA)                      | music              | acc        |
