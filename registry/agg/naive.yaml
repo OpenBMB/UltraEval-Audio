@@ -7,7 +7,7 @@ acc:
   args: {}
 
 mean:
-  class: audio_evals.agg.base.ACC
+  class: audio_evals.agg.base.NaiveMean
   args: {}
 
 wer-zh:
@@ -19,6 +19,16 @@ wer-yue:
   class: audio_evals.agg.base.PracticeWER
   args:
     lang: yue
+
+wer-jp:
+  class: audio_evals.agg.base.PracticeWER
+  args:
+    lang: jp
+
+wer-kr:
+  class: audio_evals.agg.base.PracticeWER
+  args:
+    lang: kr
 
 wer:
   class: audio_evals.agg.base.PracticeWER
@@ -47,13 +57,13 @@ coco:
   args: {}
 
 naive-acc:
-  class: audio_evals.agg.base.NaiveACC
+  class: audio_evals.agg.base.NaiveMean
   args:
     need_score_col:
       - acc
 
 geval:
-  class: audio_evals.agg.base.NaiveACC
+  class: audio_evals.agg.base.NaiveMean
   args:
     need_score_col:
       - geval

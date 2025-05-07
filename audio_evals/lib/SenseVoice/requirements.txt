@@ -1,0 +1,10 @@
+fastapi>=0.111.1
+funasr
+funasr>=1.1.3
+gradio
+huggingface
+huggingface_hub
+modelscope
+numpy<=1.26.4
+torch<=2.3
+torchaudio

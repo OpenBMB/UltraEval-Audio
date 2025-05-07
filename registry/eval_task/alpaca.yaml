@@ -16,3 +16,13 @@ glm-alpaca-eval:
     post_process: ['extract_audio', 'speech2text']
     evaluator: chatbot_eval
     agg: geval
+
+glm-alpaca-eval-s2t:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: speech-chatbot-alpaca-eval
+    prompt: direct-aqa
+    model: qwen-audio-chat
+    post_process: []
+    evaluator: chatbot_eval
+    agg: geval

@@ -1,0 +1,103 @@
+qwen-omni-asr-en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: system
+      contents: 'You are a speech recognition model.'
+    - role: user
+      contents:
+      - type: text
+        value: 'Transcribe the English audio into text without any punctuation marks.'
+      - type: audio
+        value: '{{WavPath}}'
+
+qwen-omni-asr-zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: system
+      contents: 'You are a speech recognition model.'
+    - role: user
+      contents:
+      - type: text
+        value: '请将这段中文语音转换为纯文本，去掉标点符号。'
+      - type: audio
+        value: '{{WavPath}}'
+
+qwen-omni-asr-fr:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: system
+      contents: 'You are a speech recognition model.'
+    - role: user
+      contents:
+      - type: text
+        value: 'Transcribe the French audio into text without any punctuation marks.'
+      - type: audio
+        value: '{{WavPath}}'
+
+qwen-omni-ast-zh2en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: system
+        contents: 'You are a speech translation model.'
+      - role: user
+        contents:
+          - type: text
+            value: 'Listen to the provided Chinese speech and produce a translation in English text.'
+          - type: audio
+            value: '{{WavPath}}'
+
+qwen-omni-ast-en2zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: system
+        contents: 'You are a speech translation model.'
+      - role: user
+        contents:
+          - type: text
+            value: 'Listen to the provided English speech and produce a translation in Chinese text.'
+          - type: audio
+            value: '{{WavPath}}'
+
+qwen-omni-ast-en2de:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: system
+        contents: 'You are a speech translation model.'
+      - role: user
+        contents:
+          - type: text
+            value: 'Listen to the provided English speech and produce a translation in German text.'
+          - type: audio
+            value: '{{WavPath}}'
+
+qwen-omni-ast-de2en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: system
+        contents: 'You are a speech translation model.'
+      - role: user
+        contents:
+          - type: texts
+            value: 'Listen to the provided German speech and produce a translation in English text.'
+          - type: audio
+            value: '{{WavPath}}'
+
+qwen-omni-vocalsound_analysis:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: system
+        contents: 'You are a vocal sound classification model.'
+      - role: user
+        contents:
+          - type: text
+            value: 'Classify the given human vocal sound in English.'
+          - type: audio
+            value: '{{WavPath}}'

@@ -24,3 +24,13 @@ music_genre:
     model: qwen-audio-chat
     evaluator: prefix-match
     agg: acc
+
+
+music_tempo:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: nsyth
+    prompt: music_tempo
+    model: qwen-audio-chat
+    evaluator: em
+    agg: acc

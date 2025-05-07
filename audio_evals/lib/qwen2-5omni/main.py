@@ -1,5 +1,7 @@
 import argparse
 import json
+import select
+import sys
 import tempfile
 
 import soundfile as sf
@@ -30,16 +32,29 @@ if __name__ == "__main__":
         "--path", type=str, required=True, help="Path to checkpoint file"
     )
     parser.add_argument(
-        "--speech", type=bool, default=False, help="Whether to use speech output"
+        "--speech",
+        action="store_true",
+        default=False,
+        help="Whether to use speech output",
     )
     config = parser.parse_args()
     model, processor = load_model(config.path)
-    print("Model loaded from checkpoint: {}".format(config.path))
+    print("Model loaded from checkpoint: {}".format(config.path), flush=True)
 
     while True:
         try:
             prompt = input()
-            conversation = json.loads(prompt)
+            anchor = prompt.find("->")
+            if anchor == -1:
+                print(
+                    "Error: Invalid conversation format, must contains  ->, but {}".format(
+                        prompt
+                    ),
+                    flush=True,
+                )
+                continue
+            prefix = prompt[:anchor].strip() + "->"
+            conversation = json.loads(prompt[anchor + 2 :])
             text = processor.apply_chat_template(
                 conversation, add_generation_prompt=True, tokenize=False
             )
@@ -58,7 +73,9 @@ if __name__ == "__main__":
 
             # Inference: Generation of the output text and audio
             if config.speech:
-                text_ids, audio = model.generate(**inputs, use_audio_in_video=True)
+                text_ids, audio = model.generate(
+                    **inputs, use_audio_in_video=True, thinker_do_sample=False
+                )
                 text = processor.batch_decode(
                     text_ids,
                     skip_special_tokens=True,
@@ -70,17 +87,38 @@ if __name__ == "__main__":
                         audio.reshape(-1).detach().cpu().numpy(),
                         samplerate=24000,
                     )
-                    print("Result:" + json.dumps({"text": text[0], "audio": f.name}))
+                    while True:
+                        print(
+                            prefix + json.dumps({"text": text[0], "audio": f.name}),
+                            flush=True,
+                        )
+                        rlist, _, _ = select.select([sys.stdin], [], [], 1)
+                        if rlist:
+                            finish = sys.stdin.readline().strip()
+                            if finish == "{}close".format(prefix):
+                                break
+                        print("not found close signal, will emit again", flush=True)
+
             else:
                 text_ids = model.generate(
-                    **inputs, use_audio_in_video=True, return_audio=False
+                    **inputs,
+                    use_audio_in_video=True,
+                    return_audio=False,
+                    thinker_do_sample=False
                 )
                 text = processor.batch_decode(
                     text_ids,
                     skip_special_tokens=True,
                     clean_up_tokenization_spaces=False,
                 )
-                print("Result:" + json.dumps({"text": text[0]}))
+                while True:
+                    print(prefix + json.dumps({"text": text[0]}), flush=True)
+                    rlist, _, _ = select.select([sys.stdin], [], [], 1)
+                    if rlist:
+                        finish = sys.stdin.readline().strip()
+                        if finish == "{}close".format(prefix):
+                            break
+                    print("not found close signal, will emit again", flush=True)
         except Exception as e:
             import traceback
 

@@ -1,4 +1,6 @@
 import argparse
+import select
+import sys
 
 import torch
 import torch.nn.functional as F
@@ -29,30 +31,11 @@ def init_model(model_name, checkpoint=None):
     return model
 
 
-def verification(
-    model_name,
-    wav1,
-    wav2,
-    use_gpu=True,
-    checkpoint=None,
-    wav1_start_sr=0,
-    wav2_start_sr=0,
-    wav1_end_sr=-1,
-    wav2_end_sr=-1,
-    model=None,
-    wav2_cut_wav1=False,
-    device="cuda:0",
-):
-
-    assert model_name in MODEL_LIST, "The model_name should be in {}".format(MODEL_LIST)
-    model = init_model(model_name, checkpoint) if model is None else model
+def verification(wav1, wav2, model=None, wav2_cut_wav1=False, device="cuda:0"):
 
     wav1, sr1 = librosa.load(wav1, sr=None, mono=False)
-
-    # wav1, sr1 = sf.read(wav1)
     if len(wav1.shape) == 2:
         wav1 = wav1[0, :]  # only use one channel
-    # wav2, sr2 = sf.read(wav2)
     wav2, sr2 = librosa.load(wav2, sr=None, mono=False)
     if len(wav2.shape) == 2:
         wav2 = wav2[0, :]
@@ -63,24 +46,10 @@ def verification(
     resample2 = Resample(orig_freq=sr2, new_freq=16000)
     wav1 = resample1(wav1)
     wav2 = resample2(wav2)
-    # print(f'origin wav1 sr: {wav1.shape}, wav2 sr: {wav2.shape}')
-    if wav2_cut_wav1:
-        wav2 = wav2[..., wav1.shape[-1] :]
-    else:
-        wav1 = wav1[
-            ..., wav1_start_sr : wav1_end_sr if wav1_end_sr > 0 else wav1.shape[-1]
-        ]
-        wav2 = wav2[
-            ..., wav2_start_sr : wav2_end_sr if wav2_end_sr > 0 else wav2.shape[-1]
-        ]
-    # print(f'cutted wav1 sr: {wav1.shape}, wav2 sr: {wav2.shape}')
 
-    if use_gpu:
-        model = model.cuda(device)
-        wav1 = wav1.cuda(device)
-        wav2 = wav2.cuda(device)
+    wav1 = wav1.cuda(device)
+    wav2 = wav2.cuda(device)
 
-    model.eval()
     with torch.no_grad():
         emb1 = model(wav1)
         emb2 = model(wav2)
@@ -89,7 +58,8 @@ def verification(
     print(
         "The similarity score between two audios is {:.4f} (-1.0, 1.0).".format(
             sim[0].item()
-        )
+        ),
+        flush=True,
     )
     return sim[0].item()
 
@@ -105,20 +75,32 @@ if __name__ == "__main__":
     model_name = "wavlm_large"
     checkpoint = config.path
     model = init_model(model_name, checkpoint)
-    print(f"successfully loaded tokenizer")
+    model = model.cuda("cuda:0").eval()
+
+    print(f"successfully loaded wavlm_large model from {checkpoint}", flush=True)
 
     while True:
         try:
             prompt = input()
-            wavs = prompt.split(",")
-            sim = verification(
-                model_name,
-                wavs[0],
-                wavs[1],
-                use_gpu=torch.cuda.is_available(),
-                checkpoint=checkpoint,
-                model=model,
-            )
-            print("Result:{}".format(sim))
+            anchor = prompt.find("->")
+            if anchor == -1:
+                print(
+                    "Error: Invalid conversation format, must contains  ->, but {}".format(
+                        prompt
+                    ),
+                    flush=True,
+                )
+                continue
+            prefix = prompt[:anchor].strip() + "->"
+            wavs = prompt[anchor + 2 :].split(",")
+            sim = verification(wavs[0], wavs[1], model=model)
+            while True:
+                print("{}{}".format(prefix, str(sim)), flush=True)
+                rlist, _, _ = select.select([sys.stdin], [], [], 1)
+                if rlist:
+                    finish = sys.stdin.readline().strip()
+                    if finish == "{}close".format(prefix):
+                        break
+                print("not found close signal, will emit again", flush=True)
         except Exception as e:
-            print("Error:{}".format(e))
+            print("Error:{}".format(e), flush=True)

@@ -1,0 +1,21 @@
+kimi-audio-asr-en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      message_type: text
+      content: Please transcribe the spoken content into written text.
+    - role: user
+      message_type: audio
+      content: '{{WavPath}}'
+
+kimi-audio-asr-zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      message_type: text
+      content: 请把这段语音转录成文本。
+    - role: user
+      message_type: audio
+      content: '{{WavPath}}'

@@ -58,14 +58,17 @@ def isolated(
             # 构建命令行参数
             command_args = getattr(self, command_args_attr, {})
             args_str = " ".join(
-                [f"--{key} '{value}'" for key, value in command_args.items()]
+                [
+                    f"--{key} " if value == "" else f"--{key} '{value}'"
+                    for key, value in command_args.items()
+                ]
             )
 
             # 构建完整命令
             command = (
                 f"source {env_path}/bin/activate && "
                 f"export LD_LIBRARY_PATH={lib_path} && "
-                f"{env_path}/bin/python {script_path} {args_str}"
+                f"{env_path}/bin/python -u {script_path} {args_str}"
             )
             logger.info(f"Running command: {command}")
             self.process = subprocess.Popen(

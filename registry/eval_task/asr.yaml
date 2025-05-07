@@ -43,8 +43,8 @@ asr-jp:
     prompt: asr
     model: qwen-audio
     post_process: ['json_content']
-    evaluator: cer
-    agg: cer
+    evaluator: wer-jp
+    agg: wer-jp
 
 asr-yue:
   class: audio_evals.base.EvalTaskCfg
@@ -53,5 +53,15 @@ asr-yue:
     prompt: asr
     model: qwen-audio
     post_process: ['json_content']
-    evaluator: cer
+    evaluator: wer-yue
     agg: wer-yue
+
+asr-kr:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: KeSpeech
+    prompt: asr
+    model: qwen-audio
+    post_process: ['json_content']
+    evaluator: wer-kr
+    agg: wer-kr

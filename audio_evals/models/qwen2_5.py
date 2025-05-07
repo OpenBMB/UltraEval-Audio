@@ -23,7 +23,8 @@ class QwenOmni(OfflineModel):
             "path": path,
         }
         if speech:
-            self.command_args["speech"] = True
+            self.command_args["speech"] = ""
+
         super().__init__(is_chat=True, sample_params=sample_params)
 
     def _parse_content(self, content: Dict):
@@ -52,8 +53,18 @@ class QwenOmni(OfflineModel):
                 }
             ] + conversation
 
-        self.process.stdin.write(f"{json.dumps(conversation)}\n")
-        self.process.stdin.flush()
+        import uuid
+
+        uid = str(uuid.uuid4())
+        prefix = f"{uid}->"
+
+        while True:
+            _, wlist, _ = select.select([], [self.process.stdin], [], 60)
+            if wlist:
+                self.process.stdin.write(f"{prefix}{json.dumps(conversation)}\n")
+                self.process.stdin.flush()
+                print("already write in")
+                break
 
         while True:
             reads, _, _ = select.select(
@@ -63,12 +74,14 @@ class QwenOmni(OfflineModel):
                 if read is self.process.stdout:
                     result = self.process.stdout.readline()
                     if result:
-                        if result.startswith("Result:"):
-                            res = json.loads(result[7:])
+                        if result.startswith(prefix):
+                            self.process.stdin.write("{}close\n".format(prefix))
+                            self.process.stdin.flush()
+                            res = json.loads(result[len(prefix) :])
                             res["text"] = res["text"].split("assistant")[1].strip()
                             if len(res) == 1:
                                 return res["text"]
-                            return res
+                            return json.dumps(res, ensure_ascii=False)
                         elif result.startswith("Error:"):
                             raise RuntimeError("qwen2.5omni failed: {}".format(result))
                         else:

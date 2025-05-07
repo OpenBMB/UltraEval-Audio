@@ -13,10 +13,9 @@ class Simo(Evaluator):
 
         self.model = registry.get_model(model_name)
 
-    def _eval(self, pred, label, WavPath, **kwargs) -> Dict[str, any]:
+    def _eval(self, pred, label, **kwargs) -> Dict[str, any]:
         pred = str(pred)
-        if not os.path.exists(label) and os.path.exists(WavPath):
-            label = WavPath
+        assert os.path.exists(label), f"Label file {label} does not exist"
         return {
             "simo": self.model.inference({"audios": [pred, label]}),
             "pred": pred,

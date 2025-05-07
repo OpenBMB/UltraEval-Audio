@@ -1,0 +1,8 @@
+voxpopuli-en:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    subset: en
+    default_task: asr
+    name: facebook/voxpopuli
+    ref_col: normalized_text
+    split: test

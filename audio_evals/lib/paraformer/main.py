@@ -1,21 +1,23 @@
 import argparse
+import select
 import subprocess
+import sys
 import tempfile
 
 import soundfile
 from funasr import AutoModel
+from funasr.utils.postprocess_utils import rich_transcription_postprocess
 
 
 def get_model(path, is_streaming=False):
     model_cfg = {
-        "vad_model": "fsmn-vad",
-        "vad_model_revision": "v2.0.4",
-        "punc_model": "ct-punc-c",
-        "punc_model_revision": "v2.0.4",
+        # "vad_model": "fsmn-vad",
+        # "punc_model": "ct-punc-c",
     }
     if is_streaming:
         model_cfg = {}
-    model = AutoModel(model=path, model_revision="v2.0.4", **model_cfg)
+    print("Loading model from: {}".format(path))
+    model = AutoModel(model=path, **model_cfg)
     return model
 
 
@@ -39,6 +41,16 @@ if __name__ == "__main__":
 
     while True:
         prompt = input()
+        anchor = prompt.find("->")
+        if anchor == -1:
+            print(
+                "Error: Invalid conversation format, must contains  ->, but {}".format(
+                    prompt
+                ),
+                flush=True,
+            )
+            continue
+        prefix = prompt[:anchor].strip() + "->"
         try:
             with tempfile.NamedTemporaryFile(suffix=".wav") as wav_file:
                 subprocess.run(
@@ -46,7 +58,7 @@ if __name__ == "__main__":
                         "ffmpeg",
                         "-y",
                         "-i",
-                        prompt,
+                        prompt[len(prefix) :],
                         "-ar",
                         "16000",
                         "-ac",
@@ -78,10 +90,29 @@ if __name__ == "__main__":
                             decoder_chunk_look_back=decoder_chunk_look_back,
                         )
                         wanted += "".join([item["text"] for item in res])
-                    print("Result:{}".format(wanted))
+                        wanted = rich_transcription_postprocess(wanted)
+                    while True:
+                        print("{}{}".format(prefix, wanted))
+                        rlist, _, _ = select.select([sys.stdin], [], [], 1)
+                        if rlist:
+                            finish = sys.stdin.readline().strip()
+                            if finish == "{}close".format(prefix):
+                                break
+                        print("not found close signal, will emit again", flush=True)
                 else:
                     res = m.generate(input=wav_file.name, batch_size_s=300)
-                    print("Result:{}".format(res[0]["text"]))
+                    while True:
+                        print(
+                            "{}{}".format(
+                                prefix, rich_transcription_postprocess(res[0]["text"])
+                            )
+                        )
+                        rlist, _, _ = select.select([sys.stdin], [], [], 1)
+                        if rlist:
+                            finish = sys.stdin.readline().strip()
+                            if finish == "{}close".format(prefix):
+                                break
+                        print("not found close signal, will emit again", flush=True)
         except Exception as e:
             import traceback
 

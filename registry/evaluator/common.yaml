@@ -19,6 +19,24 @@ wer:
   args:
     ignore_case: true
 
+wer-jp:
+  class: audio_evals.evaluator.wer.WER
+  args:
+    ignore_case: true
+    lang: jp
+
+wer-kr:
+  class: audio_evals.evaluator.wer.WER
+  args:
+    ignore_case: true
+    lang: kr
+
+wer-yue:
+  class: audio_evals.evaluator.wer.WER
+  args:
+    ignore_case: true
+    lang: yue
+
 wer-sensitive-case:
   class: audio_evals.evaluator.wer.WER
   args: {}

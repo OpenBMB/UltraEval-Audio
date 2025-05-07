@@ -1,0 +1,12 @@
+yes_no_judge:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: system
+        contents:
+          - type: text
+            value: "You are a helpful assistant who tries to help answer the user's question."
+      - role: user
+        contents:
+          - type: text
+            value: "{{real_prompt}}"

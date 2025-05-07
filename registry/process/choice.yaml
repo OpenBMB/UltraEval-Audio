@@ -1,0 +1,4 @@
+first_option:
+  class: audio_evals.process.firstoption.FirstOption
+  args:
+    options: ABCD

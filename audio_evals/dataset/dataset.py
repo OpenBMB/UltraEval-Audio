@@ -16,6 +16,9 @@ class Dataset(ABC):
         self.task_name = default_task
         self.ref_col = ref_col
 
+    def reset_ref_col(self, ref_col: str):
+        self.ref_col = ref_col
+
     @abstractmethod
     def load(self, limit=0) -> List[Dict[str, any]]:
         raise NotImplementedError()

@@ -1,0 +1,326 @@
+3o-asr-zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '请仔细听取音频片段，并将内容准确记录下来。'
+3o-asr-zh-1:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '
+          请仔细听取音频片段，并将内容准确记录下来。
+          '
+3o-asr-zh-2:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '请细心听取音频内容，并将其准确转写出来。'
+
+3o-asr-zh-3:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '请认真聆听这段音频，然后将其内容转录。'
+
+3o-asr-zh-4:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '请用心听完音频，并将听到的内容完整地转录出来。'
+
+3o-asr-zh-5:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '请仔细听这段音频片段，并将其内容逐字记录。'
+
+3o-asr-zh-6:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '请耐心聆听音频片段，并将所有细节记录下来。'
+
+
+3o-asr-en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Please listen to the audio snippet carefully and transcribe the content.'
+
+3o-asr-en-1:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Please listen to the audio snippet carefully and transcribe the content.'
+
+3o-asr-en-2:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Please listen to the audio snippet carefully and transcribe the content. Please output in lower case.'
+
+3o-asr-en-3:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Carefully listen to the given audio and write down its content verbatim.'
+
+3o-asr-en-4:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Please pay close attention to the audio and transcribe what you hear accurately.'
+
+3o-asr-en-5:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Please focus on the audio clip and write down everything you hear.'
+
+3o-asr-en-6:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Please listen to the audio carefully and transcribe it with high precision'
+
+
+
+3o-emotion_analysis:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '
+
+          listen the audio and judge the emotion of the speaker, the answer must be
+          one of [surprise,anger,neutral,joy,sadness,fear,disgust], answer without
+          explain
+
+          '
+3o-sentiment_analysis:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '
+
+          listen the audio and judge the sentiment of the speaker, the answer must
+          be one of [positive,negative,neutral], answer without explain
+
+          '
+3o-caption:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '
+
+          please listen carefully to the content of the audio and roughly guess and
+          summarize what the sound is doing. Only output the content of the audio
+          without other explain.
+
+          '
+3o-sst2zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '
+
+          请将音频中的语言识别出来并翻译成汉语。
+
+          '
+3o-sst2en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '
+
+          Please listen to the audio, recognize the language, and translate it into
+          English.
+
+          '
+3o-gender_analysis:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '
+
+          listen the audio and judge the gender of the speaker, the answer must be
+          one of [female, male], using only 1 word, answer without explain
+
+          '
+3o-audioset_label:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '
+
+          Use one or a few keywords to describe the content or scene of this audio.
+
+          '
+3o-catdog_identify:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '
+
+          Listen to the audio and determine if it''s a dog or a cat. The answer must
+          be one of the following: [dog, cat]. Provide the answer without explanation.
+
+          '
+3o-desed_sound_analysis:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '
+
+          listen the audio and judge the sound, the answer must be one of [''Speech'',
+          ''Frying'', ''Dishes'', ''Running_water'', ''Blender'', ''Electric_shaver_toothbrush'',
+          ''Cat'', ''Alarm_bell_ringing'', ''Dog'', ''Vacuum_cleaner''], answer without
+          explain
+
+          '
+3o-vocalsound_analysis:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '
+
+          Based on the speaker''s content, speculate on their health status. The answer
+          must be one of [Cough,Sigh,Throat clearing,Sneeze,Laughter,Sniff], answer
+          without explain
+
+          '
+3o-ravdess_emotion_analysis:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '
+
+          listen the audio and judge the emotion of the speaker, the answer must be
+          one of [neutral,calm,happy,sad,angry,fearful,disgust,surprised], answer
+          without explain
+
+          '

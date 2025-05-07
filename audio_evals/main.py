@@ -11,6 +11,7 @@ from audio_evals.registry import registry
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", default="KeSpeech")
+    parser.add_argument("--dataset_ref_col", default="")
     parser.add_argument("--model", default="qwen-audio")
     parser.add_argument("--task", default="")
     parser.add_argument("--prompt", default="")
@@ -61,6 +62,9 @@ def main():
     if args.resume:
         logger.info(f"Resuming from {args.resume}")
         dataset = dataset.resume_from(args.resume)
+    if args.dataset_ref_col:
+        dataset.reset_ref_col(args.dataset_ref_col)
+        logger.info("reset ref col:\n{}".format(dataset))
     task_cfg = registry.get_eval_task(dataset.task_name)
     if args.task:
         task_cfg = registry.get_eval_task(args.task)

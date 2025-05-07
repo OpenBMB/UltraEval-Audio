@@ -30,3 +30,15 @@ music_genre:
             value: "{{WavPath}}"
           - type: text
             value: "Listen to the provided music clip and identify the genre. the answer must be one of [blues,classical,country,disco,hiphop,jazz,metal,pop,reggae,rock], answer without explain"
+
+
+music_tempo:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "Listen to the audio clip and determine the exact tempo (BPM). Respond only with a numerical value without explain"

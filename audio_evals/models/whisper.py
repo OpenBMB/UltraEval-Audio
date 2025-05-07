@@ -1,9 +1,7 @@
+import json
 import logging
-import re
+import select
 from typing import Dict
-
-import torch
-from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 
 from audio_evals.base import PromptStruct
 from audio_evals.models.model import OfflineModel
@@ -11,46 +9,61 @@ from audio_evals.models.model import OfflineModel
 logger = logging.getLogger(__name__)
 
 
+from audio_evals.isolate import isolated
+
+
+@isolated("audio_evals/lib/whisper/main.py")
 class WhisperModel(OfflineModel):
     def __init__(
         self,
         path: str,
         sample_params: Dict[str, any] = None,
     ):
-        super().__init__(True, sample_params)  # as a chat model
-        # Load the speech recognition model
-        self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
-        logger.info("start load model from {} to device {}".format(path, self.device))
-
-        self.torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
-        self.model = AutoModelForSpeechSeq2Seq.from_pretrained(
-            path,
-            torch_dtype=self.torch_dtype,
-            low_cpu_mem_usage=True,
-            use_safetensors=True,
-        ).eval()
-        self.model.to(self.device)
-
-        logger.info("successfully load model from {}".format(path))
-
-        # Load the processor
-        self.processor = AutoProcessor.from_pretrained(path)
+        self.command_args = {
+            "path": path,
+        }
+        super().__init__(is_chat=True, sample_params=sample_params)
 
     def _inference(self, prompt: PromptStruct, **kwargs) -> str:
+        import uuid
 
-        audio = prompt["audio"]
-        kwargs["generate_kwargs"] = prompt["generate_kwargs"]
+        uid = str(uuid.uuid4())
+        prefix = f"{uid}->"
 
-        logger.debug(f"the input is {audio}, {kwargs}")
-        pipe = pipeline(
-            "automatic-speech-recognition",
-            model=self.model,
-            tokenizer=self.processor.tokenizer,
-            feature_extractor=self.processor.feature_extractor,
-            torch_dtype=self.torch_dtype,
-            device=self.device,
-        )
-        if "return_timestamps" not in kwargs:
-            kwargs["return_timestamps"] = True
-        result = pipe(audio, **kwargs)
-        return result["text"]
+        while True:
+            _, wlist, _ = select.select([], [self.process.stdin], [], 60)
+            if wlist:
+                prompt["kwargs"] = kwargs
+                self.process.stdin.write(f"{prefix}{json.dumps(prompt)}\n")
+                self.process.stdin.flush()
+                print("already write in")
+                break
+        while True:
+            rlist, _, _ = select.select(
+                [self.process.stdout, self.process.stderr], [], [], 60
+            )
+            if not rlist:
+                err_msg = "Read timeout after 60 seconds"
+                logger.error(err_msg)
+                raise RuntimeError(err_msg)
+
+            try:
+                for stream in rlist:
+                    if stream == self.process.stdout:
+                        result = self.process.stdout.readline().strip()
+                        if not result:
+                            continue
+                        if result.startswith(prefix):
+                            self.process.stdin.write("{}close\n".format(prefix))
+                            self.process.stdin.flush()
+                            return result[len(prefix) :]
+                        elif result.startswith("Error:"):
+                            raise RuntimeError("WhisperModel failed: {}".format(result))
+                        else:
+                            logger.info(result)
+                    elif stream == self.process.stderr:
+                        err = self.process.stderr.readline().strip()
+                        if err:
+                            logger.error(f"Process stderr: {err}")
+            except BlockingIOError as e:
+                logger.error(f"BlockingIOError occurred: {str(e)}")

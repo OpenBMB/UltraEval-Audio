@@ -1,0 +1,21 @@
+ola-asr:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: text
+        value: 'Please give the ASR results of the given speech.'
+      - type: audio
+        value: '{{WavPath}}'
+
+ola-aqa:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: text
+        value: "Please directly answer the questions in the user's speech."
+      - type: audio
+        value: '{{WavPath}}'

@@ -2,4 +2,5 @@ librosa
 numpy
 soundfile
 torch
-transformers
+torchaudio
+transformers==4.49.0

@@ -25,7 +25,10 @@ class EM(Evaluator):
 
     def _eval(self, pred, label, **kwargs) -> Dict[str, any]:
         if type(label) in [int, float]:
-            pred, label = float(pred), float(label)
+            try:
+                pred, label = float(pred), float(label)
+            except:
+                return {"match": 0, "pred": pred, "ref": label}
         elif isinstance(label, str):
             pred, label = str(pred).strip(), label.strip()
 

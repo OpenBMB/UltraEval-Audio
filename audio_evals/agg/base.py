@@ -23,7 +23,9 @@ class AggPolicy(ABC):
     def __call__(self, score_detail: List[Dict[str, any]]) -> Dict[str, any]:
         if len(score_detail) > 0:
             for col in self.need_score_col:
-                assert col in score_detail[0], ValueError(f"not found {col} score")
+                assert col in score_detail[0], ValueError(
+                    f"not found {col} score, but {score_detail[0]}"
+                )
         try:
             return self._agg(score_detail)
         except Exception as e:
@@ -50,8 +52,6 @@ class PracticeWER(AggPolicy):
     def __init__(self, need_score_col: List[str] = None, lang: str = "13a"):
         super().__init__(need_score_col)
         self.lang = lang
-        if lang == "ja":
-            self.lang = "ja-mecab"
 
     def _agg(self, score_detail: List[Dict[str, any]]) -> Dict[str, float]:
         predl, refl = [str(item["pred"]) for item in score_detail], [
@@ -70,15 +70,21 @@ class ACC(AggPolicy):
         return {"acc(%)": accuracy_score(refl, predl) * 100}
 
 
-class NaiveACC(AggPolicy):
+class NaiveMean(AggPolicy):
     def __init__(self, need_score_col: List[str] = None):
         super().__init__(need_score_col)
 
     def _agg(self, score_detail: List[Dict[str, any]]) -> Dict[str, float]:
         res = {}
+        if not self.need_score_col:
+            for k, v in score_detail[0].items():
+                if isinstance(v, (int, float)):
+                    self.need_score_col.append(k)
+                else:
+                    print(f"ignore {k} as it is not a number, but {v}")
         for item in self.need_score_col:
             valid_l = [c[item] for c in score_detail if c.get(item) is not None]
-            res[f'{item}(%)'] = sum(valid_l) / len(valid_l) * 100
+            res[f"{item}(%)"] = sum(valid_l) / len(valid_l) * 100
         return res
 
 
