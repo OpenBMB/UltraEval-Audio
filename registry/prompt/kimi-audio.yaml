@@ -1,0 +1,10 @@
+kimi-audio-en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: text
+        value: 'Please transcribe the following audio:'
+      - type: audio
+        value: '{{WavPath}}'
