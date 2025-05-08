@@ -118,6 +118,8 @@ class BLEU(AggPolicy):
             self.lang = "zh"
         elif lang == "ja":
             self.lang = "ja-mecab"
+        else:
+            self.lang = lang
 
     def _agg(self, score_detail: List[Dict[str, any]]) -> Dict[str, float]:
         predl, refl = [str(item["pred"]) for item in score_detail], [
