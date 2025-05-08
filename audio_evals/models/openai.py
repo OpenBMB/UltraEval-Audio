@@ -1,6 +1,7 @@
 import os
 from typing import Dict, Any
-import openai
+from openai import OpenAI
+
 
 from audio_evals.models.model import APIModel
 from audio_evals.base import PromptStruct
@@ -17,6 +18,7 @@ class GPT(APIModel):
         assert "OPENAI_API_KEY" in os.environ, ValueError(
             "not found OPENAI_API_KEY in your ENV"
         )
+        self.client = OpenAI()
 
     def _inference(self, prompt: PromptStruct, **kwargs) -> str:
 
@@ -26,8 +28,8 @@ class GPT(APIModel):
                 {"role": item["role"], "content": item["contents"][0]["value"]}
             )
 
-        response = openai.ChatCompletion.create(
+        response = self.client.chat.completions.create(
             model=self.model_name, messages=messages, **kwargs
         )
 
-        return response.choices[0].message["content"]
+        return response.choices[0].message.content

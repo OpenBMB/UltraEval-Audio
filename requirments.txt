@@ -18,7 +18,7 @@ pandas
 zhconv
 pycocoevalcap
 regex
-openai
+openai>=1.0.0
 websockets==12.0
 pydub
 openpyxl
