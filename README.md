@@ -6,6 +6,20 @@
 <a href="https://discord.gg/jKYuDc2M" target="_blank">💬discord</a>
  </h4>
 
+# 更新日志🔥
+- [2025/05/8]
+  - 更加快捷断点续评, -r/--resume参数，不指定文件可以自动搜索最近一次的断点续评结果
+  - 支持从推理文件开始评测, --infer-file参数，可以直接从推理文件开始评测，无需重新生成推理文件
+- [2025/03/23]
+  - 新增支持step-audio模型评测和排名
+    - 排名详情见：[leaderboard.md](assets/leaderboard.md)
+    - 评测支持：[Step-Audio-Chat](https://github.com/UltraEval/Step-Audio)
+- [2025/03/04]
+  - 支持断点[续评] [resume evaluation](docs/Procedures for Restarting an Incomplete Evaluation.md), 命令行参数 `--resume $checkpoint_res_file`
+  - glm-4-voice服务部署，支持UltraEval-Audio评测, 详情见[GLM-4-Voice](https://github.com/UltraEval/GLM-4-Voice)
+  - 并行评测支持，命令行参数 `--workers $num_workers`
+- [2025/01/13] release v1.0.0
+
 
 # Overview
 
@@ -73,16 +87,7 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
     # 支持数据集
 
 ![assets/dataset_distribute.png](assets/dataset_distribute.png)
-# 更新日志🔥
-- [2025/03/23]
-  - 新增支持step-audio模型评测和排名
-    - 排名详情见：[leaderboard.md](assets/leaderboard.md)
-    - 评测支持：[Step-Audio-Chat](https://github.com/UltraEval/Step-Audio)
-- [2025/03/04]
-  - 支持断点[续评] [resume evaluation](docs/Procedures for Restarting an Incomplete Evaluation.md), 命令行参数 `--resume $checkpoint_res_file`
-  - glm-4-voice服务部署，支持UltraEval-Audio评测, 详情见[GLM-4-Voice](https://github.com/UltraEval/GLM-4-Voice)
-  - 并行评测支持，命令行参数 `--workers $num_workers`
-- [2025/01/13] release v1.0.0
+
 
 
 

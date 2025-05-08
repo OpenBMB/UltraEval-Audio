@@ -1,5 +1,6 @@
 import base64
 import functools
+import glob
 import importlib
 import logging
 import os
@@ -159,3 +160,13 @@ def merge_data4view(
     df = pd.merge(quiz, real_eval, on="id", how="left")
     df = df.applymap(clean_illegal_chars)
     df.to_excel(save_name, index=False)
+
+
+def find_latest_jsonl(directory):
+    """Find the most recently modified .jsonl file in directory"""
+    jsonl_files = glob.glob(os.path.join(directory, "*.jsonl"))
+    if not jsonl_files:
+        return None
+    # Get file with latest modification time
+    latest_file = max(jsonl_files, key=os.path.getmtime)
+    return latest_file

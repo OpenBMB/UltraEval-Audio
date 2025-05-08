@@ -8,6 +8,23 @@
  </h4>
 
 
+# Changelog🔥
+- [2025/05/12]
+  - Faster resumption from checkpoints: The -r/--resume parameter allows automatic search for the most recent checkpoint result without specifying a file.
+
+  - Support evaluation starting from inference files: The --infer-file parameter enables direct evaluation from inference files, eliminating the need to regenerate them.
+
+- [2025/03/23]
+  - support for evaluating and ranking the step-audio model:
+    - Ranking details can be found here: [leaderboard.md](assets/leaderboard.md)
+    - Evaluation support: [Step-Audio-Chat](https://github.com/UltraEval/Step-Audio)
+- [2025/03/04]
+  - support [resume evaluation](docs/Procedures for Restarting an Incomplete Evaluation.md) with `--resume $checkpoint_res_file`
+  - release glm-4-voice server for UltraEval-Audio: [GLM-4-Voice](https://github.com/UltraEval/GLM-4-Voice)
+  - support parallel evaluation with `--workers $num_workers`
+- [2025/01/13] release v1.0.0
+
+
 # Overview
 
 
@@ -75,17 +92,6 @@ UltraEval-Audio -- the world's first open-source framework that simultaneously s
 # Support datasets
 
 ![assets/dataset_distribute.png](assets/dataset_distribute.png)
-# Changelog🔥
-- [2025/03/23]
-  - support for evaluating and ranking the step-audio model:
-    - Ranking details can be found here: [leaderboard.md](assets/leaderboard.md)
-    - Evaluation support: [Step-Audio-Chat](https://github.com/UltraEval/Step-Audio)
-- [2025/03/04]
-  - support [resume evaluation](docs/Procedures for Restarting an Incomplete Evaluation.md) with `--resume $checkpoint_res_file`
-  - release glm-4-voice server for UltraEval-Audio: [GLM-4-Voice](https://github.com/UltraEval/GLM-4-Voice)
-  - support parallel evaluation with `--workers $num_workers`
-- [2025/01/13] release v1.0.0
-
 
 
 # Quick Start

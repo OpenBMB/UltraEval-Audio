@@ -6,13 +6,14 @@ from datetime import datetime
 from audio_evals.eval_task import EvalTask
 from audio_evals.recorder import Recorder
 from audio_evals.registry import registry
+from audio_evals.utils import find_latest_jsonl
 
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dataset", default="KeSpeech")
+    parser.add_argument("--dataset", required=True)
     parser.add_argument("--dataset_ref_col", default="")
-    parser.add_argument("--model", default="qwen-audio")
+    parser.add_argument("--model", required=True)
     parser.add_argument("--task", default="")
     parser.add_argument("--prompt", default="")
     parser.add_argument("--evaluator", default="")
@@ -24,7 +25,19 @@ def get_args():
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--rand", type=int, default=0)
     parser.add_argument("--workers", type=int, default=1)
-    parser.add_argument("--resume", type=str, default="")
+    parser.add_argument(
+        "-r",
+        "--resume",
+        nargs="?",
+        type=str,
+        const="latest",
+        help="Reuse previous outputs & results, and run any "
+        "missing jobs presented in the config. If its "
+        "argument is not specified, the latest results in "
+        "the work_dir will be reused. The argument should "
+        "a valid file",
+    )
+    parser.add_argument("--inf_file", type=str, default="")
 
     args = parser.parse_args()
     return args
@@ -60,11 +73,28 @@ def main():
 
     dataset = registry.get_dataset(args.dataset)
     if args.resume:
+        if args.resume == "latest":
+            if os.path.exists(args.save):
+                args.resume = args.save
+            else:
+                save_path = os.path.dirname(args.save)
+                last_file = find_latest_jsonl(save_path)
+                if last_file is None:
+                    raise ValueError(
+                        "No previous results found, make {} exist `jsonl` file".format(
+                            save_path
+                        )
+                    )
+                args.resume = last_file
         logger.info(f"Resuming from {args.resume}")
         dataset = dataset.resume_from(args.resume)
     if args.dataset_ref_col:
         dataset.reset_ref_col(args.dataset_ref_col)
-        logger.info("reset ref col:\n{}".format(dataset))
+        logger.info("reset ref col {}".format(dataset))
+    if args.inf_file:
+        dataset = dataset.load_inf_file(args.inf_file)
+        logger.info("loaded inference file: {}".format(dataset))
+
     task_cfg = registry.get_eval_task(dataset.task_name)
     if args.task:
         task_cfg = registry.get_eval_task(args.task)

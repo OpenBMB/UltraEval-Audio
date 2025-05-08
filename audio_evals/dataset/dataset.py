@@ -28,6 +28,11 @@ class Dataset(ABC):
 
         return ResumeDataset(self, f_name)
 
+    def load_inf_file(self, f_name: str):
+        from audio_evals.dataset.resume import ResumeDataset
+
+        return ResumeDataset(self, f_name, save_type=["prompt", "inference"])
+
 
 class JsonlFile(Dataset):
     def __init__(self, f_name: str, default_task: str, ref_col: str, col_aliases=None):

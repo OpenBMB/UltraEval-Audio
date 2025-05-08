@@ -10,6 +10,11 @@ If the evaluation process for the `GPT-4o-Audio` model with the dataset `my_data
 To restart the evaluation process, follow these steps:
 
 ```shell
+python audio_evals/main.py --dataset my_dataset --model gpt4o_audio -r
+```
+is equivalent to:
+
+```shell
 python audio_evals/main.py --dataset my_dataset --model gpt4o_audio --resume res/gpt4o_audio/last_res.jsonl
 ```
 
