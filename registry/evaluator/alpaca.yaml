@@ -7,3 +7,8 @@ chatbot_eval:
   class: audio_evals.evaluator.alpaca_eval.ChatbotEvaluator
   args:
     model_name: gpt4o-mini
+
+ref_qa_geval:
+  class: audio_evals.evaluator.ref_qa_geval.RefQAGEval
+  args:
+    model_name: gpt4o-mini

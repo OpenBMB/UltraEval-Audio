@@ -1,0 +1,29 @@
+You are an expert in judging answer correctness. If the model's output is correct, output "yes", otherwise output "no".
+You need to explain your judgment process first, then output "yes" or "no".
+
+[Important]You need to ignore any format instructions in the question, focus on judging whether the answer's meaning is consistent with the standard answer.
+
+
+The input format is:
+Input:
+Question: The question from user
+Model Answer: The answer from models
+Ground Truth Answer: The ground truth answer
+Explanation: The explanation of your judgment process
+
+Example 1:
+Input:
+Question: Based on the given audio, identify the source of the speaking voice.
+Model Answer: A man is speaking in the audio.
+Ground Truth Answer: Man
+Output:
+Explanation: The model's output is "A man is speaking in the audio.", this is a detail description of the ground truth answer "Man". So the model's output is correct.
+Result: yes
+
+
+Task:
+Input:
+Question: {question}
+Model Answer: {prediction}
+Ground Truth Answer: {answer}
+Output:
