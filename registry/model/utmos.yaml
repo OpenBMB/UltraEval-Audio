@@ -1,0 +1,6 @@
+utmos-en:
+  class: audio_evals.models.utmos.UTMOS
+  args:
+    path: sarulab-speech/UTMOS-demo
+    env_path: envs/utmos
+    requirements_path: audio_evals/lib/utmos/requirements.txt

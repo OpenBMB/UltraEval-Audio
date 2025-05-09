@@ -1,4 +1,5 @@
 import logging
+import os
 from typing import Dict
 from audio_evals.base import PromptStruct
 from audio_evals.models.model import OfflineModel
@@ -15,11 +16,17 @@ logger = logging.getLogger(__name__)
 )
 class UTMOS(OfflineModel):
     def __init__(
-        self, path: str, ssl: str, sample_params: Dict = None, *args, **kwargs
+        self,
+        path: str = "sarulab-speech/UTMOS-demo",
+        sample_params: Dict = None,
+        *args,
+        **kwargs,
     ):
+        if path == "sarulab-speech/UTMOS-demo" and not os.path.exists(path):
+            path = self._download_model(path, repo_type="space")
+
         self.command_args = {
             "path": path,
-            "ssl": ssl,
         }
         super().__init__(is_chat=False, sample_params=sample_params)
 

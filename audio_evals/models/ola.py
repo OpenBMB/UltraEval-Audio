@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 from typing import Dict
 from audio_evals.base import PromptStruct
 from audio_evals.models.model import OfflineModel
@@ -15,11 +16,14 @@ logger = logging.getLogger(__name__)
 class OlaModel(OfflineModel):
     def __init__(
         self,
-        path: str,
+        path: str = "THUdyh/Ola-7b",
         sample_params: Dict = None,
         *args,
         **kwargs,
     ):
+        if path == "THUdyh/Ola-7b" and not os.path.exists(path):
+            path = self._download_model(path)
+
         self.command_args = {
             "path": path,
         }
@@ -56,12 +60,8 @@ class OlaModel(OfflineModel):
 
         while True:
             reads, _, _ = select.select(
-                [self.process.stdout, self.process.stderr], [], [], 60
+                [self.process.stdout, self.process.stderr], [], [], 1
             )
-            if not reads:
-                err_msg = "Read timeout after 60 seconds"
-                logger.error(err_msg)
-                raise RuntimeError(err_msg)
             try:
                 for stream in reads:
                     if stream == self.process.stdout:

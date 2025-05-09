@@ -15,13 +15,14 @@ if __name__ == "__main__":
     parser.add_argument(
         "--path", type=str, required=True, help="Path to checkpoint file"
     )
-    parser.add_argument("--ssl", type=str, required=True, help="Path to wav2vec file")
     config = parser.parse_args()
+
+    ssl_model = os.path.join(config.path, "wav2vec_small.pt")
     os.environ["SSL_MODEL_PATH"] = config.ssl
 
     model = (
         lightning_module.BaselineLightningModule.load_from_checkpoint(
-            config.path, map_location="cpu"
+            os.path.join(config.path, "epoch=3-step=7459.ckpt"), map_location="cpu"
         )
         .eval()
         .to(device)

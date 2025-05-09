@@ -1,11 +1,14 @@
-import json
 import logging
+import os
 import select
+import subprocess
+import sys
 import uuid
 import time
-from typing import Dict, Any
+from typing import Dict
 
 from audio_evals.base import PromptStruct
+from audio_evals.constants import DEFAULT_MODEL_PATH
 from audio_evals.models.model import OfflineModel
 from audio_evals.isolate import isolated
 
@@ -20,9 +23,9 @@ class DNSMOS(OfflineModel):
 
     def __init__(
         self,
-        model_path: str,
-        p_model_path: str,
-        p808_model_path: str,
+        model_path: str = "",
+        p_model_path: str = "",
+        p808_model_path: str = "",
         sample_params: Dict = None,
         *args,
         **kwargs,
@@ -36,6 +39,11 @@ class DNSMOS(OfflineModel):
             p808_model_path (str): Path to the P.808 ONNX model (model_v8.onnx).
             sample_params (Dict, optional): Sampling parameters. Defaults to None.
         """
+        if any(not model_path, not p_model_path, not p808_model_path):
+            model_path, p_model_path, p808_model_path = self._download_model(
+                DEFAULT_MODEL_PATH
+            )
+
         self.command_args = {
             "model_path": model_path,
             "p_model_path": p_model_path,
@@ -48,6 +56,36 @@ class DNSMOS(OfflineModel):
         super().__init__(is_chat=False, sample_params=sample_params)
         logger.info(
             f"DNSMOS client initialized with models: {model_path}, {p_model_path}, {p808_model_path}"
+        )
+
+    @staticmethod
+    def _download_model(save_path: str) -> Tuple[str]:
+        repo_dir = os.path.join(save_path, "DNS-Challenge")
+        if not os.path.exists(repo_dir):
+            os.makedirs(repo_dir)
+
+        # URL of the repository
+        repo_url = "https://github.com/microsoft/DNS-Challenge.git"
+
+        try:
+            # Clone the repository
+            logger.info(f"Cloning repository from {repo_url}...")
+            subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
+
+            logger.info("Repository downloaded successfully!")
+            logger.info(f"Repository is located at: {repo_dir}")
+
+        except subprocess.CalledProcessError as e:
+            logger.error(f"Error occurred while cloning the repository: {e}")
+            sys.exit(1)
+        except Exception as e:
+            logger.error(f"An unexpected error occurred: {e}")
+            sys.exit(1)
+
+        return (
+            os.path.join(save_path, "DNSMOS/DNSMOS/sig_bak_ovr.onnx"),
+            os.path.join(save_path, "DNSMOS/pDNSMOS/sig_bak_ovr.onnx"),
+            os.path.join(save_path, "DNSMOS/DNSMOS/model_v8.onnx"),
         )
 
     def _inference(self, prompt: PromptStruct, **kwargs) -> str:

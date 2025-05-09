@@ -1,10 +1,11 @@
 import json
+import os
+import logging
+import select
 from typing import Dict
 from audio_evals.base import PromptStruct
 from audio_evals.models.model import OfflineModel
 from audio_evals.isolate import isolated
-import select
-import logging
 
 
 logger = logging.getLogger(__name__)
@@ -20,7 +21,9 @@ class MiniCPMo(OfflineModel):
         *args,
         **kwargs,
     ):
-        super().__init__(True, sample_params)
+        if path == "openbmb/MiniCPM-o-2_6" and not os.path.exists(path):
+            path = self._download_model(path)
+
         self.command_args = {
             "path": path,
             "speech": speech,

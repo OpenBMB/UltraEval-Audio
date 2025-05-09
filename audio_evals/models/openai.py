@@ -33,3 +33,16 @@ class GPT(APIModel):
         )
 
         return response.choices[0].message.content
+
+
+class AudioTranscribe(GPT):
+    """
+    This model is used to transcribe audio to text.
+    """
+
+    def _inference(self, prompt, **kwargs):
+        audio_file = open(prompt["audio"], "rb")
+        transcript = self.client.audio.transcriptions.create(
+            model=self.model_name, file=audio_file
+        )
+        return transcript["text"]

@@ -1,0 +1,8 @@
+dnsmos:
+  class: audio_evals.models.dnsmos.DNSMOS
+  args:
+    model_path:
+    p_model_path:
+    p808_model_path:
+    env_path: envs/dnsmos
+    requirements_path: audio_evals/lib/DNSMOS/requirements.txt

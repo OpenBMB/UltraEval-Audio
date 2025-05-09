@@ -94,7 +94,8 @@ if __name__ == "__main__":
             prefix = prompt[:anchor].strip() + "->"
             wavs = prompt[anchor + 2 :].split(",")
             sim = verification(wavs[0], wavs[1], model=model)
-            while True:
+            retry = 3
+            while retry:
                 print("{}{}".format(prefix, str(sim)), flush=True)
                 rlist, _, _ = select.select([sys.stdin], [], [], 1)
                 if rlist:
@@ -102,5 +103,6 @@ if __name__ == "__main__":
                     if finish == "{}close".format(prefix):
                         break
                 print("not found close signal, will emit again", flush=True)
+                retry -= 1
         except Exception as e:
             print("Error:{}".format(e), flush=True)

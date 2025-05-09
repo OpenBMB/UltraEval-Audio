@@ -1,0 +1,6 @@
+kimiaudio:
+  class: audio_evals.models.moonshot.KimiAudioModel
+  args:
+    model_path: moonshotai/Kimi-Audio-7B-Instruct
+    env_path: envs/kimiaudio
+    requirements_path: audio_evals/lib/Kimi-Audio/requirements.txt

@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 from typing import Dict
 from audio_evals.base import PromptStruct
 from audio_evals.models.model import OfflineModel
@@ -13,12 +14,15 @@ logger = logging.getLogger(__name__)
 class QwenOmni(OfflineModel):
     def __init__(
         self,
-        path: str,
+        path: str = "Qwen/Qwen2.5-Omni-7B",
         speech: bool = False,
         sample_params: Dict = None,
         *args,
         **kwargs,
     ):
+        if path == "Qwen/Qwen2.5-Omni-7B" and not os.path.exists(path):
+            path = self._download_model(path)
+
         self.command_args = {
             "path": path,
         }

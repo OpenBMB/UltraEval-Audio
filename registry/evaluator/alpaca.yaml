@@ -11,4 +11,4 @@ chatbot_eval:
 ref_qa_geval:
   class: audio_evals.evaluator.ref_qa_geval.RefQAGEval
   args:
-    model_name: gpt4o-mini
+    model_name: mb-gpt4o-mini

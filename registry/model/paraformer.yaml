@@ -1,0 +1,34 @@
+paraformer-zh:
+  class: audio_evals.models.asr.paraformer.Paraformer
+  args:
+    path: funasr/paraformer-zh
+    env_path: envs/paraformer
+    requirements_path: audio_evals/lib/paraformer/requirements.txt
+
+paraformer-large:
+  class: audio_evals.models.asr.paraformer.Paraformer
+  args:
+    path: funasr/Paraformer-large
+    env_path: envs/paraformer
+    requirements_path: audio_evals/lib/paraformer/requirements.txt
+
+paraformer-zh-streaming:
+  class: audio_evals.models.asr.paraformer.Paraformer
+  args:
+    path: funasr/paraformer-zh-streaming
+    env_path: envs/paraformer
+    requirements_path: audio_evals/lib/paraformer/requirements.txt
+
+paraformer-en:
+  class: audio_evals.models.asr.paraformer.Paraformer
+  args:
+    path: funasr/paraformer-en
+    env_path: envs/paraformer
+    requirements_path: audio_evals/lib/paraformer/requirements.txt
+
+conformer-en:
+  class: audio_evals.models.asr.paraformer.Paraformer
+  args:
+    path: funasr/conformer-en
+    env_path: envs/paraformer
+    requirements_path: audio_evals/lib/paraformer/requirements.txt

@@ -1,0 +1,14 @@
+qwen2.5-omni-audio:
+  class: audio_evals.models.qwen2_5.QwenOmni
+  args:
+    path: Qwen/Qwen2.5-Omni-7B
+    env_path: envs/qwen2.5-omni
+    requirements_path: audio_evals/lib/qwen2-5omni/requirements.txt
+
+qwen2.5-omni-speech:
+  class: audio_evals.models.qwen2_5.QwenOmni
+  args:
+    path: Qwen/Qwen2.5-Omni-7B
+    speech: true
+    env_path: envs/qwen2.5-omni
+    requirements_path: audio_evals/lib/qwen2-5omni/requirements.txt

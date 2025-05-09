@@ -1,0 +1,6 @@
+wavlm_large:
+  class: audio_evals.models.wavlm.WavLM
+  args:
+    path: https://drive.google.com/file/d/1-aE1NfzpRCLxA4GUxX9ITI3F9LlbtEGP/view
+    env_path: envs/simo
+    requirements_path: audio_evals/lib/simo/requirements.txt

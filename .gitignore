@@ -1,4 +1,10 @@
+cremote_registry/
+cyb_registry/
+temp*
 # 忽略操作系统生成的文件
+init_model/
+anna/
+.vscode/
 envs/
 env/
 tests/*

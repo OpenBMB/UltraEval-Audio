@@ -1,6 +1,7 @@
 from itertools import chain
 import json
 import logging
+import os
 from typing import Dict
 from audio_evals.base import PromptStruct
 from audio_evals.models.model import OfflineModel
@@ -20,6 +21,11 @@ class KimiAudioModel(OfflineModel):
         *args,
         **kwargs,
     ):
+        if model_path == "moonshotai/Kimi-Audio-7B-Instruct" and not os.path.exists(
+            model_path
+        ):
+            model_path = self._download_model(model_path)
+
         self.command_args = {
             "model_path": model_path,
         }
@@ -50,7 +56,6 @@ class KimiAudioModel(OfflineModel):
 
         uid = str(uuid.uuid4())
         prefix = f"{uid}->"
-        # 兼容 MegaTTS3，统一传递 messages 字段
         payload = {"messages": valid_propmt}
         while True:
             _, wlist, _ = select.select([], [self.process.stdin], [], 60)

@@ -1,10 +1,12 @@
 import json
 import logging
+import os
 import select
 from typing import Dict
 
 from audio_evals.base import PromptStruct
 from audio_evals.models.model import OfflineModel
+from audio_evals.constants import DEFAULT_MODEL_PATH
 
 logger = logging.getLogger(__name__)
 
@@ -16,9 +18,12 @@ from audio_evals.isolate import isolated
 class WhisperModel(OfflineModel):
     def __init__(
         self,
-        path: str,
+        path: str = "openai/whisper-large-v3",
         sample_params: Dict[str, any] = None,
     ):
+        if path.startswith("openai/") and not os.path.exists(path):
+            path = self._download_model(path)
+
         self.command_args = {
             "path": path,
         }
@@ -40,12 +45,8 @@ class WhisperModel(OfflineModel):
                 break
         while True:
             rlist, _, _ = select.select(
-                [self.process.stdout, self.process.stderr], [], [], 60
+                [self.process.stdout, self.process.stderr], [], [], 1
             )
-            if not rlist:
-                err_msg = "Read timeout after 60 seconds"
-                logger.error(err_msg)
-                raise RuntimeError(err_msg)
 
             try:
                 for stream in rlist:

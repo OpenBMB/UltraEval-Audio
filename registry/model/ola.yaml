@@ -1,0 +1,6 @@
+local-ola-7b:
+  class: audio_evals.models.ola.OlaModel
+  args:
+    path: THUdyh/Ola-7b
+    env_path: envs/ola
+    requirements_path: audio_evals/lib/Ola/requirements.txt
