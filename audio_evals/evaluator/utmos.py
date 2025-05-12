@@ -9,10 +9,10 @@ class UTMOS(Evaluator):
 
         self.model = registry.get_model(model_name)
 
-    def _eval(self, pred, label, WavPath, **kwargs) -> Dict[str, any]:
+    def _eval(self, pred, label, **kwargs) -> Dict[str, any]:
         pred = str(pred)
         return {
             "utmos": self.model.inference(pred),
             "pred": pred,
-            "ref": WavPath,
+            "ref": label,
         }

@@ -55,6 +55,9 @@ if __name__ == "__main__":
 
             kwargs = x.pop("kwargs", {})
             x.update(kwargs)
+            if "return_timestamps" not in x:
+                x["return_timestamps"] = True
+
             logger.info(f"Received input: {x}")
 
             result = pipe(x.pop("audio"), **x)
