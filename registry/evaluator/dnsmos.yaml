@@ -1,0 +1,4 @@
+dnsmos:
+  class: audio_evals.evaluator.dnsmos.DNSMOS
+  args:
+    model_name: dnsmos

@@ -1,0 +1,3 @@
+utmos:
+  class: audio_evals.evaluator.utmos.UTMOS
+  args: {}
