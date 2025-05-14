@@ -18,7 +18,7 @@ if __name__ == "__main__":
     config = parser.parse_args()
 
     ssl_model = os.path.join(config.path, "wav2vec_small.pt")
-    os.environ["SSL_MODEL_PATH"] = config.ssl
+    os.environ["SSL_MODEL_PATH"] = ssl_model
 
     model = (
         lightning_module.BaselineLightningModule.load_from_checkpoint(
