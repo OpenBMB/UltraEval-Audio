@@ -87,7 +87,9 @@ if __name__ == "__main__":
                         audio.reshape(-1).detach().cpu().numpy(),
                         samplerate=24000,
                     )
-                    while True:
+                    retry = 3
+                    while retry:
+                        retry -= 1
                         print(
                             prefix + json.dumps({"text": text[0], "audio": f.name}),
                             flush=True,
@@ -111,7 +113,9 @@ if __name__ == "__main__":
                     skip_special_tokens=True,
                     clean_up_tokenization_spaces=False,
                 )
-                while True:
+                retry = 3
+                while retry:
+                    retry -= 1
                     print(prefix + json.dumps({"text": text[0]}), flush=True)
                     rlist, _, _ = select.select([sys.stdin], [], [], 1)
                     if rlist:
