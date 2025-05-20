@@ -27,6 +27,16 @@ s2s-aqa:
     evaluator: qa-exist-match
     agg: acc
 
+choice-aqa:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: clotho-aqa
+    prompt: direct-aqa
+    model: qwen-audio-chat
+    post_process: ['extract_audio', 'speech2text', 'first_option']
+    evaluator: em
+    agg: acc
+
 s2t-choice-aqa:
   class: audio_evals.base.EvalTaskCfg
   args:

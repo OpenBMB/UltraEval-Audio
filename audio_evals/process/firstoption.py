@@ -13,12 +13,14 @@ class FirstOption(Process):
             f"答案是?\s*([{options}])",
             f"答案是?\s*：\s*([{options}])",
             f"答案是?\s*:\s*([{options}])",
+            f"答案是选项?\s*:\s*([{options}])",
             f"答案选项应?该?是\s*([{options}])",
             f"答案选项应?该?为\s*([{options}])",
             f"答案应该?是\s*([{options}])",
             f"答案应该?选\s*([{options}])",
             f"答案选项为?\s*：\s*([{options}])",
             f"答案选项为?\s+\(?\*?\*?([{options}])\*?\*?\)?",
+            f"选项为?\s+\(?\*?\*?([{options}])\*?\*?\)?",
             f"答案选项是?\s*:\s*([{options}])",
             f"答案为\s*([{options}])",
             f"答案选\s*([{options}])",
@@ -60,6 +62,9 @@ class FirstOption(Process):
             f"(\s|^)[{options}][\s。，,：:\.$]",
             f"1.\s?(.*?)$",
             f"1.\s?([{options}])[.。$]?$",
+            f"答案:\s*([{options}])",
+            f"故此为\s*([{options}])",
+            f"boxed\{{([{options}])\}}",  # boxed{([A-D])}
         ]
         cushion_patterns = [
             f"([{options}]):",

@@ -17,7 +17,7 @@ if __name__ == "__main__":
         "--path", type=str, required=True, help="Path to checkpoint file"
     )
     parser.add_argument(
-        "--speech", type=bool, required=False, help="Path to checkpoint file"
+        "--speech", action="store_true", default=False, help="Path to checkpoint file"
     )
 
     config = parser.parse_args()
@@ -94,7 +94,9 @@ if __name__ == "__main__":
                         output_audio_path=f.name,
                         **conversation,
                     )
-                    while True:
+                    retry = 3
+                    while retry:
+                        retry -= 1
                         print(
                             prefix
                             + json.dumps(
@@ -133,7 +135,9 @@ if __name__ == "__main__":
                     use_tts_template=True,
                     **conversation,
                 )
-                while True:
+                retry = 3
+                while retry:
+                    retry -= 1
                     print(
                         prefix + json.dumps({"text": res}, ensure_ascii=False),
                         flush=True,

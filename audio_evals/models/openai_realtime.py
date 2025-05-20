@@ -126,36 +126,27 @@ def resample_audio(audio_data, original_sample_rate, target_sample_rate):
 
 
 def get_audio_with_rate(audio_file_path):
-    _, file_extension = os.path.splitext(audio_file_path)
-    if file_extension not in PYDUB_SUPPORTED_FORMATS:
-        with tempfile.NamedTemporaryFile(suffix=".wav") as wav_file:
-            subprocess.run(
-                ["ffmpeg", "-y", "-i", audio_file_path, "-ar", "24000", wav_file.name],
-                capture_output=True,
-                text=True,
-                check=True,
-            )
-            audio = AudioSegment.from_file(wav_file.name)
-            # 获取音频数据和采样率
-            sample_rate = audio.frame_rate
-            sample_width = audio.sample_width
-    else:
-        audio = AudioSegment.from_file(audio_file_path)
-        # 获取音频数据和采样率
+    with tempfile.NamedTemporaryFile(suffix=".wav") as wav_file:
+        subprocess.run(
+            [
+                "ffmpeg",
+                "-y",
+                "-i",
+                audio_file_path,
+                "-acodec",
+                "pcm_s16le",
+                "-ac",
+                "1",
+                "-ar",
+                "24000",
+                wav_file.name,
+            ],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        audio = AudioSegment.from_file(wav_file.name)
         sample_rate = audio.frame_rate
-        sample_width = audio.sample_width
-    if sample_rate != 24000 or sample_width != 2:
-        with tempfile.NamedTemporaryFile(
-            suffix=".wav",
-        ) as wav_file:
-            subprocess.run(
-                ["ffmpeg", "-y", "-i", audio_file_path, "-ar", "24000", wav_file.name],
-                capture_output=True,
-                text=True,
-                check=True,
-            )
-            audio = AudioSegment.from_file(wav_file.name)
-            sample_rate = audio.frame_rate
 
     audio_data = np.array(audio.get_array_of_samples(), dtype="int16")
     return audio_data, sample_rate

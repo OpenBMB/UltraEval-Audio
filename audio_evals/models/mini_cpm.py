@@ -26,8 +26,9 @@ class MiniCPMo(OfflineModel):
 
         self.command_args = {
             "path": path,
-            "speech": speech,
         }
+        if speech:
+            self.command_args["speech"] = ""
         super().__init__(is_chat=True, sample_params=sample_params)
 
     def _inference(self, prompt: PromptStruct, **kwargs) -> str:

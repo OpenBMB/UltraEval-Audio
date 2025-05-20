@@ -1,6 +1,7 @@
 import os
 from typing import Dict, Any
-from openai import OpenAI
+from openai import OpenAI, AzureOpenAI
+from azure.core.credentials import AzureKeyCredential
 
 
 from audio_evals.models.model import APIModel
@@ -12,13 +13,26 @@ OPENAI_URL = os.getenv("OPENAI_URL", "https://api.openai.com")
 
 
 class GPT(APIModel):
-    def __init__(self, model_name: str, sample_params: Dict[str, Any] = None):
+    def __init__(
+        self,
+        model_name: str,
+        is_azure: bool = False,
+        sample_params: Dict[str, Any] = None,
+    ):
         super().__init__(True, sample_params)
         self.model_name = model_name
         assert "OPENAI_API_KEY" in os.environ, ValueError(
             "not found OPENAI_API_KEY in your ENV"
         )
-        self.client = OpenAI()
+        if is_azure:
+            key = os.environ["AZURE_OPENAI_KEY"]
+            endpoint = os.environ["AZURE_OPENAI_BASE"]
+            print(f"Using Azure OpenAI with key {key} and endpoint {endpoint}")
+            self.client = AzureOpenAI(
+                api_version="2025-03-01-preview", api_key=key, azure_endpoint=endpoint
+            )
+        else:
+            self.client = OpenAI()
 
     def _inference(self, prompt: PromptStruct, **kwargs) -> str:
 

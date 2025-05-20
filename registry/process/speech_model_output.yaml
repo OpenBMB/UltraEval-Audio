@@ -12,3 +12,9 @@ speech2text:
   class: audio_evals.process.speech.Speech2text
   args:
     model_name: whisper
+
+speech2text-zh:
+  class: audio_evals.process.speech.Speech2text
+  args:
+    model_name: paraformer-zh
+    prompt_name: simple-asr

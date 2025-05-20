@@ -91,7 +91,9 @@ if __name__ == "__main__":
                         )
                         wanted += "".join([item["text"] for item in res])
                         wanted = rich_transcription_postprocess(wanted)
-                    while True:
+                    retry = 3
+                    while retry:
+                        retry -= 1
                         print("{}{}".format(prefix, wanted))
                         rlist, _, _ = select.select([sys.stdin], [], [], 1)
                         if rlist:
@@ -101,7 +103,9 @@ if __name__ == "__main__":
                         print("not found close signal, will emit again", flush=True)
                 else:
                     res = m.generate(input=wav_file.name, batch_size_s=300)
-                    while True:
+                    retry = 3
+                    while retry:
+                        retry -= 1
                         print(
                             "{}{}".format(
                                 prefix, rich_transcription_postprocess(res[0]["text"])
