@@ -1,17 +1,23 @@
 MiniCPMo2_6-audio:
-  class: audio_evals.models.mini_cpm.MiniCPMoAudio
+  class: audio_evals.models.mini_cpm.MiniCPMo
   args:
     path: openbmb/MiniCPM-o-2_6
+    speech: false
+    env_path: envs/minicpmo2_6
+    requirements_path: audio_evals/lib/minicpm/requirements.txt
     sample_params:
       sampling: false
       num_beams: 5
       max_new_tokens: 128
 
 MiniCPMo2_6-speech:
-  class: audio_evals.models.mini_cpm.MiniCPMoSpeech
+  class: audio_evals.models.mini_cpm.MiniCPMo
   args:
     path: openbmb/MiniCPM-o-2_6
+    speech: true
+    env_path: envs/minicpmo2_6
+    requirements_path: audio_evals/lib/minicpm/requirements.txt
     sample_params:
-      sampling: True
-      max_new_tokens: 512
-      temperature: 0.3
+      sampling: false
+      num_beams: 5
+      max_new_tokens: 128

@@ -110,7 +110,6 @@ export PYTHONPATH=$PWD:$PYTHONPATH
 
 # 针对部分地区可能需要加速下载 需要设置：export HF_ENDPOINT=https://hf-mirror.com
 # 测试MiniCPM-o 2.6语音理解能力
-pip install -r requirments/minicpm_o2_6.txt
 CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset sample --prompt mini-cpm-omni-asr-zh --model MiniCPMo2_6-audio
 
 # 测试MiniCPM-o 2.6语音生成能力

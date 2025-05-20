@@ -109,6 +109,10 @@ pip install -r requirments.txt
 ```bash
 export PYTHONPATH=$PWD:$PYTHONPATH
 
+CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset sample --prompt mini-cpm-omni-asr-zh --model MiniCPMo2_6-audio
+
+CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset llama-questions-s2t --model MiniCPMo2_6-speech
+
 # eval gpt-4o-realtime text modal model
 export OPENAI_API_KEY=$your-key
 python audio_evals/main.py --dataset catdog --model gpt4o_audio
