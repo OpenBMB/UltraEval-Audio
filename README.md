@@ -7,6 +7,8 @@
  </h4>
 
 # 更新日志🔥
+- [2025/05/22]
+  - [使用音频质量指标](docs/how use UTMOS, DNSMOS eval speech quality.md)
 - [2025/05/12]
   - 支持Qwen2.5-Omni`qwen2.5-omni-audio, qwen2.5-omni-speech`, Kimi-Audio-7B-Instruct`kimiaudio, kimiaudio-speech`模型，并且更新音频理解榜单
 - [2025/05/8]

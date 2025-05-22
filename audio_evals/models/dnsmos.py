@@ -5,7 +5,7 @@ import subprocess
 import sys
 import uuid
 import time
-from typing import Dict
+from typing import Dict, Tuple
 
 from audio_evals.base import PromptStruct
 from audio_evals.constants import DEFAULT_MODEL_PATH
@@ -39,7 +39,7 @@ class DNSMOS(OfflineModel):
             p808_model_path (str): Path to the P.808 ONNX model (model_v8.onnx).
             sample_params (Dict, optional): Sampling parameters. Defaults to None.
         """
-        if any(not model_path, not p_model_path, not p808_model_path):
+        if any([not model_path, not p_model_path, not p808_model_path]):
             model_path, p_model_path, p808_model_path = self._download_model(
                 DEFAULT_MODEL_PATH
             )
@@ -61,8 +61,20 @@ class DNSMOS(OfflineModel):
     @staticmethod
     def _download_model(save_path: str) -> Tuple[str]:
         repo_dir = os.path.join(save_path, "DNS-Challenge")
+        p835_path = (os.path.join(repo_dir, "DNSMOS/DNSMOS/sig_bak_ovr.onnx"),)
+        p835_ppath = (os.path.join(repo_dir, "DNSMOS/pDNSMOS/sig_bak_ovr.onnx"),)
+        p808_path = (os.path.join(repo_dir, "DNSMOS/DNSMOS/model_v8.onnx"),)
         if not os.path.exists(repo_dir):
             os.makedirs(repo_dir)
+        else:
+            if all(
+                [
+                    os.path.exists(p835_path),
+                    os.path.exists(p835_ppath),
+                    os.path.exists(p808_path),
+                ]
+            ):
+                return p835_path, p835_ppath, p808_path
 
         # URL of the repository
         repo_url = "https://github.com/microsoft/DNS-Challenge.git"
@@ -82,11 +94,7 @@ class DNSMOS(OfflineModel):
             logger.error(f"An unexpected error occurred: {e}")
             sys.exit(1)
 
-        return (
-            os.path.join(save_path, "DNSMOS/DNSMOS/sig_bak_ovr.onnx"),
-            os.path.join(save_path, "DNSMOS/pDNSMOS/sig_bak_ovr.onnx"),
-            os.path.join(save_path, "DNSMOS/DNSMOS/model_v8.onnx"),
-        )
+        return p835_path, p835_ppath, p808_path
 
     def _inference(self, prompt: PromptStruct, **kwargs) -> str:
         """

@@ -1,0 +1,9 @@
+speech-quality:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: clotho-aqa
+    prompt: direct-aqa
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: speech_quality
+    agg: mean

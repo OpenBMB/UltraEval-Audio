@@ -1,4 +1,4 @@
-local-ola-7b:
+ola-7b:
   class: audio_evals.models.ola.OlaModel
   args:
     path: THUdyh/Ola-7b

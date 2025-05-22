@@ -1,0 +1,4 @@
+simo:
+  class: audio_evals.evaluator.simo.Simo
+  args:
+    model_name: wavlm_large

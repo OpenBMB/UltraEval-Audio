@@ -1,0 +1,15 @@
+speech_quality:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - dnsmos
+      - utmos
+
+
+vc_quality:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - dnsmos
+      - utmos
+      - simo

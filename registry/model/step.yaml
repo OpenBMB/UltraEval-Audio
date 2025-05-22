@@ -4,7 +4,7 @@ step-audio:
     url: http://127.0.0.1:5000/inference
     s2t: true
 
-step-voice:
+step-speech:
   class: audio_evals.models.step_audio.StepAudioChat
   args:
     url: http://127.0.0.1:5000/inference
