@@ -23,3 +23,5 @@ websockets==12.0
 pydub
 openpyxl
 gdown
+rich
+azure-core

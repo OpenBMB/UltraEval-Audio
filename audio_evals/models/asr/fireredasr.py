@@ -10,7 +10,6 @@ logger = logging.getLogger(__name__)
 
 @isolated(
     "audio_evals/lib/FireRedASR/main.py",
-    pre_command="export PYTHONPATH=$PWD/:$PYTHONPATH",
 )
 class FireRedASR(OfflineModel):
     def __init__(self, path: str, sample_params: Dict = None, *args, **kwargs):

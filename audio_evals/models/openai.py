@@ -8,10 +8,6 @@ from audio_evals.models.model import APIModel
 from audio_evals.base import PromptStruct
 
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-OPENAI_URL = os.getenv("OPENAI_URL", "https://api.openai.com")
-
-
 class GPT(APIModel):
     def __init__(
         self,
@@ -59,4 +55,4 @@ class AudioTranscribe(GPT):
         transcript = self.client.audio.transcriptions.create(
             model=self.model_name, file=audio_file
         )
-        return transcript["text"]
+        return transcript.text
