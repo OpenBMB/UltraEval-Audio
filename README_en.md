@@ -50,15 +50,17 @@ UltraEval-Audio -- the world's first open-source framework that simultaneously s
 ## Audio Understanding LLM Leaderboard
 
 
-| Rank | Model                   | ASR | AST |
-|------|-------------------------|-----|-----|
-| 🏅   | MiniCPM-o 2.6           | 96  | 38  |
-| 🥈   | Gemini-1.5-Pro          | 94  | 35  |
-| 🥉   | qwen2-audio-instruction | 94  | 31  |
-| 4    | GPT-4o-Realtime         | 92  | 26  |
-| 5    | Step-Audio-Chat         | 93  | 20  |
-| 6    | Gemini-1.5-Flash        | 49  | 21  |
-| 7    | Qwen-Audio-Chat         | 3   | 12  |
+| Rank | Model                   | ASR | AST | EMO |
+|-----:|:------------------------|----:|----:|----:|
+|   🏅 | MiniCPM-o 2.6           |  95 |  38 |  52 |
+|   🥈 | Kimi-Audio-Instruct     |  97 |  27 |  59 |
+|   🥉 | Gemini-1.5-Pro          |  94 |  35 |  48 |
+|    4 | Qwen2.5-Omni            |  96 |  27 |  54 |
+|    5 | Qwen2-Audio            |  95 |  35 |  43 |
+|    6 | GPT-4o-Realtime         |  87 |  26 |  33 |
+|    7 | Qwen2-Audio-Instruction |  94 |  31 |  17 |
+|    8 | Step-Audio-Chat         |  94 |  20 |  26 |
+|    9 | Gemini-1.5-Flash        |  27 |  21 |  45 |
 
 
   </div>
@@ -67,15 +69,13 @@ UltraEval-Audio -- the world's first open-source framework that simultaneously s
 ## Audio Generation LLM Leaderboard
 
 
-| Rank | Model           | Semantic | Acoustic | AudioArena |
-|------|-----------------|----------|----------|------------|
-| 🏅   | GPT-4o-Realtime | 67       | 84       | 1200       |
-| 🥈   | Step-Audio-Chat | 48       | 88       | -          |
-| 🥉   | MiniCPM-o 2.6   | 48       | 80       | 1131       |
-| 4    | GLM-4-Voice     | 42       | 82       | 1035       |
-| 5    | Mini-Omni       | 16       | 64       | 897        |
-| 6    | Llama-Omni      | 29       | 54       | 875        |
-| 7    | Moshi           | 27       | 68       | 865        |
+| Rank | Model                  | Semantic | Acoustic |
+|------|------------------------|----------|----------|
+| 🏅   | GPT-4o-Realtime        | 73       | 80       |
+| 🥈   | Qwen2.5-Omni           | 60       | 80       |
+| 🥉   | MiniCPM-o 2.6          | 53       | 78       |
+| 4    | GLM-4-Voice            | 42       | 82       |
+| 5    | Kimi-Audio-7B-Instruct | 55       | 65       |
 
 </div>
 </div>

@@ -1,0 +1,6 @@
+mimi:
+  class: audio_evals.models.AudioEncoder.mimi.MIMI
+  args:
+    path: kyutai/mimi
+    env_path: envs/mini
+    requirements_path: audio_evals/lib/mimi/requirements.txt

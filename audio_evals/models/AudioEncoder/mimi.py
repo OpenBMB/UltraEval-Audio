@@ -21,6 +21,7 @@ class MIMI(OfflineModel):
         *args,
         **kwargs,
     ):
+        path = self._download_model(path)
         self.command_args = {
             "path": path,
             "stream": stream,
