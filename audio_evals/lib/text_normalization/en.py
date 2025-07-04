@@ -528,6 +528,9 @@ class EnglishTextNormalizer:
 
         s = re.sub(r"[<\[][^>\]]*[>\]]", "", s)  # remove words between brackets
         s = re.sub(r"\(([^)]+?)\)", "", s)  # remove words between parenthesis
+        s = re.sub(
+            r"（([a-z A-Z]+?)）", "", s
+        )  # remove words between chinese parenthesis
         s = re.sub(self.ignore_patterns, "", s)
         s = re.sub(r"\s+'", "'", s)  # when there's a space before an apostrophe
 
