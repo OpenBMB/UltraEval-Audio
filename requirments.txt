@@ -11,7 +11,7 @@ scikit-learn
 librosa
 soundfile
 dashscope
-datasets
+datasets==3.6.0
 pre-commit
 more_itertools
 pandas
@@ -25,3 +25,5 @@ openpyxl
 gdown
 rich
 azure-core
+langdetect
+immutabledict
