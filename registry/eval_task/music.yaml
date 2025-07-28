@@ -1,7 +1,7 @@
 instrument_recognition:
   class: audio_evals.base.EvalTaskCfg
   args:
-    dataset: nsyth
+    dataset: nsynth
     prompt: instrument_recognition
     model: qwen-audio-chat
     evaluator: prefix-match
@@ -10,7 +10,7 @@ instrument_recognition:
 chord_recognition:
   class: audio_evals.base.EvalTaskCfg
   args:
-    dataset: nsyth
+    dataset: nsynth
     prompt: chord_recognition
     model: qwen-audio-chat
     evaluator: prefix-match
@@ -19,7 +19,7 @@ chord_recognition:
 music_genre:
   class: audio_evals.base.EvalTaskCfg
   args:
-    dataset: nsyth
+    dataset: nsynth
     prompt: music_genre
     model: qwen-audio-chat
     evaluator: prefix-match
@@ -29,7 +29,7 @@ music_genre:
 music_tempo:
   class: audio_evals.base.EvalTaskCfg
   args:
-    dataset: nsyth
+    dataset: nsynth
     prompt: music_tempo
     model: qwen-audio-chat
     evaluator: em
