@@ -81,6 +81,20 @@ def isolated(
                 executable="/bin/bash",
             )
 
+            # 等待10秒，检查进程是否退出
+            try:
+                exit_code = self.process.wait(timeout=10)
+                # 进程在10秒内退出了，打印输出
+                stdout, stderr = self.process.communicate()
+                logger.info(f"Process exited with code: {exit_code}")
+                if stdout:
+                    logger.info(f"STDOUT:\n{stdout}")
+                if stderr:
+                    logger.error(f"STDERR:\n{stderr}")
+            except subprocess.TimeoutExpired:
+                # 进程在10秒内没有退出，继续正常运行
+                logger.info("Process is still running after 10 seconds")
+
             # 注册清理函数
             def cleanup():
                 if self.process.poll() is None:
