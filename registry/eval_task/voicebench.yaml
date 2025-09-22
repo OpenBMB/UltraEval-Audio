@@ -1,0 +1,45 @@
+voice_bench_qa_reference:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: voice_bench_alpacaeval
+    prompt: direct-aqa
+    model: qwen-audio-chat
+    evaluator: qa_with_reference
+    agg: mean
+
+voice_bench_qa_open:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: voice_bench_alpacaeval
+    prompt: direct-aqa
+    model: qwen-audio-chat
+    evaluator: qa_open_5_rating
+    agg: mean
+
+
+voice_bench_ifeval:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: voice_bench_ifeval
+    prompt: direct-aqa
+    model: qwen-audio-chat
+    evaluator: ifeval
+    agg: mean
+
+voice_bench_bbh:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: voice_bench_ifeval
+    prompt: direct-aqa
+    model: qwen-audio-chat
+    evaluator: bbh
+    agg: mean
+
+voice_bench_harm:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: voice_bench_ifeval
+    prompt: direct-aqa
+    model: qwen-audio-chat
+    evaluator: harm
+    agg: mean

@@ -23,4 +23,4 @@ single_choice_with_answer:
     prompt: single_choice_with_answer
     model: qwen-audio-chat
     evaluator: choice-strings-match
-    agg: acc
+    agg: mean
