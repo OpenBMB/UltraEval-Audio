@@ -1,13 +1,14 @@
+# From https://github.com/MatthewCYM/VoiceBench/blob/main/api_judge.py
+
 import re
 from typing import Dict
 
 import numpy as np
 
 from audio_evals.evaluator.base import Evaluator
-from qa_metrics.pedant import PEDANT
 
 
-scoring_content = """
+meta_prompt_qa = """
 ### Question
 {question}
 
@@ -30,7 +31,7 @@ def majority_vote(scores):
     return 1 if final_answer == "yes" else 0
 
 
-class QA_YES_NO_Evaluator(Evaluator):
+class QaReferenceEvaluator(Evaluator):
     def __init__(self, model_name: str):
         self.model_name = model_name
 
@@ -38,7 +39,7 @@ class QA_YES_NO_Evaluator(Evaluator):
         from audio_evals.registry import registry
 
         model = registry.get_model(self.model_name)
-        p = scoring_content.format(
+        p = meta_prompt_qa.format(
             question=kwargs["question"],
             reference=label,
             response=pred,
@@ -92,7 +93,7 @@ Please evaluate the response on a scale of 1 to 5:
 5 points: The response is exceptionally relevant, accurate, and to the point. It directly addresses the user’s query in a highly effective and efficient manner, providing exactly the information needed.
 
 Below are the transcription of user’s instruction and models’ response:
-### [Instruction]: {prompt}
+### [Instruction]: {question}
 ### [Response]: {response}
 
 After evaluating, please output the score only without anything else.
@@ -125,7 +126,7 @@ def extract_rating(llm_output):
         return None
 
 
-class QaOpenEvaluator(Evaluator):
+class VoiceBenchQaOpenEvaluator(Evaluator):
     def __init__(self, model_name: str):
         self.model_name = model_name
 
@@ -133,7 +134,7 @@ class QaOpenEvaluator(Evaluator):
         from audio_evals.registry import registry
 
         model = registry.get_model(self.model_name)
-        p = scoring_content.format(
+        p = meta_prompt_open.format(
             question=kwargs["question"],
             response=pred,
         )
@@ -161,7 +162,7 @@ class QaOpenEvaluator(Evaluator):
             scores.append(score)
 
         return {
-            "gpt_score": np.mean(scores),
+            "gpt_score": sum(scores) / len(scores),
             "pred": pred,
             "ref": label,
         }

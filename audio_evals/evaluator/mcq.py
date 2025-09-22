@@ -1,4 +1,4 @@
-from .base import Evaluator
+from audio_evals.evaluator.base import Evaluator
 import random
 from typing import Dict
 
@@ -19,6 +19,8 @@ class MCQ(Evaluator):
         # 定义答案模板
         templates = [
             "答案是[CHOICE]",
+            "答案是:[CHOICE]",
+            "答案是：[CHOICE]",
             "答案是 [CHOICE]",
             "答案是选项[CHOICE]",
             "答案应该是[CHOICE]",
@@ -216,17 +218,21 @@ class MCQ(Evaluator):
 
         extracted_answer = self._extract_answer(pred)
         if extracted_answer is None:
-            extracted_answer = random.choice(["A", "B", "C", "D"])
             return {
-                "match": 1 if extracted_answer.lower() == label.lower() else 0,
+                "match": 0,
                 "pred": extracted_answer,
                 "ref": label,
-                "fail": 1,
+                "extract_fail": 1,
             }
 
         return {
             "match": 1 if extracted_answer.lower() == label.lower() else 0,
             "pred": extracted_answer,
             "ref": label,
-            "fail": 0,
+            "extract_fail": 0,
         }
+
+
+if __name__ == "__main__":
+    s = "The answer to the multiple choice question is: D. Lake Erie. A mola mola, also known as an ocean sunfish, is a large fish that is native to the Atlantic, Pacific, and Indian Oceans. It is not found in the Great Lakes, the Mississippi River, or the Bay of Bengal. Lake Erie is a large freshwater lake in North America, and it is the only one of the Great Lakes where mola mola might live."
+    print(MCQ()._eval(s, "D"))

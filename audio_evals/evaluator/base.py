@@ -67,8 +67,13 @@ class PrefixMatch(Evaluator):
             pred = pred.lower().strip()
             label = str(label).lower().strip()
         n = len(label)
+        m = 1 if pred[:n] == label else 0
+        if m == 0 and " " in label and " " not in pred:
+            label = label.replace(" ", "")
+            m = 1 if pred[:n] == label else 0
+
         return {
-            "match": 1 if pred[:n] == label else 0,
+            "match": m,
             "pred": pred[:n],
             "ref": label,
         }

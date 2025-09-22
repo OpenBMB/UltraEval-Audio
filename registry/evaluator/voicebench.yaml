@@ -1,0 +1,34 @@
+qa_with_reference:
+  class: audio_evals.evaluator.voice_bench.VoiceBenchQaReferenceEvaluator
+  args:
+    model_name: gpt4o-mini
+
+qa_open_5_rating:
+  class: audio_evals.evaluator.voice_bench.VoiceBenchQaOpenEvaluator
+  args:
+    model_name: gpt4o-mini
+
+ifeval_strict:
+  class: audio_evals.evaluator.ifeval.IFEval
+  args:
+    strict: True
+
+ifeval_loose:
+  class: audio_evals.evaluator.ifeval.IFEval
+  args:
+    strict: False
+
+ifeval:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - ifeval_loose
+      - ifeval_strict
+
+bbh:
+  class: audio_evals.evaluator.bbh.BBH
+  args: {}
+
+harm:
+  class: audio_evals.evaluator.harm.Harm
+  args: {}

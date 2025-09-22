@@ -2,7 +2,7 @@ from .base import Evaluator
 from typing import Dict, List, Optional, Union
 import dataclasses
 import numpy as np
-from .instruction_following_eval import instructions_registry
+from audio_evals.lib.instruction_following_eval import instructions_registry
 
 
 @dataclasses.dataclass

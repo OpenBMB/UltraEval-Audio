@@ -1,0 +1,90 @@
+voice_bench_alpacaeval:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: voice_bench_qa_open
+    name: hlt-lab/voicebench
+    subset: alpacaeval
+    split: test
+    ref_col: prompt
+    col_aliases:
+      prompt: question
+
+voice_bench_alpacaeval_full:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: voice_bench_qa_open
+    name: hlt-lab/voicebench
+    subset: alpacaeval_full
+    split: test
+    ref_col: question
+    col_aliases:
+      prompt: question
+
+voice_bench_commoneval:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: voice_bench_qa_open
+    name: hlt-lab/voicebench
+    subset: commoneval
+    split: test
+    ref_col: question
+    col_aliases:
+      prompt: question
+
+
+voice_bench_wildvoice:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: voice_bench_qa_open
+    name: hlt-lab/voicebench
+    subset: wildvoice
+    split: test
+    ref_col: question
+    col_aliases:
+      prompt: question
+
+voice_bench_sd-qa:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: voice_bench_qa_reference
+    name: hlt-lab/voicebench
+    subset: sd-qa
+    split: test
+    ref_col: answer
+    col_aliases:
+      prompt: question
+      reference: answer
+
+voice_bench_ifeval:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: voice_bench_qa_reference
+    name: hlt-lab/voicebench
+    subset: ifeval
+    split: test
+    ref_col: question
+    col_aliases:
+      prompt: question
+
+voice_bench_bbh:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: voice_bench_bbh
+    name: hlt-lab/voicebench
+    subset: ifeval
+    split: test
+    ref_col: answer
+    col_aliases:
+      prompt: question
+      reference: answer
+
+voice_bench_advbench:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: voice_bench_harm
+    name: hlt-lab/voicebench
+    subset: advbench
+    split: test
+    ref_col: question
+    col_aliases:
+      prompt: question
