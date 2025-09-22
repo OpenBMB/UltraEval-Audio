@@ -1,5 +1,5 @@
 qa_with_reference:
-  class: audio_evals.evaluator.voice_bench.VoiceBenchQaReferenceEvaluator
+  class: audio_evals.evaluator.voice_bench.QaReferenceEvaluator
   args:
     model_name: gpt4o-mini
 
