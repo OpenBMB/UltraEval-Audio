@@ -3,7 +3,9 @@ qwen-omni-asr-en:
   args:
     template:
     - role: system
-      contents: 'You are a speech recognition model.'
+      contents:
+      - type: text
+        value: 'You are a speech recognition model.'
     - role: user
       contents:
       - type: text
@@ -16,7 +18,9 @@ qwen-omni-asr-zh:
   args:
     template:
     - role: system
-      contents: 'You are a speech recognition model.'
+      contents:
+      - type: text
+        value: 'You are a speech recognition model.'
     - role: user
       contents:
       - type: text
@@ -84,7 +88,7 @@ qwen-omni-ast-de2en:
         contents: 'You are a speech translation model.'
       - role: user
         contents:
-          - type: texts
+          - type: text
             value: 'Listen to the provided German speech and produce a translation in English text.'
           - type: audio
             value: '{{WavPath}}'

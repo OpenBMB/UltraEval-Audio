@@ -6,15 +6,15 @@ import tempfile
 
 import soundfile as sf
 import torch
-from transformers import Qwen2_5OmniModel, Qwen2_5OmniProcessor
+from transformers import Qwen2_5OmniForConditionalGeneration, Qwen2_5OmniProcessor
 from qwen_omni_utils import process_mm_info
 
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
+device = "cuda"
 
 
 def load_model(path, **kwargs):
-    model = Qwen2_5OmniModel.from_pretrained(
+    model = Qwen2_5OmniForConditionalGeneration.from_pretrained(
         path,
         torch_dtype=torch.bfloat16,
         device_map=device,
@@ -39,11 +39,13 @@ if __name__ == "__main__":
     )
     config = parser.parse_args()
     model, processor = load_model(config.path)
+    model.to("cuda")
     print("Model loaded from checkpoint: {}".format(config.path), flush=True)
 
     while True:
         try:
             prompt = input()
+
             anchor = prompt.find("->")
             if anchor == -1:
                 print(
@@ -55,6 +57,7 @@ if __name__ == "__main__":
                 continue
             prefix = prompt[:anchor].strip() + "->"
             conversation = json.loads(prompt[anchor + 2 :])
+            print(prompt[anchor + 2 :])
             text = processor.apply_chat_template(
                 conversation, add_generation_prompt=True, tokenize=False
             )
@@ -63,7 +66,7 @@ if __name__ == "__main__":
             )
             inputs = processor(
                 text=text,
-                audios=audios,
+                audio=audios,
                 images=images,
                 videos=videos,
                 return_tensors="pt",

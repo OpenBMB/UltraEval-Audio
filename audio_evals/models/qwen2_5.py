@@ -51,9 +51,14 @@ class QwenOmni(OfflineModel):
             conversation = [
                 {
                     "role": "system",
-                    "content": "You are Qwen, a virtual human developed by the Qwen Team, "
-                    "Alibaba Group, capable of perceiving auditory and visual "
-                    "inputs, as well as generating text and speech",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": "You are Qwen, a virtual human developed by the Qwen Team, "
+                            "Alibaba Group, capable of perceiving auditory and visual "
+                            "inputs, as well as generating text and speech",
+                        }
+                    ],
                 }
             ] + conversation
 
@@ -82,7 +87,8 @@ class QwenOmni(OfflineModel):
                             self.process.stdin.write("{}close\n".format(prefix))
                             self.process.stdin.flush()
                             res = json.loads(result[len(prefix) :])
-                            res["text"] = res["text"].split("assistant")[1].strip()
+                            logger.info("return output:", res)
+                            res["text"] = res["text"].split("assistant")[-1].strip()
                             if len(res) == 1:
                                 return res["text"]
                             return json.dumps(res, ensure_ascii=False)
