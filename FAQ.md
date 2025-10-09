@@ -10,7 +10,9 @@ two solutions:
 - use your python env nvidia path not system, like: `export LD_LIBRARY_PATH=$HOME/path/to/my/venv3115/lib64/
 python3.11/site-packages/nvidia/nvjitlink/lib` or`export LD_LIBRARY_PATH=env/lib/python3.10/site-packages/nvidia/nvjitlink/lib`
 
-## 2. ConnectionError: Couldn't reach 'TwinkStart/xx' on the Hub (LocalEntryNotFoundError)
+## 2. ConnectionError: Couldn't reach 'TwinkStart/xx' on the Hub (LocalEntryNotFoundError) | An error happened while trying to locate the files on the Hub and we cannot find the appropriate snapshot folder for the specified revision on the local disk.
+Please check your internet connection and try again.
+
 
 make sure you can access the huggingface hub, you maybe need use proxy:
 

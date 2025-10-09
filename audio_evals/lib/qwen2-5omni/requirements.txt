@@ -1,7 +1,7 @@
 accelerate==1.6.0
+flash-attn==2.7.4.post1
 qwen-omni-utils[decord]==0.0.4
 torch==2.6.0
 torchvision==0.21.0
-# flash-attn==2.7.4.post1
 # git+https://github.com/huggingface/transformers@3a1ead0aabed473eafe527915eea8c197d424356
 transformers==4.52.0
