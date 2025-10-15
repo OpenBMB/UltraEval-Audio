@@ -27,3 +27,4 @@ rich
 azure-core
 langdetect
 immutabledict
+modelscope

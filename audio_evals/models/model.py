@@ -74,6 +74,41 @@ class OfflineModel(Model, ABC):
         with self.lock:
             return super().inference(prompt, **kwargs)
 
+    @staticmethod
+    def _download_model_from_modelscope(repo_id: str, repo_type: str = None) -> str:
+        """
+        从 ModelScope 平台下载模型（如果本地不存在的话）。
+
+        Args:
+            repo_id: ModelScope 平台的模型标识（例如 "damo/nlp_bert_base" 或类似）
+            repo_type: 可选，类似 "model"、"dataset" 等
+
+        Returns:
+            str: 本地模型目录路径
+        """
+        logger = logging.getLogger(__name__)
+        try:
+            logger.info(f"Downloading model from ModelScope: {repo_id}")
+
+            # 目标本地目录：把 repo_id 当作子目录
+            local_dir = os.path.join(DEFAULT_MODEL_PATH, repo_id)
+
+            from modelscope.hub.snapshot_download import snapshot_download
+
+            model_dir = snapshot_download(
+                repo_id,
+                local_dir=local_dir,
+            )
+
+            logger.info(f"Model downloaded to: {model_dir}")
+            return model_dir
+
+        except Exception as e:
+            logger.error(
+                f"Failed to download model from ModelScope: {e}", exc_info=True
+            )
+            sys.exit(1)
+
 
 class APIModel(Model, ABC):
 
