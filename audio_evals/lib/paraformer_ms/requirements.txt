@@ -1,0 +1,4 @@
+funasr
+soundfile
+torch
+torchaudio
