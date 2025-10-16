@@ -42,8 +42,9 @@ if __name__ == "__main__":
         "text_top_k": 5,
         "audio_repetition_penalty": 1.0,
         "audio_repetition_window_size": 64,
-        "text_repetition_penalty": 1.0,
+        "text_repetition_penalty": 1.1,
         "text_repetition_window_size": 16,
+        "max_new_tokens": -1,
     }
 
     while True:
