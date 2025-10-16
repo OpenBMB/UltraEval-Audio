@@ -1,3 +1,5 @@
 accelerate>=0.26.0
+scipy
+soundfile
 torchaudio==2.5.1
 transformers==4.49.0

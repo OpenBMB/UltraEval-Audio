@@ -1,4 +1,5 @@
 librosa
+numpy==1.26
 omegaconf
 pyyaml
 s3prl

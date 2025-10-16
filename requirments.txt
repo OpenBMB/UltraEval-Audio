@@ -4,7 +4,7 @@ requests
 aiohttp
 pyyaml
 pytest
-jiwer
+jiwer==2.6.0
 sacrebleu==1.5.1
 editdistance
 scikit-learn
@@ -28,3 +28,4 @@ azure-core
 langdetect
 immutabledict
 modelscope
+zhon

@@ -1,0 +1,19 @@
+seed_tts_eval_zh:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: seedtts-vc-zh
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: seed-tts-eval-vc-zh
+    agg: mean
+
+seed_tts_eval_en:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: seedtts-vc-en
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: seed-tts-eval-vc-en
+    agg: mean

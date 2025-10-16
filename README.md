@@ -7,6 +7,8 @@
  </h4>
 
 # 更新日志🔥
+- [2025/10/17]
+  - [支持seed-tts-eval数据集](docs/seed-tts-eval4voice_clone.md)
 - [2025/05/22]
   - [使用音频质量指标](https://github.com/OpenBMB/UltraEval-Audio/blob/main/docs/how%20use%20UTMOS%2C%20DNSMOS%20eval%20speech%20quality.md)
 - [2025/05/12]

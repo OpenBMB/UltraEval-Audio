@@ -1,0 +1,7 @@
+sparkvc:
+  class: audio_evals.models.TTS.spark.SparkVoiceClone
+  args:
+    path: SparkAudio/Spark-TTS-0.5B
+    vc_mode: True
+    env_path: envs/spark_tts
+    requirements_path: audio_evals/lib/Spark-TTS/requirements.txt

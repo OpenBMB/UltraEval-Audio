@@ -9,6 +9,10 @@
 
 
 # Changelog🔥
+- [2025/10/17]
+  - [support seed-tts-eval benchmarks](docs/seed-tts-eval4voice_clone.md)
+- [2025/05/22]
+  - [use audio acoustic metrics](https://github.com/OpenBMB/UltraEval-Audio/blob/main/docs/how%20use%20UTMOS%2C%20DNSMOS%20eval%20speech%20quality.md)
 - [2025/05/12]
   - Faster resumption from checkpoints: The -r/--resume parameter allows automatic search for the most recent checkpoint result without specifying a file.
 

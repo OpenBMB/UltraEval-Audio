@@ -1,0 +1,28 @@
+seed-tts-eval-vc-en:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - seed-tts-eval-asr-wer-en
+      - simo
+
+seed-tts-eval-vc-zh:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - seed-tts-eval-asr-wer-zh
+      - simo
+
+
+seed-tts-eval-asr-wer-en:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-en
+    lang: en
+
+seed-tts-eval-asr-wer-zh:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: speech_paraformer-speech_seaco_paraformer_large_asr_nat-zh-cn-16k-common-vocab8404-pytorch
+    prompt_name: simple-asr
+    lang: zh

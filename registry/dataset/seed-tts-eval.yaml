@@ -1,0 +1,15 @@
+seed_tts_eval_en:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: seed_tts_eval_en
+    name: TwinkStart/Seed-TTS-Eval
+    subset: en
+    ref_col: text
+
+seed_tts_eval_zh:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: seed_tts_eval_zh
+    name: TwinkStart/Seed-TTS-Eval
+    subset: zh
+    ref_col: text
