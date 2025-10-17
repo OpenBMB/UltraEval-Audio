@@ -46,11 +46,3 @@ gpt4o_transcribe:
   class: audio_evals.models.openai.AudioTranscribe
   args:
     model_name: gpt-4o-transcribe
-
-whisper:
-  class: audio_evals.models.whisper.WhisperModel
-  args:
-    path: openai/whisper-large-v3
-    env_path: envs/whisper
-    requirements_path: audio_evals/lib/whisper/requirements.txt
-    sample_params: {}

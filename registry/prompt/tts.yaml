@@ -1,0 +1,13 @@
+voice-clone:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+tts:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
