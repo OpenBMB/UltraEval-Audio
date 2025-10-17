@@ -63,8 +63,10 @@ if __name__ == "__main__":
 
                 with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as f:
                     sf.write(f.name, wav, samplerate=16000)
-                    while True:
-                        print(f"{prefix}{f.name}", flush=True)
+                    retry = 3
+                    while retry:
+                        retry -= 1
+                        print(f"{prefix}{output_str}", flush=True)
                         rlist, _, _ = select.select([sys.stdin], [], [], 1)
                         if rlist:
                             finish = sys.stdin.readline().strip()
