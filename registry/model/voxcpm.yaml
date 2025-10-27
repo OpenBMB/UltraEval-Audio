@@ -1,0 +1,15 @@
+voxcpm-vc:
+  class: audio_evals.models.TTS.voxcpm.VoxCPM
+  args:
+    path: openbmb/VoxCPM-0.5B
+    vc_mode: True
+    env_path: envs/VoxCPM
+    requirements_path: audio_evals/lib/VoxCPM/requirements.txt
+
+voxcpm-tts:
+  class: audio_evals.models.TTS.voxcpm.VoxCPM
+  args:
+    path: openbmb/VoxCPM-0.5B
+    vc_mode: False
+    env_path: envs/VoxCPM
+    requirements_path: audio_evals/lib/VoxCPM/requirements.txt
