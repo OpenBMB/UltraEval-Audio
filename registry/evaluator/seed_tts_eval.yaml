@@ -22,7 +22,7 @@ seed-tts-eval-asr-wer-en:
 
 seed-tts-eval-asr-wer-zh:
   class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
-  args:
+  args: # important: the asr model name not 'paraformer-zh', refer to https://github.com/modelscope/FunASR/blob/main/funasr/download/name_maps_from_hub.py#L1
     model_name: speech_paraformer-speech_seaco_paraformer_large_asr_nat-zh-cn-16k-common-vocab8404-pytorch
     prompt_name: simple-asr
     lang: zh

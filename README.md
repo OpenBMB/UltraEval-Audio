@@ -3,10 +3,13 @@
  <h4 align="center">
     <p>
         <b>中文</b> | <a href="https://github.com/OpenBMB/UltraEval-Audio/blob/main/README_en.md">English</a> |
-<a href="https://discord.gg/jKYuDc2M" target="_blank">💬discord</a>
+<a href="https://discord.gg/MZRsxa2U" target="_blank">💬discord</a>
  </h4>
 
 # 更新日志🔥
+- [2025/10/30]
+  - 支持[VoxCPM](https://huggingface.co/openbmb/VoxCPM-0.5B) TTS模型: `--model voxcpm-tts` `--model voxcpm-vc`
+  - 使用uv加速模型安装依赖🚀
 - [2025/10/17]
   - [支持seed-tts-eval数据集](docs/seed-tts-eval4voice_clone.md)
 - [2025/05/22]

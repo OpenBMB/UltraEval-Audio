@@ -6,6 +6,7 @@ from typing import Dict
 from audio_evals.base import PromptStruct
 from audio_evals.models.model import OfflineModel
 from audio_evals.isolate import isolated
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +14,12 @@ logger = logging.getLogger(__name__)
 @isolated("audio_evals/lib/VoxCPM/main.py")
 class VoxCPM(OfflineModel):
 
-    def __init__(self, path: str, vc_mode: bool, sample_params: Dict = None, *args, **kwargs):
+    def __init__(
+        self, path: str, vc_mode: bool, sample_params: Dict = None, *args, **kwargs
+    ):
+
+        if not os.path.exists(path):
+            path = self._download_model(path)
 
         self.command_args = {"path": path}
         if vc_mode:
@@ -35,7 +41,9 @@ class VoxCPM(OfflineModel):
                 break
 
         while True:
-            rlist, _, _ = select.select([self.process.stdout, self.process.stderr], [], [], 60)
+            rlist, _, _ = select.select(
+                [self.process.stdout, self.process.stderr], [], [], 60
+            )
             if not rlist:
                 err_msg = "Read timeout after 60 seconds"
                 logger.error(err_msg)

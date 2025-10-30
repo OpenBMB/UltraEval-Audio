@@ -4,29 +4,32 @@
     <p>
         <a href="https://github.com/OpenBMB/UltraEval-Audio/blob/main/README.md">中文</a> |
     <b>English</b> |
-<a href="https://discord.gg/jKYuDc2M" target="_blank">💬discord</a>
+<a href="https://discord.gg/MZRsxa2U" target="_blank">💬discord</a>
  </h4>
 
 
 # Changelog🔥
+- [2025/10/30]
+  - Support [VoxCPM](https://huggingface.co/openbmb/VoxCPM-0.5B) TTS model with command: `--model voxcpm-tts` `--model voxcpm-vc`
+  - Accelerating model dependency installation with UV 🚀
 - [2025/10/17]
-  - [support seed-tts-eval benchmarks](docs/seed-tts-eval4voice_clone.md)
+  - [Support seed-tts-eval benchmarks](docs/seed-tts-eval4voice_clone.md)
 - [2025/05/22]
-  - [use audio acoustic metrics](https://github.com/OpenBMB/UltraEval-Audio/blob/main/docs/how%20use%20UTMOS%2C%20DNSMOS%20eval%20speech%20quality.md)
+  - [Use audio acoustic metrics](https://github.com/OpenBMB/UltraEval-Audio/blob/main/docs/how%20use%20UTMOS%2C%20DNSMOS%20eval%20speech%20quality.md)
 - [2025/05/12]
   - Faster resumption from checkpoints: The -r/--resume parameter allows automatic search for the most recent checkpoint result without specifying a file.
 
   - Support evaluation starting from inference files: The --infer-file parameter enables direct evaluation from inference files, eliminating the need to regenerate them.
 
 - [2025/03/23]
-  - support for evaluating and ranking the step-audio model:
+  - Support for evaluating and ranking the step-audio model:
     - Ranking details can be found here: [leaderboard.md](assets/leaderboard.md)
     - Evaluation support: [Step-Audio-Chat](https://github.com/UltraEval/Step-Audio)
 - [2025/03/04]
-  - support [resume evaluation](docs/Procedures for Restarting an Incomplete Evaluation.md) with `--resume $checkpoint_res_file`
-  - release glm-4-voice server for UltraEval-Audio: [GLM-4-Voice](https://github.com/UltraEval/GLM-4-Voice)
-  - support parallel evaluation with `--workers $num_workers`
-- [2025/01/13] release v1.0.0
+  - Support [resume evaluation](docs/Procedures for Restarting an Incomplete Evaluation.md) with `--resume $checkpoint_res_file`
+  - Release glm-4-voice server for UltraEval-Audio: [GLM-4-Voice](https://github.com/UltraEval/GLM-4-Voice)
+  - Support parallel evaluation with `--workers $num_workers`
+- [2025/01/13] Release v1.0.0
 
 
 # Overview

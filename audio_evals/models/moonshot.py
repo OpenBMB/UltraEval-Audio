@@ -80,6 +80,9 @@ class KimiAudioModel(OfflineModel):
                         if result.startswith(prefix):
                             self.process.stdin.write(f"{prefix}close\n")
                             self.process.stdin.flush()
+                            res = json.loads(result[len(prefix) :])
+                            if len(res) == 1:
+                                return res["text"]
                             return result[len(prefix) :]
                         elif result.startswith("Error:"):
                             raise RuntimeError("Kimi-Audio failed: {}".format(result))
