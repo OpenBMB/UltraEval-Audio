@@ -67,8 +67,10 @@ class OfflineModel(Model, ABC):
             logger.info(f"Model downloaded to: {local_dir}")
             return local_dir
         except Exception as e:
-            logger.error(f"Failed to download model: {e}")
-            sys.exit(1)
+            logger.error(
+                f"Failed to download model: {e} from HuggingFace Hub; try to download from ModelScope"
+            )
+            return self._download_model_from_modelscope(repo_id, repo_type)
 
     def inference(self, prompt: PromptStruct, **kwargs) -> str:
         with self.lock:
