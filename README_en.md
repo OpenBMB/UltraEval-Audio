@@ -4,7 +4,7 @@
     <p>
         <a href="https://github.com/OpenBMB/UltraEval-Audio/blob/main/README.md">中文</a> |
     <b>English</b> |
-<a href="https://discord.gg/MZRsxa2U" target="_blank">💬discord</a>
+<a href="https://discord.gg/QehZvQs3" target="_blank">💬discord</a>
  </h4>
 
 
