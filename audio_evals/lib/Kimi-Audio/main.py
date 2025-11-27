@@ -83,7 +83,7 @@ if __name__ == "__main__":
                     retry = 3
                     while retry:
                         print(
-                            f"{prefix}{json.dumps({'text': text, 'audio': f.name})}",
+                            f"{prefix}{json.dumps({'text': text, 'audio': f.name}, ensure_ascii=False)}",
                             flush=True,
                         )
                         rlist, _, _ = select.select([sys.stdin], [], [], 1)

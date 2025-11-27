@@ -1,0 +1,43 @@
+cv3_zero_shot_en:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: cv3_zero_shot_en
+    name: yuekai/CV3-Eval
+    split: zero_shot_en
+    ref_col: text
+    col_aliases:
+      target_text: text
+      prompt_audio: audio
+
+cv3_zero_shot_zh:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: cv3_zero_shot_zh
+    name: yuekai/CV3-Eval
+    split: zero_shot_zh
+    ref_col: text
+    col_aliases:
+      target_text: text
+      prompt_audio: audio
+
+cv3_zero_shot_hard_en:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: cv3_zero_shot_en
+    name: yuekai/CV3-Eval
+    split: zero_shot_hard_en
+    ref_col: text
+    col_aliases:
+      target_text: text
+      prompt_audio: audio
+
+cv3_zero_shot_hard_zh:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: cv3_zero_shot_zh
+    name: yuekai/CV3-Eval
+    split: zero_shot_hard_zh
+    ref_col: text
+    col_aliases:
+      target_text: text
+      prompt_audio: audio

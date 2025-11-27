@@ -8,7 +8,7 @@ from typing import Dict
 
 from audio_evals.base import PromptStruct
 from audio_evals.utils import retry
-from huggingface_hub import snapshot_download
+from huggingface_hub import snapshot_download, HfApi
 from audio_evals.constants import DEFAULT_MODEL_PATH
 
 # the str type for pre-train model, the list type for chat model
@@ -56,6 +56,42 @@ class OfflineModel(Model, ABC):
         """
         try:
             logger = logging.getLogger(__name__)
+            # Prefer using a deterministic local directory for the repo
+            local_dir = os.path.join(DEFAULT_MODEL_PATH, repo_id)
+
+            # Pre-check: if target path already contains the complete set of files with
+            # matching sizes, skip downloading to avoid redundant work.
+            try:
+                if os.path.isdir(local_dir):
+                    api = HfApi()
+                    info = api.repo_info(repo_id=repo_id, repo_type=repo_type)
+                    siblings = getattr(info, "siblings", []) or []
+                    if siblings:
+                        all_files_present = True
+                        for sibling in siblings:
+                            rel_path = getattr(sibling, "rfilename", None)
+                            remote_size = getattr(sibling, "size", None)
+                            if not rel_path:
+                                continue
+                            target_path = os.path.join(local_dir, rel_path)
+                            if not os.path.isfile(target_path):
+                                all_files_present = False
+                                break
+                            if remote_size is not None:
+                                try:
+                                    if os.path.getsize(target_path) != remote_size:
+                                        all_files_present = False
+                                        break
+                                except OSError:
+                                    all_files_present = False
+                                    break
+                        if all_files_present:
+                            logger.info(f"Model already present locally, skip download: {local_dir}")
+                            return local_dir
+            except Exception as precheck_error:
+                # Any failure in pre-check should not block downloading; proceed gracefully.
+                logger.debug(f"Model pre-check failed, proceeding to download: {precheck_error}", exc_info=True)
+
             logger.info(f"Downloading model from HuggingFace Hub: {repo_id}")
             local_dir = snapshot_download(
                 repo_id=repo_id,
@@ -67,10 +103,8 @@ class OfflineModel(Model, ABC):
             logger.info(f"Model downloaded to: {local_dir}")
             return local_dir
         except Exception as e:
-            logger.error(
-                f"Failed to download model: {e} from HuggingFace Hub; try to download from ModelScope"
-            )
-            return self._download_model_from_modelscope(repo_id, repo_type)
+            logger.error(f"Failed to download model: {e}")
+            sys.exit(1)
 
     def inference(self, prompt: PromptStruct, **kwargs) -> str:
         with self.lock:
@@ -90,10 +124,45 @@ class OfflineModel(Model, ABC):
         """
         logger = logging.getLogger(__name__)
         try:
-            logger.info(f"Downloading model from ModelScope: {repo_id}")
-
             # 目标本地目录：把 repo_id 当作子目录
             local_dir = os.path.join(DEFAULT_MODEL_PATH, repo_id)
+
+            # Pre-check: if target path already contains the complete set of files with
+            # matching sizes, skip downloading to avoid redundant work.
+            try:
+                if os.path.isdir(local_dir):
+                    from modelscope.hub.api import HubApi
+                    api = HubApi()
+                    # 获取模型文件列表
+                    files_info = api.get_model_files(model_id=repo_id)
+                    if files_info:
+                        all_files_present = True
+                        for file_info in files_info:
+                            # file_info 通常是一个 dict，包含 'Path' 和 'Size' 等字段
+                            rel_path = file_info.get('Path') or file_info.get('Name')
+                            remote_size = file_info.get('Size')
+                            if not rel_path:
+                                continue
+                            target_path = os.path.join(local_dir, rel_path)
+                            if not os.path.isfile(target_path):
+                                all_files_present = False
+                                break
+                            if remote_size is not None:
+                                try:
+                                    if os.path.getsize(target_path) != remote_size:
+                                        all_files_present = False
+                                        break
+                                except OSError:
+                                    all_files_present = False
+                                    break
+                        if all_files_present:
+                            logger.info(f"Model already present locally, skip download: {local_dir}")
+                            return local_dir
+            except Exception as precheck_error:
+                # Any failure in pre-check should not block downloading; proceed gracefully.
+                logger.debug(f"Model pre-check failed, proceeding to download: {precheck_error}", exc_info=True)
+
+            logger.info(f"Downloading model from ModelScope: {repo_id}")
 
             from modelscope.hub.snapshot_download import snapshot_download
 

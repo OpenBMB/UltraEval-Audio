@@ -1,0 +1,31 @@
+long_tts_eval_en:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: long_tts_eval_en
+    name: wcy1122/Long-TTS-Eval
+    split: long_tts_eval_en
+    ref_col: text
+
+long_tts_eval_zh:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: long_tts_eval_zh
+    name: wcy1122/Long-TTS-Eval
+    split: long_tts_eval_zh
+    ref_col: text
+
+long_tts_eval_hard_en:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: long_tts_eval_en
+    name: wcy1122/Long-TTS-Eval
+    split: hard_tts_eval_en
+    ref_col: text
+
+long_tts_eval_hard_zh:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: long_tts_eval_zh
+    name: wcy1122/Long-TTS-Eval
+    split: hard_tts_eval_zh
+    ref_col: text

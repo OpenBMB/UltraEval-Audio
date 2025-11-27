@@ -1,0 +1,19 @@
+long_tts_eval_zh:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: seedtts-vc-zh
+    prompt: tts
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: long-tts-eval-asr-wer-zh
+    agg: long-tts-wer
+
+long_tts_eval_en:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: seedtts-vc-en
+    prompt: tts
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: long-tts-eval-asr-wer-en
+    agg: long-tts-wer

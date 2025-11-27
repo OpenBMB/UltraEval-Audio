@@ -4,7 +4,7 @@ seed_tts_eval_en:
     default_task: seed_tts_eval_en
     name: TwinkStart/Seed-TTS-Eval
     subset: en
-    ref_col: text
+    ref_col: WavPath
 
 seed_tts_eval_zh:
   class: audio_evals.dataset.huggingface.Huggingface
@@ -12,4 +12,4 @@ seed_tts_eval_zh:
     default_task: seed_tts_eval_zh
     name: TwinkStart/Seed-TTS-Eval
     subset: zh
-    ref_col: text
+    ref_col: WavPath

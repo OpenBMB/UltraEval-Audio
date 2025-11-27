@@ -31,6 +31,7 @@ class VoxCPM(OfflineModel):
 
         uid = str(uuid.uuid4())
         prefix = f"{uid}->"
+        prompt.update(kwargs)
 
         while True:
             _, wlist, _ = select.select([], [self.process.stdin], [], 60)

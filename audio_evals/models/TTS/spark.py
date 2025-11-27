@@ -11,14 +11,10 @@ logger = logging.getLogger(__name__)
 
 @isolated("audio_evals/lib/Spark-TTS/main.py")
 class SparkVoiceClone(OfflineModel):
-    def __init__(
-        self, path: str, vc_mode: bool, sample_params: Dict = None, *args, **kwargs
-    ):
+    def __init__(self, path: str, sample_params: Dict = None, *args, **kwargs):
         self.command_args = {
             "path": path,
         }
-        if vc_mode:
-            self.command_args["vc_mode"] = ""
         super().__init__(is_chat=True, sample_params=sample_params)
 
     def _inference(self, prompt: PromptStruct, **kwargs):

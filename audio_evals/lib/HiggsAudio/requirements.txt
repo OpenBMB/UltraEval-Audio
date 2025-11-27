@@ -1,0 +1,23 @@
+-e ./third_party/higgs-audio
+accelerate>=0.26.0
+boto3==1.35.36
+click
+dacite
+descript-audio-codec
+jieba
+json_repair
+langid
+librosa
+loguru
+omegaconf
+pandas
+pydantic
+pydub
+ruff==0.12.2
+s3fs
+torch
+torchaudio
+torchcodec
+torchvision
+transformers>=4.45.1,<4.47.0
+vector_quantize_pytorch

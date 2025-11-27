@@ -2,43 +2,9 @@
 ![assets/logo.png](assets/logo.png)
  <h4 align="center">
     <p>
-        <b>中文</b> | <a href="README_en.md">English</a> |
-<a href="https://discord.gg/QehZvQs3" target="_blank">💬discord</a>
+        <b>中文</b> | <a href="https://github.com/OpenBMB/UltraEval-Audio/blob/main/README_en.md">English</a> |
+<a href="https://discord.gg/MZRsxa2U" target="_blank">💬discord</a>
  </h4>
-
-# 目录
-- [Overview](#overview)
-- [更新日志🔥](#更新日志)
-- [Leaderboard](#leaderboard)
-  - [Audio Understanding Leaderboard](#audio-understanding-leaderboard)
-  - [Audio Generation Leaderboard](#audio-generation-leaderboard)
-  - [Audio Codec Leaderboard](#audio-codec-leaderboard)
-- [快速上手](#快速上手)
-  - [环境准备](#环境准备)
-  - [运行示例](#运行示例)
-  - [res](#res)
-  - [Usage](#usage)
-  - [数据集选择](#数据集选择)
-    - [数据集详细说明](#数据集详细说明)
-    - [模型选择](#模型选择)
-- [致谢](#致谢)
-- [联系我们](#联系我们)
-
-
-# Overview
-
-### 🚀超凡体验，尽在UltraEval-Audio🚀
-
-UltraEval-Audio——全球首个同时支持语音理解和语音生成评估的开源框架，专为语音大模型评估打造，集合了34项权威Benchmark，覆盖语音、声音、医疗及音乐四大领域，支持十种语言，涵盖十二类任务。选择UltraEval-Audio，您将体验到前所未有的便捷与高效：
-
-- **一键式基准管理 📥**：告别繁琐的手动下载与数据处理，UltraEval-Audio为您自动化完成这一切，轻松获取所需基准测试数据。
-- **内置评估利器 ⚙️**：无需再四处搜寻评估工具，UltraEval-Audio内置八种常用的评估方法（如WER、WER-ZH、BLEU、G-Eval），无论是基于规则还是模型驱动，都能满足您的需求。
-- **功能强大，灵活易用 🛠️**：支持预览测试、随机样本、错误重试、断点重跑等功能，确保评估过程灵活可控，提升效率与准确性。
-- **无缝集成自定义数据集 💼**：不仅支持公开benchmark，还提供强大的自定义数据集功能，让您在各种工程场景下也能迅速应用。
-- **轻松对接现有系统 🔗**：具备优秀的扩展性和标准化设计，即使您已拥有一套完善的评估体系，UltraEval-Audio也能无缝对接，简化项目管理流程，输出结果统一规范。
-
-![UEA_Architecture](assets/UEA_Architecture.png)
-
 
 # 更新日志🔥
 - [2025/10/30]
@@ -64,61 +30,71 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
 - [2025/01/13] release v1.0.0
 
 
+# Overview
+
+### 🚀超凡体验，尽在UltraEval-Audio🚀
+
+UltraEval-Audio——全球首个同时支持语音理解和语音生成评估的开源框架，专为语音大模型评估打造，集合了34项权威Benchmark，覆盖语音、声音、医疗及音乐四大领域，支持十种语言，涵盖十二类任务。选择UltraEval-Audio，您将体验到前所未有的便捷与高效：
+
+- **一键式基准管理 📥**：告别繁琐的手动下载与数据处理，UltraEval-Audio为您自动化完成这一切，轻松获取所需基准测试数据。
+- **内置评估利器 ⚙️**：无需再四处搜寻评估工具，UltraEval-Audio内置八种常用的评估方法（如WER、WER-ZH、BLEU、G-Eval），无论是基于规则还是模型驱动，都能满足您的需求。
+- **功能强大，灵活易用 🛠️**：支持预览测试、随机样本、错误重试、断点重跑等功能，确保评估过程灵活可控，提升效率与准确性。
+- **无缝集成自定义数据集 💼**：不仅支持公开benchmark，还提供强大的自定义数据集功能，让您在各种工程场景下也能迅速应用。
+- **轻松对接现有系统 🔗**：具备优秀的扩展性和标准化设计，即使您已拥有一套完善的评估体系，UltraEval-Audio也能无缝对接，简化项目管理流程，输出结果统一规范。
 
 # Leaderboard
 
-## Audio Understanding Leaderboard
-
-> **Audio Understanding Audio Foundation Models**: Speech + Text → Text
+> **Audio Understanding LLM**: Speech + Text → Text
 >
-> WER ($\downarrow$) for ASR, BLEU ($\uparrow$) for AST, and ACC ($\uparrow$) for EMO. Best results are in bold.
+> **Audio Generation LLM**: Speech → Speech
 
-| Model | ASR<br>Librispeech<br>dev-clean\|dev-other<br>test-clean\|test-other | ASR<br>TED-LIUM | ASR<br>CV-15<br>en\|zh | ASR<br>Aishell-1 | ASR<br>FLEURS-zh | ASR<br>Wenet<br>-test-net | AST<br>covost2-en2zh | AST<br>covost2-zh2en | EMO<br>MELD |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **GPT-4o-Realtime** | 2.30\|5.60<br>2.60\|5.50 | 4.80 | 27.44\|37.44 | 7.30 | 5.40 | 28.90 | 37.10 | 15.70 | 33.20 |
-| **Gemini-1.5-Pro** | 2.60\|4.40<br>2.90\|4.90 | 3.00 | 8.36\|13.26 | 4.50 | 5.90 | 14.30 | 47.30 | 22.60 | 48.40 |
-| **Gemini-1.5-Flash** | 5.90\|7.20<br>21.90\|16.30 | 6.90 | 208.00\|84.37 | 9.00 | 85.90 | 279.90 | 33.40 | 8.20 | 45.20 |
-| **Qwen2-Audio<br>-Instruction** | 2.90\|5.50<br>3.10\|5.70 | 5.90 | 10.68\|8.39 | 2.60 | 6.90 | 10.30 | 39.50 | 22.90 | 17.40 |
-| **MiniCPM-o 2.6** | 1.60\|3.40<br>1.70\|4.40 | 3.00 | 10.30\|9.60 | 1.60 | 4.40 | 6.90 | **48.20** | 27.20 | 52.40 |
-| **Qwen2.5-Omni** | 2.10\|4.20<br>2.40\|4.20 | 4.70 | 8.70\|5.20 | 1.10 | 4.60 | 6.00 | 42.50 | 11.50 | 53.60 |
-| **Kimi-Audio-7B-Instruct** | **1.18\|2.34**<br>**1.28\|2.44** | 2.96 | 7.09\|5.72 | **0.60** | **2.53** | 5.55 | 36.61 | 18.30 | **59.23** |
-| **Qwen2-Audio** | 1.57\|3.50<br>1.60\|3.88 | 3.43 | 8.67\|7.03 | 1.52 | 5.89 | 8.09 | 45.30 | 24.84 | 42.87 |
-| **MiDaShengLM-7B** | 2.20\|4.75<br>2.21\|5.16 | 146.53 | 13.66\|29.13 | 1.23 | 3.28 | 16.56 | 38.52 | 22.68 | 53.96 |
-| **Gemini-2.5-Flash** | 3.73\|6.71<br>3.28\|12.03 | 3.53 | 46.76\|36.15 | 6.40 | 6.45 | 126.07 | 3.67 | 10.61 | 51.53 |
-| **Qwen3-Omni-30B<br>-A3B-Instruct** | 1.25\|2.27<br>1.36\|2.57 | 2.82 | **6.00**\|**4.32** | 0.87 | 2.61 | **4.82** | 46.58 | **29.40** | 56.81 |
-| **Gemini-2.5-Pro** | 5.30\|4.51<br>2.84\|6.74 | **2.52** | 9.42\|11.04 | 3.36 | 4.25 | 16.83 | 41.75 | 27.84 | 46.59 |
+<div style="display: flex;">
+  <div style="flex: 1; margin-right: 10px;">
 
-## Audio Generation Leaderboard
+## Audio Understanding LLM Leaderboard
 
->**Audio Understanding Audio Foundation Models**: Speech → Speech
-> Table: Audio generation performance ($\uparrow$). *Acoustic metrics (UTMOS | DNSMOS P.835 | DNSMOS P.808, scale 1--5) are evaluated on the generated audio responses from the speech tasks. Best results are in bold.
+| Rank | Model                   | ASR | AST | EMO |
+|-----:|:------------------------|----:|----:|----:|
+|   🏅 | MiniCPM-o 2.6           |  95 |  38 |  52 |
+|   🥈 | Kimi-Audio-Instruct     |  97 |  27 |  59 |
+|   🥉 | Gemini-1.5-Pro          |  94 |  35 |  48 |
+|    4 | Qwen2.5-Omni            |  96 |  27 |  54 |
+|    5 | Qwen2-Audio            |  95 |  35 |  43 |
+|    6 | GPT-4o-Realtime         |  87 |  26 |  33 |
+|    7 | Qwen2-Audio-Instruction |  94 |  31 |  17 |
+|    8 | Step-Audio-Chat         |  94 |  20 |  26 |
+|    9 | Gemini-1.5-Flash        |  27 |  21 |  45 |
 
-| Models | Speech<br>Web Questions | Speech<br>TriviaQA | Speech<br>CMMLU | SpeechHSK | Speech AlpacaEval | Acoustics* |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **GPT-4o-Realtime** | **51.60** | **69.70** | 70.05 | **98.69** | **74.00** | 4.29\|3.44\|4.26 |
-| **GLM-4-Voice** | 32.00 | 36.40 | 52.61 | 71.06 | 51.00 | 4.21\|3.46\|4.07 |
-| **MiniCPM-o 2.6** | 40.00 | 40.20 | 51.37 | 80.68 | 51.00 | 4.12\|3.39\|4.02 |
-| **Qwen2.5-Omni** | 38.89 | 39.94 | **73.72** | 95.65 | 54.00 | 4.23\|**3.48**\|**4.27** |
-| **Kimi-Audio-7B-Instruct** | 33.69 | 38.20 | 71.25 | 97.42 | 34.40 | 2.94\|3.22\|3.62 |
-| **Qwen3-Omni-30B-A3B-Instruct** | 51.50 | 55.27 | 47.83 | 40.27 | 67.97 | **4.44**\|3.45\|4.12 |
+  </div>
+  <div style="flex: 1;">
+
+## Audio Generation LLM Leaderboard
+
+| Rank | Model                  | Semantic | Acoustic |
+|------|------------------------|----------|----------|
+| 🏅   | GPT-4o-Realtime        | 73       | 80       |
+| 🥈   | Qwen2.5-Omni           | 60       | 80       |
+| 🥉   | MiniCPM-o 2.6          | 53       | 78       |
+| 4    | GLM-4-Voice            | 42       | 82       |
+| 5    | Kimi-Audio-7B-Instruct | 55       | 65       |
 
 
-## Audio Codec Leaderboard
-> **Audio Codec**: Speech → Speech.
-> Table: Audio Codec Performance: ASR-WER ($\downarrow$), ASR-CER ($\downarrow$), SIM ($\uparrow$), and Quality (UTMOS\|DNSMOS P.835\|DNSMOS P.808, $\uparrow$). Note: The hyphen (-) indicates that UTMOS is not applicable to Chinese speech (Aishell-1). Best results are in bold.
+</div>
+</div>
 
-| Models | Librispeech-dev-clean<br>ASR-WER | Librispeech-dev-clean<br>SIM | Librispeech-dev-clean<br>Quality | Librispeech-test-clean<br>ASR-WER | Librispeech-test-clean<br>SIM | Librispeech-test-clean<br>Quality | Aishell-1<br>ASR-CER | Aishell-1<br>SIM | Aishell-1<br>Quality |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Encodec-24k** | 4.56 | 59.40 | 1.58\|3.12\|2.36 | 4.32 | 59.40 | 1.57\|3.12\|2.36 | 13.95 | 47.48 | -\|2.93\|2.03 |
-| **Encodec-48k** | 3.85 | 65.53 | 1.52\|2.88\|2.42 | 3.80 | 66.00 | 1.48\|2.87\|2.40 | 6.85 | 68.78 | -\|2.79\|2.21 |
-| **Chattts-DVAE** | 7.49 | 34.83 | 1.30\|2.66\|2.11 | 6.75 | 36.21 | 1.29\|2.64\|2.12 | 32.36 | 32.36 | -\|2.24\|1.57 |
-| **Mimi (32bit)** | **2.04** | **92.18** | 3.83\|2.87\|2.44 | **1.96** | **92.68** | 3.84\|2.92\|2.49 | **2.82** | **84.80** | -\|2.43\|1.89 |
-| **Mimi (8bit)** | 2.76 | 72.15 | 3.52\|2.78\|2.37 | 2.83 | 73.13 | 3.53\|2.83\|2.43 | 6.82 | 60.63 | -\|2.42\|2.04 |
-| **Mimi-streaming (8bit)** | 6.76 | 54.02 | 1.65\|2.78\|2.37 | 6.19 | 54.32 | 1.63\|2.83\|2.43 | 19.62 | 40.67 | -\|2.42\|2.04 |
-| **WavTokenizer-large-v2-75-tokens** | 4.31 | 69.97 | 4.01\|3.64\|**3.26** | 4.05 | 68.15 | 4.00\|3.63\|**3.27** | 8.97 | 64.27 | -\|3.11\|**2.85** |
-| **WavTokenizer-large-40-tokens** | 8.13 | 60.26 | 3.78\|3.70\|3.13 | 7.73 | 56.63 | 3.77\|3.70\|3.16 | 25.52 | 49.21 | -\|3.13\|2.50 |
-| **Spark** | 2.39 | 79.94 | **4.18**\|**3.85**\|3.24 | 2.53 | 79.53 | **4.18**\|**3.83**\|3.24 | 3.66 | 74.76 | -\|**3.63**\|**2.85** |
+> 详细模型指标见[leaderboard.md](assets/leaderboard.md)
 
+
+<table>
+<tr>
+<td><img src="assets/audio_understanding_leaderboard.png" alt="图片 1 描述"></td>
+<td><img src="assets/s2s_leaderboard.png" alt="图片 2 描述"></td>
+</tr>
+</table>
+
+    # 支持数据集
+
+![assets/dataset_distribute.png](assets/dataset_distribute.png)
 
 
 
@@ -129,15 +105,9 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
 ```shell
 git clone https://github.com/OpenBMB/UltraEval-Audio.git
 cd UltraEval-Audio
-conda create -n env python=3.10 -y
-conda activate env
-pip install -r requirements.txt
-```
-or use `uv` for faster installation:
-```shell
-uv venv env python 3.10
-source env/bin/activate
-uv pip install -r requirements.txt
+conda create -n aduioeval python=3.10 -y
+conda activate aduioeval
+pip install -r requirments.txt
 ```
 
 ## 运行示例
@@ -165,6 +135,7 @@ python audio_evals/main.py --dataset sample --model gemini-pro
 
 
 # 测试qwen2-audio-offline语音理解能力
+pip install -r requirments-offline-model.txt
 CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset sample --model qwen2-audio-chat
 ```
 遇到报错或者不能复现Mini-CPM-o 2.6的结果，可以先看[常见问题](FAQ.md)
@@ -194,14 +165,149 @@ python audio_evals/main.py --dataset <dataset_name> --model <model_name>
 
 ## 数据集选择
 
-`<dataset_name>` 指定要评测的数据集，支持的数据集可以通过`python cli/list_availabel.py`查看
+`--dataset` 指定要评测的数据集，支持的数据集如下:
+
+- `speech-chatbot-alpaca-eval`
+- `llama-questions`
+- `speech-web-questions`
+- `speech-triviaqa`
+- `tedlium-release1`
+- `tedlium-release2`
+- `tedlium-release3`
+- `catdog`
+- `audiocaps`
+- `covost2-en-ar`
+- `covost2-en-ca`
+- `covost2-en-cy`
+- `covost2-en-de`
+- `covost2-en-et`
+- `covost2-en-fa`
+- `covost2-en-id`
+- `covost2-en-ja`
+- `covost2-en-lv`
+- `covost2-en-mn`
+- `covost2-en-sl`
+- `covost2-en-sv`
+- `covost2-en-ta`
+- `covost2-en-tr`
+- `covost2-en-zh`
+- `covost2-zh-en`
+- `covost2-it-en`
+- `covost2-fr-en`
+- `covost2-es-en`
+- `covost2-de-en`
+- `GTZAN`
+- `TESS`
+- `nsynth`
+- `meld-emo`
+- `meld-sentiment`
+- `clotho-aqa`
+- `ravdess-emo`
+- `ravdess-gender`
+- `COVID-recognizer`
+- `respiratory-crackles`
+- `respiratory-wheezes`
+- `KeSpeech`
+- `audio-MNIST`
+- `librispeech-test-clean`
+- `librispeech-dev-clean`
+- `librispeech-test-other`
+- `librispeech-dev-other`
+- `mls_dutch`
+- `mls_french`
+- `mls_german`
+- `mls_italian`
+- `mls_polish`
+- `mls_portuguese`
+- `mls_spanish`
+- `heartbeat_sound`
+- `vocalsound`
+- `fleurs-zh`
+- `voxceleb1`
+- `voxceleb2`
+- `chord-recognition`
+- `wavcaps-audioset`
+- `wavcaps-freesound`
+- `wavcaps-soundbible`
+- `air-foundation`
+- `air-chat`
+- `desed`
+- `peoples-speech`
+- `WenetSpeech-test-meeting`
+- `WenetSpeech-test-net`
+- `gigaspeech`
+- `aishell-1`
+- `cv-15-en`
+- `cv-15-zh`
+- `cv-15-fr`
+- `cv-15-yue`
+
+
+### 数据集详细说明
+| <dataset_name>             | name                       | task                              | domain             | metric     |
+|----------------------------|----------------------------|-----------------------------------|--------------------|------------|
+| speech-chatbot-alpaca-eval | speech-chatbot-alpaca-eval | SpeechQA                          | speech2speech      | GPT-score  |
+| llama-questions            | llama-questions            | SpeechQA                          | speech2speech      | acc        |
+| speech-web-questions       | speech-web-questions       | SpeechQA                          | speech2speech      | acc        |
+| speech-triviaqa            | speech-triviaqa            | SpeechQA                          | speech2speech      | acc        |
+| tedlium-*                  | tedlium                    | ASR(Automatic Speech Recognition) | speech             | wer        |
+| clotho-aqa                 | ClothoAQA                  | AQA(AudioQA)                      | sound              | acc        |
+| catdog                     | catdog                     | AQA                               | sound              | acc        |
+| mls-*                      | multilingual_librispeech   | ASR                               | speech             | wer        |
+| KeSpeech                   | KeSpeech                   | ASR                               | speech             | cer        |
+| librispeech-*              | librispeech                | ASR                               | speech             | wer        |
+| fleurs-*                   | FLEURS                     | ASR                               | speech             | wer        |
+| aishell-1                   | AISHELL-1                  | ASR                               | speech             | wer        |
+| WenetSpeech-*              | WenetSpeech                | ASR                               | speech             | wer        |
+| covost2-*                  | covost2                    | STT(Speech Text Translation)      | speech             | BLEU       |
+| GTZAN                      | GTZAN                      | MQA(MusicQA)                      | music              | acc        |
+| TESS                       | TESS                       | EMO(emotional recognition)        | speech             | acc        |
+| nsynth                     | nsynth                     | MQA                               | music              | acc        |
+| meld-emo                   | meld                       | EMO                               | speech             | acc        |
+| meld-sentiment             | meld                       | SEN(sentiment recognition)        | speech             | acc        |
+| ravdess-emo                | ravdess                    | EMO                               | speech             | acc        |
+| ravdess-gender             | ravdess                    | GEND(gender recognition)          | speech             | acc        |
+| COVID-recognizer           | COVID                      | MedicineCls                       | medicine           | acc        |
+| respiratory-*              | respiratory                | MedicineCls                       | medicine           | acc        |
+| audio-MNIST                | audio-MNIST                | AQA                               | speech             | acc        |
+| heartbeat_sound            | heartbeat                  | MedicineCls                       | medicine           | acc        |
+| vocalsound                 | vocalsound                 | MedicineCls                       | medicine           | acc        |
+| voxceleb*                  | voxceleb                   | GEND                              | speech             | acc        |
+| chord-recognition          | chord                      | MQA                               | music              | acc        |
+| wavcaps-*                  | wavcaps                    | AC(AudioCaption)                  | sound              | acc        |
+| air-foundation             | AIR-BENCH                  | AC,GEND,MQA,EMO                   | sound,music,speech | acc        |
+| air-chat                   | AIR-BENCH                  | AC,GEND,MQA,EMO                   | sound,music,speech | GPT4-score |
+| desed                      | desed                      | AQA                               | sound              | acc        |
+| peoples-speech             | peoples-speech             | ASR                               | speech             | wer        |
+| gigaspeech                 | gigaspeech                 | ASR                               | speech             | wer        |
+| cv-15-*                    | common voice 15            | ASR                               | speech             | wer        |
 
 构造你自己的数据集: [docs/how add a dataset.md](docs%2Fhow%20add%20a%20dataset.md)
 
 
 ### 模型选择
 
-`model_name` 指定要评测的模型，支持的模型可以通过`python cli/list_availabel.py`查看
+`--model` 指定要评测的模型，支持的模型如下:
+
+- **`gpt4o_audio`**：使用 `gpt-4o-realtime-preview-2024-10-01` 的音频转文本模态模型。
+- **`gpt4o_speech`**：使用 `gpt-4o-realtime-preview-2024-10-01` 的音频转语音模态模型。
+- **`gpt4o_audio_ms`**：使用 `gpt-4o-realtime-preview-2024-10-01`（在 AZURE 上）的音频转文本模态模型。
+- **`gpt4o_speech_ms`**：使用 `gpt-4o-realtime-preview-2024-10-01`（在 AZURE 上）的音频转语音模态模型。
+- **`gpt4o_speech`**：使用 `Ggpt-4o-realtime-preview-2024-10-01` 的音频转语音模态模型。
+- **`gemini-pro`**：使用 `Gemini Pro` 模型。
+- **`gemini-1.5-pro`**：使用 `Gemini 1.5 Pro` 模型。
+- **`gemini-1.5-flash`**：使用 `Gemini 1.5 Flash` 模型。
+- **`gemini-2.0-flash-exp`**：使用 `Gemini 2.0 Flash` 模型。
+- **`qwen-audio`**：使用 `qwen-audio-chat`  API 模型。
+- **`qwen2-audio-offline`**：使用 `Qwen2-Audio-7B` 离线模型。
+- **`qwen2-audio-chat`**：使用 `Qwen2-Audio-7B-Instruct` 离线模型。
+- **`qwen-audio-chat-offline`**：使用 `Qwen-Audio-Chat` 离线模型。
+- **`qwen-audio-pretrain-offline`**：使用 `Qwen-Audio` 离线模型。
+- **`ultravox`**：使用 `ultravox-v0_4` 离线模型。
+
+> speech2speech 模型(glm4voice,mini-omni...)稍后支持。
+
+
 评测你自己的模型 [docs/how eval your model.md](docs%2Fhow%20eval%20your%20model.md)
 
 # 致谢

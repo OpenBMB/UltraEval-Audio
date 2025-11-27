@@ -1,0 +1,36 @@
+cv3-zero-shot-en:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - cv3-eval-asr-wer-en
+      - cv3-speaker-sim
+      - dnsmos
+
+cv3-zero-shot-zh:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - cv3-eval-asr-wer-zh
+      - cv3-speaker-sim
+      - dnsmos
+
+cv3-speaker-sim:
+  class: audio_evals.evaluator.simo.CV3SpeakerSim
+  args:
+    model_name: speech_eres2net_sv_en_voxceleb_16k
+
+
+cv3-eval-asr-wer-en:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: cv3-whisper
+    prompt_name: whisper-asr-en
+    lang: en
+
+
+cv3-eval-asr-wer-zh:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args: # important: the asr model name not 'paraformer-zh', refer to https://github.com/modelscope/FunASR/blob/main/funasr/download/name_maps_from_hub.py#L1
+    model_name: speech_paraformer-speech_seaco_paraformer_large_asr_nat-zh-cn-16k-common-vocab8404-pytorch
+    prompt_name: simple-asr
+    lang: zh

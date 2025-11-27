@@ -6,6 +6,17 @@ voxcpm-vc:
     env_path: envs/VoxCPM
     requirements_path: audio_evals/lib/VoxCPM/requirements.txt
 
+voxcpm-vc-no-denoise:
+  class: audio_evals.models.TTS.voxcpm.VoxCPM
+  args:
+    path: openbmb/VoxCPM-0.5B
+    vc_mode: True
+    env_path: envs/VoxCPM
+    requirements_path: audio_evals/lib/VoxCPM/requirements.txt
+    sample_params:
+      denoise: False
+      retry_badcase: False
+
 voxcpm-tts:
   class: audio_evals.models.TTS.voxcpm.VoxCPM
   args:

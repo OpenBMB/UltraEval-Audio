@@ -1,0 +1,15 @@
+addicts
+datasets==2.18.0
+einops
+gradio
+huggingface-hub
+inflect
+librosa
+modelscope==1.22.0
+simplejson
+sortedcontainers
+spaces
+torch==2.5.1
+torchaudio==2.5.1
+transformers==4.50.1
+WeTextProcessing

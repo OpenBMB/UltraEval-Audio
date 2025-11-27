@@ -1,0 +1,33 @@
+mgm-omni-tts:
+  class: audio_evals.models.TTS.mgm_omni.MGMOmni
+  args:
+    path: wcy1122/MGM-Omni-TTS-2B-0927
+    env_path: envs/MGM_Omni
+    requirements_path: audio_evals/lib/MGM_Omni/requirements.txt
+
+mgm-omni-tts-zh:
+  class: audio_evals.models.TTS.mgm_omni.MGMOmni
+  args:
+    path: wcy1122/MGM-Omni-TTS-2B-0927
+    lang: zh
+    env_path: envs/MGM_Omni
+    requirements_path: audio_evals/lib/MGM_Omni/requirements.txt
+
+
+mgm-omni-tts-8bit:
+  class: audio_evals.models.TTS.mgm_omni.MGMOmni
+  args:
+    path: wcy1122/MGM-Omni-TTS-2B-0927
+    load_8bit: True
+    load_4bit: False
+    env_path: envs/MGM_Omni
+    requirements_path: audio_evals/lib/MGM_Omni/requirements.txt
+
+mgm-omni-tts-4bit:
+  class: audio_evals.models.TTS.mgm_omni.MGMOmni
+  args:
+    path: wcy1122/MGM-Omni-TTS-2B-0927
+    load_8bit: False
+    load_4bit: True
+    env_path: envs/MGM_Omni
+    requirements_path: audio_evals/lib/MGM_Omni/requirements.txt

@@ -1,0 +1,7 @@
+speech_eres2net_sv_en_voxceleb_16k:
+  class: audio_evals.models.cv3_speaker_sim.CV3SpeakerSim
+  args:
+    path: /user/shiqundong/project/CV3-Eval/utils/3D-Speaker/pretrained/speech_eres2net_sv_en_voxceleb_16k/pretrained_eres2net.ckpt
+    model_id: damo/speech_eres2net_sv_en_voxceleb_16k
+    env_path: envs/speech_eres2net_sv_en_voxceleb_16k
+    requirements_path: audio_evals/lib/cv3_speaker_sim/requirements.txt

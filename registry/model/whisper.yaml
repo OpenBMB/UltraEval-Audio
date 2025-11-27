@@ -13,3 +13,21 @@ seed-tts-whisper:
     env_path: envs/whisper
     requirements_path: audio_evals/lib/whisper/requirements.txt
     sample_params: {}
+
+cv3-whisper:
+  class: audio_evals.models.whisper.CV3WhisperModel
+  args:
+    path: large-v3
+    env_path: envs/whisper
+    requirements_path: audio_evals/lib/whisper/requirements.txt
+    sample_params: {}
+
+
+long-tts-whisper:
+  class: audio_evals.models.whisper.SeedTTSWhisperModel
+  args:
+    path: openai/whisper-large-v3
+    chunk_size: 28
+    env_path: envs/whisper
+    requirements_path: audio_evals/lib/whisper/requirements.txt
+    sample_params: {}

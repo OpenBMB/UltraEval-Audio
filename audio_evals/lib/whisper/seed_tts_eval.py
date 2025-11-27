@@ -16,6 +16,12 @@ logger = logging.getLogger(__name__)
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--path", type=str, required=True, help="Path to Whisper model")
+    parser.add_argument(
+        "--chunk_size",
+        type=int,
+        default=0,
+        help="Chunk size in seconds (0 means no chunking)",
+    )
     config = parser.parse_args()
 
     # Initialize model
@@ -43,19 +49,45 @@ if __name__ == "__main__":
             wav, sr = sf.read(x["audio"])
             if sr != 16000:
                 wav = scipy.signal.resample(wav, int(len(wav) * 16000 / sr))
-            input_features = processor(
-                wav, sampling_rate=16000, return_tensors="pt"
-            ).input_features
-            input_features = input_features.to(device)
-            forced_decoder_ids = processor.get_decoder_prompt_ids(
-                language=x.get("language", "english"), task="transcribe"
-            )
-            predicted_ids = model.generate(
-                input_features, forced_decoder_ids=forced_decoder_ids
-            )
-            transcription = processor.batch_decode(
-                predicted_ids, skip_special_tokens=True
-            )[0]
+                sr = 16000
+
+            if config.chunk_size > 0:
+                # Use chunking
+                chunk_size = config.chunk_size * sr
+                texts = []
+                for start in range(0, len(wav), chunk_size):
+                    chunk = wav[start : start + chunk_size]
+                    input_features = processor(
+                        chunk, sampling_rate=16000, return_tensors="pt"
+                    ).input_features
+                    input_features = input_features.to(device)
+                    forced_decoder_ids = processor.get_decoder_prompt_ids(
+                        language=x.get("language", "english"), task="transcribe"
+                    )
+                    with torch.no_grad():
+                        predicted_ids = model.generate(
+                            input_features, forced_decoder_ids=forced_decoder_ids
+                        )
+                    text = processor.batch_decode(
+                        predicted_ids, skip_special_tokens=True
+                    )[0]
+                    texts.append(text.strip())
+                transcription = " ".join(t for t in texts if t)
+            else:
+                # Process entire audio at once
+                input_features = processor(
+                    wav, sampling_rate=16000, return_tensors="pt"
+                ).input_features
+                input_features = input_features.to(device)
+                forced_decoder_ids = processor.get_decoder_prompt_ids(
+                    language=x.get("language", "english"), task="transcribe"
+                )
+                predicted_ids = model.generate(
+                    input_features, forced_decoder_ids=forced_decoder_ids
+                )
+                transcription = processor.batch_decode(
+                    predicted_ids, skip_special_tokens=True
+                )[0]
             result = {"text": transcription}
             retry = 3
             while retry:

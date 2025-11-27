@@ -88,6 +88,7 @@ class SeedTTSWhisperModel(OfflineModel):
     def __init__(
         self,
         path: str = "openai/whisper-large-v3",
+        chunk_size: int = 0,
         sample_params: Dict[str, any] = None,
     ):
         if path.startswith("openai/") and not os.path.exists(path):
@@ -95,6 +96,7 @@ class SeedTTSWhisperModel(OfflineModel):
 
         self.command_args = {
             "path": path,
+            "chunk_size": chunk_size,
         }
         super().__init__(is_chat=True, sample_params=sample_params)
 

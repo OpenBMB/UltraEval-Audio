@@ -19,3 +19,12 @@ speech_paraformer-speech_seaco_paraformer_large_asr_nat-zh-cn-16k-common-vocab84
     path: iic/speech_seaco_paraformer_large_asr_nat-zh-cn-16k-common-vocab8404-pytorch
     env_path: envs/paraformer_ms
     requirements_path: audio_evals/lib/paraformer_ms/requirements.txt
+
+
+long_tts_speech_paraformer-speech_seaco_paraformer_large_asr_nat-zh-cn-16k-common-vocab8404-pytorch:
+  class: audio_evals.models.asr.paraformer_ms.Paraformer
+  args:
+    path: iic/speech_seaco_paraformer_large_asr_nat-zh-cn-16k-common-vocab8404-pytorch
+    chunk_size: 28
+    env_path: envs/paraformer_ms
+    requirements_path: audio_evals/lib/paraformer_ms/requirements.txt

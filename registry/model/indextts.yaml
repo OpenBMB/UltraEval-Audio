@@ -1,0 +1,13 @@
+indextts:
+  class: audio_evals.models.TTS.indextts.IndexTTS
+  args:
+    model_dir: IndexTeam/Index-TTS
+    env_path: envs/indextts
+    requirements_path: audio_evals/lib/index-tts/requirements.txt
+
+indextts2:
+  class: audio_evals.models.TTS.indextts2.IndexTTS2
+  args:
+    model_dir: IndexTeam/IndexTTS-2
+    env_path: envs/indextts2
+    requirements_path: audio_evals/lib/index-tts2/requirements.txt

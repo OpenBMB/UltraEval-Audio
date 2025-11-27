@@ -26,6 +26,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--path", type=str, required=True, help="Path to checkpoint file"
     )
+    parser.add_argument("--chunk_size", type=int, default=0, help="Chunk size")
     config = parser.parse_args()
     is_streaming = config.path.endswith("streaming") or config.path.endswith("online")
     chunk_size = [0, 10, 5]  # [0, 10, 5] 600ms, [0, 8, 4] 480ms
@@ -77,7 +78,7 @@ if __name__ == "__main__":
 
                     cache = {}
                     total_chunk_num = int(len((speech) - 1) / chunk_stride + 1)
-                    wanted = ""
+                    transcription = ""
                     for i in range(total_chunk_num):
                         speech_chunk = speech[i * chunk_stride : (i + 1) * chunk_stride]
                         is_final = i == total_chunk_num - 1
@@ -89,34 +90,36 @@ if __name__ == "__main__":
                             encoder_chunk_look_back=encoder_chunk_look_back,
                             decoder_chunk_look_back=decoder_chunk_look_back,
                         )
-                        wanted += "".join([item["text"] for item in res])
-                        wanted = rich_transcription_postprocess(wanted)
-                    retry = 3
-                    while retry:
-                        retry -= 1
-                        print("{}{}".format(prefix, wanted))
-                        rlist, _, _ = select.select([sys.stdin], [], [], 1)
-                        if rlist:
-                            finish = sys.stdin.readline().strip()
-                            if finish == "{}close".format(prefix):
-                                break
-                        print("not found close signal, will emit again", flush=True)
+                        transcription += "".join([item["text"] for item in res])
                 else:
-                    res = m.generate(input=wav_file.name, batch_size_s=300)
-                    retry = 3
-                    while retry:
-                        retry -= 1
-                        print(
-                            "{}{}".format(
-                                prefix, rich_transcription_postprocess(res[0]["text"])
-                            )
+                    if config.chunk_size > 0:
+                        texts = []
+                        audio, sr = soundfile.read(wav_file.name)
+                        for start in range(0, len(audio), config.chunk_size * sr):
+                            chunk = audio[start : start + config.chunk_size * sr]
+                            res = m.generate(input=chunk, batch_size_s=300)
+                            if len(res) > 0:
+                                text = res[0]["text"]
+                                texts.append(text.strip())
+                        transcription = "".join(t for t in texts if t)
+                    else:
+                        transcription = m.generate(
+                            input=wav_file.name, batch_size_s=300
+                        )[0]["text"]
+                retry = 3
+                while retry:
+                    retry -= 1
+                    print(
+                        "{}{}".format(
+                            prefix, rich_transcription_postprocess(transcription)
                         )
-                        rlist, _, _ = select.select([sys.stdin], [], [], 1)
-                        if rlist:
-                            finish = sys.stdin.readline().strip()
-                            if finish == "{}close".format(prefix):
-                                break
-                        print("not found close signal, will emit again", flush=True)
+                    )
+                    rlist, _, _ = select.select([sys.stdin], [], [], 1)
+                    if rlist:
+                        finish = sys.stdin.readline().strip()
+                        if finish == "{}close".format(prefix):
+                            break
+                    print("not found close signal, will emit again", flush=True)
         except Exception as e:
             import traceback
 

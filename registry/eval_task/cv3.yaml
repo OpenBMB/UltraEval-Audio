@@ -1,0 +1,19 @@
+cv3_zero_shot_zh:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: seedtts-vc-zh
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-zero-shot-zh
+    agg: mean
+
+cv3_zero_shot_en:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: seedtts-vc-en
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-zero-shot-en
+    agg: mean

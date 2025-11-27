@@ -84,7 +84,10 @@ class NaiveMean(AggPolicy):
                     print(f"ignore {k} as it is not a number, but {v}")
         for item in self.need_score_col:
             valid_l = [c[item] for c in score_detail if c.get(item) is not None]
-            res[f"{item}(%)"] = sum(valid_l) / len(valid_l) * 100
+            if "%" in item:
+                res[item] = sum(valid_l) / len(valid_l)
+            else:
+                res[f"{item}(%)"] = sum(valid_l) / len(valid_l) * 100
         return res
 
 

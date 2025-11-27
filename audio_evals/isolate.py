@@ -21,7 +21,7 @@ def isolated(
 
             # 创建虚拟环境
             if not os.path.exists(env_path):
-                res = subprocess.run(["uv", "venv", env_path, "--python", "3.10"])
+                res = subprocess.run(["virtualenv", env_path])
                 if res.returncode != 0:
                     raise RuntimeError(
                         f"Failed to create virtual environment: {res.stderr}"

@@ -1,4 +1,5 @@
 accelerate>=0.26.0
+openai-whisper
 scipy
 soundfile
 torchaudio==2.5.1

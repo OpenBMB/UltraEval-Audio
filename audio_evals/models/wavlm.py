@@ -47,6 +47,9 @@ class WavLM(OfflineModel):
             output_dir = os.path.join(DEFAULT_MODEL_PATH, "wavlm")
             os.makedirs(output_dir, exist_ok=True)
             output_path = os.path.join(output_dir, "wavlm_large_finetune.pth")
+            if os.path.exists(output_path):
+                logger.info(f"Model already present locally, skip download: {output_path}")
+                return output_path
 
             gdown.download(
                 f"https://drive.google.com/uc?id={file_id}",
