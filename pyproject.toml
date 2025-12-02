@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ultraeval-audio"
+version = "0.0.0"
+description = "Evaluation framework for audio understanding and generation LLMs."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "UltraEval Contributors" }]
+keywords = ["audio", "speech", "evaluation", "benchmark", "LLM", "TTS", "ASR"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+]
+dynamic = ["dependencies"]
+
+# Optional: declare a CLI entrypoint once installed (editable or wheel)
+[project.scripts]
+ultraeval-audio = "audio_evals.main:main"
+
+[project.urls]
+Homepage = "https://github.com/OpenBMB/UltraEval-Audio"
+Issues = "https://github.com/OpenBMB/UltraEval-Audio/issues"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["audio_evals*"]
+exclude = ["tests*", "env*", "envs*", "raw*", "outputs*", "third_party*", "replication*"]
+
+# If you later move YAML/data files under audio_evals/, configure them here.
+[tool.setuptools.package-data]
+audio_evals = ["**/*.yaml", "**/*.txt", "**/*.json", "**/*.md"]
+
+[tool.setuptools.dynamic]
+# NOTE: filenames keep the project's current spelling: "requirments*.txt"
+dependencies = { file = ["requirements.txt"] }
