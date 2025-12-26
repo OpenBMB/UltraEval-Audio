@@ -1,0 +1,47 @@
+hsk1:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: speech-choice-aqa-zh
+    name: TwinkStart/speech-HSK
+    split: hsk1
+    ref_col: ans_choice
+
+hsk2:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: speech-choice-aqa-zh
+    name: TwinkStart/speech-HSK
+    split: hsk2
+    ref_col: ans_choice
+
+hsk3:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: speech-choice-aqa-zh
+    name: TwinkStart/speech-HSK
+    split: hsk3
+    ref_col: ans_choice
+
+hsk4:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: speech-choice-aqa-zh
+    name: TwinkStart/speech-HSK
+    split: hsk4
+    ref_col: ans_choice
+
+hsk5:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: speech-choice-aqa-zh
+    name: TwinkStart/speech-HSK
+    split: hsk5
+    ref_col: ans_choice
+
+hsk6:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: speech-choice-aqa-zh
+    name: TwinkStart/speech-HSK
+    split: hsk6
+    ref_col: ans_choice

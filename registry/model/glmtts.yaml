@@ -1,0 +1,24 @@
+# GLM-TTS Model Configuration
+# GitHub: https://github.com/zai-org/GLM-TTS
+# GLM-TTS is a high-quality TTS system supporting zero-shot voice cloning
+#
+# The GLM-TTS repo is automatically cloned to third_party/GLM-TTS via pre_command
+# ckpt_dir is relative to third_party/GLM-TTS/
+
+glmtts:
+  class: audio_evals.models.TTS.glmtts.GLMTTS
+  args:
+    ckpt_dir: zai-org/GLM-TTS
+    use_cache: True
+    use_phoneme: False
+    env_path: envs/glmtts
+    requirements_path: audio_evals/lib/GLM-TTS/requirements.txt
+
+glmtts-phoneme:
+  class: audio_evals.models.TTS.glmtts.GLMTTS
+  args:
+    ckpt_dir: zai-org/GLM-TTS
+    use_cache: True
+    use_phoneme: True
+    env_path: envs/glmtts
+    requirements_path: audio_evals/lib/GLM-TTS/requirements.txt

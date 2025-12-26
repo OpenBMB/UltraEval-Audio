@@ -1,4 +1,6 @@
 import argparse
+import select
+import sys
 import tempfile
 
 import soundfile as sf
@@ -7,7 +9,6 @@ import torch
 import logging
 
 logging.basicConfig(level=logging.INFO)
-device = "cuda" if torch.cuda.is_available() else "cpu"
 
 logger = logging.getLogger(__name__)
 
@@ -26,15 +27,46 @@ if __name__ == "__main__":
         model_dir=config.path,
         device=device,
     )
-    logger.info(f"successfully loaded tokenizer")
+    print(f"Model loaded from checkpoint: {config.path}", flush=True)
 
     while True:
         try:
             prompt = input()
-            global_tokens, semantic_tokens = tokenizer.tokenize(prompt)
+            if not prompt.strip():
+                continue
+
+            # 解析 uuid 前缀
+            anchor = prompt.find("->")
+            if anchor == -1:
+                print(
+                    "Error: Invalid format, must contain ->, got: {}".format(prompt),
+                    flush=True,
+                )
+                continue
+
+            prefix = prompt[: anchor + 2]  # 包含 "->"
+            audio_path = prompt[anchor + 2 :]
+
+            global_tokens, semantic_tokens = tokenizer.tokenize(audio_path)
             wav_rec = tokenizer.detokenize(global_tokens.squeeze(0), semantic_tokens)
             with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as f:
                 sf.write(f.name, wav_rec, 16000)
-                print("Result:" + f.name)
+
+                # 发送结果并等待 close 信号确认
+                retry = 3
+                while retry:
+                    retry -= 1
+                    print(f"{prefix}{f.name}", flush=True)
+                    rlist, _, _ = select.select([sys.stdin], [], [], 1)
+                    if rlist:
+                        finish = sys.stdin.readline().strip()
+                        if finish == f"{prefix}close":
+                            break
+                        logger.info(
+                            f"not found close signal, got: {finish}, will emit again"
+                        )
+        except EOFError:
+            # stdin 关闭，正常退出
+            break
         except Exception as e:
-            print("Error:{}".format(e))
+            print(f"Error:{e}", flush=True)

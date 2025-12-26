@@ -1,0 +1,43 @@
+cosyvoice-encodec:
+  class: audio_evals.models.AudioEncoder.cosyvoice.CosyVoiceEncoder
+  args:
+    model_path: FunAudioLLM/CosyVoice2-0.5B
+
+cosyvoice2-vc:
+  class: audio_evals.models.TTS.cosyvoice_adv.CosyVoice
+  args:
+    path: FunAudioLLM/CosyVoice2-0.5B
+    vc_mode: True
+    env_path: envs/cosyvoice
+    requirements_path: audio_evals/lib/CosyVoice/requirements.txt
+
+cosyvoice2ms-vc:
+  class: audio_evals.models.TTS.cosyvoice_adv.CosyVoice
+  args:
+    path: iic/CosyVoice2-0.5B
+    vc_mode: True
+    env_path: envs/cosyvoice
+    requirements_path: audio_evals/lib/CosyVoice/requirements.txt
+
+cosyvoice2:
+  class: audio_evals.models.TTS.cosyvoice_adv.CosyVoice
+  args:
+    path: FunAudioLLM/CosyVoice2-0.5B
+    env_path: envs/cosyvoice
+    requirements_path: audio_evals/lib/CosyVoice/requirements.txt
+
+# use latest inference code from https://github.com/FunAudioLLM/CosyVoice.git
+cosyvoice3-latest:
+  class: audio_evals.models.TTS.cosyvoice_adv.CosyVoiceLast
+  args:
+    path: FunAudioLLM/Fun-CosyVoice3-0.5B-2512
+    env_path: envs/cosyvoice_official
+    requirements_path: audio_evals/lib/CosyVoiceOffical/requirements.txt
+
+# use latest inference code from https://github.com/FunAudioLLM/CosyVoice.git
+cosyvoice2-latest:
+  class: audio_evals.models.TTS.cosyvoice_adv.CosyVoiceLast
+  args:
+    path: FunAudioLLM/CosyVoice2-0.5B
+    env_path: envs/cosyvoice_official
+    requirements_path: audio_evals/lib/CosyVoiceOffical/requirements.txt

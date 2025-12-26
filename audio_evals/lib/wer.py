@@ -1,7 +1,7 @@
 import editdistance as ed
 import zhconv
 
-from audio_evals.lib.evaluate_tokenizer import EvaluationTokenizer
+from audio_evals.lib.evaluate_tokenizer import EvaluationTokenizer, TOKENIZERS
 from audio_evals.lib.text_normalization.basic import BasicTextNormalizer
 from audio_evals.lib.text_normalization.cn_tn import TextNorm
 from audio_evals.lib.text_normalization.en import EnglishTextNormalizer
@@ -20,11 +20,17 @@ chinese_normalizer = TextNorm(
 basic_normalizer = BasicTextNormalizer()
 
 
-def compute_wer(refs, hyps, language="en"):
+def compute_wer(refs, hyps, language="13a"):
     distance = 0
     ref_length = 0
+    if language == "yue":
+        tokenizer_type = "zh"
+    elif language == "jp":
+        tokenizer_type = "ja-mecab"
+    else:
+        tokenizer_type = language if language in TOKENIZERS else "13a"
     tokenizer = EvaluationTokenizer(
-        tokenizer_type="none",
+        tokenizer_type=tokenizer_type,
         lowercase=True,
         punctuation_removal=False,
         character_tokenization=False,
@@ -45,9 +51,9 @@ def compute_wer(refs, hyps, language="en"):
         ref_items = tokenizer.tokenize(ref).split()
         pred_items = tokenizer.tokenize(pred).split()
 
-        if language in ["zh", "yue"]:
-            ref_items = [x for x in "".join(ref_items)]
-            pred_items = [x for x in "".join(pred_items)]
+        # if language in ["zh", "yue"]:
+        #     ref_items = [x for x in "".join(ref_items)]
+        #     pred_items = [x for x in "".join(pred_items)]
         if len(refs) > 1 and i == 0:
             print(f"ref: {ref}")
             print(f"pred: {pred}")

@@ -1,0 +1,22 @@
+qwen3-omni-audio:
+  class: audio_evals.models.qwen3_omni.Qwen3Omni
+  args:
+    path: Qwen/Qwen3-Omni-30B-A3B-Instruct
+    env_path: envs/qwen3-omni
+    requirements_path: audio_evals/lib/qwen3-omni/requirements.txt
+
+qwen3-omni-speech:
+  class: audio_evals.models.qwen3_omni.Qwen3Omni
+  args:
+    path: Qwen/Qwen3-Omni-30B-A3B-Instruct
+    speech: true
+    speaker: Ethan
+    env_path: envs/qwen3-omni
+    requirements_path: audio_evals/lib/qwen3-omni/requirements.txt
+
+qwen3-omni-thinking:
+  class: audio_evals.models.qwen3_omni.Qwen3Omni
+  args:
+    path: Qwen/Qwen3-Omni-30B-A3B-Thinking
+    env_path: envs/qwen3-omni
+    requirements_path: audio_evals/lib/qwen3-omni/requirements.txt

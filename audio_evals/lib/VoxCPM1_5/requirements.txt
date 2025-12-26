@@ -1,0 +1,3 @@
+/user/shiqundong/project/Infer/VoxCPM
+torch==2.5.1
+torchcodec

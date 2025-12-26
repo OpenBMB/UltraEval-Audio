@@ -1,0 +1,228 @@
+# Qwen3-Omni Prompt Templates
+# Based on Qwen3-Omni official evaluation settings
+
+# ASR Tasks - Automatic Speech Recognition
+qwen3-omni-asr-zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: '请将这段中文语音转换为纯文本。'
+
+qwen3-omni-asr-en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Transcribe the English audio into text.'
+
+qwen3-omni-asr-de:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Transcribe the German audio into text.'
+
+qwen3-omni-asr-ja:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Transcribe the Japanese audio into text.'
+
+qwen3-omni-asr-ko:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Transcribe the Korean audio into text.'
+
+qwen3-omni-asr-fr:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Transcribe the French audio into text.'
+
+qwen3-omni-asr-es:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Transcribe the Spanish audio into text.'
+
+qwen3-omni-asr-it:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Transcribe the Italian audio into text.'
+
+qwen3-omni-asr-pt:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Transcribe the Portuguese audio into text.'
+
+qwen3-omni-asr-ru:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Transcribe the Russian audio into text without any punctuation marks.'
+
+# Speech Translation Tasks (S2TT)
+qwen3-omni-s2tt-zh2en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Listen to the provided Chinese speech and produce a translation in English text.'
+
+qwen3-omni-s2tt-en2zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Listen to the provided English speech and produce a translation in Chinese text.'
+
+qwen3-omni-s2tt-en2de:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Listen to the provided English speech and produce a translation in German text.'
+
+qwen3-omni-s2tt-de2en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Listen to the provided German speech and produce a translation in English text.'
+
+qwen3-omni-s2tt-en2ja:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Listen to the provided English speech and produce a translation in Japanese text.'
+
+qwen3-omni-s2tt-ja2en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Listen to the provided Japanese speech and produce a translation in English text.'
+
+# Song Lyrics Recognition
+qwen3-omni-lyrics:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: text
+        value: 'Transcribe the song lyrics into text without any punctuation, separate lines with line breaks, and output only the lyrics without additional explanations.'
+      - type: audio
+        value: '{{WavPath}}'
+
+
+qwen3-omni-audio-caption:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Describe what you hear in this audio in detail.'
+
+# Speaker Identification
+qwen3-omni-speaker-id:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'Identify characteristics of the speaker in this audio.'
+
+# Audio Event Detection
+qwen3-omni-audio-event:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: audio
+        value: '{{WavPath}}'
+      - type: text
+        value: 'What events or sounds can you hear in this audio?'

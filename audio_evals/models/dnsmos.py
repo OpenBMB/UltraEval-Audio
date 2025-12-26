@@ -61,9 +61,9 @@ class DNSMOS(OfflineModel):
     @staticmethod
     def _download_model(save_path: str) -> Tuple[str]:
         repo_dir = os.path.join(save_path, "DNS-Challenge")
-        p835_path = (os.path.join(repo_dir, "DNSMOS/DNSMOS/sig_bak_ovr.onnx"),)
-        p835_ppath = (os.path.join(repo_dir, "DNSMOS/pDNSMOS/sig_bak_ovr.onnx"),)
-        p808_path = (os.path.join(repo_dir, "DNSMOS/DNSMOS/model_v8.onnx"),)
+        p835_path = os.path.join(repo_dir, "DNSMOS/DNSMOS/sig_bak_ovr.onnx")
+        p835_ppath = os.path.join(repo_dir, "DNSMOS/pDNSMOS/sig_bak_ovr.onnx")
+        p808_path = os.path.join(repo_dir, "DNSMOS/DNSMOS/model_v8.onnx")
         if not os.path.exists(repo_dir):
             os.makedirs(repo_dir)
         else:

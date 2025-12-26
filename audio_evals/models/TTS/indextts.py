@@ -8,6 +8,7 @@ from typing import Dict, Any
 from audio_evals.base import PromptStruct
 from audio_evals.models.model import OfflineModel
 from audio_evals.isolate import isolated
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +35,8 @@ class IndexTTS(OfflineModel):
             cuda_kernel: Whether to use CUDA kernel for BigVGAN
             sample_params: Sampling parameters
         """
+        if not os.path.exists(model_dir):
+            model_dir = self._download_model(model_dir)
         self.command_args = {
             "model_dir": model_dir,
         }

@@ -1,0 +1,22 @@
+voxcpm1_5:
+  class: audio_evals.models.TTS.voxcpm_1_5.VoxCPM
+  args:
+    path: /user/zhouyixuan/ckpt/VoxCPM-1.5-0.5B-6hz-44khz-20251204/
+    vc_mode: True
+    denoise: True
+    denoise_path: /user/shiqundong/project/UltraEval-Audio/init_model/iic/speech_zipenhancer_ans_multiloss_16k_base
+    env_path: envs/VoxCPM_1_5
+    requirements_path: audio_evals/lib/VoxCPM1_5/requirements.txt
+
+voxcpm1_5-no-denoise-no-retry-no-normalization:
+  class: audio_evals.models.TTS.voxcpm_1_5.VoxCPM
+  args:
+    path: /user/zhouyixuan/ckpt/VoxCPM-1.5-0.5B-6hz-44khz-20251204/
+    vc_mode: True
+    denoise: False
+    env_path: envs/VoxCPM_1_5
+    requirements_path: audio_evals/lib/VoxCPM1_5/requirements.txt
+    sample_params:
+      denoise: False
+      retry_badcase: False
+      normalize: False

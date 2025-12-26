@@ -37,6 +37,16 @@ choice-aqa:
     evaluator: em
     agg: acc
 
+speech-choice-aqa-zh:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: speech-hsk1
+    prompt: direct-aqa
+    model: qwen-audio-chat
+    post_process: ['extract_audio', 'speech2text-zh', 'first_option_with_default_a']
+    evaluator: em
+    agg: acc
+
 s2t-choice-aqa:
   class: audio_evals.base.EvalTaskCfg
   args:

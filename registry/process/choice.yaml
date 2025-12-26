@@ -2,3 +2,9 @@ first_option:
   class: audio_evals.process.firstoption.FirstOption
   args:
     options: ABCD
+
+first_option_with_default_a:
+  class: audio_evals.process.firstoption.FirstOption
+  args:
+    options: ABCD
+    default_option: A

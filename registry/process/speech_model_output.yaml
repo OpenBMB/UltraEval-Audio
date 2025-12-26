@@ -15,6 +15,6 @@ speech2text:
 
 speech2text-zh:
   class: audio_evals.process.speech.Speech2text
-  args:
-    model_name: paraformer-zh
+  args: # important: the asr model name not 'paraformer-zh', refer to https://github.com/modelscope/FunASR/blob/main/funasr/download/name_maps_from_hub.py#L1
+    model_name: speech_paraformer-speech_seaco_paraformer_large_asr_nat-zh-cn-16k-common-vocab8404-pytorch
     prompt_name: simple-asr

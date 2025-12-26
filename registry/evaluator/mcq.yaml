@@ -1,0 +1,3 @@
+mcq_abcd:
+  class: audio_evals.evaluator.mcq.MCQ
+  args: {}

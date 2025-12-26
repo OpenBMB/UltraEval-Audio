@@ -8,6 +8,7 @@ from typing import Dict, Any
 from audio_evals.base import PromptStruct
 from audio_evals.models.model import OfflineModel
 from audio_evals.isolate import isolated
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -39,6 +40,8 @@ class IndexTTS2(OfflineModel):
             use_deepspeed: Whether to use deepspeed
             sample_params: Sampling parameters
         """
+        if not os.path.exists(model_dir):
+            model_dir = self._download_model(model_dir)
         self.command_args = {
             "model_dir": model_dir,
         }
@@ -138,7 +141,7 @@ class IndexTTS2(OfflineModel):
                         if result:
                             if result.startswith(prefix):
                                 response_line = result[len(prefix) :]
-                                self.process.stdin.write(f"{prefix}ok\n")
+                                self.process.stdin.write(f"{prefix}close\n")
                                 self.process.stdin.flush()
                                 return response_line
                             elif result.startswith("Error:"):

@@ -17,3 +17,23 @@ long_tts_eval_en:
     post_process: ['extract_audio']
     evaluator: long-tts-eval-asr-wer-en
     agg: long-tts-wer
+
+voice_clone_rtf:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: seedtts-vc-en
+    prompt: voice-clone
+    model: voxcpm-vc
+    post_process: []
+    evaluator: RTF
+    agg: mean
+
+tts_rtf:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: seedtts-vc-en
+    prompt: tts
+    model: voxcpm-tts
+    post_process: []
+    evaluator: RTF
+    agg: mean

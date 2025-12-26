@@ -15,7 +15,13 @@ logger = logging.getLogger(__name__)
 class VoxCPM(OfflineModel):
 
     def __init__(
-        self, path: str, vc_mode: bool, sample_params: Dict = None, *args, **kwargs
+        self,
+        path: str,
+        vc_mode: bool,
+        denoise: bool,
+        sample_params: Dict = None,
+        *args,
+        **kwargs,
     ):
 
         if not os.path.exists(path):
@@ -24,6 +30,8 @@ class VoxCPM(OfflineModel):
         self.command_args = {"path": path}
         if vc_mode:
             self.command_args["vc_mode"] = ""
+        if denoise:
+            self.command_args["denoise"] = ""
         super().__init__(is_chat=True, sample_params=sample_params)
 
     def _inference(self, prompt: PromptStruct, **kwargs):
@@ -34,7 +42,7 @@ class VoxCPM(OfflineModel):
         prompt.update(kwargs)
 
         while True:
-            _, wlist, _ = select.select([], [self.process.stdin], [], 60)
+            _, wlist, _ = select.select([], [self.process.stdin], [], 180)
             if wlist:
                 self.process.stdin.write(f"{prefix}{json.dumps(prompt)}\n")
                 self.process.stdin.flush()
@@ -43,7 +51,7 @@ class VoxCPM(OfflineModel):
 
         while True:
             rlist, _, _ = select.select(
-                [self.process.stdout, self.process.stderr], [], [], 60
+                [self.process.stdout, self.process.stderr], [], [], 180
             )
             if not rlist:
                 err_msg = "Read timeout after 60 seconds"

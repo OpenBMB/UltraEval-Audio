@@ -1,0 +1,11 @@
+wavtokenizer-large-75-token-v2:
+  class: audio_evals.models.AudioEncoder.wav_tokenizer.WavTokenizerEncoder
+  args:
+    config_name: wavtokenizer_smalldata_frame75_3s_nq1_code4096_dim512_kmeans200_attn.yaml
+    model_path: novateur/WavTokenizer-large-speech-75token/wavtokenizer_large_speech_320_v2.ckpt
+
+wavtokenizer-large-40-token:
+  class: audio_evals.models.AudioEncoder.wav_tokenizer.WavTokenizerEncoder
+  args:
+    config_name: wavtokenizer_smalldata_frame40_3s_nq1_code4096_dim512_kmeans200_attn.yaml
+    model_path: novateur/WavTokenizer-large-unify-40token/wavtokenizer_large_unify_600_24k.ckpt

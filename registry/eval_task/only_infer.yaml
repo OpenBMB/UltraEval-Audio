@@ -1,0 +1,9 @@
+only-infer:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: sanxing-en-zh
+    prompt: direct-aqa
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: dump
+    agg: dump

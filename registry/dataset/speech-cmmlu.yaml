@@ -1,0 +1,7 @@
+speech-cmmlu:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: speech-choice-aqa-zh
+    name: TwinkStart/speech-CMMLU
+    split: train
+    ref_col: Answer

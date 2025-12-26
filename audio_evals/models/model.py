@@ -63,6 +63,8 @@ class OfflineModel(Model, ABC):
             # matching sizes, skip downloading to avoid redundant work.
             try:
                 if os.path.isdir(local_dir):
+                    if os.environ.get("IGNORE_WEIGHT_CHECK", "") == "1":
+                        return local_dir
                     api = HfApi()
                     info = api.repo_info(repo_id=repo_id, repo_type=repo_type)
                     siblings = getattr(info, "siblings", []) or []
@@ -86,11 +88,16 @@ class OfflineModel(Model, ABC):
                                     all_files_present = False
                                     break
                         if all_files_present:
-                            logger.info(f"Model already present locally, skip download: {local_dir}")
-                            return local_dir
+                            logger.info(
+                                f"Model already present locally, skip download: {local_dir}"
+                            )
+                    return local_dir
             except Exception as precheck_error:
                 # Any failure in pre-check should not block downloading; proceed gracefully.
-                logger.debug(f"Model pre-check failed, proceeding to download: {precheck_error}", exc_info=True)
+                logger.debug(
+                    f"Model pre-check failed, proceeding to download: {precheck_error}",
+                    exc_info=True,
+                )
 
             logger.info(f"Downloading model from HuggingFace Hub: {repo_id}")
             local_dir = snapshot_download(
@@ -104,7 +111,7 @@ class OfflineModel(Model, ABC):
             return local_dir
         except Exception as e:
             logger.error(f"Failed to download model: {e}")
-            sys.exit(1)
+            return OfflineModel._download_model_from_modelscope(repo_id, repo_type)
 
     def inference(self, prompt: PromptStruct, **kwargs) -> str:
         with self.lock:
@@ -131,7 +138,10 @@ class OfflineModel(Model, ABC):
             # matching sizes, skip downloading to avoid redundant work.
             try:
                 if os.path.isdir(local_dir):
+                    if os.environ.get("IGNORE_WEIGHT_CHECK", "") == "1":
+                        return local_dir
                     from modelscope.hub.api import HubApi
+
                     api = HubApi()
                     # 获取模型文件列表
                     files_info = api.get_model_files(model_id=repo_id)
@@ -139,8 +149,8 @@ class OfflineModel(Model, ABC):
                         all_files_present = True
                         for file_info in files_info:
                             # file_info 通常是一个 dict，包含 'Path' 和 'Size' 等字段
-                            rel_path = file_info.get('Path') or file_info.get('Name')
-                            remote_size = file_info.get('Size')
+                            rel_path = file_info.get("Path") or file_info.get("Name")
+                            remote_size = file_info.get("Size")
                             if not rel_path:
                                 continue
                             target_path = os.path.join(local_dir, rel_path)
@@ -156,11 +166,16 @@ class OfflineModel(Model, ABC):
                                     all_files_present = False
                                     break
                         if all_files_present:
-                            logger.info(f"Model already present locally, skip download: {local_dir}")
-                            return local_dir
+                            logger.info(
+                                f"Model already present locally, skip download: {local_dir}"
+                            )
+                    return local_dir
             except Exception as precheck_error:
                 # Any failure in pre-check should not block downloading; proceed gracefully.
-                logger.debug(f"Model pre-check failed, proceeding to download: {precheck_error}", exc_info=True)
+                logger.debug(
+                    f"Model pre-check failed, proceeding to download: {precheck_error}",
+                    exc_info=True,
+                )
 
             logger.info(f"Downloading model from ModelScope: {repo_id}")
 

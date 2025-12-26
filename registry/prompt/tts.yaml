@@ -6,8 +6,22 @@ voice-clone:
       prompt_audio: "{{WavPath}}"
       prompt_text: "{{prompt_text}}"
 
+cosyvoice3-vc:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "You are a helpful assistant.<|endofprompt|>{{prompt_text}}"
+
 tts:
   class: audio_evals.prompt.base.Prompt
   args:
     template:
       text: "{{text}}"
+
+cosyvoice3-tts:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "You are a helpful assistant.<|endofprompt|>{{text}}"

@@ -4,8 +4,9 @@ from audio_evals.process.base import Process
 
 
 class FirstOption(Process):
-    def __init__(self, options):
+    def __init__(self, options, default_option=None):
         self.options = options
+        self.default_option = default_option
 
     def __call__(self, answer: str):
         options = self.options
@@ -83,4 +84,6 @@ class FirstOption(Process):
                 for i in options:
                     if i.upper() in outputs.upper():
                         return i
+        if self.default_option is not None:
+            return self.default_option
         return ""

@@ -58,17 +58,17 @@ class KimiAudioModel(OfflineModel):
         prefix = f"{uid}->"
         payload = {"messages": valid_propmt}
         while True:
-            _, wlist, _ = select.select([], [self.process.stdin], [], 60)
+            _, wlist, _ = select.select([], [self.process.stdin], [], 180)
             if wlist:
                 self.process.stdin.write(f"{prefix}{json.dumps(payload)}\n")
                 self.process.stdin.flush()
                 break
         while True:
             rlist, _, _ = select.select(
-                [self.process.stdout, self.process.stderr], [], [], 60
+                [self.process.stdout, self.process.stderr], [], [], 180
             )
             if not rlist:
-                err_msg = "Read timeout after 60 seconds"
+                err_msg = "Read timeout after 180 seconds"
                 logger.error(err_msg)
                 raise RuntimeError(err_msg)
             try:

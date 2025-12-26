@@ -1,70 +1,67 @@
 import logging
 import os
-import tempfile
-from dataclasses import asdict
-import torch
-import soundfile as sf
-import librosa
+import select
+import uuid
 from typing import Dict
-from vocos import Vocos
-from vocos.pretrained import instantiate_class
 
 from audio_evals.base import PromptStruct
-from audio_evals.lib.chattts import VocosConfig, DVAEConfig, DVAE
-from audio_evals.models.model import Model
+from audio_evals.models.model import OfflineModel
+from audio_evals.isolate import isolated
 
 
 logger = logging.getLogger(__name__)
 
 
-class ChatTTSModel(Model):
-    def __init__(self, model_path: str, sample_params: Dict[str, any] = None):
-        super().__init__(True, sample_params)
-        self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
-
-        vocos_ckpt_path = os.path.join(model_path, "Vocos.pt")
-        dvae_ckpt_path = os.path.join(model_path, "DVAE_full.pt")
-
-        vocos_config = VocosConfig()
-        feature_extractor = instantiate_class(
-            args=(), init=asdict(vocos_config.feature_extractor)
-        )
-        backbone = instantiate_class(args=(), init=asdict(vocos_config.backbone))
-        head = instantiate_class(args=(), init=asdict(vocos_config.head))
-        vocos = (
-            Vocos(feature_extractor=feature_extractor, backbone=backbone, head=head)
-            .to(self.device)
-            .eval()
-        )
-        vocos.load_state_dict(torch.load(vocos_ckpt_path))
-        self.vocos = vocos
-
-        dvae_config = DVAEConfig()
-        dvae = DVAE(
-            decoder_config=asdict(dvae_config.decoder),
-            encoder_config=asdict(dvae_config.encoder),
-            vq_config=asdict(dvae_config.vq),
-            dim=dvae_config.decoder.idim,
-            coef=None,
-            device=self.device,
-        )
-        dvae.load_pretrained(dvae_ckpt_path, self.device)
-
-        self.dvae = dvae.eval()
-        logger.info("model loaded successfully")
+@isolated("audio_evals/lib/ChatTTS/encodec.py")
+class ChatTTSModel(OfflineModel):
+    def __init__(
+        self,
+        model_path: str,
+        sample_params: Dict[str, any] = None,
+        *args,
+        **kwargs,
+    ):
+        if not os.path.exists(model_path):
+            # If there's a download logic, it could go here
+            pass
+        self.command_args = {
+            "model_path": model_path,
+        }
+        super().__init__(is_chat=False, sample_params=sample_params)
 
     def _inference(self, prompt: PromptStruct, **kwargs) -> str:
         audio_path = prompt["audio"]
-        logger.debug(f"Processing audio file: {audio_path}")
+        uid = str(uuid.uuid4())
+        prefix = f"{uid}->"
 
-        y, sr = librosa.load(audio_path, sr=24000, mono=True)
-        waveform = torch.tensor(y).to(self.device)
-        x = self.dvae(waveform, "encode")
-        reconstructed_mel = self.dvae(x, "decode")
-        reconstructed_waveform = self.vocos.decode(reconstructed_mel).cpu().numpy()
+        # Wait for stdin to be writable
+        _, wlist, _ = select.select([], [self.process.stdin], [], 60)
+        if not wlist:
+            raise RuntimeError("ChatTTS: timeout waiting for stdin to be writable")
 
-        waveform_mono = reconstructed_waveform.squeeze()
-        # 保存生成的音频到临时文件
-        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as f:
-            sf.write(f.name, waveform_mono, samplerate=24000, subtype="PCM_16")
-            return f.name
+        self.process.stdin.write(f"{prefix}{audio_path}\n")
+        self.process.stdin.flush()
+
+        while True:
+            reads, _, _ = select.select(
+                [self.process.stdout, self.process.stderr], [], [], 60
+            )
+            if not reads:
+                raise RuntimeError("ChatTTS: timeout waiting for response")
+
+            for read in reads:
+                if read is self.process.stdout:
+                    result = self.process.stdout.readline().strip()
+                    if result.startswith(prefix):
+                        # Send close signal to acknowledge receipt
+                        self.process.stdin.write(f"{prefix}close\n")
+                        self.process.stdin.flush()
+                        return result[len(prefix) :]
+                    elif result.startswith("Error:"):
+                        raise RuntimeError("ChatTTS encoding failed: {}".format(result))
+                    elif result:
+                        logger.info(result)
+                if read is self.process.stderr:
+                    error_output = self.process.stderr.readline()
+                    if error_output:
+                        logger.warning(f"stderr: {error_output.strip()}")

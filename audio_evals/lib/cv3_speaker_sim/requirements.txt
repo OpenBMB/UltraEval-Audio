@@ -16,6 +16,7 @@ PyYAML>=5.1.2
 scipy
 simplejson
 sortedcontainers
+torchaudio
 torchcodec
 tqdm
 transformers

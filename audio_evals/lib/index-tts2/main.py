@@ -105,17 +105,12 @@ class TTS2Processor:
                 except ImportError:
                     # 如果没有soundfile，使用估算方法
                     # 假设采样率为22050（常用采样率）
-                    try:
-                        import wave
+                    import wave
 
-                        with wave.open(output_path, "rb") as wav_file:
-                            frames = wav_file.getnframes()
-                            sample_rate = wav_file.getframerate()
-                            audio_duration = frames / sample_rate
-                    except:
-                        # 最后的备用方案，使用文件大小估算
-                        file_size = os.path.getsize(output_path)
-                        audio_duration = file_size / (2 * 22050)  # 假设16bit, 22050Hz
+                    with wave.open(output_path, "rb") as wav_file:
+                        frames = wav_file.getnframes()
+                        sample_rate = wav_file.getframerate()
+                        audio_duration = frames / sample_rate
 
                 # 计算RTF (Real Time Factor)
                 rtf = inference_time / audio_duration if audio_duration > 0 else 0
@@ -200,25 +195,17 @@ if __name__ == "__main__":
                 result_json = result
 
             # Wait for acknowledgment
-            ack_wait_start = time.time()
-            while time.time() - ack_wait_start < 60:  # 60s timeout
+            retry = 3
+            while retry > 0:
+                retry -= 1
                 print(f"{prefix}{result_json}", flush=True)
-                print(
-                    f"Sent results for text: {text[:50]}... Waiting for ack...",
-                    flush=True,
-                )
-                rlist, _, xlist = select.select([sys.stdin], [], [sys.stdin], 1.0)
+                rlist, _, _ = select.select([sys.stdin], [], [], 1)
                 if rlist:
-                    ack_signal = sys.stdin.readline().strip()
-                    expected_ack = f"{prefix.strip('->')}->ok"
-                    if ack_signal == expected_ack:
+                    finish = sys.stdin.readline().strip()
+                    if finish == "{}close".format(prefix):
                         break
-                    else:
-                        print(
-                            f"Warning: Received unexpected input while waiting for ack for {prefix}: '{ack_signal}'. Expected '{expected_ack}'",
-                            file=sys.stderr,
-                            flush=True,
-                        )
+                print("not found close signal, will emit again", flush=True)
+
         except Exception as e:
             traceback.print_exc(file=sys.stderr)
             print(f"Error: in main loop: {e}", file=sys.stderr, flush=True)

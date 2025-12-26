@@ -1,0 +1,2 @@
+-r ../../../third_party/CosyVoice/requirements.txt
+x_transformers

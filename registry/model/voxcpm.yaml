@@ -3,6 +3,7 @@ voxcpm-vc:
   args:
     path: openbmb/VoxCPM-0.5B
     vc_mode: True
+    denoise: True
     env_path: envs/VoxCPM
     requirements_path: audio_evals/lib/VoxCPM/requirements.txt
 
@@ -11,6 +12,7 @@ voxcpm-vc-no-denoise:
   args:
     path: openbmb/VoxCPM-0.5B
     vc_mode: True
+    denoise: False
     env_path: envs/VoxCPM
     requirements_path: audio_evals/lib/VoxCPM/requirements.txt
     sample_params:
@@ -22,5 +24,6 @@ voxcpm-tts:
   args:
     path: openbmb/VoxCPM-0.5B
     vc_mode: False
+    denoise: True
     env_path: envs/VoxCPM
     requirements_path: audio_evals/lib/VoxCPM/requirements.txt

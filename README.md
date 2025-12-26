@@ -1,70 +1,85 @@
 
 ![assets/logo.png](assets/logo.png)
- <h4 align="center">
+ <h3 align="center">
+ A Unified Framework for Comprehensive
+Evaluation of Audio Foundation Models
+<p>
     <p>
-        <b>中文</b> | <a href="README_en.md">English</a> |
-<a href="https://discord.gg/QehZvQs3" target="_blank">💬discord</a>
- </h4>
+        <a href="README_zh.md">中文</a> | <b>English</b> |
+<a href="https://discord.gg/Qrsbft4e" target="_blank">💬discord</a>
+ </h3>
 
-# 目录
+# v1.1.0 Highlights
+> - **Popular model replication**: Added replication support for popular models, including **replication result showcases** and **one-click replication commands** (see `replication/`).
+> - **Isolated inference runtime**: Introduced an isolated inference mechanism. Model-specific dependencies are installed/managed automatically; inference runs in the isolated environment and communicates with the main evaluation process via **IPC**, eliminating dependency conflicts.
+> - **Specialized model evaluation support**: Added specialized audio models for **TTS, ASR, and Audio Codec**, further expanding evaluation coverage.
+
+# Table of Contents
+- [Table of Contents](#table-of-contents)
+- [v1.1.0 Highlights](#v110-highlights)
 - [Overview](#overview)
-- [更新日志🔥](#更新日志)
+    - [🚀Exceptional Experience with UltraEval-Audio🚀](#exceptional-experience-with-ultraeval-audio)
+- [Changelog🔥](#changelog)
 - [Leaderboard](#leaderboard)
   - [Audio Understanding Leaderboard](#audio-understanding-leaderboard)
   - [Audio Generation Leaderboard](#audio-generation-leaderboard)
   - [Audio Codec Leaderboard](#audio-codec-leaderboard)
-- [快速上手](#快速上手)
-  - [环境准备](#环境准备)
-  - [运行示例](#运行示例)
+- [Quick Start](#quick-start)
+  - [Environment Preparation](#environment-preparation)
+  - [Run Examples](#run-examples)
   - [res](#res)
   - [Usage](#usage)
-  - [数据集选择](#数据集选择)
-    - [数据集详细说明](#数据集详细说明)
-    - [模型选择](#模型选择)
-- [致谢](#致谢)
-- [联系我们](#联系我们)
+  - [Dataset Selection](#dataset-selection)
+    - [Model Selection](#model-selection)
+- [Acknowledgement](#acknowledgement)
+- [Contact Us](#contact-us)
 
 
 # Overview
 
-### 🚀超凡体验，尽在UltraEval-Audio🚀
+### 🚀Exceptional Experience with UltraEval-Audio🚀
 
-UltraEval-Audio——全球首个同时支持语音理解和语音生成评估的开源框架，专为语音大模型评估打造，集合了34项权威Benchmark，覆盖语音、声音、医疗及音乐四大领域，支持十种语言，涵盖十二类任务。选择UltraEval-Audio，您将体验到前所未有的便捷与高效：
+UltraEval-Audio — The world's first open-source framework supporting both speech understanding and speech generation evaluation, specifically designed for large audio models. It aggregates 34 authoritative benchmarks, covering four major domains: speech, sound, medicine, and music, supporting 10 languages and 12 task categories. With UltraEval-Audio, you will experience unprecedented convenience and efficiency:
 
-- **一键式基准管理 📥**：告别繁琐的手动下载与数据处理，UltraEval-Audio为您自动化完成这一切，轻松获取知名基准测试数据（如Librispeech、TED-LIUM、Seed-TTS-Eval等）。
-- **内置评估利器 ⚙️**：无需再四处搜寻评估工具，UltraEval-Audio直接绑定数据集与常用的官方评估方法（如WER、WER-ZH、BLEU、G-Eval），保证与方法的对齐。
-- **功能强大，灵活易用 🛠️**：支持预览测试、随机样本、错误重试、断点重跑等功能，确保评估过程灵活可控，提升效率与准确性。
-- **无缝集成自定义数据集 💼**：不仅支持公开benchmark，还提供强大的自定义数据集功能，让您在各种工程场景下也能迅速应用。
-- **轻松对接现有系统 🔗**：具备优秀的扩展性和标准化设计，即使您已拥有一套完善的评估体系，UltraEval-Audio也能无缝对接，简化项目管理流程，输出结果统一规范。
+- **Direct Replication of Popular Models 🔬**: Provides detailed [replication documentation and commands](./replication/), ensuring you can easily reproduce evaluation results of open-source models with complete transparency and reproducibility.
+- **One-Click Benchmark Management 📥**: Say goodbye to tedious manual downloading and data processing. UltraEval-Audio automates it all, letting you easily acquire well-known benchmark datasets (e.g., Librispeech, TED-LIUM, Seed-TTS-Eval).
+- **Built-in Evaluation Tools ⚙️**: No need to hunt for evaluation tools. UltraEval-Audio binds datasets with commonly used official evaluation methods (e.g., WER, WER-ZH, BLEU, G-Eval) to ensure alignment between datasets and metrics.
+- **Powerful and Flexible 🛠️**: Supports preview testing, random sampling, error retries, and resume-from-breakpoint, ensuring a flexible and controllable evaluation process while boosting efficiency and accuracy.
+- **Seamless Integration of Custom Datasets 💼**: Supports not only public benchmarks but also powerful custom dataset integration, allowing rapid application in various engineering scenarios.
+- **Easy Integration with Existing Systems 🔗**: With excellent extensibility and standardized design, UltraEval-Audio seamlessly connects with your existing evaluation pipelines, simplifying project management and unifying output results.
 
 ![UEA_Architecture](assets/UEA_Architecture.png)
 
 
-# 更新日志🔥
+# Changelog🔥
+- [2025/12/26]
+  - Add replication docs for popular models: [CosyVoice2](replication/CosyVoice2.md), [CosyVoice3](replication/CosyVoice3.md), [GLM-TTS](replication/GLM-TTS.md), [IndexTTS2](replication/IndexTTS2.md), [VoxCPM](replication/VoxCPM.md)
+- [2025/12/04]
+  - Support [Qwen3-Omni](replication/qwen3_omni.md), update [Kimi-Audio](replication/kimi-audio.md)
 - [2025/12/02]
-  - 🌟 **新增[复现结果与命令文档](./replication/)**：为了更好地支持开源社区，我们详细记录了当前开源模型的评测过程与结果，确保评测过程完全透明且可复现
-  - 支持[Long-TTS-Eval](registry/dataset/long-tts-eval.yaml)数据集，对齐详情请见[Long-TTS-Eval](./replication/Long-TTS-Eval.md)
-  - 支持[MGM-Omni TTS](registry/model/mgm_omni.yaml)模型，对齐详情请见[MGM-Omni](./replication/MGM-Omni.md)
+  - 🌟 **Added [Replication Results and Command Documentation](./replication/)**: To better support the open-source community, we have detailed the evaluation process and results of current open-source models, ensuring the evaluation process is completely transparent and reproducible.
+  - Support [Long-TTS-Eval](registry/dataset/long-tts-eval.yaml) dataset, see alignment details in [Long-TTS-Eval](./replication/Long-TTS-Eval.md)
+  - Support [MGM-Omni TTS](registry/model/mgm_omni.yaml) model, see alignment details in [MGM-Omni](./replication/MGM-Omni.md)
 - [2025/10/30]
-  - 支持[VoxCPM](https://huggingface.co/openbmb/VoxCPM-0.5B) TTS模型: `--model voxcpm-tts` `--model voxcpm-vc`
-  - 使用uv加速模型安装依赖🚀
+  - Support [VoxCPM](https://huggingface.co/openbmb/VoxCPM-0.5B) TTS model: `--model voxcpm-tts` `--model voxcpm-vc`
+  - Use `uv` to accelerate model dependency installation 🚀
 - [2025/10/17]
-  - [支持seed-tts-eval数据集](docs/seed-tts-eval4voice_clone.md)
+  - [Support seed-tts-eval dataset](docs/seed-tts-eval4voice_clone.md)
 - [2025/05/22]
-  - [使用音频质量指标](https://github.com/OpenBMB/UltraEval-Audio/blob/main/docs/how%20use%20UTMOS%2C%20DNSMOS%20eval%20speech%20quality.md)
+  - [Use audio quality metrics](https://github.com/OpenBMB/UltraEval-Audio/blob/main/docs/how%20use%20UTMOS%2C%20DNSMOS%20eval%20speech%20quality.md)
 - [2025/05/12]
-  - 支持Qwen2.5-Omni`qwen2.5-omni-audio, qwen2.5-omni-speech`, Kimi-Audio-7B-Instruct`kimiaudio, kimiaudio-speech`模型，并且更新音频理解榜单
+  - Support Qwen2.5-Omni `qwen2.5-omni-audio, qwen2.5-omni-speech`, Kimi-Audio-7B-Instruct `kimiaudio, kimiaudio-speech` models, and update Audio Understanding Leaderboard
 - [2025/05/8]
-  - 更加快捷断点续评, -r/--resume参数，不指定文件可以自动搜索最近一次的断点续评结果
-  - 支持从推理文件开始评测, --infer-file参数，可以直接从推理文件开始评测，无需重新生成推理文件
+  - Faster resume evaluation, `-r/--resume` parameter, automatically searches for the latest breakpoint result if no file is specified
+  - Support evaluation starting from inference file, `--infer-file` parameter, allows direct evaluation from inference file without regeneration
 - [2025/03/23]
-  - 新增支持step-audio模型评测和排名
-    - 排名详情见：[leaderboard.md](assets/leaderboard.md)
-    - 评测支持：[Step-Audio-Chat](https://github.com/UltraEval/Step-Audio)
+  - Added support for step-audio model evaluation and ranking
+    - Ranking details: [leaderboard.md](assets/leaderboard.md)
+    - Evaluation support: [Step-Audio-Chat](https://github.com/UltraEval/Step-Audio)
 - [2025/03/04]
-  - 支持断点[续评] [resume evaluation](docs/Procedures for Restarting an Incomplete Evaluation.md), 命令行参数 `--resume $checkpoint_res_file`
-  - glm-4-voice服务部署，支持UltraEval-Audio评测, 详情见[GLM-4-Voice](https://github.com/UltraEval/GLM-4-Voice)
-  - 并行评测支持，命令行参数 `--workers $num_workers`
+  - Support [resume evaluation](docs/Procedures for Restarting an Incomplete Evaluation.md), command line parameter `--resume $checkpoint_res_file`
+  - glm-4-voice service deployment, supports UltraEval-Audio evaluation, see details at [GLM-4-Voice](https://github.com/UltraEval/GLM-4-Voice)
+  - Parallel evaluation support, command line parameter `--workers $num_workers`
 - [2025/01/13] release v1.0.0
 
 
@@ -94,7 +109,7 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
 
 ## Audio Generation Leaderboard
 
->**Audio Understanding Audio Foundation Models**: Speech → Speech
+> **Audio Understanding Audio Foundation Models**: Speech → Speech
 > Table: Audio generation performance ($\uparrow$). *Acoustic metrics (UTMOS | DNSMOS P.835 | DNSMOS P.808, scale 1--5) are evaluated on the generated audio responses from the speech tasks. Best results are in bold.
 
 | Models | Speech<br>Web Questions | Speech<br>TriviaQA | Speech<br>CMMLU | SpeechHSK | Speech AlpacaEval | Acoustics* |
@@ -127,9 +142,9 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
 
 
 
-# 快速上手
+# Quick Start
 
-## 环境准备
+## Environment Preparation
 ```shell
 git clone https://github.com/OpenBMB/UltraEval-Audio.git
 cd UltraEval-Audio
@@ -144,36 +159,36 @@ source env/bin/activate
 uv pip install -e .
 ```
 
-## 运行示例
+## Run Examples
 ```bash
-# 针对部分地区可能需要加速下载 需要设置：export HF_ENDPOINT=https://hf-mirror.com
-# 测试MiniCPM-o 2.6语音理解能力
+# For some regions, you may need to set: export HF_ENDPOINT=https://hf-mirror.com
+# Test MiniCPM-o 2.6 speech understanding capability
 CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset sample --prompt mini-cpm-omni-asr-zh --model MiniCPMo2_6-audio
 
-# 测试MiniCPM-o 2.6语音生成能力
+# Test MiniCPM-o 2.6 speech generation capability
 CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset llama-questions-s2t --model MiniCPMo2_6-speech
 
-# 测试GPT-4o-Realtime语音理解能力
+# Test GPT-4o-Realtime speech understanding capability
 export OPENAI_API_KEY=$your-key
 python audio_evals/main.py --dataset sample --model gpt4o_audio
 
-# 测试GPT-4o-Realtime语音生成能力
+# Test GPT-4o-Realtime speech generation capability
 export OPENAI_API_KEY=$your-key
 python audio_evals/main.py --dataset llama-questions-s2t --model gpt4o_speech
 
-# 测试gemini-1.5-pro语音理解能力
+# Test gemini-1.5-pro speech understanding capability
 export GOOGLE_API_KEY=$your-key
 python audio_evals/main.py --dataset sample --model gemini-pro
 
 
-# 测试qwen2-audio-offline语音理解能力
+# Test qwen2-audio-offline speech understanding capability
 CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset sample --model qwen2-audio-chat
 ```
-遇到报错或者不能复现Mini-CPM-o 2.6的结果，可以先看[常见问题](FAQ.md)
+If you encounter errors or cannot reproduce Mini-CPM-o 2.6 results, please check [FAQ](FAQ.md)
 
 ## res
 
-评测完毕，结果文件如下:
+Evaluation complete, results are as follows:
 
 ```txt
 - res
@@ -188,27 +203,28 @@ CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset sample --model qwen2
 
 ![assets/img_1.png](assets/img_1.png)
 
-评测命令:
+Evaluation command:
 
 ```bash
 python audio_evals/main.py --dataset <dataset_name> --model <model_name>
 ```
 
-## 数据集选择
+## Dataset Selection
 
-`<dataset_name>` 指定要评测的数据集，支持的数据集可以通过`python cli/list_availabel.py`查看
+`<dataset_name>` specifies the dataset to evaluate. Supported datasets can be viewed via `python cli/list_availabel.py`
 
-构造你自己的数据集: [docs/how add a dataset.md](docs%2Fhow%20add%20a%20dataset.md)
+Construct your own dataset: [docs/how add a dataset.md](docs%2Fhow%20add%20a%20dataset.md)
 
 
-### 模型选择
+### Model Selection
 
-`model_name` 指定要评测的模型，支持的模型可以通过`python cli/list_availabel.py`查看
-评测你自己的模型 [docs/how eval your model.md](docs%2Fhow%20eval%20your%20model.md)
+`model_name` specifies the model to evaluate. Supported models can be viewed via `python cli/list_availabel.py`
 
-# 致谢
+Evaluate your own model [docs/how eval your model.md](docs%2Fhow%20eval%20your%20model.md)
 
-我们参考了[evals](https://github.com/openai/evals) 中`registry`代码
+# Acknowledgement
 
-# 联系我们
-如果你有任何建议或疑问可以提issue或者加入discord群组: https://discord.gg/PHGy66QP
+We referenced the `registry` code in [evals](https://github.com/openai/evals)
+
+# Contact Us
+If you have any suggestions or questions, please file an issue or join our discord group: https://discord.com/invite/Qrsbft4e

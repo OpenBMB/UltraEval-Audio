@@ -1,0 +1,4 @@
+RTF:
+  class: audio_evals.evaluator.rtf.RTFExtractor
+  args:
+    rtf_key: RTF

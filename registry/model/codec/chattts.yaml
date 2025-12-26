@@ -1,0 +1,6 @@
+chattts-encodec:
+  class: audio_evals.models.AudioEncoder.chattts.ChatTTSModel
+  args:
+    model_path: 2Noise/ChatTTS
+    env_path: envs/chattts
+    requirements_path: audio_evals/lib/ChatTTS/requirements.txt

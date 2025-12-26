@@ -12,6 +12,7 @@ tests/*
 .DS_Store
 ._*
 *.wav
+raw/
 
 local_registry/
 cyb_dev_registry/

@@ -1,0 +1,6 @@
+spark_codec:
+  class: audio_evals.models.AudioEncoder.spark.Spark
+  args:
+    path: SparkAudio/Spark-TTS-0.5B
+    env_path: envs/spark_tts
+    requirements_path: audio_evals/lib/Spark-TTS/requirements.txt

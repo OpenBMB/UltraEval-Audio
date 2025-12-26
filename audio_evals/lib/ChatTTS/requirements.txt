@@ -1,0 +1,9 @@
+einops
+librosa
+numpy
+soundfile
+torch
+torchaudio
+tqdm
+transformers
+vocos

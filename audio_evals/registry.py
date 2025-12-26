@@ -114,7 +114,8 @@ class Registry:
     def _load_directory(
         self, path: Path
     ) -> Generator[Tuple[str, Path, dict], None, None]:
-        files = Path(path).glob("*.yaml")
+        # NOTE: glob("*.yaml") only matches one-level files; rglob searches recursively.
+        files = sorted(Path(path).rglob("*.yaml"))
         for file in files:
             yield from self._load_file(file)
 

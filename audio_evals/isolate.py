@@ -21,7 +21,7 @@ def isolated(
 
             # 创建虚拟环境
             if not os.path.exists(env_path):
-                res = subprocess.run(["virtualenv", env_path])
+                res = subprocess.run(["uv", "venv", env_path, "--python", "3.10"])
                 if res.returncode != 0:
                     raise RuntimeError(
                         f"Failed to create virtual environment: {res.stderr}"
@@ -29,7 +29,7 @@ def isolated(
 
             # 安装依赖
             result = subprocess.run(
-                f"source {env_path}/bin/activate &&{pre_command + ' &&' if pre_command else ''} uv pip install -r {requirements_path}",
+                f"source {env_path}/bin/activate &&{pre_command + '&& ' if pre_command else ''} uv pip install -r {requirements_path}",
                 shell=True,
                 check=True,
                 executable="/bin/bash",
@@ -81,19 +81,25 @@ def isolated(
                 executable="/bin/bash",
             )
 
-            # 等待10秒，检查进程是否退出
-            try:
-                exit_code = self.process.wait(timeout=10)
-                # 进程在10秒内退出了，打印输出
-                stdout, stderr = self.process.communicate()
-                logger.info(f"Process exited with code: {exit_code}")
-                if stdout:
-                    logger.info(f"STDOUT:\n{stdout}")
-                if stderr:
-                    logger.error(f"STDERR:\n{stderr}")
-            except subprocess.TimeoutExpired:
-                # 进程在10秒内没有退出，继续正常运行
-                logger.info("Process is still running after 10 seconds")
+            # 添加检查进程状态并打印错误信息的方法
+            def check_process_status(self_ref):
+                """检查进程状态，如果进程已退出则打印所有输出信息"""
+                if self_ref.process.poll() is not None:
+                    exit_code = self_ref.process.returncode
+                    logger.error(f"Process has exited with code: {exit_code}")
+                    try:
+                        # 读取剩余的输出
+                        stdout, stderr = self_ref.process.communicate(timeout=5)
+                        if stdout:
+                            logger.error(f"Process STDOUT:\n{stdout}")
+                        if stderr:
+                            logger.error(f"Process STDERR:\n{stderr}")
+                    except Exception as e:
+                        logger.error(f"Failed to read process output: {e}")
+                    return False
+                return True
+
+            self.check_process_status = lambda: check_process_status(self)
 
             # 注册清理函数
             def cleanup():
@@ -103,6 +109,18 @@ def isolated(
                         self.process.wait(timeout=3600)
                     except subprocess.TimeoutExpired:
                         self.process.kill()
+                else:
+                    # 进程已退出，打印输出信息
+                    exit_code = self.process.returncode
+                    logger.info(f"Process already exited with code: {exit_code}")
+                    try:
+                        stdout, stderr = self.process.communicate(timeout=5)
+                        if stdout:
+                            logger.info(f"Final STDOUT:\n{stdout}")
+                        if stderr:
+                            logger.error(f"Final STDERR:\n{stderr}")
+                    except Exception as e:
+                        logger.warning(f"Could not read final output: {e}")
 
             atexit.register(cleanup)
 
