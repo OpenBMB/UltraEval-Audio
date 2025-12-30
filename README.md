@@ -1,39 +1,19 @@
-
 ![assets/logo.png](assets/logo.png)
- <h3 align="center">
+
+<h3 align="center">
  A Unified Framework for Comprehensive
 Evaluation of Audio Foundation Models
 <p>
     <p>
         <a href="README_zh.md">中文</a> | <b>English</b> |
-<a href="https://discord.gg/Qrsbft4e" target="_blank">💬discord</a>
+<a href="https://discord.gg/Qrsbft4e" target="_blank">💬Discord</a>
  </h3>
 
 # v1.1.0 Highlights
+
 > - **Popular model replication**: Added replication support for popular models, including **replication result showcases** and **one-click replication commands** (see `replication/`).
-> - **Isolated inference runtime**: Introduced an isolated inference mechanism. Model-specific dependencies are installed/managed automatically; inference runs in the isolated environment and communicates with the main evaluation process via **IPC**, eliminating dependency conflicts.
+> - **Isolated Runtime**: Introduced an isolated inference mechanism. Model-specific dependencies are installed/managed automatically; inference runs in the isolated environment and communicates with the main evaluation process via **IPC**, eliminating dependency conflicts.
 > - **Specialized model evaluation support**: Added specialized audio models for **TTS, ASR, and Audio Codec**, further expanding evaluation coverage.
-
-# Table of Contents
-- [Table of Contents](#table-of-contents)
-- [v1.1.0 Highlights](#v110-highlights)
-- [Overview](#overview)
-    - [🚀Exceptional Experience with UltraEval-Audio🚀](#exceptional-experience-with-ultraeval-audio)
-- [Changelog🔥](#changelog)
-- [Leaderboard](#leaderboard)
-  - [Audio Understanding Leaderboard](#audio-understanding-leaderboard)
-  - [Audio Generation Leaderboard](#audio-generation-leaderboard)
-  - [Audio Codec Leaderboard](#audio-codec-leaderboard)
-- [Quick Start](#quick-start)
-  - [Environment Preparation](#environment-preparation)
-  - [Run Examples](#run-examples)
-  - [res](#res)
-  - [Usage](#usage)
-  - [Dataset Selection](#dataset-selection)
-    - [Model Selection](#model-selection)
-- [Acknowledgement](#acknowledgement)
-- [Contact Us](#contact-us)
-
 
 # Overview
 
@@ -48,12 +28,15 @@ UltraEval-Audio — The world's first open-source framework supporting both spee
 - **Seamless Integration of Custom Datasets 💼**: Supports not only public benchmarks but also powerful custom dataset integration, allowing rapid application in various engineering scenarios.
 - **Easy Integration with Existing Systems 🔗**: With excellent extensibility and standardized design, UltraEval-Audio seamlessly connects with your existing evaluation pipelines, simplifying project management and unifying output results.
 
-![UEA_Architecture](assets/UEA_Architecture.png)
-
+![UEA_Architecture](assets/ultraeval_audio_framework.png)
 
 # Changelog🔥
-- [2025/12/26]
-  - Add replication docs for popular models: [CosyVoice2](replication/CosyVoice2.md), [CosyVoice3](replication/CosyVoice3.md), [GLM-TTS](replication/GLM-TTS.md), [IndexTTS2](replication/IndexTTS2.md), [VoxCPM](replication/VoxCPM.md)
+
+- [2025/12/31]
+  - release v1.1.0 🎉🎉🎉
+    - Add replication docs for popular models: [CosyVoice2](replication/CosyVoice2.md), [CosyVoice3](replication/CosyVoice3.md), [GLM-TTS](replication/GLM-TTS.md), [IndexTTS2](replication/IndexTTS2.md), [VoxCPM](replication/VoxCPM.md)
+    - support **Isolated Runtime** offline inference
+    - support TTS、ASR、Audio Codec specific task audio model
 - [2025/12/04]
   - Support [Qwen3-Omni](replication/qwen3_omni.md), update [Kimi-Audio](replication/kimi-audio.md)
 - [2025/12/02]
@@ -82,69 +65,72 @@ UltraEval-Audio — The world's first open-source framework supporting both spee
   - Parallel evaluation support, command line parameter `--workers $num_workers`
 - [2025/01/13] release v1.0.0
 
-
-
 # Leaderboard
 
 ## Audio Understanding Leaderboard
 
 > **Audio Understanding Audio Foundation Models**: Speech + Text → Text
 >
-> WER ($\downarrow$) for ASR, BLEU ($\uparrow$) for AST, and ACC ($\uparrow$) for EMO. Best results are in bold.
+> WER/CER ($\downarrow$) for ASR, BLEU ($\uparrow$) for AST, and ACC ($\uparrow$) for EMO. Best results are in bold.
+>
+> **Scoring**:
+>
+> - **Avg. Score ($\uparrow$)**: mean of all available normalized metric scores. For WER/CER-based metrics we use \((100-\text{WER/CER})\); for other metrics (e.g., BLEU/Acc.) we keep the original value.
 
-| Model | ASR<br>Librispeech<br>dev-clean\|dev-other<br>test-clean\|test-other | ASR<br>TED-LIUM | ASR<br>CV-15<br>en\|zh | ASR<br>Aishell-1 | ASR<br>FLEURS-zh | ASR<br>Wenet<br>-test-net | AST<br>covost2-en2zh | AST<br>covost2-zh2en | EMO<br>MELD |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **GPT-4o-Realtime** | 2.30\|5.60<br>2.60\|5.50 | 4.80 | 27.44\|37.44 | 7.30 | 5.40 | 28.90 | 37.10 | 15.70 | 33.20 |
-| **Gemini-1.5-Pro** | 2.60\|4.40<br>2.90\|4.90 | 3.00 | 8.36\|13.26 | 4.50 | 5.90 | 14.30 | 47.30 | 22.60 | 48.40 |
-| **Gemini-1.5-Flash** | 5.90\|7.20<br>21.90\|16.30 | 6.90 | 208.00\|84.37 | 9.00 | 85.90 | 279.90 | 33.40 | 8.20 | 45.20 |
-| **Qwen2-Audio<br>-Instruction** | 2.90\|5.50<br>3.10\|5.70 | 5.90 | 10.68\|8.39 | 2.60 | 6.90 | 10.30 | 39.50 | 22.90 | 17.40 |
-| **MiniCPM-o 2.6** | 1.60\|3.40<br>1.70\|4.40 | 3.00 | 10.30\|9.60 | 1.60 | 4.40 | 6.90 | **48.20** | 27.20 | 52.40 |
-| **Qwen2.5-Omni** | 2.10\|4.20<br>2.40\|4.20 | 4.70 | 8.70\|5.20 | 1.10 | 4.60 | 6.00 | 42.50 | 11.50 | 53.60 |
-| **Kimi-Audio-7B-Instruct** | **1.18\|2.34**<br>**1.28\|2.44** | 2.96 | 7.09\|5.72 | **0.60** | **2.53** | 5.55 | 36.61 | 18.30 | **59.23** |
-| **Qwen2-Audio** | 1.57\|3.50<br>1.60\|3.88 | 3.43 | 8.67\|7.03 | 1.52 | 5.89 | 8.09 | 45.30 | 24.84 | 42.87 |
-| **MiDaShengLM-7B** | 2.20\|4.75<br>2.21\|5.16 | 146.53 | 13.66\|29.13 | 1.23 | 3.28 | 16.56 | 38.52 | 22.68 | 53.96 |
-| **Gemini-2.5-Flash** | 3.73\|6.71<br>3.28\|12.03 | 3.53 | 46.76\|36.15 | 6.40 | 6.45 | 126.07 | 3.67 | 10.61 | 51.53 |
-| **Qwen3-Omni-30B<br>-A3B-Instruct** | 1.25\|2.27<br>1.36\|2.57 | 2.82 | **6.00**\|**4.32** | 0.87 | 2.61 | **4.82** | 46.58 | **29.40** | 56.81 |
-| **Gemini-2.5-Pro** | 5.30\|4.51<br>2.84\|6.74 | **2.52** | 9.42\|11.04 | 3.36 | 4.25 | 16.83 | 41.75 | 27.84 | 46.59 |
+| Model                                 | ASR <br>Librispeech <br>dev-clean\|dev-other <br>test-clean\|test-other | ASR <br>TED-LIUM | ASR <br>CV-15 <br>en\|zh | ASR <br>Aishell-1 | ASR <br>FLEURS | ASR <br>Wenet <br>-test-net | AST <br>covost2-en2zh | AST <br>covost2-zh2en | EMO <br>MELD | Avg. Score <br>($\uparrow$) |
+| :------------------------------------ | :---------------------------------------------------------------------------------: | :------------------: | :------------------------------: | :-------------------: | :----------------: | :---------------------------------: | :-----------------------: | :-----------------------: | :--------------: | :-------------------------------: |
+| **GPT-4o-Realtime**             |                            2.30\|5.60 <br>2.60\|5.50                            |         4.80         |           27.44\|37.44           |         7.30         |        5.40        |                28.90                |           37.10           |           15.70           |      33.20      |               73.75               |
+| **Qwen3-Omni-30B-A3B-Instruct** |                            1.25\|2.27 <br>1.36\|2.57                            |         2.82         |  **6.00**\|**4.32**  |         0.87         |        2.61        |           **4.82**           |           46.58           |      **29.40**      |      56.81      |          **84.92**          |
+| **Qwen2.5-Omni**                |                            2.10\|4.20 <br>2.40\|4.20                            |         4.70         |            8.70\|5.20            |         1.10         |        4.60        |                6.00                |           42.50           |           11.50           |      53.60      |               81.88               |
+| **MiniCPM-o 2.6**               |                            1.60\|3.40 <br>1.70\|4.40                            |         3.00         |           10.30\|9.60           |         1.60         |        4.40        |                6.90                |      **48.20**      |           27.20           |      52.40      |               83.15               |
+| **Kimi-Audio-7B-Instruct**      |                  **1.18\|2.34** <br>**1.28\|2.44**                  |         2.96         |            7.09\|5.72            |    **0.60**    |   **2.53**   |                5.55                |           36.61           |           18.30           | **59.23** |               83.27               |
+| **Gemini-1.5-Flash**            |                           5.90\|7.20 <br>21.90\|16.30                           |         6.90         |          208.00\|84.37          |         9.00         |       85.90       |               279.90               |           33.40           |           8.20           |      45.20      |               27.80               |
+| **Gemini-1.5-Pro**              |                            2.60\|4.40 <br>2.90\|4.90                            |         3.00         |           8.36\|13.26           |         4.50         |        5.90        |                14.30                |           47.30           |           22.60           |      48.40      |               81.09               |
+| **Gemini-2.5-Flash**            |                           3.73\|6.71 <br>3.28\|12.03                           |         3.53         |           46.76\|36.15           |         6.40         |        6.45        |               126.07               |           3.67           |           10.61           |      51.53      |               62.67               |
+| **Gemini-2.5-Pro**              |                            5.30\|4.51 <br>2.84\|6.74                            |    **2.52**    |           9.42\|11.04           |         3.36         |        4.25        |                16.83                |           41.75           |           27.84           |      46.59      |               80.72               |
+| **Qwen2-Audio-7B**              |                            1.57\|3.50 <br>1.60\|3.88                            |         3.43         |            8.67\|7.03            |         1.52         |        5.89        |                8.09                |           45.30           |           24.84           |      42.87      |               82.14               |
+| **Qwen2-Audio-7B-Instruct**     |                            2.90\|5.50 <br>3.10\|5.70                            |         5.90         |           10.68\|8.39           |         2.60         |        6.90        |                10.30                |           39.50           |           22.90           |      17.40      |               78.29               |
+| **MiDaShengLM-7B**              |                            2.20\|4.75 <br>2.21\|5.16                            |        146.53        |           13.66\|29.13           |         1.23         |        3.28        |                16.56                |           38.52           |           22.68           |      53.96      |               68.50               |
 
 ## Audio Generation Leaderboard
 
-> **Audio Understanding Audio Foundation Models**: Speech → Speech
-> Table: Audio generation performance ($\uparrow$). *Acoustic metrics (UTMOS | DNSMOS P.835 | DNSMOS P.808, scale 1--5) are evaluated on the generated audio responses from the speech tasks. Best results are in bold.
+> **Audio Generation Audio Foundation Models**: Speech → Speech
+> Table: Audio generation performance ($\uparrow$). Acoustic metrics (UTMOS | DNSMOS P.835 | DNSMOS P.808, scores range from 0 to 5) are evaluated on the generated audio responses from the speech tasks. Best results are in bold.
+>
+> Note: The average score is computed as the average of 6 scores: five speech-task scores and normalized acoustic scores. For acoustic scores (UTMOS | DNSMOS P.835 | DNSMOS P.808), each value (0--5) is multiplied by 20 to map to 0--100, then averaged to obtain the normalized acoustic score.
 
-| Models | Speech<br>Web Questions | Speech<br>TriviaQA | Speech<br>CMMLU | SpeechHSK | Speech AlpacaEval | Acoustics* |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **GPT-4o-Realtime** | **51.60** | **69.70** | 70.05 | **98.69** | **74.00** | 4.29\|3.44\|4.26 |
-| **GLM-4-Voice** | 32.00 | 36.40 | 52.61 | 71.06 | 51.00 | 4.21\|3.46\|4.07 |
-| **MiniCPM-o 2.6** | 40.00 | 40.20 | 51.37 | 80.68 | 51.00 | 4.12\|3.39\|4.02 |
-| **Qwen2.5-Omni** | 38.89 | 39.94 | **73.72** | 95.65 | 54.00 | 4.23\|**3.48**\|**4.27** |
-| **Kimi-Audio-7B-Instruct** | 33.69 | 38.20 | 71.25 | 97.42 | 34.40 | 2.94\|3.22\|3.62 |
-| **Qwen3-Omni-30B-A3B-Instruct** | 51.50 | 55.27 | 47.83 | 40.27 | 67.97 | **4.44**\|3.45\|4.12 |
-
+| Models                                | Speech<br>WebQuestions | Speech<br>TriviaQA | Speech<br>AlpacaEval | Speech<br>CMMLU | Speech<br>HSK |              Acoustics              | Avg. Score<br>($\uparrow$) |
+| :------------------------------------ | :------------------------: | :--------------------: | :----------------------: | :-----------------: | :---------------: | :----------------------------------: | :------------------------------: |
+| **GPT-4o-Realtime**             |      **51.60**      |    **69.70**    |     **74.00**     |        70.05        |  **98.69**  |           4.29\|3.44\|4.26           |         **74.00**         |
+| **Qwen3-Omni-30B-A3B-Instruct** |           51.50           |         55.27         |          67.97          |        47.83        |       40.27       |      **4.44**\|3.45\|4.12      |              57.15              |
+| **Qwen2.5-Omni**                |           38.89           |         39.94         |          54.00          |   **73.72**   |       95.65       | 4.23\|**3.48**\|**4.27** |              63.68              |
+| **MiniCPM-o 2.6**               |           40.00           |         40.20         |          51.00          |        51.37        |       80.68       |           4.12\|3.39\|4.02           |              56.69              |
+| **Kimi-Audio-7B-Instruct**      |           33.69           |         38.20         |          34.40          |        71.25        |       97.42       |           2.94\|3.22\|3.62           |              56.69              |
+| **GLM-4-Voice**                 |           32.00           |         36.40         |          51.00          |        52.61        |       71.06       |           4.21\|3.46\|4.07           |              53.56              |
 
 ## Audio Codec Leaderboard
+
 > **Audio Codec**: Speech → Speech.
-> Table: Audio Codec Performance: ASR-WER ($\downarrow$), ASR-CER ($\downarrow$), SIM ($\uparrow$), and Quality (UTMOS\|DNSMOS P.835\|DNSMOS P.808, $\uparrow$). Note: The hyphen (-) indicates that UTMOS is not applicable to Chinese speech (Aishell-1). Best results are in bold.
+> Table: Audio Codec Performance: ASR-WER ($\downarrow$), ASR-CER ($\downarrow$), SIM ($\uparrow$), and Acoustics (UTMOS\|DNSMOS P.835\|DNSMOS P.808, $\uparrow$). Note: The hyphen (-) indicates that UTMOS is not applicable to Chinese speech (AISHELL-1). Best results are in bold.
+>
+> Note: For acoustic scores we use UTMOS, DNSMOS P.835, and DNSMOS P.808 metrics. To calculate the average score, for ASR-WER and ASR-CER, we calculate \(100-\text{val}\). For acoustic scores, each available value (ranges from 0 to 5) is normalized by \(20\times\mathrm{val}\) (mapping to 0--100), and the acoustic score is their average (the hyphen `-' is ignored). The final score is the average of 9 metric scores.
 
-| Models | Librispeech-dev-clean<br>ASR-WER | Librispeech-dev-clean<br>SIM | Librispeech-dev-clean<br>Quality | Librispeech-test-clean<br>ASR-WER | Librispeech-test-clean<br>SIM | Librispeech-test-clean<br>Quality | Aishell-1<br>ASR-CER | Aishell-1<br>SIM | Aishell-1<br>Quality |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Encodec-24k** | 4.56 | 59.40 | 1.58\|3.12\|2.36 | 4.32 | 59.40 | 1.57\|3.12\|2.36 | 13.95 | 47.48 | -\|2.93\|2.03 |
-| **Encodec-48k** | 3.85 | 65.53 | 1.52\|2.88\|2.42 | 3.80 | 66.00 | 1.48\|2.87\|2.40 | 6.85 | 68.78 | -\|2.79\|2.21 |
-| **Chattts-DVAE** | 7.49 | 34.83 | 1.30\|2.66\|2.11 | 6.75 | 36.21 | 1.29\|2.64\|2.12 | 32.36 | 32.36 | -\|2.24\|1.57 |
-| **Mimi (32bit)** | **2.04** | **92.18** | 3.83\|2.87\|2.44 | **1.96** | **92.68** | 3.84\|2.92\|2.49 | **2.82** | **84.80** | -\|2.43\|1.89 |
-| **Mimi (8bit)** | 2.76 | 72.15 | 3.52\|2.78\|2.37 | 2.83 | 73.13 | 3.53\|2.83\|2.43 | 6.82 | 60.63 | -\|2.42\|2.04 |
-| **Mimi-streaming (8bit)** | 6.76 | 54.02 | 1.65\|2.78\|2.37 | 6.19 | 54.32 | 1.63\|2.83\|2.43 | 19.62 | 40.67 | -\|2.42\|2.04 |
-| **WavTokenizer-large-v2-75-tokens** | 4.31 | 69.97 | 4.01\|3.64\|**3.26** | 4.05 | 68.15 | 4.00\|3.63\|**3.27** | 8.97 | 64.27 | -\|3.11\|**2.85** |
-| **WavTokenizer-large-40-tokens** | 8.13 | 60.26 | 3.78\|3.70\|3.13 | 7.73 | 56.63 | 3.77\|3.70\|3.16 | 25.52 | 49.21 | -\|3.13\|2.50 |
-| **Spark** | 2.39 | 79.94 | **4.18**\|**3.85**\|3.24 | 2.53 | 79.53 | **4.18**\|**3.83**\|3.24 | 3.66 | 74.76 | -\|**3.63**\|**2.85** |
-
-
-
-
+| Models                          | Librispeech-dev-clean<br>ASR-WER | Librispeech-dev-clean<br>SIM | Librispeech-dev-clean<br>Acoustics | Librispeech-test-clean<br>ASR-WER | Librispeech-test-clean<br>SIM | Librispeech-test-clean<br>Acoustics | AISHELL-1<br>ASR-CER | AISHELL-1<br>SIM |    AISHELL-1<br>Acoustics    | Avg. Score<br>($\uparrow$) |
+| :------------------------------ | :----------------------------------: | :------------------------------: | :------------------------------------: | :-----------------------------------: | :-------------------------------: | :-------------------------------------: | :----------------------: | :------------------: | :-------------------------------: | :------------------------------: |
+| **Encodec-24k**           |                 4.56                 |              59.40              |            1.58\|3.12\|2.36            |                 4.32                 |               59.40               |            1.57\|3.12\|2.36            |          13.95          |        47.48        |           -\|2.93\|2.03           |              65.24              |
+| **Encodec-48k**           |                 3.85                 |              65.53              |            1.52\|2.88\|2.42            |                 3.80                 |               66.00               |            1.48\|2.87\|2.40            |           6.85           |        68.78        |           -\|2.79\|2.21           |              69.59              |
+| **ChatTTS-DVAE**          |                 7.49                 |              34.83              |            1.30\|2.66\|2.11            |                 6.75                 |               36.21               |            1.29\|2.64\|2.12            |          32.36          |        32.36        |           -\|2.24\|1.57           |              52.86              |
+| **Mimi (32bit)**          |            **2.04**            |         **92.18**         |            3.83\|2.87\|2.44            |            **1.96**            |          **92.68**          |            3.84\|2.92\|2.49            |      **2.82**      |   **84.80**   |           -\|2.43\|1.89           |              80.96              |
+| **Mimi (8bit)**           |                 2.76                 |              72.15              |            3.52\|2.78\|2.37            |                 2.83                 |               73.13               |            3.53\|2.83\|2.43            |           6.82           |        60.63        |           -\|2.42\|2.04           |              72.72              |
+| **Mimi-streaming (8bit)** |                 6.76                 |              54.02              |            1.65\|2.78\|2.37            |                 6.19                 |               54.32               |            1.63\|2.83\|2.43            |          19.62          |        40.67        |           -\|2.42\|2.04           |              61.37              |
+| **WavTokenizer-large-75** |                 4.31                 |              69.97              |       4.01\|3.64\|**3.26**       |                 4.05                 |               68.15               |       4.00\|3.63\|**3.27**       |           8.97           |        64.27        |      -\|3.11\|**2.85**      |              76.67              |
+| **WavTokenizer-large-40** |                 8.13                 |              60.26              |            3.78\|3.70\|3.13            |                 7.73                 |               56.63               |            3.77\|3.70\|3.16            |          25.52          |        49.21        |           -\|3.13\|2.50           |              69.18              |
+| **Spark**                 |                 2.39                 |              79.94              |  **4.18**\|**3.85**\|3.24  |                 2.53                 |               79.53               |  **4.18**\|**3.83**\|3.24  |           3.66           |        74.76        | -\|**3.63**\|**2.85** |         **82.29**         |
 
 # Quick Start
 
 ## Environment Preparation
+
 ```shell
 git clone https://github.com/OpenBMB/UltraEval-Audio.git
 cd UltraEval-Audio
@@ -152,7 +138,9 @@ conda create -n env python=3.10 -y
 conda activate env
 pip install -e .
 ```
+
 or use `uv` for faster installation:
+
 ```shell
 uv venv env --python 3.10
 source env/bin/activate
@@ -160,6 +148,7 @@ uv pip install -e .
 ```
 
 ## Run Examples
+
 ```bash
 # For some regions, you may need to set: export HF_ENDPOINT=https://hf-mirror.com
 # Test MiniCPM-o 2.6 speech understanding capability
@@ -184,9 +173,10 @@ python audio_evals/main.py --dataset sample --model gemini-pro
 # Test qwen2-audio-offline speech understanding capability
 CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset sample --model qwen2-audio-chat
 ```
-If you encounter errors or cannot reproduce Mini-CPM-o 2.6 results, please check [FAQ](FAQ.md)
 
-## res
+If you encounter errors or cannot reproduce Mini-CPM-o 2.6 results, please check [FAQ](FAQ.md).
+
+## Res
 
 Evaluation complete, results are as follows:
 
@@ -198,10 +188,7 @@ Evaluation complete, results are as follows:
             |-- $time-overview.jsonl
 ```
 
-
 ## Usage
-
-![assets/img_1.png](assets/img_1.png)
 
 Evaluation command:
 
@@ -215,16 +202,12 @@ python audio_evals/main.py --dataset <dataset_name> --model <model_name>
 
 Construct your own dataset: [docs/how add a dataset.md](docs%2Fhow%20add%20a%20dataset.md)
 
-
 ### Model Selection
 
 `model_name` specifies the model to evaluate. Supported models can be viewed via `python cli/list_availabel.py`
 
 Evaluate your own model [docs/how eval your model.md](docs%2Fhow%20eval%20your%20model.md)
 
-# Acknowledgement
-
-We referenced the `registry` code in [evals](https://github.com/openai/evals)
-
 # Contact Us
-If you have any suggestions or questions, please file an issue or join our discord group: https://discord.com/invite/Qrsbft4e
+
+If you have any suggestions or questions, please file an issue or join our Discord group: `https://discord.com/invite/Qrsbft4e`
