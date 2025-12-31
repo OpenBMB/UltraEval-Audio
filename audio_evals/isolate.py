@@ -29,7 +29,8 @@ def isolated(
 
             # 安装依赖
             result = subprocess.run(
-                f"source {env_path}/bin/activate &&{pre_command + '&& ' if pre_command else ''} uv pip install -r {requirements_path}",
+                # setuptools<81 is a workaround for the bug in uv pip install
+                f"source {env_path}/bin/activate &&{pre_command + '&& ' if pre_command else ''} uv pip install setuptools<81 && uv pip install -r {requirements_path}",
                 shell=True,
                 check=True,
                 executable="/bin/bash",

@@ -1,13 +1,14 @@
 ![assets/logo.png](assets/logo.png)
 
-<h3 align="center">
+<h4 align="center">
  A Unified Framework for Comprehensive
 Evaluation of Audio Foundation Models
 <p>
 <p>
         <b>中文</b> | <a href="README.md">English</a> |
-<a href="https://discord.gg/Qrsbft4e" target="_blank">💬Discord</a>
- </h3>
+<a href="https://discord.gg/Qrsbft4e" target="_blank">💬Discord</a>|
+<a href="assets/UltraEval_Audio__A_Unified_Framework_for_Comprehensive_Evaluation_of_Audio_Large_Language_Models.pdf">UltraEval-Audio Paper</a>
+ </h4>
 
 # v1.1.0 亮点
 
