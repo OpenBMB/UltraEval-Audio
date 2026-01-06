@@ -7,7 +7,7 @@ Evaluation of Audio Foundation Models
     <p>
         <a href="README_zh.md">中文</a> | <b>English</b> |
 <a href="https://discord.gg/Qrsbft4e" target="_blank">💬Discord</a> |
-<a href="assets/UltraEval_Audio__A_Unified_Framework_for_Comprehensive_Evaluation_of_Audio_Large_Language_Models.pdf">UltraEval-Audio Paper</a>
+<a href="https://arxiv.org/abs/2601.01373">UltraEval-Audio Paper</a>
  </h4>
 
 # v1.1.0 Highlights
@@ -212,3 +212,19 @@ Evaluate your own model [docs/how eval your model.md](docs%2Fhow%20eval%20your%2
 # Contact Us
 
 If you have any suggestions or questions, please file an issue or join our Discord group: `https://discord.com/invite/Qrsbft4e`
+
+# Citation
+
+If you find UltraEval-Audio helpful, please consider citing our paper 📝 and staring us ⭐️！
+
+```txt
+@article{ultraevalaudio,
+      title={UltraEval-Audio: A Unified Framework for Comprehensive Evaluation of Audio Foundation Models},
+      author={Qundong Shi and Jie Zhou and Biyuan Lin and Junbo Cui and Guoyang Zeng and Yixuan Zhou and Ziyang Wang and Xin Liu and Zhen Luo and Yudong Wang and Zhiyuan Liu},
+      year={2026},
+      eprint={2601.01373},
+      archivePrefix={arXiv},
+      primaryClass={cs.SD},
+      url={https://arxiv.org/abs/2601.01373},
+}
+```
