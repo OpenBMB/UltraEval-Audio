@@ -10,7 +10,7 @@ Evaluation of Audio Foundation Models
 <a href="https://arxiv.org/abs/2601.01373">UltraEval-Audio Paper</a>
  </h4>
 
-# v1.1.0 Highlights
+# v1.1 Highlights
 
 > - **Popular model replication**: Added replication support for popular models, including **replication result showcases** and **one-click replication commands** (see `replication/`).
 > - **Isolated Runtime**: Introduced an isolated inference mechanism. Model-specific dependencies are installed/managed automatically; inference runs in the isolated environment and communicates with the main evaluation process via **IPC**, eliminating dependency conflicts.
@@ -34,7 +34,7 @@ UltraEval-Audio — The world's first open-source framework supporting both spee
 # Changelog🔥
 
 - [2025/12/31]
-  - release v1.1.0 🎉🎉🎉
+  - release v1.1 🎉🎉🎉
     - Add replication docs for popular models: [CosyVoice2](replication/CosyVoice2.md), [CosyVoice3](replication/CosyVoice3.md), [GLM-TTS](replication/GLM-TTS.md), [IndexTTS2](replication/IndexTTS2.md), [VoxCPM](replication/VoxCPM.md)
     - support **Isolated Runtime** offline inference
     - support TTS、ASR、Audio Codec specific task audio model
@@ -64,7 +64,7 @@ UltraEval-Audio — The world's first open-source framework supporting both spee
   - Support [resume evaluation](docs/Procedures for Restarting an Incomplete Evaluation.md), command line parameter `--resume $checkpoint_res_file`
   - glm-4-voice service deployment, supports UltraEval-Audio evaluation, see details at [GLM-4-Voice](https://github.com/UltraEval/GLM-4-Voice)
   - Parallel evaluation support, command line parameter `--workers $num_workers`
-- [2025/01/13] release v1.0.0
+- [2025/01/13] release v1.0
 
 # Leaderboard
 

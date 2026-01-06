@@ -10,7 +10,7 @@ Evaluation of Audio Foundation Models
 <a href="https://arxiv.org/abs/2601.01373">UltraEval-Audio Paper</a>
  </h4>
 
-# v1.1.0 亮点
+# v1.1 亮点
 
 > - **热门模型复现**：新增热门模型的复现支持，提供**复现结果展示**与**一键复现命令**（文档见 `replication/`）。
 > - **Isolated Runtime 推理运行机制**：引入隔离推理架构，自动安装/管理模型的专有依赖环境；推理进程在隔离环境中运行，并通过 **IPC** 与评测主进程交互，彻底消除依赖冲突。
@@ -34,7 +34,7 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
 # 更新日志🔥
 
 - [2025/12/31]
-  - release v1.1.0 🎉🎉🎉
+  - release v1.1 🎉🎉🎉
     - 新增热门模型复现文档： [CosyVoice2](replication/CosyVoice2.md), [CosyVoice3](replication/CosyVoice3.md), [GLM-TTS](replication/GLM-TTS.md), [IndexTTS2](replication/IndexTTS2.md), [VoxCPM](replication/VoxCPM.md)
     - 支持Isolated Runtime机制
     - 支持TTS、ASR、Audio Codec专有音频模型更新
@@ -64,7 +64,7 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
   - 支持断点[续评] [resume evaluation](docs/Procedures for Restarting an Incomplete Evaluation.md), 命令行参数 `--resume $checkpoint_res_file`
   - glm-4-voice服务部署，支持UltraEval-Audio评测, 详情见[GLM-4-Voice](https://github.com/UltraEval/GLM-4-Voice)
   - 并行评测支持，命令行参数 `--workers $num_workers`
-- [2025/01/13] release v1.0.0
+- [2025/01/13] release v1.0
 
 # 榜单
 
