@@ -78,3 +78,51 @@ whisper-sst-it2en:
       generate_kwargs:
         language: italian
         task: translate
+
+whisper-asr-ja:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      audio: '{{WavPath}}'
+      generate_kwargs:
+        language: japanese
+
+whisper-asr-ko:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      audio: '{{WavPath}}'
+      generate_kwargs:
+        language: korean
+
+whisper-asr-de:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      audio: '{{WavPath}}'
+      generate_kwargs:
+        language: german
+
+whisper-asr-es:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      audio: '{{WavPath}}'
+      generate_kwargs:
+        language: spanish
+
+whisper-asr-it:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      audio: '{{WavPath}}'
+      generate_kwargs:
+        language: italian
+
+whisper-asr-ru:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      audio: '{{WavPath}}'
+      generate_kwargs:
+        language: russian

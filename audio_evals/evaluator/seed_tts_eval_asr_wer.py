@@ -23,10 +23,12 @@ def process_one(hypo, truth, lang):
     truth = truth.replace("  ", " ")
     hypo = hypo.replace("  ", " ")
 
-    if lang == "zh":
+    # Character-based languages (CER)
+    if lang in ["zh", "ja", "ko"]:
         truth = " ".join([x for x in truth])
         hypo = " ".join([x for x in hypo])
-    elif lang == "en":
+    # Word-based languages (WER)
+    elif lang in ["en", "de", "es", "fr", "it", "ru"]:
         truth = truth.lower()
         hypo = hypo.lower()
     else:

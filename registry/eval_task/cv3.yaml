@@ -1,7 +1,7 @@
 cv3_zero_shot_zh:
   class: audio_evals.base.EvalTaskCfg
   args:
-    dataset: seedtts-vc-zh
+    dataset: cv3_zero_shot_zh
     prompt: voice-clone
     model: qwen-audio-chat
     post_process: ['extract_audio']
@@ -11,9 +11,110 @@ cv3_zero_shot_zh:
 cv3_zero_shot_en:
   class: audio_evals.base.EvalTaskCfg
   args:
-    dataset: seedtts-vc-en
+    dataset: cv3_zero_shot_en
     prompt: voice-clone
     model: qwen-audio-chat
     post_process: ['extract_audio']
     evaluator: cv3-zero-shot-en
+    agg: mean
+
+cv3_zero_shot_ja:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: cv3_zero_shot_ja
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-zero-shot-ja
+    agg: mean
+
+cv3_zero_shot_ko:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: cv3_zero_shot_ko
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-zero-shot-ko
+    agg: mean
+
+cv3_zero_shot_de:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: cv3_zero_shot_de
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-zero-shot-de
+    agg: mean
+
+cv3_zero_shot_es:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: cv3_zero_shot_es
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-zero-shot-es
+    agg: mean
+
+cv3_zero_shot_fr:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: cv3_zero_shot_fr
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-zero-shot-fr
+    agg: mean
+
+cv3_zero_shot_it:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: cv3_zero_shot_it
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-zero-shot-it
+    agg: mean
+
+cv3_zero_shot_ru:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: cv3_zero_shot_ru
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-zero-shot-ru
+    agg: mean
+
+# Emotion zero-shot evaluation tasks
+cv3_emotion_zeroshot:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: cv3_emotion_zeroshot_zh
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-emotion-zeroshot-zh
+    agg: mean
+
+cv3_emotion_zeroshot_en:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: cv3_emotion_zeroshot_en
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-emotion-zeroshot-en
+    agg: mean
+
+cv3_emotion_zeroshot_zh:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: cv3_emotion_zeroshot_zh
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-emotion-zeroshot-zh
     agg: mean

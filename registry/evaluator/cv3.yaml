@@ -14,11 +14,90 @@ cv3-zero-shot-zh:
       - cv3-speaker-sim
       - dnsmos
 
+cv3-zero-shot-ja:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - cv3-eval-asr-wer-ja
+      - cv3-speaker-sim
+      - dnsmos
+
+cv3-zero-shot-ko:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - cv3-eval-asr-wer-ko
+      - cv3-speaker-sim
+      - dnsmos
+
+cv3-zero-shot-de:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - cv3-eval-asr-wer-de
+      - cv3-speaker-sim
+      - dnsmos
+
+cv3-zero-shot-es:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - cv3-eval-asr-wer-es
+      - cv3-speaker-sim
+      - dnsmos
+
+cv3-zero-shot-fr:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - cv3-eval-asr-wer-fr
+      - cv3-speaker-sim
+      - dnsmos
+
+cv3-zero-shot-it:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - cv3-eval-asr-wer-it
+      - cv3-speaker-sim
+      - dnsmos
+
+cv3-zero-shot-ru:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - cv3-eval-asr-wer-ru
+      - cv3-speaker-sim
+      - dnsmos
+
+# Emotion evaluators
+cv3-emotion-zeroshot-en:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - cv3-eval-asr-wer-en
+      - cv3-speaker-sim
+      - dnsmos
+      - cv3-emotion
+
+cv3-emotion-zeroshot-zh:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - cv3-eval-asr-wer-zh
+      - cv3-speaker-sim
+      - dnsmos
+      - cv3-emotion
+
 cv3-speaker-sim:
   class: audio_evals.evaluator.simo.CV3SpeakerSim
   args:
     model_name: speech_eres2net_sv_en_voxceleb_16k
 
+cv3-emotion:
+  class: audio_evals.evaluator.cv3_emotion.CV3EmotionEval
+  args:
+    model_name: emotion2vec_plus_large
 
 cv3-eval-asr-wer-en:
   class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
@@ -27,10 +106,58 @@ cv3-eval-asr-wer-en:
     prompt_name: whisper-asr-en
     lang: en
 
-
 cv3-eval-asr-wer-zh:
   class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
   args: # important: the asr model name not 'paraformer-zh', refer to https://github.com/modelscope/FunASR/blob/main/funasr/download/name_maps_from_hub.py#L1
     model_name: speech_paraformer-speech_seaco_paraformer_large_asr_nat-zh-cn-16k-common-vocab8404-pytorch
     prompt_name: simple-asr
     lang: zh
+
+cv3-eval-asr-wer-ja:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: cv3-whisper
+    prompt_name: whisper-asr-ja
+    lang: ja
+
+cv3-eval-asr-wer-ko:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: cv3-whisper
+    prompt_name: whisper-asr-ko
+    lang: ko
+
+cv3-eval-asr-wer-de:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: cv3-whisper
+    prompt_name: whisper-asr-de
+    lang: de
+
+cv3-eval-asr-wer-es:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: cv3-whisper
+    prompt_name: whisper-asr-es
+    lang: es
+
+cv3-eval-asr-wer-fr:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: cv3-whisper
+    prompt_name: whisper-asr-fr
+    lang: fr
+
+cv3-eval-asr-wer-it:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: cv3-whisper
+    prompt_name: whisper-asr-it
+    lang: it
+
+cv3-eval-asr-wer-ru:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: cv3-whisper
+    prompt_name: whisper-asr-ru
+    lang: ru
