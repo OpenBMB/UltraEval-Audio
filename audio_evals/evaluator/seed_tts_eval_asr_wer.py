@@ -27,7 +27,7 @@ def process_one(hypo, truth, lang):
 
     # Character-based languages (CER)
     # yue: cantonese, th: thai
-    if lang in ["zh", "ja", "yue", "th"]:
+    if lang in ["zh", "ja", "yue", "th", "ko"]:
         truth = " ".join([x for x in truth if x.strip()])
         hypo = " ".join([x for x in hypo if x.strip()])
     # Word-based languages (WER)
