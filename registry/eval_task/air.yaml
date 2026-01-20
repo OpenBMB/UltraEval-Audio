@@ -24,3 +24,12 @@ single_choice_with_answer:
     model: qwen-audio-chat
     evaluator: choice-strings-match
     agg: mean
+
+mmau:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: mmau
+    prompt: single_choice_with_answer
+    model: qwen-audio-chat
+    evaluator: choice-strings-match
+    agg: mean

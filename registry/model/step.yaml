@@ -1,11 +1,30 @@
-step-audio:
-  class: audio_evals.models.step_audio.StepAudioChat
+step-audio-r1.1:
+  class: audio_evals.models.step_audio_r1.StepAudioR1
   args:
-    url: http://127.0.0.1:5000/inference
-    s2t: true
+    env_path: envs/step-audio-r1
+    requirements_path: audio_evals/lib/StepAudio/requirements.txt
+    model_path: stepfun-ai/Step-Audio-R1.1  # Update this path
+    start_port: 9999
+    tensor_parallel_size: 4
+    extract_thinking: true
+    sample_params:  # from https://github.com/stepfun-ai/Step-Audio-R1/blob/main/examples-vllm_r1.py
+      temperature: 0.7
+      repetition_penalty: 1.0
+      stop_token_ids:
+        - 151665
 
-step-speech:
-  class: audio_evals.models.step_audio.StepAudioChat
+
+step-audio-r1:
+  class: audio_evals.models.step_audio_r1.StepAudioR1
   args:
-    url: http://127.0.0.1:5000/inference
-    s2t: false
+    env_path: envs/step-audio-r1
+    requirements_path: audio_evals/lib/StepAudio/requirements.txt
+    model_path: stepfun-ai/Step-Audio-R1  # Update this path
+    start_port: 9999
+    tensor_parallel_size: 4
+    extract_thinking: true
+    sample_params:
+      temperature: 0.7
+      repetition_penalty: 1.0
+      stop_token_ids:
+        - 151665

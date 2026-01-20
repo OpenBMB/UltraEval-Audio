@@ -33,6 +33,8 @@ UltraEval-Audio — The world's first open-source framework supporting both spee
 
 # Changelog🔥
 
+- [2026/01/19]
+  - Support Step-Audio-R1.1 evaluation, with replication report: [Step-Audio-R1.1](replication/step-audio-r1_1.md)
 - [2025/12/31]
   - release v1.1 🎉🎉🎉
     - Add replication docs for popular models: [CosyVoice2](replication/CosyVoice2.md), [CosyVoice3](replication/CosyVoice3.md), [GLM-TTS](replication/GLM-TTS.md), [IndexTTS2](replication/IndexTTS2.md), [VoxCPM](replication/VoxCPM.md)
