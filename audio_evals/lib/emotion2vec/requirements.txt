@@ -1,0 +1,5 @@
+funasr
+librosa
+modelscope
+torch
+torchaudio
