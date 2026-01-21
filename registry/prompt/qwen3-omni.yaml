@@ -226,3 +226,22 @@ qwen3-omni-audio-event:
         value: '{{WavPath}}'
       - type: text
         value: 'What events or sounds can you hear in this audio?'
+
+qwen3-omni-tts-en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: text
+        value: 'Repeat the following text once without adding any other words:\n\n\n {{Text}}\n'
+
+
+qwen3-omni-tts-zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: text
+        value: '重复一遍这段文字不要加其他字:\n\n\n {{Text}}\n'
