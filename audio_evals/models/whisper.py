@@ -51,7 +51,7 @@ class WhisperModel(OfflineModel):
         while True:
             _, wlist, _ = select.select([], [self.process.stdin], [], 60)
             if wlist:
-                prompt["kwargs"] = kwargs
+                prompt['kwargs'] = kwargs
                 self.process.stdin.write(f"{prefix}{json.dumps(prompt)}\n")
                 self.process.stdin.flush()
                 print("already write in")
@@ -122,7 +122,7 @@ class SeedTTSWhisperModel(OfflineModel):
         while True:
             _, wlist, _ = select.select([], [self.process.stdin], [], 60)
             if wlist:
-                prompt["kwargs"] = kwargs
+                prompt.update(kwargs)
                 self.process.stdin.write(f"{prefix}{json.dumps(prompt)}\n")
                 self.process.stdin.flush()
                 print("already write in")
@@ -189,7 +189,7 @@ class CV3WhisperModel(OfflineModel):
         while True:
             _, wlist, _ = select.select([], [self.process.stdin], [], 60)
             if wlist:
-                prompt["kwargs"] = kwargs
+                prompt.update(kwargs)
                 self.process.stdin.write(f"{prefix}{json.dumps(prompt)}\n")
                 self.process.stdin.flush()
                 print("already write in")
