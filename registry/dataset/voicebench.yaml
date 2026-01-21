@@ -49,7 +49,7 @@ voice_bench_sd-qa:
     default_task: voice_bench_qa_reference
     name: hlt-lab/voicebench
     subset: sd-qa
-    split: test
+    split: usa
     ref_col: answer
     col_aliases:
       prompt: question
@@ -58,7 +58,7 @@ voice_bench_sd-qa:
 voice_bench_ifeval:
   class: audio_evals.dataset.huggingface.Huggingface
   args:
-    default_task: voice_bench_qa_reference
+    default_task: voice_bench_ifeval
     name: hlt-lab/voicebench
     subset: ifeval
     split: test
@@ -71,7 +71,7 @@ voice_bench_bbh:
   args:
     default_task: voice_bench_bbh
     name: hlt-lab/voicebench
-    subset: ifeval
+    subset: bbh
     split: test
     ref_col: answer
     col_aliases:
@@ -88,3 +88,27 @@ voice_bench_advbench:
     ref_col: question
     col_aliases:
       prompt: question
+
+
+voice_bench_openbookqa:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: voice_bench_choice
+    name: hlt-lab/voicebench
+    subset: openbookqa
+    split: test
+    ref_col: answer
+    col_aliases:
+      prompt: question
+      reference: answer
+
+voice_bench_mmsu:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: voice_bench_choice
+    name: hlt-lab/voicebench
+    subset: mmsu
+    ref_col: answer
+    col_aliases:
+      prompt: question
+      reference: answer
