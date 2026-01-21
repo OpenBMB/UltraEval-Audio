@@ -3,7 +3,7 @@ minimax_tts_arabic:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_ar
-    ref_col: text
+    ref_col: WavPath
     language: "arabic"
 
 minimax_tts_cantonese:
@@ -11,7 +11,7 @@ minimax_tts_cantonese:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_yue
-    ref_col: text
+    ref_col: WavPath
     language: "cantonese"
 
 minimax_tts_chinese:
@@ -19,7 +19,7 @@ minimax_tts_chinese:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_zh
-    ref_col: text
+    ref_col: WavPath
     language: "chinese"
 
 minimax_tts_czech:
@@ -27,7 +27,7 @@ minimax_tts_czech:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_cs
-    ref_col: text
+    ref_col: WavPath
     language: "czech"
 
 minimax_tts_dutch:
@@ -35,7 +35,7 @@ minimax_tts_dutch:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_nl
-    ref_col: text
+    ref_col: WavPath
     language: "dutch"
 
 minimax_tts_english:
@@ -43,7 +43,7 @@ minimax_tts_english:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_en
-    ref_col: text
+    ref_col: WavPath
     language: "english"
 
 minimax_tts_finnish:
@@ -51,7 +51,7 @@ minimax_tts_finnish:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_fi
-    ref_col: text
+    ref_col: WavPath
     language: "finnish"
 
 minimax_tts_french:
@@ -59,7 +59,7 @@ minimax_tts_french:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_fr
-    ref_col: text
+    ref_col: WavPath
     language: "french"
 
 minimax_tts_german:
@@ -67,7 +67,7 @@ minimax_tts_german:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_de
-    ref_col: text
+    ref_col: WavPath
     language: "german"
 
 minimax_tts_greek:
@@ -75,7 +75,7 @@ minimax_tts_greek:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_el
-    ref_col: text
+    ref_col: WavPath
     language: "greek"
 
 minimax_tts_hindi:
@@ -83,7 +83,7 @@ minimax_tts_hindi:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_hi
-    ref_col: text
+    ref_col: WavPath
     language: "hindi"
 
 minimax_tts_indonesian:
@@ -91,7 +91,7 @@ minimax_tts_indonesian:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_id
-    ref_col: text
+    ref_col: WavPath
     language: "indonesian"
 
 minimax_tts_italian:
@@ -99,7 +99,7 @@ minimax_tts_italian:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_it
-    ref_col: text
+    ref_col: WavPath
     language: "italian"
 
 minimax_tts_japanese:
@@ -107,7 +107,7 @@ minimax_tts_japanese:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_ja
-    ref_col: text
+    ref_col: WavPath
     language: "japanese"
 
 minimax_tts_korean:
@@ -115,7 +115,7 @@ minimax_tts_korean:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_ko
-    ref_col: text
+    ref_col: WavPath
     language: "korean"
 
 minimax_tts_polish:
@@ -123,7 +123,7 @@ minimax_tts_polish:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_pl
-    ref_col: text
+    ref_col: WavPath
     language: "polish"
 
 minimax_tts_portuguese:
@@ -131,7 +131,7 @@ minimax_tts_portuguese:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_pt
-    ref_col: text
+    ref_col: WavPath
     language: "portuguese"
 
 minimax_tts_romanian:
@@ -139,7 +139,7 @@ minimax_tts_romanian:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_ro
-    ref_col: text
+    ref_col: WavPath
     language: "romanian"
 
 minimax_tts_russian:
@@ -147,7 +147,7 @@ minimax_tts_russian:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_ru
-    ref_col: text
+    ref_col: WavPath
     language: "russian"
 
 minimax_tts_spanish:
@@ -155,7 +155,7 @@ minimax_tts_spanish:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_es
-    ref_col: text
+    ref_col: WavPath
     language: "spanish"
 
 minimax_tts_thai:
@@ -163,7 +163,7 @@ minimax_tts_thai:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_th
-    ref_col: text
+    ref_col: WavPath
     language: "thai"
 
 minimax_tts_turkish:
@@ -171,7 +171,7 @@ minimax_tts_turkish:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_tr
-    ref_col: text
+    ref_col: WavPath
     language: "turkish"
 
 minimax_tts_ukrainian:
@@ -179,7 +179,7 @@ minimax_tts_ukrainian:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_uk
-    ref_col: text
+    ref_col: WavPath
     language: "ukrainian"
 
 minimax_tts_vietnamese:
@@ -187,6 +187,6 @@ minimax_tts_vietnamese:
   args:
     name: MiniMaxAI/TTS-Multilingual-Test-Set
     default_task: minimax_tts_vi
-    ref_col: text
+    ref_col: WavPath
     language: "vietnamese"
 

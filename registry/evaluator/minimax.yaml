@@ -172,7 +172,6 @@ minimax-zero-shot-ar:
     components:
       - minimax-eval-asr-wer-ar
       - simo
-      - dnsmos
 
 minimax-zero-shot-yue:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -180,7 +179,6 @@ minimax-zero-shot-yue:
     components:
       - minimax-eval-asr-wer-yue
       - simo
-      - dnsmos
 
 minimax-zero-shot-zh:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -188,7 +186,6 @@ minimax-zero-shot-zh:
     components:
       - minimax-eval-asr-wer-zh
       - simo
-      - dnsmos
 
 minimax-zero-shot-cs:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -196,7 +193,6 @@ minimax-zero-shot-cs:
     components:
       - minimax-eval-asr-wer-cs
       - simo
-      - dnsmos
 
 minimax-zero-shot-nl:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -204,7 +200,6 @@ minimax-zero-shot-nl:
     components:
       - minimax-eval-asr-wer-nl
       - simo
-      - dnsmos
 
 minimax-zero-shot-en:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -212,7 +207,6 @@ minimax-zero-shot-en:
     components:
       - minimax-eval-asr-wer-en
       - simo
-      - dnsmos
 
 minimax-zero-shot-fi:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -220,7 +214,6 @@ minimax-zero-shot-fi:
     components:
       - minimax-eval-asr-wer-fi
       - simo
-      - dnsmos
 
 minimax-zero-shot-fr:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -228,7 +221,6 @@ minimax-zero-shot-fr:
     components:
       - minimax-eval-asr-wer-fr
       - simo
-      - dnsmos
 
 minimax-zero-shot-de:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -236,7 +228,6 @@ minimax-zero-shot-de:
     components:
       - minimax-eval-asr-wer-de
       - simo
-      - dnsmos
 
 minimax-zero-shot-el:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -244,7 +235,6 @@ minimax-zero-shot-el:
     components:
       - minimax-eval-asr-wer-el
       - simo
-      - dnsmos
 
 minimax-zero-shot-hi:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -252,7 +242,6 @@ minimax-zero-shot-hi:
     components:
       - minimax-eval-asr-wer-hi
       - simo
-      - dnsmos
 
 minimax-zero-shot-id:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -260,7 +249,6 @@ minimax-zero-shot-id:
     components:
       - minimax-eval-asr-wer-id
       - simo
-      - dnsmos
 
 minimax-zero-shot-it:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -268,7 +256,6 @@ minimax-zero-shot-it:
     components:
       - minimax-eval-asr-wer-it
       - simo
-      - dnsmos
 
 minimax-zero-shot-ja:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -276,7 +263,6 @@ minimax-zero-shot-ja:
     components:
       - minimax-eval-asr-wer-ja
       - simo
-      - dnsmos
 
 minimax-zero-shot-ko:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -284,7 +270,6 @@ minimax-zero-shot-ko:
     components:
       - minimax-eval-asr-wer-ko
       - simo
-      - dnsmos
 
 minimax-zero-shot-pl:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -292,7 +277,6 @@ minimax-zero-shot-pl:
     components:
       - minimax-eval-asr-wer-pl
       - simo
-      - dnsmos
 
 minimax-zero-shot-pt:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -300,7 +284,6 @@ minimax-zero-shot-pt:
     components:
       - minimax-eval-asr-wer-pt
       - simo
-      - dnsmos
 
 minimax-zero-shot-ro:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -308,7 +291,6 @@ minimax-zero-shot-ro:
     components:
       - minimax-eval-asr-wer-ro
       - simo
-      - dnsmos
 
 minimax-zero-shot-ru:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -316,7 +298,6 @@ minimax-zero-shot-ru:
     components:
       - minimax-eval-asr-wer-ru
       - simo
-      - dnsmos
 
 minimax-zero-shot-es:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -324,7 +305,6 @@ minimax-zero-shot-es:
     components:
       - minimax-eval-asr-wer-es
       - simo
-      - dnsmos
 
 minimax-zero-shot-th:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -332,7 +312,6 @@ minimax-zero-shot-th:
     components:
       - minimax-eval-asr-wer-th
       - simo
-      - dnsmos
 
 minimax-zero-shot-tr:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -340,7 +319,6 @@ minimax-zero-shot-tr:
     components:
       - minimax-eval-asr-wer-tr
       - simo
-      - dnsmos
 
 minimax-zero-shot-uk:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -348,7 +326,6 @@ minimax-zero-shot-uk:
     components:
       - minimax-eval-asr-wer-uk
       - simo
-      - dnsmos
 
 minimax-zero-shot-vi:
   class: audio_evals.evaluator.ensemble.Ensemble
@@ -356,5 +333,4 @@ minimax-zero-shot-vi:
     components:
       - minimax-eval-asr-wer-vi
       - simo
-      - dnsmos
 
