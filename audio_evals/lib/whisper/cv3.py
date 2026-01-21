@@ -39,7 +39,7 @@ if __name__ == "__main__":
             # Process input
             logger.info(f"Received input: {x}")
 
-            result = model.transcribe(x["audio"], language=x.get("language", "english"))
+            result = model.transcribe(x["audio"], language=x.get("generate_kwargs", {}).get("language", "english"))
             transcription = result["text"].strip()
             result = {"text": transcription}
             retry = 3

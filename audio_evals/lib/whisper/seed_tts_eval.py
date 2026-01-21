@@ -62,7 +62,7 @@ if __name__ == "__main__":
                     ).input_features
                     input_features = input_features.to(device)
                     forced_decoder_ids = processor.get_decoder_prompt_ids(
-                        language=x.get("language", "english"), task="transcribe"
+                        language=x.get("generate_kwargs", {}).get("language", "english"), task="transcribe"
                     )
                     with torch.no_grad():
                         predicted_ids = model.generate(
@@ -80,7 +80,7 @@ if __name__ == "__main__":
                 ).input_features
                 input_features = input_features.to(device)
                 forced_decoder_ids = processor.get_decoder_prompt_ids(
-                    language=x.get("language", "english"), task="transcribe"
+                    language=x.get("generate_kwargs", {}).get("language", "english"), task="transcribe"
                 )
                 predicted_ids = model.generate(
                     input_features, forced_decoder_ids=forced_decoder_ids
