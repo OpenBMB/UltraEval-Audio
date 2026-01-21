@@ -1,0 +1,221 @@
+# Step-Audio-R1 Prompts
+# Based on examples from Step-Audio-R1/examples-vllm_r1.py
+
+# ============================================================================
+# Audio Understanding Tasks
+# ============================================================================
+
+step_audio_r1_mmau:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: text
+            value: "{{question}}\nPlease choose the answer from the following options, do not provide any additional explanations or content: \n{% for choice in choices %}{{ 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[loop.index0] }}. {{ choice }}\n{% endfor %}"
+          - type: audio
+            value: "{{WavPath}}"
+
+step_audio_r1_mmsu:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: text
+            value: "{{question}}\nPlease choose the answer from the following options, do not provide any additional explanations or content: \n{% for choice in choices %}{{ 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[loop.index0] }}. {{ choice }}\n{% endfor %}"
+          - type: audio
+            value: "{{WavPath}}"
+
+# ============================================================================
+# Math Audio Question Answering
+# ============================================================================
+
+step_audio_r1_spoken_mqa:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: text
+            value: "Solve the given math question step by step."
+          - type: audio
+            value: "{{WavPath}}"
+
+step_audio_r1_big_bench_audio:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: '仅用 "valid" 或 "invalid"，"yes" 或 "no"，或者数字来直接回答上面的问题，不要添加任何其他描述。'
+
+# ============================================================================
+# Audio Reasoning Tasks
+# ============================================================================
+
+step_audio_r1_mmar:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: text
+            value: "{{question}}\nPlease choose the answer from the following options, do not provide any additional explanations or content: \n{% for choice in choices %}{{ 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[loop.index0] }}. {{ choice }}\n{% endfor %}"
+          - type: audio
+            value: "{{WavPath}}"
+
+# ============================================================================
+# Wild Speech Processing (ASR)
+# ============================================================================
+
+step_audio_r1_wild_speech:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+
+# ============================================================================
+# Universal Audio Caption
+# ============================================================================
+
+step_audio_r1_uac:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: system
+        contents:
+          - type: text
+            value: "你是一位经验丰富的音频分析专家，擅长对各种语音音频进行深入细致的分析。你的任务不仅仅是将音频内容准确转写为文字，还要对说话人的声音特征（如性别、年龄、情绪状态）、背景声音、环境信息以及可能涉及的事件进行全面描述。请以专业、客观的视角，详细、准确地完成每一次分析和转写。"
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+
+# ============================================================================
+# Music and Song Analysis
+# ============================================================================
+
+step_audio_r1_song_appreciation:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: system
+        contents:
+          - type: text
+            value: "你是一个语音助手，你有非常丰富的音频处理经验。"
+      - role: user
+        contents:
+          - type: text
+            value: "鉴赏一下这段歌声。"
+          - type: audio
+            value: "{{WavPath}}"
+
+# ============================================================================
+# Speaker Analysis
+# ============================================================================
+
+step_audio_r1_speaker_trait_inference:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: system
+        contents:
+          - type: text
+            value: "你是一个语音助手，你有非常丰富的音频处理经验。"
+      - role: user
+        contents:
+          - type: text
+            value: "说话人的语气和音色如何反映他的性格和情绪特征？"
+          - type: audio
+            value: "{{WavPath}}"
+
+# ============================================================================
+# Generic Audio Understanding with Question
+# ============================================================================
+
+step_audio_r1_audio_qa:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: text
+            value: "{{question}}"
+          - type: audio
+            value: "{{WavPath}}"
+
+# Text-first variant
+step_audio_r1_audio_qa_text_first:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: text
+            value: "{{question}}"
+          - type: audio
+            value: "{{WavPath}}"
+
+# Audio-first variant
+step_audio_r1_audio_qa_audio_first:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "{{question}}"
+
+# ============================================================================
+# Simple Audio Processing (No Instructions)
+# ============================================================================
+
+step_audio_r1_simple_audio:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+
+# ============================================================================
+# Audio Understanding with System Prompt
+# ============================================================================
+
+step_audio_r1_audio_with_system:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: system
+        contents:
+          - type: text
+            value: "{{system_prompt}}"
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+
+step_audio_r1_audio_qa_with_system:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: system
+        contents:
+          - type: text
+            value: "{{system_prompt}}"
+      - role: user
+        contents:
+          - type: text
+            value: "{{question}}"
+          - type: audio
+            value: "{{WavPath}}"

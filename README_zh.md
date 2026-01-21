@@ -33,6 +33,8 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
 
 # 更新日志🔥
 
+- [2026/01/19]
+  - 新增对 Step-Audio-R1.1 的评测支持，复现评测见：[Step-Audio-R1.1](replication/step-audio-r1_1.md)
 - [2025/12/31]
   - release v1.1 🎉🎉🎉
     - 新增热门模型复现文档： [CosyVoice2](replication/CosyVoice2.md), [CosyVoice3](replication/CosyVoice3.md), [GLM-TTS](replication/GLM-TTS.md), [IndexTTS2](replication/IndexTTS2.md), [VoxCPM](replication/VoxCPM.md)
