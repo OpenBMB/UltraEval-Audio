@@ -43,3 +43,12 @@ voice_bench_harm:
     model: qwen-audio-chat
     evaluator: harm
     agg: mean
+
+voice_bench_choice:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: voice_bench_openbookqa
+    prompt: direct-aqa
+    model: qwen-audio-chat
+    evaluator: mcq_abcd
+    agg: mean
