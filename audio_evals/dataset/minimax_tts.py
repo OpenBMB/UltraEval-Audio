@@ -69,94 +69,88 @@ class MiniMaxTTSDataset(BaseDataset):
         # Get all speakers needed from the text files first
         speakers_needed = set()
         for lang in self.languages:
-            try:
-                text_file = hf_hub_download(
-                    repo_id=self.name,
-                    filename=f"text/{lang}.txt",
-                    repo_type="dataset"
-                )
+            text_file = hf_hub_download(
+                repo_id=self.name,
+                filename=f"text/{lang}.txt",
+                repo_type="dataset"
+            )
+            with open(text_file, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line or "|" not in line:
+                        continue
+                    parts = line.split("|", 1)
+                    speaker_label = parts[0].strip()
+                    speakers_needed.add(speaker_label)
+            if len(speakers_needed) == 1:
                 with open(text_file, "r", encoding="utf-8") as f:
-                    for line in f:
-                        line = line.strip()
-                        if not line or "|" not in line:
-                            continue
-                        parts = line.split("|", 1)
-                        if len(parts) >= 2:
-                            speaker_label = parts[0].strip()
-                            speakers_needed.add(speaker_label)
-            except Exception as e:
-                logger.warning(f"Error reading text file for language {lang}: {e}")
-
+                    print(f.read())
+                raise ValueError(f"Only one speaker needed for language {lang}")
+            
         # Download prompt audio for each speaker from speaker/{language}/{speaker_label}/
         for speaker_label in speakers_needed:
             language = self._get_language_from_speaker(speaker_label)
             speaker_folder = f"speaker/{language}/{speaker_label}"
             
-            try:
-                # List files in the speaker folder to find the prompt audio
-                files = list(list_repo_tree(
-                    self.name,
-                    path_in_repo=speaker_folder,
-                    repo_type="dataset"
-                ))
-                
-                # Find the mp3 file
-                for f in files:
-                    if f.path.endswith('.mp3'):
-                        audio_path = hf_hub_download(
-                            repo_id=self.name,
-                            filename=f.path,
-                            repo_type="dataset"
-                        )
-                        speaker_map[speaker_label] = audio_path
-                        speaker_filenames[speaker_label] = os.path.basename(f.path)
-                        logger.info(f"Downloaded prompt audio for {speaker_label}: {audio_path}")
-                        break
-            except Exception as e:
-                logger.warning(f"Failed to download speaker audio for {speaker_label}: {e}")
+            # List files in the speaker folder to find the prompt audio
+            files = list(list_repo_tree(
+                self.name,
+                path_in_repo=speaker_folder,
+                repo_type="dataset"
+            ))
+            
+            # Find the mp3 file
+            for f in files:
+                if f.path.endswith('.mp3'):
+                    audio_path = hf_hub_download(
+                        repo_id=self.name,
+                        filename=f.path,
+                        repo_type="dataset"
+                    )
+                    speaker_map[speaker_label] = audio_path
+                    speaker_filenames[speaker_label] = os.path.basename(f.path)
+                    logger.info(f"Downloaded prompt audio for {speaker_label}: {audio_path}")
+                    break
 
         logger.info(f"Built speaker_map with {len(speaker_map)} speakers: {list(speaker_map.keys())[:5]}...")
 
         # Load test sentences for each language
         results = []
         for lang in self.languages:
-            try:
-                text_file = hf_hub_download(
-                    repo_id=self.name,
-                    filename=f"text/{lang}.txt",
-                    repo_type="dataset"
-                )
+            text_file = hf_hub_download(
+                repo_id=self.name,
+                filename=f"text/{lang}.txt",
+                repo_type="dataset"
+            )
 
-                with open(text_file, "r", encoding="utf-8") as f:
-                    for line in f:
-                        line = line.strip()
-                        if not line or "|" not in line:
-                            continue
-                        parts = line.split("|", 1)
-                        if len(parts) < 2:
-                            continue
-                        speaker_label = parts[0].strip()
-                        text = parts[1].strip()
+            with open(text_file, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line or "|" not in line:
+                        continue
+                    parts = line.split("|", 1)
+                    if len(parts) < 2:
+                        continue
+                    speaker_label = parts[0].strip()
+                    text = parts[1].strip()
 
-                        if speaker_label not in speaker_map:
-                            logger.warning(f"Speaker '{speaker_label}' not found in speaker_map")
-                            continue
+                    if speaker_label not in speaker_map:
+                        logger.warning(f"Speaker '{speaker_label}' not found in speaker_map")
+                        continue
 
-                        # Get prompt text using the filename
-                        prompt_filename = speaker_filenames[speaker_label]
-                        prompt_text = prompt_texts[prompt_filename]
+                    # Get prompt text using the filename
+                    prompt_filename = speaker_filenames[speaker_label]
+                    prompt_text = prompt_texts[prompt_filename]
 
-                        results.append({
-                            "WavPath": speaker_map[speaker_label],
-                            "prompt_audio": speaker_map[speaker_label],
-                            "prompt_text": prompt_text,
-                            "text": text,
-                            "ans": text,
-                            "language": lang,
-                            "speaker": speaker_label
-                        })
-            except Exception as e:
-                logger.warning(f"Error loading language {lang}: {e}")
+                    results.append({
+                        "WavPath": speaker_map[speaker_label],
+                        "prompt_audio": speaker_map[speaker_label],
+                        "prompt_text": prompt_text,
+                        "text": text,
+                        "ans": text,
+                        "language": lang,
+                        "speaker": speaker_label
+                    })
 
         if limit > 0:
             results = results[:limit]
