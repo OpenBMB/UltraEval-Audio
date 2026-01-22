@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
     "audio_evals/lib/StepAudio/serve.py",
     pre_command="mkdir -p ./third_party && "
     "([ ! -d './third_party/vllm-step-audio' ] && "
-    "git clone -b feat/step-audio-support https://github.com/stepfun-ai/vllm.git ./third_party/vllm-step-audio && cd ../../) || true && "
+    "git clone -b step-audio-2-mini https://github.com/stepfun-ai/vllm.git ./third_party/vllm-step-audio && cd ../../) || true && "
     "(python -c 'import vllm' 2>/dev/null || VLLM_USE_PRECOMPILED=1 uv pip install -e ./third_party/vllm-step-audio)",
 )
 class StepAudioR1(OfflineModel):
@@ -45,7 +45,7 @@ class StepAudioR1(OfflineModel):
     it back via stdout.
 
     Requirements:
-        - Customized vLLM from https://github.com/stepfun-ai/vllm (feat/step-audio-support branch)
+        - Customized vLLM from https://github.com/stepfun-ai/vllm (step-audio-2-mini branch)
         - Step-Audio-R1.1 model weights
     """
 
