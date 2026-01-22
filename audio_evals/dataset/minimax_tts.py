@@ -143,8 +143,8 @@ class MiniMaxTTSDataset(BaseDataset):
                             continue
 
                         # Get prompt text using the filename
-                        prompt_filename = speaker_filenames.get(speaker_label, "")
-                        prompt_text = prompt_texts.get(prompt_filename, "")
+                        prompt_filename = speaker_filenames[speaker_label]
+                        prompt_text = prompt_texts[prompt_filename]
 
                         results.append({
                             "WavPath": speaker_map[speaker_label],
