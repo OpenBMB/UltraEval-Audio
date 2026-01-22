@@ -20,7 +20,7 @@ def save_audio_to_local(ds: Dataset, save_path: str):
 
     def save_audio(example, index):
         if "audio" not in example:
-            return example
+            raise ValueError(f"audio not in example: {example}")
         audio_array = example["audio"]["array"]
         output_path = os.path.join(save_path, f"{index}.wav")
         example["WavPath"] = output_path
