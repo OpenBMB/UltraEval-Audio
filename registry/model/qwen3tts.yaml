@@ -1,0 +1,108 @@
+# Qwen3-TTS Model Configurations
+# Reference: https://github.com/QwenLM/Qwen3-TTS
+
+# ============================================
+# Custom Voice Models (with preset speakers)
+# ============================================
+
+qwen3-tts-1.7b-custom-voice:
+  class: audio_evals.models.TTS.qwen3_tts.Qwen3TTS
+  args:
+    path: Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice
+    mode: custom_voice
+    dtype: bfloat16
+    device: cuda:0
+    env_path: envs/qwen3_tts
+    requirements_path: audio_evals/lib/Qwen3TTS/requirements.txt
+
+qwen3-tts-0.6b-custom-voice:
+  class: audio_evals.models.TTS.qwen3_tts.Qwen3TTS
+  args:
+    path: Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice
+    mode: custom_voice
+    dtype: bfloat16
+    device: cuda:0
+    env_path: envs/qwen3_tts
+    requirements_path: audio_evals/lib/Qwen3TTS/requirements.txt
+
+# ============================================
+# Voice Design Models (natural language control)
+# ============================================
+
+qwen3-tts-1.7b-voice-design:
+  class: audio_evals.models.TTS.qwen3_tts.Qwen3TTS
+  args:
+    path: Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign
+    mode: voice_design
+    dtype: bfloat16
+    device: cuda:0
+    env_path: envs/qwen3_tts
+    requirements_path: audio_evals/lib/Qwen3TTS/requirements.txt
+
+# ============================================
+# Voice Clone Models (Base models)
+# ============================================
+
+qwen3-tts-1.7b-base:
+  class: audio_evals.models.TTS.qwen3_tts.Qwen3TTS
+  args:
+    path: Qwen/Qwen3-TTS-12Hz-1.7B-Base
+    mode: voice_clone
+    dtype: bfloat16
+    device: cuda:0
+    env_path: envs/qwen3_tts
+    requirements_path: audio_evals/lib/Qwen3TTS/requirements.txt
+    sample_params:  # ref: https://github.com/QwenLM/Qwen3-TTS/blob/main/examples/test_model_12hz_base.py
+      max_new_tokens: 2048
+      do_sample: true
+      top_k: 50
+      top_p: 1.0
+      temperature: 0.9
+      repetition_penalty: 1.05
+      subtalker_dosample: true
+      subtalker_top_k: 50
+      subtalker_top_p: 1.0
+      subtalker_temperature: 0.9
+
+qwen3-tts-12hz-1.7b-base-xvec_only:
+  class: audio_evals.models.TTS.qwen3_tts.Qwen3TTS
+  args:
+    path: Qwen/Qwen3-TTS-12Hz-1.7B-Base
+    mode: voice_clone
+    dtype: bfloat16
+    device: cuda:0
+    env_path: envs/qwen3_tts
+    requirements_path: audio_evals/lib/Qwen3TTS/requirements.txt
+    sample_params:
+      max_new_tokens: 2048
+      do_sample: true
+      top_k: 50
+      top_p: 1.0
+      temperature: 0.9
+      repetition_penalty: 1.05
+      subtalker_dosample: true
+      subtalker_top_k: 50
+      subtalker_top_p: 1.0
+      subtalker_temperature: 0.9
+      x_vector_only_mode: true
+
+qwen3-tts-0.6b-base:
+  class: audio_evals.models.TTS.qwen3_tts.Qwen3TTS
+  args:
+    path: Qwen/Qwen3-TTS-12Hz-0.6B-Base
+    mode: voice_clone
+    dtype: bfloat16
+    device: cuda:0
+    env_path: envs/qwen3_tts
+    requirements_path: audio_evals/lib/Qwen3TTS/requirements.txt
+    sample_params:
+      max_new_tokens: 2048
+      do_sample: true
+      top_k: 50
+      top_p: 1.0
+      temperature: 0.9
+      repetition_penalty: 1.05
+      subtalker_dosample: true
+      subtalker_top_k: 50
+      subtalker_top_p: 1.0
+      subtalker_temperature: 0.9

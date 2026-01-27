@@ -1,0 +1,3 @@
+qwen-tts
+torch>=2.0.0
+soundfile

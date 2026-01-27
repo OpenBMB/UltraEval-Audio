@@ -1,0 +1,91 @@
+# Qwen3-TTS prompt configurations with language parameter
+
+qwen3-tts-voice-clone-chinese:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language: "Chinese"
+
+qwen3-tts-voice-clone-english:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language: "English"
+
+qwen3-tts-voice-clone-japanese:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language: "Japanese"
+
+qwen3-tts-voice-clone-korean:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language: "Korean"
+
+qwen3-tts-voice-clone-german:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language: "German"
+
+qwen3-tts-voice-clone-french:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language: "French"
+
+qwen3-tts-voice-clone-russian:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language: "Russian"
+
+qwen3-tts-voice-clone-portuguese:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language: "Portuguese"
+
+qwen3-tts-voice-clone-spanish:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language: "Spanish"
+
+qwen3-tts-voice-clone-italian:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language: "Italian"
