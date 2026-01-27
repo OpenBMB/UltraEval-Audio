@@ -7,6 +7,7 @@ from audio_evals.eval_task import EvalTask
 from audio_evals.recorder import Recorder
 from audio_evals.registry import registry
 from audio_evals.utils import find_latest_jsonl
+from audio_evals.models.model_pool import IsolatedModelPool, get_available_gpu_ids
 
 
 def get_args():
@@ -26,6 +27,13 @@ def get_args():
     parser.add_argument("--rand", type=int, default=0)
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument(
+        "--use_model_pool",
+        action="store_true",
+        help="Use IsolatedModelPool for multi-GPU parallel inference. "
+             "Creates `workers` model instances, GPUs are assigned in round-robin. "
+             "If workers > num_gpus, multiple instances will share the same GPU.",
+    )
+    parser.add_argument(
         "-r",
         "--resume",
         nargs="?",
@@ -38,6 +46,12 @@ def get_args():
         "a valid file",
     )
     parser.add_argument("--inf_file", type=str, default="")
+    parser.add_argument(
+        "--two_phase",
+        action="store_true",
+        help="Run in two-phase mode: first parallel inference, then sequential evaluation. "
+             "Useful when evaluator cannot run concurrently.",
+    )
 
     args = parser.parse_args()
     return args
@@ -105,16 +119,42 @@ def main():
             setattr(task_cfg, attr, getattr(args, attr))
     logger.info("task cfg:\n{}".format(task_cfg))
 
+    # 创建 predictor：根据 --use_model_pool 决定是否使用模型池
+    if args.use_model_pool:
+        gpu_ids = get_available_gpu_ids()
+        num_instances = args.workers if args.workers > 1 else len(gpu_ids)
+        
+        # 获取模型配置
+        model_spec = registry._model.get(task_cfg.model, {})
+        model_kwargs = model_spec.get("args", {})
+        
+        logger.info(
+            f"Using IsolatedModelPool with {num_instances} instances on GPUs {gpu_ids}"
+        )
+        predictor = IsolatedModelPool(
+            model_factory=lambda **kw: registry.get_model(task_cfg.model, **kw),
+            model_kwargs=model_kwargs,
+            gpu_ids=gpu_ids,
+            num_instances=num_instances,
+        )
+    else:
+        predictor = registry.get_model(task_cfg.model)
+
+    evaluator = registry.get_evaluator(task_cfg.evaluator)
+
+    if args.two_phase:
+        logger.info("Two-phase mode enabled: parallel inference then sequential evaluation")
+
     t = EvalTask(
         dataset=dataset,
         prompt=registry.get_prompt(task_cfg.prompt),
-        predictor=registry.get_model(task_cfg.model),
-        evaluator=registry.get_evaluator(task_cfg.evaluator),
+        predictor=predictor,
+        evaluator=evaluator,
         post_process=[registry.get_process(item) for item in task_cfg.post_process],
         agg=registry.get_agg(task_cfg.agg),
         recorder=Recorder(args.save),
     )
-    res = t.run(args.limit, args.rand, args.workers)
+    res = t.run(args.limit, args.rand, args.workers, args.two_phase)
     with open(overall_save, "w") as f:
         f.write(str(res[0]))
     with open(args.save, "r") as f:
