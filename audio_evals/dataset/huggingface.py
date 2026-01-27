@@ -28,7 +28,6 @@ def save_audio_to_local(ds: Dataset, save_path: str):
         os.makedirs(d, exist_ok=True)
         if not os.path.exists(output_path):
             sf.write(output_path, audio_array, example["audio"]["sampling_rate"])
-            logger.info(f"save audio to {output_path}")
         return example
 
     ds = ds.map(save_audio, with_indices=True)

@@ -152,7 +152,7 @@ def main():
     parser.add_argument(
         "--max_num_seqs",
         type=int,
-        default=32,
+        default=8,
         help="Max number of sequences (default: 32)",
     )
     parser.add_argument(
