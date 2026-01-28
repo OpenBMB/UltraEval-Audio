@@ -1,3 +1,75 @@
+qwen3-tts-vivian-chinese:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "Chinese"
+      speaker: "Vivian"
+
+qwen3-tts-ryan-english:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "English"
+      speaker: "Ryan"
+
+qwen3-tts-serena-chinese:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "Chinese"
+      speaker: "Serena"
+
+qwen3-tts-uncle-fu-chinese:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "Chinese"
+      speaker: "Uncle_Fu"
+
+qwen3-tts-dylan-chinese:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "Chinese"
+      speaker: "Dylan"
+
+qwen3-tts-eric-chinese:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "Chinese"
+      speaker: "Eric"
+
+qwen3-tts-aiden-english:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "English"
+      speaker: "Aiden"
+
+qwen3-tts-ono-anna-japanese:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "Japanese"
+      speaker: "Ono_Anna"
+
+qwen3-tts-sohee-korean:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "Korean"
+      speaker: "Sohee"
+
 # Qwen3-TTS prompt configurations with language parameter
 
 qwen3-tts-voice-clone-chinese:

@@ -14,6 +14,8 @@ qwen3-tts-1.7b-custom-voice:
     device: cuda:0
     env_path: envs/qwen3_tts
     requirements_path: audio_evals/lib/Qwen3TTS/requirements.txt
+    sample_params:  # ref: https://github.com/QwenLM/Qwen3-TTS/blob/main/examples/test_model_12hz_custom_voice.py
+      max_new_tokens: 2048
 
 qwen3-tts-0.6b-custom-voice:
   class: audio_evals.models.TTS.qwen3_tts.Qwen3TTS
@@ -24,6 +26,8 @@ qwen3-tts-0.6b-custom-voice:
     device: cuda:0
     env_path: envs/qwen3_tts
     requirements_path: audio_evals/lib/Qwen3TTS/requirements.txt
+    sample_params:  # ref: https://github.com/QwenLM/Qwen3-TTS/blob/main/examples/test_model_12hz_custom_voice.py
+      max_new_tokens: 2048
 
 # ============================================
 # Voice Design Models (natural language control)

@@ -111,7 +111,6 @@ if __name__ == "__main__":
                 # Custom voice generation
                 speaker = x.pop("speaker", "Vivian")
                 instruct = x.pop("instruct", None)
-                
                 generate_kwargs = {
                     "text": text,
                     "language": language,
@@ -120,13 +119,13 @@ if __name__ == "__main__":
                 generate_kwargs.update(x)
                 if instruct:
                     generate_kwargs["instruct"] = instruct
-                    
+                logger.info(f"generate_custom_voice kwargs: {generate_kwargs}")
                 wavs, sr = model.generate_custom_voice(**generate_kwargs)
                 
             elif args.mode == "voice_design":
                 # Voice design generation
                 instruct = x.pop("instruct", "")
-                
+                logger.info(f"voice_design: text: {text}, language: {language}, instruct: {instruct}, **x: {x}")
                 wavs, sr = model.generate_voice_design(
                     text=text,
                     language=language,
