@@ -140,7 +140,7 @@ def main():
     else:
         predictor = registry.get_model(task_cfg.model)
 
-    evaluator = registry.get_evaluator(task_cfg.evaluator)
+    # evaluator = registry.get_evaluator(task_cfg.evaluator)
 
     if args.two_phase:
         logger.info("Two-phase mode enabled: parallel inference then sequential evaluation")
@@ -149,7 +149,7 @@ def main():
         dataset=dataset,
         prompt=registry.get_prompt(task_cfg.prompt),
         predictor=predictor,
-        evaluator=evaluator,
+        evaluator=task_cfg.evaluator,
         post_process=[registry.get_process(item) for item in task_cfg.post_process],
         agg=registry.get_agg(task_cfg.agg),
         recorder=Recorder(args.save),

@@ -185,6 +185,9 @@ class EvalTask:
         res = [None] * len(quiz)
         answers = [None] * len(quiz)
         eval_error_count = 0
+        
+        from audio_evals.registry import registry
+        self.evaluator = registry.get_evaluator(self.evaluator)
 
         for i in tqdm(range(len(quiz)), desc="Evaluation"):
             if inference_results[i] is not None:

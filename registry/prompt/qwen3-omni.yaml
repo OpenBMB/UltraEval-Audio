@@ -234,7 +234,7 @@ qwen3-omni-tts-en:
     - role: user
       contents:
       - type: text
-        value: 'Repeat the following text once without adding any other words:\n\n\n {{Text}}\n'
+        value: 'Repeat the following text once without adding any other words:\n\n\n {{text}}\n'
 
 
 qwen3-omni-tts-zh:
@@ -244,4 +244,4 @@ qwen3-omni-tts-zh:
     - role: user
       contents:
       - type: text
-        value: '重复一遍这段文字不要加其他字:\n\n\n {{Text}}\n'
+        value: '重复一遍这段文字不要加其他字:\n\n\n {{text}}\n'
