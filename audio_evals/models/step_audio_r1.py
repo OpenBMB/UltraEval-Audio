@@ -16,10 +16,7 @@ import sys
 import time
 from typing import Dict, Any, List
 
-# Add the StepAudio library to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../lib/StepAudio"))
-
-from stepaudior1vllm import StepAudioR1 as StepAudioR1Client
+from lib.StepAudio.stepaudior1vllm import StepAudioR1 as StepAudioR1Client
 
 from audio_evals.base import PromptStruct
 from audio_evals.isolate import isolated
