@@ -60,17 +60,27 @@ class IsolatedModelPool:
     每个模型实例通过 gpu_id 参数指定使用的 GPU，
     isolated 装饰器会设置 CUDA_VISIBLE_DEVICES 环境变量实现隔离。
     
-    当 num_instances > len(gpu_ids) 时，GPU 会被循环使用，
-    即多个模型实例可以共用同一个 GPU。
+    GPU 分配策略：
+    - 当 num_instances >= len(gpu_ids) 时：GPU 循环分配，多个实例可能共用同一个 GPU
+    - 当 num_instances < len(gpu_ids) 时：每个实例分配多个 GPU（均匀分配）
     
     Example:
         ```python
-        # 4 个 GPU，8 个 worker，每个 GPU 跑 2 个实例
+        # 场景1: 4 个 GPU，8 个实例 → 每个 GPU 跑 2 个实例
         pool = IsolatedModelPool(
             model_factory=lambda **kw: registry.get_model("qwen3-tts", **kw),
             model_kwargs={"path": "/path/to/model"},
             gpu_ids=[0, 1, 2, 3],
             num_instances=8,
+        )
+        
+        # 场景2: 8 个 GPU，2 个实例 → 每个实例分配 4 个 GPU
+        # 实例 0 使用 GPU 0,1,2,3；实例 1 使用 GPU 4,5,6,7
+        pool = IsolatedModelPool(
+            model_factory=lambda **kw: registry.get_model("qwen3-tts", **kw),
+            model_kwargs={"path": "/path/to/model"},
+            gpu_ids=[0, 1, 2, 3, 4, 5, 6, 7],
+            num_instances=2,
         )
         
         # 并发推理时，会自动从池中获取空闲实例
@@ -113,19 +123,28 @@ class IsolatedModelPool:
             f"Creating IsolatedModelPool with {num_instances} instances on GPUs {gpu_ids}"
         )
         
-        # 创建多个模型实例，GPU 循环分配
+        # 创建多个模型实例，分配 GPU
+        # 计算每个实例的 GPU 分配
+        gpu_assignments = self._compute_gpu_assignments(gpu_ids, num_instances)
+        
         for i in range(num_instances):
-            gpu_id = gpu_ids[i % len(gpu_ids)]  # 循环使用 GPU
+            assigned_gpus = gpu_assignments[i]
+            # gpu_id 可以是单个 int 或逗号分隔的字符串（多 GPU）
+            if len(assigned_gpus) == 1:
+                gpu_id = assigned_gpus[0]
+            else:
+                gpu_id = ','.join(map(str, assigned_gpus))
+            
             kwargs = model_kwargs.copy()
             kwargs['gpu_id'] = gpu_id
-            logger.info(f"Creating model instance {i} on GPU {gpu_id}")
+            logger.info(f"Creating model instance {i} on GPU(s) {gpu_id}")
             try:
                 model = model_factory(**kwargs)
                 self._models.append(model)
                 self._pool.put(model)
-                logger.info(f"Model instance {i} on GPU {gpu_id} created successfully")
+                logger.info(f"Model instance {i} on GPU(s) {gpu_id} created successfully")
             except Exception as e:
-                logger.error(f"Failed to create model instance {i} on GPU {gpu_id}: {e}")
+                logger.error(f"Failed to create model instance {i} on GPU(s) {gpu_id}: {e}")
                 # 清理已创建的实例
                 self._cleanup()
                 raise
@@ -133,6 +152,43 @@ class IsolatedModelPool:
         logger.info(
             f"IsolatedModelPool initialized: {len(self._models)} instances on {len(gpu_ids)} GPUs"
         )
+    
+    @staticmethod
+    def _compute_gpu_assignments(gpu_ids: List[int], num_instances: int) -> List[List[int]]:
+        """
+        计算每个实例的 GPU 分配
+        
+        - 当 num_instances >= len(gpu_ids) 时：GPU 循环分配，多个实例可能共用同一个 GPU
+        - 当 num_instances < len(gpu_ids) 时：每个实例分配多个 GPU
+        
+        Args:
+            gpu_ids: 可用 GPU ID 列表
+            num_instances: 实例数量
+            
+        Returns:
+            每个实例分配的 GPU ID 列表，如 [[0, 1], [2, 3]] 表示实例 0 用 GPU 0,1，实例 1 用 GPU 2,3
+        """
+        n_gpus = len(gpu_ids)
+        
+        if num_instances >= n_gpus:
+            # GPU 数量不足，每个实例分配一个 GPU（循环使用）
+            return [[gpu_ids[i % n_gpus]] for i in range(num_instances)]
+        else:
+            # GPU 数量充足，每个实例分配多个 GPU
+            # 计算基础分配数和余数
+            base_count = n_gpus // num_instances
+            remainder = n_gpus % num_instances
+            
+            assignments = []
+            gpu_idx = 0
+            for i in range(num_instances):
+                # 前 remainder 个实例多分配 1 个 GPU
+                count = base_count + (1 if i < remainder else 0)
+                assigned = gpu_ids[gpu_idx:gpu_idx + count]
+                assignments.append(assigned)
+                gpu_idx += count
+            
+            return assignments
     
     def _acquire(self, timeout: float = None):
         """
