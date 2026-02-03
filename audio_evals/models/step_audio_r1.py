@@ -13,12 +13,10 @@ import logging
 import os
 import select
 import sys
+import time
 from typing import Dict, Any, List
 
-# Add the StepAudio library to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../lib/StepAudio"))
-
-from stepaudior1vllm import StepAudioR1 as StepAudioR1Client
+from audio_evals.lib.StepAudio.stepaudior1vllm import StepAudioR1 as StepAudioR1Client
 
 from audio_evals.base import PromptStruct
 from audio_evals.isolate import isolated
@@ -31,8 +29,8 @@ logger = logging.getLogger(__name__)
     "audio_evals/lib/StepAudio/serve.py",
     pre_command="mkdir -p ./third_party && "
     "([ ! -d './third_party/vllm-step-audio' ] && "
-    "git clone -b step-audio-2-mini https://github.com/stepfun-ai/vllm.git ./third_party/vllm-step-audio && cd ../../) || true && "
-    "(python -c 'import vllm' 2>/dev/null || VLLM_USE_PRECOMPILED=1 uv pip install -e ./third_party/vllm-step-audio)",
+    "git clone https://github.com/stepfun-ai/vllm.git ./third_party/vllm-step-audio && cd ../../) || true && "
+    "(python -c 'import vllm' 2>/dev/null || VLLM_USE_PRECOMPILED=1 uv pip install -e ./third_party/vllm-step-audio && cd ./third_party/vllm-step-audio && git checkout step-audio2-mini origin/step-audio2-mini && cd ../../)",
 )
 class StepAudioR1(OfflineModel):
     """
@@ -45,7 +43,7 @@ class StepAudioR1(OfflineModel):
     it back via stdout.
 
     Requirements:
-        - Customized vLLM from https://github.com/stepfun-ai/vllm (step-audio-2-mini branch)
+        - Customized vLLM from https://github.com/stepfun-ai/vllm (step-audio2-mini branch)
         - Step-Audio-R1.1 model weights
     """
 
@@ -207,20 +205,36 @@ class StepAudioR1(OfflineModel):
         full_text = ""
         audio_tokens = []
 
+        timeout_seconds = 180
+        # Requests-level timeout: (connect_timeout, read_timeout)
+        # - connect_timeout prevents "connection miss" hanging forever
+        # - read_timeout prevents "server never returns any bytes" hanging forever
+        request_timeout = (10, timeout_seconds)
+        start_time = time.time()
+
         try:
-            for _, text, audio in self.client.stream(messages, **api_params):
+            for _, text, audio in self.client.stream(
+                messages, request_timeout=request_timeout, **api_params
+            ):
+                # Total wall-clock timeout (even if server keeps streaming slowly)
+                elapsed = time.time() - start_time
+                if elapsed > timeout_seconds:
+                    raise TimeoutError(
+                        f"StepAudioR1 stream exceeded {timeout_seconds}s (elapsed: {elapsed:.2f}s)"
+                    )
+
                 if text:
                     full_text += text
                 if audio:
                     audio_tokens.extend(audio)
+        except TimeoutError as e:
+            logger.error(f"Timeout during API call: {e}")
+            raise
         except Exception as e:
             logger.error(f"Error during API call: {e}")
             raise
 
         text_result = self._extract_response(full_text) if full_text else ""
-        logger.info(
-            f"Extracted response: {text_result[:200] if text_result else 'None'}..."
-        )
 
         if not self.speech:
             return text_result

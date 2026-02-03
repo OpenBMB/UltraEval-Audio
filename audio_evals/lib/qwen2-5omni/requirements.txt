@@ -1,5 +1,5 @@
 accelerate==1.6.0
-flash-attn==2.7.4.post1
+# flash-attn==2.7.4.post1
 qwen-omni-utils[decord]==0.0.4
 torch==2.6.0
 torchvision==0.21.0

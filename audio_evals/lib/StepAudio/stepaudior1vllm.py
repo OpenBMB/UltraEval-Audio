@@ -5,7 +5,7 @@ import os
 import re
 from datetime import datetime
 from pathlib import Path
-from typing import List, Optional, Union
+from typing import List, Optional, Tuple, Union
 
 import requests
 from pydub import AudioSegment
@@ -153,7 +153,14 @@ class StepAudioR1:
 
         return filename
 
-    def stream(self, messages, stream=True, stop=None, **kwargs):
+    def stream(
+        self,
+        messages,
+        stream: bool = True,
+        stop=None,
+        request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+        **kwargs,
+    ):
         headers = {"Content-Type": "application/json"}
         payload = kwargs
         payload["messages"] = self.apply_chat_template(messages)
@@ -181,7 +188,11 @@ class StepAudioR1:
         # self.log_request(payload)
 
         with requests.post(
-            self.api_url, headers=headers, json=payload, stream=stream
+            self.api_url,
+            headers=headers,
+            json=payload,
+            stream=stream,
+            timeout=request_timeout,
         ) as response:
             response.raise_for_status()
 

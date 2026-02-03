@@ -1,0 +1,18 @@
+kimi-mmau-choices:
+  class: audio_evals.evaluator.choices.ChoicesEval
+  args: 
+    choices_columns: choices
+    ignore_parse_error: true
+
+kimi-vocalsound-choices:
+  class: audio_evals.evaluator.choices.ChoicesEval
+  args: 
+    choices_columns: 
+      - Laughter
+      - Sigh
+      - Cough
+      - Throat clearing
+      - Sneeze
+      - Sniff
+    ignore_parse_error: true
+    constant: true

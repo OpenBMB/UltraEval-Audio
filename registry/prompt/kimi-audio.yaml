@@ -19,3 +19,26 @@ kimi-audio-asr-zh:
         value: '请把这段语音转录成文本。'
       - type: audio
         value: '{{WavPath}}'
+
+kimi-mmau:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: text
+        value: "{{question}} \n{% for choice in choices %}({{ 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[loop.index0] }})  {{ choice }} {% endfor %}"
+      - type: audio
+        value: "{{WavPath}}"
+
+
+kimi-cocalsound:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+    - role: user
+      contents:
+      - type: text
+        value: "Identify the human vocal sound in the audio.\nOptions:\n(A) Laughter\n(B) Sigh\n(C) Cough\n(D) Throat clearing\n(E) Sneeze\n(F) Sniff\n.Answer with the option's letter from the given choices directly and only give the best option."
+      - type: audio
+        value: "{{WavPath}}"

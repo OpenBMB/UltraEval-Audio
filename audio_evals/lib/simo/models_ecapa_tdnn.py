@@ -1,6 +1,7 @@
 # models_ecapa_tdnn.py
 # part of the code is borrowed from https://github.com/lawlict/ECAPA-TDNN
 
+import os
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -268,8 +269,13 @@ class ECAPA_TDNN(nn.Module):
         else:
             if config_path is None:
                 torch.hub._validate_not_a_forked_repo = lambda a, b, c: True
-                # Todo : tmp put cache file in  local ~/.cache/s3prl/download/
-                self.feature_extract = torch.hub.load("s3prl/s3prl", "wavlm_large")
+                # 优先从本地缓存加载，避免联网检查 GitHub
+                local_cache_path = os.path.expanduser("~/.cache/torch/hub/s3prl_s3prl_main")
+                if os.path.exists(local_cache_path):
+                    self.feature_extract = torch.hub.load(local_cache_path, "wavlm_large", source='local')
+                else:
+                    # 本地没有缓存，联网下载
+                    self.feature_extract = torch.hub.load("s3prl/s3prl", "wavlm_large")
                 # self.feature_extract = torch.hub.load('/data/luoyuanZ/eval_1030/f2d5200177fd6a33b278b7b76b454f25cd8ee866d55c122e69fccf6c7467d37d.wavlm_large.pt')
                 # print(self.feature_extract)
             else:

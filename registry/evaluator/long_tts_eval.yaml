@@ -11,3 +11,10 @@ long-tts-eval-asr-wer-zh:
     model_name: long_tts_speech_paraformer-speech_seaco_paraformer_large_asr_nat-zh-cn-16k-common-vocab8404-pytorch
     prompt_name: simple-asr
     lang: zh
+
+fix-long-tts-eval-asr-wer-en:
+  class: audio_evals.evaluator.long_tts_eval_asr_wer.LongTTSEvalASRWER
+  args:
+    model_name: whisper
+    prompt_name: whisper-asr-en
+    lang: en

@@ -1,0 +1,240 @@
+minimax_tts_ar:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_arabic
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-ar
+    agg: mean
+
+minimax_tts_yue:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_cantonese
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-yue
+    agg: mean
+
+minimax_tts_zh:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_chinese
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-zh
+    agg: mean
+
+minimax_tts_cs:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_czech
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-cs
+    agg: mean
+
+minimax_tts_nl:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_dutch
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-nl
+    agg: mean
+
+minimax_tts_en:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_english
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-en
+    agg: mean
+
+minimax_tts_fi:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_finnish
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-fi
+    agg: mean
+
+minimax_tts_fr:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_french
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-fr
+    agg: mean
+
+minimax_tts_de:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_german
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-de
+    agg: mean
+
+minimax_tts_el:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_greek
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-el
+    agg: mean
+
+minimax_tts_hi:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_hindi
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-hi
+    agg: mean
+
+minimax_tts_id:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_indonesian
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-id
+    agg: mean
+
+minimax_tts_it:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_italian
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-it
+    agg: mean
+
+minimax_tts_ja:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_japanese
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-ja
+    agg: mean
+
+minimax_tts_ko:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_korean
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-ko
+    agg: mean
+
+minimax_tts_pl:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_polish
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-pl
+    agg: mean
+
+minimax_tts_pt:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_portuguese
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-pt
+    agg: mean
+
+minimax_tts_ro:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_romanian
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-ro
+    agg: mean
+
+minimax_tts_ru:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_russian
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-ru
+    agg: mean
+
+minimax_tts_es:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_spanish
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-es
+    agg: mean
+
+minimax_tts_th:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_thai
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-th
+    agg: mean
+
+minimax_tts_tr:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_turkish
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-tr
+    agg: mean
+
+minimax_tts_uk:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_ukrainian
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-uk
+    agg: mean
+
+minimax_tts_vi:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: minimax_tts_vietnamese
+    prompt: voice-clone
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: minimax-zero-shot-vi
+    agg: mean
+

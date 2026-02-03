@@ -1,0 +1,336 @@
+minimax-eval-asr-wer-ar:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-ar
+    lang: ar
+
+minimax-eval-asr-wer-yue:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-yue
+    lang: yue
+
+minimax-eval-asr-wer-zh:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: speech_paraformer-speech_seaco_paraformer_large_asr_nat-zh-cn-16k-common-vocab8404-pytorch
+    prompt_name: simple-asr
+    lang: zh
+
+minimax-eval-asr-wer-cs:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-cs
+    lang: cs
+
+minimax-eval-asr-wer-nl:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-nl
+    lang: nl
+
+minimax-eval-asr-wer-en:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-en
+    lang: en
+
+minimax-eval-asr-wer-fi:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-fi
+    lang: fi
+
+minimax-eval-asr-wer-fr:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-fr
+    lang: fr
+
+minimax-eval-asr-wer-de:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-de
+    lang: de
+
+minimax-eval-asr-wer-el:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-el
+    lang: el
+
+minimax-eval-asr-wer-hi:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-hi
+    lang: hi
+
+minimax-eval-asr-wer-id:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-id
+    lang: id
+
+minimax-eval-asr-wer-it:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-it
+    lang: it
+
+minimax-eval-asr-wer-ja:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-ja
+    lang: ja
+
+minimax-eval-asr-wer-ko:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-ko
+    lang: ko
+
+minimax-eval-asr-wer-pl:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-pl
+    lang: pl
+
+minimax-eval-asr-wer-pt:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-pt
+    lang: pt
+
+minimax-eval-asr-wer-ro:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-ro
+    lang: ro
+
+minimax-eval-asr-wer-ru:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-ru
+    lang: ru
+
+minimax-eval-asr-wer-es:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-es
+    lang: es
+
+minimax-eval-asr-wer-th:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-th
+    lang: th
+
+minimax-eval-asr-wer-tr:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-tr
+    lang: tr
+
+minimax-eval-asr-wer-uk:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-uk
+    lang: uk
+
+minimax-eval-asr-wer-vi:
+  class: audio_evals.evaluator.seed_tts_eval_asr_wer.SeedTTSEvalASRWER
+  args:
+    model_name: seed-tts-whisper
+    prompt_name: whisper-asr-vi
+    lang: vi
+
+minimax-zero-shot-ar:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-ar
+      - simo
+
+minimax-zero-shot-yue:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-yue
+      - simo
+
+minimax-zero-shot-zh:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-zh
+      - simo
+
+minimax-zero-shot-cs:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-cs
+      - simo
+
+minimax-zero-shot-nl:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-nl
+      - simo
+
+minimax-zero-shot-en:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-en
+      - simo
+
+minimax-zero-shot-fi:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-fi
+      - simo
+
+minimax-zero-shot-fr:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-fr
+      - simo
+
+minimax-zero-shot-de:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-de
+      - simo
+
+minimax-zero-shot-el:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-el
+      - simo
+
+minimax-zero-shot-hi:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-hi
+      - simo
+
+minimax-zero-shot-id:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-id
+      - simo
+
+minimax-zero-shot-it:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-it
+      - simo
+
+minimax-zero-shot-ja:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-ja
+      - simo
+
+minimax-zero-shot-ko:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-ko
+      - simo
+
+minimax-zero-shot-pl:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-pl
+      - simo
+
+minimax-zero-shot-pt:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-pt
+      - simo
+
+minimax-zero-shot-ro:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-ro
+      - simo
+
+minimax-zero-shot-ru:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-ru
+      - simo
+
+minimax-zero-shot-es:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-es
+      - simo
+
+minimax-zero-shot-th:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-th
+      - simo
+
+minimax-zero-shot-tr:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-tr
+      - simo
+
+minimax-zero-shot-uk:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-uk
+      - simo
+
+minimax-zero-shot-vi:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - minimax-eval-asr-wer-vi
+      - simo
+

@@ -53,6 +53,6 @@ s2t-choice-aqa:
     dataset: clotho-aqa
     prompt: direct-aqa
     model: qwen-audio-chat
-    post_process: ['first_option']
+    post_process: ['extract_text', 'first_option']
     evaluator: em
     agg: acc

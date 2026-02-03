@@ -1,6 +1,7 @@
 import json
+import random
 import tempfile
-from typing import Dict
+from typing import Dict, List, Union
 
 import requests
 
@@ -66,10 +67,10 @@ def save_audio_response(response, output_file, sample_rate, volume=1.0, cut_gree
 
 class GLM4Voice(APIModel):
     def __init__(
-        self, url: str, sr: int, volume: float = 1.0, cut_greeting: bool = False, sample_params: Dict[str, any] = None
+        self, url: Union[str, List[str]], sr: int, volume: float = 1.0, cut_greeting: bool = False, sample_params: Dict[str, any] = None
     ):
         super().__init__(True, sample_params)
-        self.url = url
+        self.url = url if isinstance(url, list) else [url]
         self.sr = sr
         self.volume = volume
         self.cut_greeting = cut_greeting
@@ -92,7 +93,9 @@ class GLM4Voice(APIModel):
             'prompt': '',
             'audio': audio_base64
         }
-        response = requests.post(self.url, headers=headers, data=json.dumps(data), stream=True)
+        # 随机选择一个 URL
+        url = random.choice(self.url)
+        response = requests.post(url, headers=headers, data=json.dumps(data), stream=True)
         with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as f:
             audio, text = save_audio_response(response, f.name, self.sr, self.volume, self.cut_greeting)
             return json.dumps({"audio": audio, "text": text}, ensure_ascii=False)
