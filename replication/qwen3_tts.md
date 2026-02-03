@@ -1,6 +1,6 @@
 # Qwen3-TTS 复现文档与评测结果
 
-**模型**: [Qwen3-TTS](../registry/model/qwen3tts.yaml)
+**模型**: [Qwen3-TTS](../registry/model/qwen3tts.yaml)  
 **评测日期**: 2026/02  
 
 **指标说明**:
@@ -35,21 +35,21 @@
 
 ## Evaluation Commands
 
-[1] `python audio_evals/main.py --dataset seed_tts_eval_en --model qwen3-tts-1.7b-base --prompt qwen3-tts-voice-clone-english`  
-[2] `python audio_evals/main.py --dataset seed_tts_eval_zh --model qwen3-tts-1.7b-base --prompt qwen3-tts-voice-clone-chinese`  
-[3] `python audio_evals/main.py --dataset seed_tts_eval_en --model qwen3-tts-12hz-1.7b-base-xvec_only --prompt qwen3-tts-voice-clone-english`  
-[4] `python audio_evals/main.py --dataset seed_tts_eval_zh --model qwen3-tts-12hz-1.7b-base-xvec_only --prompt qwen3-tts-voice-clone-chinese`  
-[5] `python audio_evals/main.py --dataset seed_tts_eval_en --model qwen3-tts-0.6b-base --prompt qwen3-tts-voice-clone-english`  
-[6] `python audio_evals/main.py --dataset seed_tts_eval_zh --model qwen3-tts-0.6b-base --prompt qwen3-tts-voice-clone-chinese`  
+[1] `python audio_evals/main.py --dataset seed_tts_eval_en --model qwen3-tts-1.7b-base --prompt qwen3-tts-voice-clone-english --use_model_pool --workers 8`  
+[2] `python audio_evals/main.py --dataset seed_tts_eval_zh --model qwen3-tts-1.7b-base --prompt qwen3-tts-voice-clone-chinese --use_model_pool --workers 8`  
+[3] `python audio_evals/main.py --dataset seed_tts_eval_en --model qwen3-tts-12hz-1.7b-base-xvec_only --prompt qwen3-tts-voice-clone-english --use_model_pool --workers 8`  
+[4] `python audio_evals/main.py --dataset seed_tts_eval_zh --model qwen3-tts-12hz-1.7b-base-xvec_only --prompt qwen3-tts-voice-clone-chinese --use_model_pool --workers 8`  
+[5] `python audio_evals/main.py --dataset seed_tts_eval_en --model qwen3-tts-0.6b-base --prompt qwen3-tts-voice-clone-english --use_model_pool --workers 8`  
+[6] `python audio_evals/main.py --dataset seed_tts_eval_zh --model qwen3-tts-0.6b-base --prompt qwen3-tts-voice-clone-chinese --use_model_pool --workers 8`  
 
-[7] `python audio_evals/main.py --dataset cv3_zero_shot_en --model qwen3-tts-1.7b-base --prompt qwen3-tts-voice-clone-english`  
-[8] `python audio_evals/main.py --dataset cv3_zero_shot_zh --model qwen3-tts-1.7b-base --prompt qwen3-tts-voice-clone-chinese`  
-[9] `python audio_evals/main.py --dataset cv3_zero_shot_hard_en --model qwen3-tts-1.7b-base --prompt qwen3-tts-voice-clone-english`  
-[10] `python audio_evals/main.py --dataset cv3_zero_shot_hard_zh --model qwen3-tts-1.7b-base --prompt qwen3-tts-voice-clone-chinese`  
+[7] `python audio_evals/main.py --dataset cv3_zero_shot_en --model qwen3-tts-1.7b-base --prompt qwen3-tts-voice-clone-english --use_model_pool --workers 8`  
+[8] `python audio_evals/main.py --dataset cv3_zero_shot_zh --model qwen3-tts-1.7b-base --prompt qwen3-tts-voice-clone-chinese --use_model_pool --workers 8`  
+[9] `python audio_evals/main.py --dataset cv3_zero_shot_hard_en --model qwen3-tts-1.7b-base --prompt qwen3-tts-voice-clone-english --use_model_pool --workers 8`  
+[10] `python audio_evals/main.py --dataset cv3_zero_shot_hard_zh --model qwen3-tts-1.7b-base --prompt qwen3-tts-voice-clone-chinese --use_model_pool --workers 8`  
 
-[11] `python audio_evals/main.py --dataset cv3_zero_shot_en --model qwen3-tts-0.6b-base --prompt qwen3-tts-voice-clone-english`  
-[12] `python audio_evals/main.py --dataset cv3_zero_shot_zh --model qwen3-tts-0.6b-base --prompt qwen3-tts-voice-clone-chinese`  
-[13] `python audio_evals/main.py --dataset cv3_zero_shot_hard_en --model qwen3-tts-0.6b-base --prompt qwen3-tts-voice-clone-english`  
-[14] `python audio_evals/main.py --dataset cv3_zero_shot_hard_zh --model qwen3-tts-0.6b-base --prompt qwen3-tts-voice-clone-chinese`
+[11] `python audio_evals/main.py --dataset cv3_zero_shot_en --model qwen3-tts-0.6b-base --prompt qwen3-tts-voice-clone-english --use_model_pool --workers 8`  
+[12] `python audio_evals/main.py --dataset cv3_zero_shot_zh --model qwen3-tts-0.6b-base --prompt qwen3-tts-voice-clone-chinese --use_model_pool --workers 8`  
+[13] `python audio_evals/main.py --dataset cv3_zero_shot_hard_en --model qwen3-tts-0.6b-base --prompt qwen3-tts-voice-clone-english --use_model_pool --workers 8`  
+[14] `python audio_evals/main.py --dataset cv3_zero_shot_hard_zh --model qwen3-tts-0.6b-base --prompt qwen3-tts-voice-clone-chinese --use_model_pool --workers 8`
 
 

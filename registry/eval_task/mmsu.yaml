@@ -1,0 +1,8 @@
+mmsu:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: mmsu
+    prompt: mmsu
+    model: qwen-audio-chat
+    evaluator: mmsu-choices
+    agg: mean

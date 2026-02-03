@@ -245,6 +245,8 @@ class EvalTask:
         res = [None] * len(quiz)
         answers = [None] * len(quiz)
         error_count = 0
+        from audio_evals.registry import registry
+        self.evaluator = registry.get_evaluator(self.evaluator)
 
         # 使用进程池并控制最大并发量
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
