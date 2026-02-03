@@ -42,7 +42,6 @@ class EvalTask:
         self.post_process = post_process
         self.agg = agg
         self.recorder = recorder
-        self._evaluator_lock = threading.Lock()  # 确保 evaluator 不并发执行
 
     def _eval(
         self, idx, prompt: Union[str, List[Dict[str, str]]], reference: str, **kwargs
@@ -66,8 +65,7 @@ class EvalTask:
         if "eval_info" in kwargs and "eval" in kwargs["eval_info"]:
             score = kwargs["eval_info"]["eval"]
         else:
-            with self._evaluator_lock:  # 确保 evaluator 串行执行
-                score = self.evaluator(output, reference, **kwargs)
+            score = self.evaluator(output, reference, **kwargs)
         self.recorder.add({"type": "eval", "id": idx, "data": score})
         return score, output
 
@@ -189,11 +187,20 @@ class EvalTask:
         from audio_evals.registry import registry
         self.evaluator = registry.get_evaluator(self.evaluator)
 
-        for i in tqdm(range(len(quiz)), desc="Evaluation"):
-            if inference_results[i] is not None:
-                index, score, output, has_error = self._evaluate_only(
-                    i, inference_results[i], inference_docs[i]
-                )
+        # 构建需要评测的任务列表
+        eval_tasks = [
+            (i, inference_results[i], inference_docs[i])
+            for i in range(len(quiz))
+            if inference_results[i] is not None
+        ]
+        
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            future_to_index = [
+                executor.submit(self._evaluate_only, i, output, doc)
+                for i, output, doc in eval_tasks
+            ]
+            for future in tqdm(as_completed(future_to_index), total=len(eval_tasks), desc="Evaluation"):
+                index, score, output, has_error = future.result()
                 eval_error_count += has_error
                 if score is not None:
                     res[index] = score

@@ -16,7 +16,7 @@ import sys
 import time
 from typing import Dict, Any, List
 
-from lib.StepAudio.stepaudior1vllm import StepAudioR1 as StepAudioR1Client
+from audio_evals.lib.StepAudio.stepaudior1vllm import StepAudioR1 as StepAudioR1Client
 
 from audio_evals.base import PromptStruct
 from audio_evals.isolate import isolated
@@ -29,8 +29,8 @@ logger = logging.getLogger(__name__)
     "audio_evals/lib/StepAudio/serve.py",
     pre_command="mkdir -p ./third_party && "
     "([ ! -d './third_party/vllm-step-audio' ] && "
-    "git clone -b step-audio-2-mini https://github.com/stepfun-ai/vllm.git ./third_party/vllm-step-audio && cd ../../) || true && "
-    "(python -c 'import vllm' 2>/dev/null || VLLM_USE_PRECOMPILED=1 uv pip install -e ./third_party/vllm-step-audio)",
+    "git clone https://github.com/stepfun-ai/vllm.git ./third_party/vllm-step-audio && cd ../../) || true && "
+    "(python -c 'import vllm' 2>/dev/null || VLLM_USE_PRECOMPILED=1 uv pip install -e ./third_party/vllm-step-audio && cd ./third_party/vllm-step-audio && git checkout step-audio2-mini origin/step-audio2-mini && cd ../../)",
 )
 class StepAudioR1(OfflineModel):
     """
@@ -43,8 +43,7 @@ class StepAudioR1(OfflineModel):
     it back via stdout.
 
     Requirements:
-        - Customized vLLM from https://github.com/stepfun-ai/vllm (step-audio-2-mini branch)
-        - Customized vLLM from https://github.com/stepfun-ai/vllm (step-audio-2-mini branch)
+        - Customized vLLM from https://github.com/stepfun-ai/vllm (step-audio2-mini branch)
         - Step-Audio-R1.1 model weights
     """
 
