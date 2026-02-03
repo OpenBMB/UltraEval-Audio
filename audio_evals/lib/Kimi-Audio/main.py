@@ -9,7 +9,7 @@ from kimia_infer.api.kimia import KimiAudio
 import soundfile as sf
 import torch
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
@@ -65,9 +65,10 @@ if __name__ == "__main__":
             messages = x["messages"] if "messages" in x else x
             output_type = "both" if config.speech else "text"
             # 推理
-            wav, text = model.generate(
-                messages, **sampling_params, output_type=output_type
-            )
+            with torch.no_grad():
+                wav, text = model.generate(
+                    messages, **sampling_params, output_type=output_type
+                )
 
             if config.speech:
                 with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as f:
@@ -107,8 +108,15 @@ if __name__ == "__main__":
                             break
                     print("not found close signal, will emit again", flush=True)
                     retry -= 1
+            
+            # 清理显存，防止泄露
+            del wav, text
+            torch.cuda.empty_cache()
+            
         except Exception as e:
             import traceback
 
             traceback.print_exc()
             print(f"Error: {str(e)}", flush=True)
+            # 异常时也清理显存
+            torch.cuda.empty_cache()

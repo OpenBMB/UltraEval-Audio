@@ -14,10 +14,20 @@ def isolated(
         original_init = cls.__init__
 
         @wraps(original_init)
-        def new_init(self, env_path, requirements_path, *args, **kwargs):
+        def new_init(self, env_path, requirements_path, *args, gpu_id=None, **kwargs):
+            """
+            Args:
+                env_path: 虚拟环境路径
+                requirements_path: 依赖文件路径
+                gpu_id: 指定使用的 GPU ID，如 0, 1, 2。
+                        如果为 None，则不设置 CUDA_VISIBLE_DEVICES（使用默认行为）
+            """
             original_init(self, *args, **kwargs)
             if env_path.endswith("/"):
                 env_path = env_path[:-1]
+
+            # 保存 gpu_id 供外部查询
+            self._gpu_id = gpu_id
 
             # 创建虚拟环境
             if not os.path.exists(env_path):
@@ -65,9 +75,16 @@ def isolated(
                 ]
             )
 
+            # 构建 CUDA_VISIBLE_DEVICES 设置
+            cuda_env = ""
+            if gpu_id is not None:
+                cuda_env = f"export CUDA_VISIBLE_DEVICES={gpu_id} && "
+                logger.info(f"Setting CUDA_VISIBLE_DEVICES={gpu_id} for isolated process")
+
             # 构建完整命令
             command = (
                 f"source {env_path}/bin/activate && "
+                f"{cuda_env}"
                 f"export LD_LIBRARY_PATH={lib_path} && "
                 f"{env_path}/bin/python -u {script_path} {args_str}"
             )

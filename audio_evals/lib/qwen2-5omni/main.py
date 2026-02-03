@@ -14,13 +14,24 @@ device = "cuda"
 
 
 def load_model(path, **kwargs):
-    model = Qwen2_5OmniForConditionalGeneration.from_pretrained(
-        path,
-        torch_dtype=torch.bfloat16,
-        device_map=device,
-        attn_implementation="flash_attention_2",
-        **kwargs
-    )
+    try:
+        model = Qwen2_5OmniForConditionalGeneration.from_pretrained(
+            path,
+            torch_dtype=torch.bfloat16,
+            device_map=device,
+            attn_implementation="flash_attention_2",
+            **kwargs
+        )
+    except Exception as e:
+        print(f"Failed to load model with flash_attention_2: {e}, falling back to default")
+        model = Qwen2_5OmniForConditionalGeneration.from_pretrained(
+            path,
+            torch_dtype=torch.bfloat16,
+            device_map=device,
+            **kwargs
+        )
+        print(f"Loaded model with default attn_implementation")
+    print(f"Loaded model successfully")
 
     processor = Qwen2_5OmniProcessor.from_pretrained(path)
     return model, processor

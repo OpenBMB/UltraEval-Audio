@@ -1,0 +1,8 @@
+mmsu-choices:
+  class: audio_evals.evaluator.choices.ChoicesEval
+  args: 
+    choices_columns: 
+      - choice_a
+      - choice_b
+      - choice_c
+      - choice_d

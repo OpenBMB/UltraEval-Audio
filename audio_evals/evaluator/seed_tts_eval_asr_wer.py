@@ -5,7 +5,9 @@ import zhconv
 from jiwer import compute_measures
 from zhon.hanzi import punctuation
 import string
+import logging
 
+logger = logging.getLogger(__name__)
 
 punctuation_all = punctuation + string.punctuation
 
@@ -23,20 +25,22 @@ def process_one(hypo, truth, lang):
     truth = truth.replace("  ", " ")
     hypo = hypo.replace("  ", " ")
 
-    # Character-based languages (CER)
-    if lang in ["zh", "ja", "ko"]:
-        truth = " ".join([x for x in truth])
-        hypo = " ".join([x for x in hypo])
+    # yue: cantonese, th: thai
+    if lang in ["zh", "ja", "yue", "th", "ko"]:
+        truth = " ".join([x for x in truth if x.strip()])
+        hypo = " ".join([x for x in hypo if x.strip()])
     # Word-based languages (WER)
-    elif lang in ["en", "de", "es", "fr", "it", "ru"]:
+    else:
         truth = truth.lower()
         hypo = hypo.lower()
-    else:
-        raise NotImplementedError
 
-    measures = compute_measures(truth, hypo)
-    ref_list = truth.split(" ")
-    wer = measures["wer"]
+    try:
+        measures = compute_measures(truth, hypo)
+        wer = measures["wer"]
+    except Exception as e:
+        logger.error(f"Error computing measures: {e}. truth: '{truth}', hypo: '{hypo}'")
+        raise e
+
     return wer
 
 
@@ -56,8 +60,18 @@ class SeedTTSEvalASRWER(Evaluator):
         )
 
         real_prompt = self.prompt.load(WavPath=pred)
-        transcription = self.model.inference(real_prompt)
-        if self.lang == "zh":
+
+        # Pass language to model for non-Chinese languages or if specified
+        # Whisper model expects language in generate_kwargs
+        inf_kwargs = {}
+        if self.lang != "zh":
+            inf_kwargs["generate_kwargs"] = {
+                "language": kwargs.get("language", self.lang)
+            }
+
+        transcription = self.model.inference(real_prompt, **inf_kwargs)
+
+        if self.lang == "zh" or kwargs.get("language") == "chinese":
             transcription = zhconv.convert(transcription, "zh-cn")
 
         res = {"wer%": process_one(transcription, label_text, self.lang) * 100}

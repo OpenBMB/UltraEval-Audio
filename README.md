@@ -33,6 +33,11 @@ UltraEval-Audio — The world's first open-source framework supporting both spee
 
 # Changelog🔥
 
+- [2026/02/03]
+  - Support **[Qwen3-TTS](replication/qwen3_tts.md)** evaluation 
+  - GPU parallel acceleration for faster evaluation/inference
+    - Usage: add `--use_model_pool` and `--workers <N>` to enable multi-GPU parallel inference, e.g.
+      - `python audio_evals/main.py --dataset <dataset_name> --model <model_name> --use_model_pool --workers 4`
 - [2026/01/19]
   - Support Step-Audio-R1.1 evaluation, with replication report: [Step-Audio-R1.1](replication/step-audio-r1_1.md)
 - [2025/12/31]
@@ -107,8 +112,8 @@ UltraEval-Audio — The world's first open-source framework supporting both spee
 | **GPT-4o-Realtime**             |      **51.60**      |    **69.70**    |     **74.00**     |        70.05        |  **98.69**  |           4.29\|3.44\|4.26           |         **74.00**         |
 | **Qwen3-Omni-30B-A3B-Instruct** |           51.50           |         55.27         |          67.97          |        47.83        |       40.27       |      **4.44**\|3.45\|4.12      |              57.15              |
 | **Qwen2.5-Omni**                |           38.89           |         39.94         |          54.00          |   **73.72**   |       95.65       | 4.23\|**3.48**\|**4.27** |              63.68              |
-| **MiniCPM-o 2.6**               |           40.00           |         40.20         |          51.00          |        51.37        |       80.68       |           4.12\|3.39\|4.02           |              56.69              |
-| **Kimi-Audio-7B-Instruct**      |           33.69           |         38.20         |          34.40          |        71.25        |       97.42       |           2.94\|3.22\|3.62           |              56.69              |
+| **MiniCPM-o 2.6**               |           40.00           |         40.20         |          51.00          |        49.22        |       80.68       |           4.12\|3.39\|4.02           |              56.69              |
+| **Kimi-Audio-7B-Instruct**      |           33.69           |         38.20         |          34.40          |        66.98        |       97.42       |           2.94\|3.22\|3.62           |              56.69              |
 | **GLM-4-Voice**                 |           32.00           |         36.40         |          51.00          |        52.61        |       71.06       |           4.21\|3.46\|4.07           |              53.56              |
 
 ## Audio Codec Leaderboard

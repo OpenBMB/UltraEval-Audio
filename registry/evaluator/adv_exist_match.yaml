@@ -1,0 +1,3 @@
+advance_exist_match:
+  class: audio_evals.evaluator.advance_exist_match.AdvanceExistMatchEvaluator
+  args: {}

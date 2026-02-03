@@ -202,6 +202,9 @@ class KimiAudio(object):
             .numpy()
             .tolist()
         )
+        # 清理 KV cache 和中间张量，防止显存泄露
+        del past_key_values, previous_audio_tokens, text_previous_tokens
+        del decoder_input_audio_ids, decoder_input_text_ids
         return return_audio_tokens, return_text_tokens
 
     def generate(
@@ -259,6 +262,9 @@ class KimiAudio(object):
             continous_feature=audio_features,
             output_type=output_type,
         )
+        
+        # 清理输入张量，释放显存
+        del audio_input_ids, text_input_ids, is_continuous_mask, audio_features
 
         generated_wav_tokens = [
             t for t in generated_wav_tokens if t >= self.kimia_token_offset
@@ -275,6 +281,9 @@ class KimiAudio(object):
             generated_wav = self.detokenize_audio(generated_wav_tokens)
         else:
             generated_wav = None
+        
+        # 清理中间张量
+        del generated_wav_tokens, generated_text_tokens
 
         return generated_wav, generated_text
 

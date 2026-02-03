@@ -21,3 +21,14 @@ single_choice_with_answer:
             value: "{{WavPath}}"
           - type: text
             value: "{{question}}  Select one option from the provided choices.\n{{choices}}"
+
+mmau:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: audio
+            value: "{{WavPath}}"
+          - type: text
+            value: "{{question}}  Select one option from the provided choices without explain. {% for choice in choices %}{{ 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[loop.index0] }}. {{ choice }}\n{% endfor %}"
