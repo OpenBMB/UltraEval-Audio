@@ -1,0 +1,6 @@
+emotion2vec_plus_large:
+  class: audio_evals.models.emotion2vec.Emotion2Vec
+  args:
+    model: iic/emotion2vec_plus_large
+    env_path: envs/emotion2vec
+    requirements_path: audio_evals/lib/emotion2vec/requirements.txt

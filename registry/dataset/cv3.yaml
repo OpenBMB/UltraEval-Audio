@@ -41,3 +41,103 @@ cv3_zero_shot_hard_zh:
     col_aliases:
       target_text: text
       prompt_audio: audio
+
+cv3_zero_shot_ja:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: cv3_zero_shot_ja
+    name: yuekai/CV3-Eval
+    split: zero_shot_ja
+    ref_col: text
+    col_aliases:
+      target_text: text
+      prompt_audio: audio
+
+cv3_zero_shot_ko:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: cv3_zero_shot_ko
+    name: yuekai/CV3-Eval
+    split: zero_shot_ko
+    ref_col: text
+    col_aliases:
+      target_text: text
+      prompt_audio: audio
+
+cv3_zero_shot_de:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: cv3_zero_shot_de
+    name: yuekai/CV3-Eval
+    split: zero_shot_de
+    ref_col: text
+    col_aliases:
+      target_text: text
+      prompt_audio: audio
+
+cv3_zero_shot_es:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: cv3_zero_shot_es
+    name: yuekai/CV3-Eval
+    split: zero_shot_es
+    ref_col: text
+    col_aliases:
+      target_text: text
+      prompt_audio: audio
+
+cv3_zero_shot_fr:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: cv3_zero_shot_fr
+    name: yuekai/CV3-Eval
+    split: zero_shot_fr
+    ref_col: text
+    col_aliases:
+      target_text: text
+      prompt_audio: audio
+
+cv3_zero_shot_it:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: cv3_zero_shot_it
+    name: yuekai/CV3-Eval
+    split: zero_shot_it
+    ref_col: text
+    col_aliases:
+      target_text: text
+      prompt_audio: audio
+
+cv3_zero_shot_ru:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: cv3_zero_shot_ru
+    name: yuekai/CV3-Eval
+    split: zero_shot_ru
+    ref_col: text
+    col_aliases:
+      target_text: text
+      prompt_audio: audio
+
+# Emotion zero-shot datasets
+cv3_emotion_zeroshot_en:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: cv3_emotion_zeroshot
+    name: yuekai/CV3-Eval
+    split: emotion_zeroshot_en
+    ref_col: text
+    col_aliases:
+      target_text: text
+      prompt_audio: audio
+
+cv3_emotion_zeroshot_zh:
+  class: audio_evals.dataset.huggingface.Huggingface
+  args:
+    default_task: cv3_emotion_zeroshot
+    name: yuekai/CV3-Eval
+    split: emotion_zeroshot_zh
+    ref_col: text
+    col_aliases:
+      target_text: text
+      prompt_audio: audio
