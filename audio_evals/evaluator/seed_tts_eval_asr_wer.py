@@ -74,7 +74,10 @@ class SeedTTSEvalASRWER(Evaluator):
         if self.lang == "zh" or kwargs.get("language") == "chinese":
             transcription = zhconv.convert(transcription, "zh-cn")
 
-        res = {"wer%": process_one(transcription, label_text, self.lang) * 100}
+        measure_name = "cer" if self.lang in ["zh", "ja", "yue", "th", "ko"] else "wer"
+        res = {
+            f"{measure_name}%": process_one(transcription, label_text, self.lang) * 100
+        }
         res.update(
             {
                 "transcription": transcription,

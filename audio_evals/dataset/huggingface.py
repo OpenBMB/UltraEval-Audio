@@ -31,7 +31,7 @@ def save_audio_to_local(ds: Dataset, save_path: str):
             sf.write(output_path, audio_array, example["audio"]["sampling_rate"])
         return example
 
-    ds = ds.map(save_audio, with_indices=True)
+    ds = ds.map(save_audio, with_indices=True, load_from_cache_file=False)
     return ds
 
 

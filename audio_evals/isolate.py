@@ -31,7 +31,9 @@ def isolated(
 
             # 创建虚拟环境
             if not os.path.exists(env_path):
-                res = subprocess.run(["uv", "venv", env_path, "--python", "3.10"])
+                res = subprocess.run(
+                    ["uv", "venv", env_path, "--python", "3.10", "--allow-existing"]
+                )
                 if res.returncode != 0:
                     raise RuntimeError(
                         f"Failed to create virtual environment: {res.stderr}"
@@ -79,7 +81,9 @@ def isolated(
             cuda_env = ""
             if gpu_id is not None:
                 cuda_env = f"export CUDA_VISIBLE_DEVICES={gpu_id} && "
-                logger.info(f"Setting CUDA_VISIBLE_DEVICES={gpu_id} for isolated process")
+                logger.info(
+                    f"Setting CUDA_VISIBLE_DEVICES={gpu_id} for isolated process"
+                )
 
             # 构建完整命令
             command = (
