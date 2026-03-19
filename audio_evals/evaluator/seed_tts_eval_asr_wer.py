@@ -41,7 +41,7 @@ def process_one(hypo, truth, lang):
     except Exception as e:
         logger.error(f"Error computing measures: {e}. truth: '{truth}', hypo: '{hypo}'")
         raise e
-        
+
     return wer
 
 
@@ -61,19 +61,24 @@ class SeedTTSEvalASRWER(Evaluator):
         )
 
         real_prompt = self.prompt.load(WavPath=pred)
-        
+
         # Pass language to model for non-Chinese languages or if specified
         # Whisper model expects language in generate_kwargs
         inf_kwargs = {}
         if self.lang != "zh":
-            inf_kwargs["generate_kwargs"] = {"language": kwargs.get("language", self.lang)}
-            
+            inf_kwargs["generate_kwargs"] = {
+                "language": kwargs.get("language", self.lang)
+            }
+
         transcription = self.model.inference(real_prompt, **inf_kwargs)
-        
+
         if self.lang == "zh" or kwargs.get("language") == "chinese":
             transcription = zhconv.convert(transcription, "zh-cn")
 
-        res = {"wer%": process_one(transcription, label_text, self.lang) * 100}
+        measure_name = "cer" if self.lang in ["zh", "ja", "yue", "th", "ko"] else "wer"
+        res = {
+            f"{measure_name}%": process_one(transcription, label_text, self.lang) * 100
+        }
         res.update(
             {
                 "transcription": transcription,
