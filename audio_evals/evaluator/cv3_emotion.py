@@ -49,30 +49,35 @@ class CV3EmotionEval(Evaluator):
         assert os.path.exists(pred), f"Prediction file {pred} does not exist"
 
         # Get reference emotion from kwargs
-        ref_emotion = kwargs.get("ref_emotion", None)
-
-        # If ref_emotion not provided, try to extract from utterance_id or label
-        if ref_emotion is None:
-            utterance_id = kwargs.get("utterance_id", kwargs.get("id", ""))
-            if utterance_id and "_" in str(utterance_id):
-                # CV3-Eval format: {emotion}_{level}_...
-                ref_emotion = str(utterance_id).split("_")[0].lower()
+        labels = [
+            "angry",
+            "disgusted",
+            "fearful",
+            "happy",
+            "neutral",
+            "other",
+            "sad",
+            "surprised",
+            "unk",
+        ]
+        for label in labels:
+            if label in label:
+                ref_emotion = label
+                break
 
         # Run emotion recognition on generated audio
         emotion_pred, emotion_score = self.model.inference({"audio": pred})
         emotion_pred = emotion_pred.lower()
 
-        # Normalize emotion labels for comparison
-        ref_emotion_normalized = ref_emotion.lower() if ref_emotion else "unknown"
-
         # Check if prediction matches reference
-        emotion_match = 1 if emotion_pred == ref_emotion_normalized else 0
+        emotion_match = 1 if emotion_pred == ref_emotion else 0
 
         return {
             "emotion_pred": emotion_pred,
-            "emotion_ref": ref_emotion_normalized,
+            "emotion_ref": ref_emotion,
             "emotion_score": emotion_score,
             "emotion_match": emotion_match,
+            ref_emotion: emotion_match,
             "pred": pred,
             "ref": label,
         }

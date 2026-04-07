@@ -9,10 +9,7 @@ import os
 logger = logging.getLogger(__name__)
 
 
-@isolated(
-    "audio_evals/lib/CosyVoice/main.py",
-    pre_command="pip install tensorrt-cu12==10.0.1 tensorrt-cu12-bindings==10.0.1 tensorrt-cu12-libs==10.0.1",
-)
+@isolated("audio_evals/lib/CosyVoice/main.py")
 class CosyVoice(OfflineModel):
     def __init__(self, path: str, vc_mode: bool = False, *args, **kwargs):
 

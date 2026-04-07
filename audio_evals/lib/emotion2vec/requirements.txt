@@ -1,5 +1,7 @@
+addict
 funasr
+funasr==1.0.27
 librosa
-modelscope
+modelscope[framework]
 torch
 torchaudio
