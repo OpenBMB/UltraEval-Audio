@@ -41,6 +41,7 @@ dependencies = [
   "librosa==0.10.2.post1",
   "matplotlib==3.8.2",
   "modelscope==1.27.0",
+  "nltk>=3.9.4",
   "munch==4.0.0",
   "numba==0.58.1",
   "numpy==1.26.2",
