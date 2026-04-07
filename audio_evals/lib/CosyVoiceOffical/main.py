@@ -17,6 +17,20 @@ import json
 
 
 logger = logging.getLogger(__name__)
+COSYVOICE3_TEXT_PREFIX = "You are a helpful assistant.<|endofprompt|>"
+
+
+def build_cross_lingual_text(text: str, language: str) -> str:
+    text = text.strip()
+    language = language.strip().lower()
+    language_token = f"<|{language}|>"
+
+    if text.startswith(COSYVOICE3_TEXT_PREFIX):
+        text = text[len(COSYVOICE3_TEXT_PREFIX) :]
+    if text.startswith(language_token):
+        text = text[len(language_token) :]
+
+    return f"{COSYVOICE3_TEXT_PREFIX}{language_token}{text}"
 
 
 if __name__ == "__main__":
@@ -53,7 +67,14 @@ if __name__ == "__main__":
 
             # 记录开始时间用于RTF计算
             start_time = time.time()
-            if "prompt_text" in x and "prompt_audio" in x:
+            if "language" in x:
+                assert "text" in x, "text should be input, but {}".format(x)
+                results = model.inference_cross_lingual(
+                    build_cross_lingual_text(x["text"], x["language"]),
+                    default_prompt_wav,
+                    stream=False,
+                )
+            elif "prompt_text" in x and "prompt_audio" in x:
                 for k in ["text", "prompt_text", "prompt_audio"]:
                     assert k in x, "{} should be input, but {}".format(k, x)
                 # Process audio using CosyVoice

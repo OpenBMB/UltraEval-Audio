@@ -22,7 +22,7 @@ cv3_zero_shot_ja:
   class: audio_evals.base.EvalTaskCfg
   args:
     dataset: cv3_zero_shot_ja
-    prompt: voice-clone
+    prompt: cosyvoice3-ja
     model: qwen-audio-chat
     post_process: ['extract_audio']
     evaluator: cv3-zero-shot-ja
@@ -32,7 +32,7 @@ cv3_zero_shot_ko:
   class: audio_evals.base.EvalTaskCfg
   args:
     dataset: cv3_zero_shot_ko
-    prompt: voice-clone
+    prompt: cosyvoice3-ko
     model: qwen-audio-chat
     post_process: ['extract_audio']
     evaluator: cv3-zero-shot-ko
@@ -42,7 +42,7 @@ cv3_zero_shot_de:
   class: audio_evals.base.EvalTaskCfg
   args:
     dataset: cv3_zero_shot_de
-    prompt: voice-clone
+    prompt: cosyvoice3-de
     model: qwen-audio-chat
     post_process: ['extract_audio']
     evaluator: cv3-zero-shot-de
@@ -52,7 +52,7 @@ cv3_zero_shot_es:
   class: audio_evals.base.EvalTaskCfg
   args:
     dataset: cv3_zero_shot_es
-    prompt: voice-clone
+    prompt: cosyvoice3-es
     model: qwen-audio-chat
     post_process: ['extract_audio']
     evaluator: cv3-zero-shot-es
@@ -62,7 +62,7 @@ cv3_zero_shot_fr:
   class: audio_evals.base.EvalTaskCfg
   args:
     dataset: cv3_zero_shot_fr
-    prompt: voice-clone
+    prompt: cosyvoice3-fr
     model: qwen-audio-chat
     post_process: ['extract_audio']
     evaluator: cv3-zero-shot-fr
@@ -72,7 +72,7 @@ cv3_zero_shot_it:
   class: audio_evals.base.EvalTaskCfg
   args:
     dataset: cv3_zero_shot_it
-    prompt: voice-clone
+    prompt: cosyvoice3-it
     model: qwen-audio-chat
     post_process: ['extract_audio']
     evaluator: cv3-zero-shot-it
@@ -82,10 +82,71 @@ cv3_zero_shot_ru:
   class: audio_evals.base.EvalTaskCfg
   args:
     dataset: cv3_zero_shot_ru
-    prompt: voice-clone
+    prompt: cosyvoice3-ru
     model: qwen-audio-chat
     post_process: ['extract_audio']
     evaluator: cv3-zero-shot-ru
+    agg: mean
+
+# Cross-lingual zero-shot evaluation tasks
+cv3_cross_lingual_zeroshot_to_en:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: cv3_cross_lingual_zeroshot_to_en
+    prompt: cosyvoice3-en
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-cross-lingual-to-en
+    agg: mean
+
+cv3_cross_lingual_zeroshot_to_hard_en:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: cv3_cross_lingual_zeroshot_to_hard_en
+    prompt: cosyvoice3-en
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-cross-lingual-to-en
+    agg: mean
+
+cv3_cross_lingual_zeroshot_to_zh:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: cv3_cross_lingual_zeroshot_to_zh
+    prompt: cosyvoice3-zh
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-cross-lingual-to-zh
+    agg: mean
+
+cv3_cross_lingual_zeroshot_to_hard_zh:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: cv3_cross_lingual_zeroshot_to_hard_zh
+    prompt: cosyvoice3-zh
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-cross-lingual-to-zh
+    agg: mean
+
+cv3_cross_lingual_zeroshot_to_ja:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: cv3_cross_lingual_zeroshot_to_ja
+    prompt: cosyvoice3-ja
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-cross-lingual-to-ja
+    agg: mean
+
+cv3_cross_lingual_zeroshot_to_ko:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: cv3_cross_lingual_zeroshot_to_ko
+    prompt: cosyvoice3-ko
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: cv3-cross-lingual-to-ko
     agg: mean
 
 # Emotion zero-shot evaluation tasks

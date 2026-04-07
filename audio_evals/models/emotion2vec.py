@@ -41,6 +41,9 @@ class Emotion2Vec(OfflineModel):
         model: str = "iic/emotion2vec_plus_large",
         sample_params: Dict = None,
     ):
+        if not os.path.exists(model):
+            model = self._download_model_from_modelscope(model)
+
         self.command_args = {
             "model": model,
         }

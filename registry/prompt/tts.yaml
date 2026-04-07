@@ -25,3 +25,84 @@ cosyvoice3-tts:
   args:
     template:
       text: "You are a helpful assistant.<|endofprompt|>{{text}}"
+
+cosyvoice3-en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "en"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "You are a helpful assistant.<|endofprompt|>{{prompt_text}}"
+
+cosyvoice3-zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "zh"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "You are a helpful assistant.<|endofprompt|>{{prompt_text}}"
+
+cosyvoice3-ja:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "ja"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "You are a helpful assistant.<|endofprompt|>{{prompt_text}}"
+
+cosyvoice3-ko:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "ko"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "You are a helpful assistant.<|endofprompt|>{{prompt_text}}"
+
+cosyvoice3-de:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "de"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "You are a helpful assistant.<|endofprompt|>{{prompt_text}}"
+
+cosyvoice3-es:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "es"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "You are a helpful assistant.<|endofprompt|>{{prompt_text}}"
+
+cosyvoice3-fr:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "fr"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "You are a helpful assistant.<|endofprompt|>{{prompt_text}}"
+
+cosyvoice3-it:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "it"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "You are a helpful assistant.<|endofprompt|>{{prompt_text}}"
+
+cosyvoice3-ru:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      language: "ru"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "You are a helpful assistant.<|endofprompt|>{{prompt_text}}"

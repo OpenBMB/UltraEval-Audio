@@ -70,23 +70,46 @@ cv3-zero-shot-ru:
       - cv3-speaker-sim
       - dnsmos
 
-# Emotion evaluators
-cv3-emotion-zeroshot-en:
+# Cross-lingual zero-shot evaluators
+cv3-cross-lingual-to-en:
   class: audio_evals.evaluator.ensemble.Ensemble
   args:
     components:
       - cv3-eval-asr-wer-en
       - cv3-speaker-sim
-      - dnsmos
+
+cv3-cross-lingual-to-zh:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - cv3-eval-asr-wer-zh
+      - cv3-speaker-sim
+
+cv3-cross-lingual-to-ja:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - cv3-eval-asr-wer-ja
+      - cv3-speaker-sim
+
+cv3-cross-lingual-to-ko:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
+      - cv3-eval-asr-wer-ko
+      - cv3-speaker-sim
+
+# Emotion evaluators
+cv3-emotion-zeroshot-en:
+  class: audio_evals.evaluator.ensemble.Ensemble
+  args:
+    components:
       - cv3-emotion
 
 cv3-emotion-zeroshot-zh:
   class: audio_evals.evaluator.ensemble.Ensemble
   args:
     components:
-      - cv3-eval-asr-wer-zh
-      - cv3-speaker-sim
-      - dnsmos
       - cv3-emotion
 
 cv3-speaker-sim:
