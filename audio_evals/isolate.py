@@ -68,6 +68,8 @@ def isolated(
                 f"{env_path}/lib/python{major_minor}/site-packages/nvidia/nvjitlink/lib"
             )
 
+            cuda_runtime_lib = f"{env_path}/lib/python{major_minor}/site-packages/nvidia/cuda_runtime/lib"
+
             # 构建命令行参数
             command_args = getattr(self, command_args_attr, {})
             args_str = " ".join(
@@ -89,7 +91,7 @@ def isolated(
             command = (
                 f"source {env_path}/bin/activate && "
                 f"{cuda_env}"
-                f"export LD_LIBRARY_PATH={lib_path} && "
+                f"export LD_LIBRARY_PATH={lib_path}:{cuda_runtime_lib}:$LD_LIBRARY_PATH && "
                 f"{env_path}/bin/python -u {script_path} {args_str}"
             )
             logger.info(f"Running command: {command}")
