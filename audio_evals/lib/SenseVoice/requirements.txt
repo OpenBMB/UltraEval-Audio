@@ -6,5 +6,5 @@ huggingface
 huggingface_hub
 modelscope
 numpy<=1.26.4
-torch<=2.3
-torchaudio
+torch==2.3
+torchaudio==2.3
