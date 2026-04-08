@@ -4,6 +4,6 @@ omegaconf
 pyyaml
 s3prl
 torch==2.2.0
-torchaudio
+torchaudio==2.2.0
 tqdm
 transformers
