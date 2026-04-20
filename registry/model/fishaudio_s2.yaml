@@ -1,0 +1,63 @@
+# Fish Audio S2 Pro: multilingual TTS and voice cloning.
+fishaudio-s2-pro:
+  class: audio_evals.models.TTS.fishaudio_s2.FishAudioS2Pro
+  args:
+    path: fishaudio/s2-pro
+    env_path: envs/fishaudio_s2
+    requirements_path: audio_evals/lib/FishSpeech/requirements.txt
+    sample_params:
+      max_new_tokens: 0
+      top_p: 0.9
+      top_k: 30
+      temperature: 1.0
+      chunk_length: 300
+
+
+fishaudio-s2-pro-try0:
+  class: audio_evals.models.TTS.fishaudio_s2.FishAudioS2Pro
+  args:
+    path: fishaudio/s2-pro
+    env_path: envs/fishaudio_s2
+    requirements_path: audio_evals/lib/FishSpeech/requirements.txt
+    sample_params:
+      max_new_tokens: 0
+      top_p: 0.9
+      top_k: 30
+      temperature: 0.01
+      chunk_length: 300
+
+
+fishaudio-s2-pro-sglang:
+  class: audio_evals.models.TTS.fishaudio_s2.FishAudioS2ProSGLang
+  args:
+    path: fishaudio/s2-pro
+    env_path: envs/fishaudio_s2_sglang
+    requirements_path: audio_evals/lib/FishSpeech/requirements_sglang.txt
+    startup_timeout: 1800
+    request_timeout: 1800
+    sample_params:
+      response_format: wav
+      voice: default
+      speed: 1.0
+      max_new_tokens: 0
+      top_p: 0.9
+      top_k: 30
+      temperature: 1.0
+
+
+fishaudio-s2-pro-sglang-try0:
+  class: audio_evals.models.TTS.fishaudio_s2.FishAudioS2ProSGLang
+  args:
+    path: fishaudio/s2-pro
+    env_path: envs/fishaudio_s2_sglang
+    requirements_path: audio_evals/lib/FishSpeech/requirements_sglang.txt
+    startup_timeout: 1800
+    request_timeout: 1800
+    sample_params:
+      response_format: wav
+      voice: default
+      speed: 1.0
+      max_new_tokens: 0
+      top_p: 0.9
+      top_k: 30
+      temperature: 0.01

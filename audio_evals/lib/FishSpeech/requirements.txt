@@ -1,0 +1,4 @@
+-e ./third_party/fish-speech
+click
+soundfile
+tqdm
