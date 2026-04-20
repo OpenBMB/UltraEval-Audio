@@ -33,8 +33,10 @@ UltraEval-Audio — The world's first open-source framework supporting both spee
 
 # Changelog🔥
 
+- [2026/04/20]
+  - Support **[Fish Speech S2 Pro](replication/fishaudio-s2-pro.md)** evaluation, including Seed-TTS-Eval and MiniMax multilingual TTS benchmarks (22 languages)
 - [2026/02/03]
-  - Support **[Qwen3-TTS](replication/qwen3_tts.md)** evaluation 
+  - Support **[Qwen3-TTS](replication/qwen3_tts.md)** evaluation
   - GPU parallel acceleration for faster evaluation/inference
     - Usage: add `--use_model_pool` and `--workers <N>` to enable multi-GPU parallel inference, e.g.
       - `python audio_evals/main.py --dataset <dataset_name> --model <model_name> --use_model_pool --workers 4`
