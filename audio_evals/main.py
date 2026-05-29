@@ -7,7 +7,11 @@ from audio_evals.eval_task import EvalTask
 from audio_evals.recorder import Recorder
 from audio_evals.registry import registry
 from audio_evals.utils import find_latest_jsonl
-from audio_evals.models.model_pool import IsolatedModelPool, get_available_gpu_ids
+from audio_evals.models.model_pool import (
+    IsolatedModelPool,
+    get_available_gpu_ids,
+    model_supports_pool,
+)
 
 
 def get_args():
@@ -28,10 +32,17 @@ def get_args():
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument(
         "--use_model_pool",
-        action="store_true",
-        help="Use IsolatedModelPool for multi-GPU parallel inference. "
-             "Creates `workers` model instances, GPUs are assigned in round-robin. "
-             "If workers > num_gpus, multiple instances will share the same GPU.",
+        nargs="?",
+        choices=["auto", "on", "off"],
+        const="on",
+        default="auto",
+        help="Whether to use IsolatedModelPool for multi-GPU parallel inference. "
+        "Default 'auto': inspect model class signature and use the pool iff the "
+        "model accepts a `gpu_id` kwarg (i.e. @isolated offline models). "
+        "Passing the flag bare (`--use_model_pool`) forces 'on' for backward "
+        "compatibility; `--use_model_pool off` disables it. "
+        "When pool is used, `workers` model instances are created and GPUs are "
+        "assigned in round-robin; if workers > num_gpus, instances share GPUs.",
     )
     parser.add_argument(
         "-r",
@@ -50,7 +61,7 @@ def get_args():
         "--two_phase",
         action="store_true",
         help="Run in two-phase mode: first parallel inference, then sequential evaluation. "
-             "Useful when evaluator cannot run concurrently.",
+        "Useful when evaluator cannot run concurrently.",
     )
 
     args = parser.parse_args()
@@ -120,14 +131,31 @@ def main():
     logger.info("task cfg:\n{}".format(task_cfg))
 
     # 创建 predictor：根据 --use_model_pool 决定是否使用模型池
-    if args.use_model_pool:
+    # auto 模式下，依据模型类的 __init__ 是否接受 `gpu_id` 自动判断（@isolated 离线模型）。
+    model_spec = registry._model.get(task_cfg.model, {})
+    if args.use_model_pool == "auto":
+        cls_path = model_spec.get("cls")
+        if cls_path and model_supports_pool(cls_path):
+            use_pool = True
+            logger.info(
+                f"Auto-detected GPU/isolated model '{task_cfg.model}' ({cls_path}); "
+                f"enabling IsolatedModelPool."
+            )
+        else:
+            use_pool = False
+            logger.info(
+                f"Auto-detected non-GPU/API model '{task_cfg.model}'; "
+                f"skipping IsolatedModelPool."
+            )
+    else:
+        use_pool = args.use_model_pool == "on"
+
+    if use_pool:
         gpu_ids = get_available_gpu_ids()
         num_instances = args.workers if args.workers > 1 else len(gpu_ids)
-        
-        # 获取模型配置
-        model_spec = registry._model.get(task_cfg.model, {})
+
         model_kwargs = model_spec.get("args", {})
-        
+
         logger.info(
             f"Using IsolatedModelPool with {num_instances} instances on GPUs {gpu_ids}"
         )
@@ -143,7 +171,9 @@ def main():
     # evaluator = registry.get_evaluator(task_cfg.evaluator)
 
     if args.two_phase:
-        logger.info("Two-phase mode enabled: parallel inference then sequential evaluation")
+        logger.info(
+            "Two-phase mode enabled: parallel inference then sequential evaluation"
+        )
 
     t = EvalTask(
         dataset=dataset,
