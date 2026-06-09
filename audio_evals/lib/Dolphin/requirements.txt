@@ -1,0 +1,6 @@
+addict==2.4.0
+espnet==202402
+funasr
+modelscope
+pydub
+torchaudio

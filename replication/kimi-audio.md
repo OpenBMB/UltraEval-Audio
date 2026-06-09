@@ -10,28 +10,30 @@
 - **BLEU⬆️**: BLEU Score (higher is better)
 - **ACC⬆️**: Accuracy (higher is better)
 
+**Note**: Performance format: `reproduced_result(official_result)` - values in parentheses are official results from the paper.
+
 ---
 
 ## ASR (English)
 
 | task | dataset | measure | performance | eval_cli | note |
 |------|---------|---------|-------------|----------|------|
-| asr(en) | librispeech-test-clean | wer⬇️ | 1.28 | [1] | |
+| asr(en) | librispeech-test-clean | wer⬇️ | 1.28(1.28) | [1] | |
 | asr(en) | librispeech-dev-clean | wer⬇️ | 1.18 | [2] | |
-| asr(en) | librispeech-test-other | wer⬇️ | 2.44 | [3] | |
+| asr(en) | librispeech-test-other | wer⬇️ | 2.44(2.42) | [3] | |
 | asr(en) | librispeech-dev-other | wer⬇️ | 2.35 | [4] | |
 | asr(en) | tedlium-release1 | wer⬇️ | 2.96 | [5] | |
 | asr(en) | cv-15-en | wer⬇️ | 7.09 | [6] | |
-| asr(en) | fleurs-en_us | wer⬇️ | 5.06 | [7] | |
+| asr(en) | fleurs-en_us | wer⬇️ | 5.06(4.44) | [7] | |
 
 ## ASR (Chinese)
 
 | task | dataset | measure | performance | eval_cli | note |
 |------|---------|---------|-------------|----------|------|
-| asr(zh) | aishell-1 | cer⬇️ | 0.60 | [8] | |
+| asr(zh) | aishell-1 | cer⬇️ | 0.60(0.60) | [8] | |
 | asr(zh) | cv-15-zh | cer⬇️ | 5.73 | [9] | |
-| asr(zh) | fleurs-zh | cer⬇️ | 3.08 | [10] | |
-| asr(zh) | WenetSpeech-test-net | cer⬇️ | 5.56 | [11] | |
+| asr(zh) | fleurs-zh | cer⬇️ | 3.08(2.69) | [10] | |
+| asr(zh) | WenetSpeech-test-net | cer⬇️ | 5.56(5.37) | [11] | |
 
 ## Audio Speech Translation
 
