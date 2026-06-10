@@ -41,12 +41,12 @@ def compute_wer(refs, hyps, language="13a"):
 
         ref = english_normalizer(ref)
         pred = english_normalizer(pred)
-        if language in ["zh"]:
-            ref = chinese_normalizer(ref)
-            pred = chinese_normalizer(pred)
         if language in ["yue"]:
             ref = zhconv.convert(ref, "zh-cn")
             pred = zhconv.convert(pred, "zh-cn")
+        if language in ["zh", "yue"]:
+            ref = chinese_normalizer(ref)
+            pred = chinese_normalizer(pred)
 
         ref_items = tokenizer.tokenize(ref).split()
         pred_items = tokenizer.tokenize(pred).split()

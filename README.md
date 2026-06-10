@@ -33,6 +33,8 @@ UltraEval-Audio — The world's first open-source framework supporting both spee
 
 # Changelog🔥
 
+- [2026/06/10]
+  - Support **[Qwen3-ASR](replication/qwen3_asr.md)** evaluation (`qwen3-asr-1.7b`, `qwen3-asr-0.6b`), with replication results and commands for English, Chinese, and Chinese dialect ASR benchmarks.
 - [2026/04/20]
   - Support **[Fish Speech S2 Pro](replication/fishaudio-s2-pro.md)** evaluation, including Seed-TTS-Eval and MiniMax multilingual TTS benchmarks (22 languages)
 - [2026/02/03]
@@ -179,6 +181,9 @@ python audio_evals/main.py --dataset llama-questions-s2t --model gpt4o_speech
 export GOOGLE_API_KEY=$your-key
 python audio_evals/main.py --dataset sample --model gemini-pro
 
+# Test Qwen3-ASR speech recognition capability
+CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset librispeech-test-clean --model qwen3-asr-1.7b --prompt simple-asr
+# See full replication results and commands: replication/qwen3_asr.md
 
 # Test qwen2-audio-offline speech understanding capability
 CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset sample --model qwen2-audio-chat

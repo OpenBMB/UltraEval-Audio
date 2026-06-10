@@ -1,0 +1,21 @@
+qwen3-asr-1.7b:
+  class: audio_evals.models.asr.qwen3_asr.Qwen3ASR
+  args:
+    path: Qwen/Qwen3-ASR-1.7B
+    dtype: bfloat16
+    device_map: cuda:0
+    max_new_tokens: 256
+    max_inference_batch_size: 32
+    env_path: envs/qwen3_asr
+    requirements_path: audio_evals/lib/Qwen3ASR/requirements.txt
+
+qwen3-asr-0.6b:
+  class: audio_evals.models.asr.qwen3_asr.Qwen3ASR
+  args:
+    path: Qwen/Qwen3-ASR-0.6B
+    dtype: bfloat16
+    device_map: cuda:0
+    max_new_tokens: 256
+    max_inference_batch_size: 32
+    env_path: envs/qwen3_asr
+    requirements_path: audio_evals/lib/Qwen3ASR/requirements.txt

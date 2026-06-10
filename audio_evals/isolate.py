@@ -42,7 +42,12 @@ def isolated(
             # 安装依赖
             result = subprocess.run(
                 # setuptools<81 is a workaround for the bug in uv pip install
-                f"source {env_path}/bin/activate &&{pre_command + '&& ' if pre_command else ''} uv pip install setuptools\<81 && uv pip install --index-strategy unsafe-best-match -r {requirements_path}",
+                # UV_TORCH_BACKEND lets uv pick the torch CUDA build matching the
+                # host GPU driver (defaults to auto, overridable from the env).
+                f"source {env_path}/bin/activate && "
+                f'export UV_TORCH_BACKEND="${{UV_TORCH_BACKEND:-auto}}" && '
+                f"{pre_command + '&& ' if pre_command else ''} uv pip install setuptools\\<81 && "
+                f"uv pip install --index-strategy unsafe-best-match -r {requirements_path}",
                 shell=True,
                 check=True,
                 executable="/bin/bash",
