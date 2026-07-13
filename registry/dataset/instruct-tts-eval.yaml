@@ -1,0 +1,13 @@
+instruct-tts-eval-en:
+  class: audio_evals.dataset.instruct_tts_eval.InstructTTSEvalDataset
+  args:
+    default_task: instruct_tts_eval_en
+    split: en
+    ref_col: text
+
+instruct-tts-eval-zh:
+  class: audio_evals.dataset.instruct_tts_eval.InstructTTSEvalDataset
+  args:
+    default_task: instruct_tts_eval_zh
+    split: zh
+    ref_col: text

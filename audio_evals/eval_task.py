@@ -72,9 +72,10 @@ class EvalTask:
     def _run(self, i, doc):
         """单个任务处理逻辑"""
         real_prompt = self.prompt.load(**doc)
+        eval_kwargs = {k: v for k, v in doc.items() if k not in ("prompt", "reference")}
         try:
             score, ans = self._eval(
-                i, real_prompt, doc.get(self.dataset.ref_col, ""), **doc
+                i, real_prompt, doc.get(self.dataset.ref_col, ""), **eval_kwargs
             )
             return i, score, ans, 0
         except Exception:
@@ -89,25 +90,33 @@ class EvalTask:
         """仅执行推理，不进行评测"""
         real_prompt = self.prompt.load(**doc)
         try:
-            self.recorder.add({"type": "prompt", "id": i, "data": {"content": real_prompt}})
-            
+            self.recorder.add(
+                {"type": "prompt", "id": i, "data": {"content": real_prompt}}
+            )
+
             if "eval_info" in doc and "inference" in doc["eval_info"]:
                 output = doc["eval_info"]["inference"]["content"]
             else:
                 output = self.predictor.inference(real_prompt)
-            self.recorder.add({"type": "inference", "id": i, "data": {"content": output}})
-            
+            self.recorder.add(
+                {"type": "inference", "id": i, "data": {"content": output}}
+            )
+
             if "eval_info" in doc and "post_process" in doc["eval_info"]:
                 output = doc["eval_info"]["post_process"]["content"]
             else:
                 for p in self.post_process:
                     output = p(output)
-            self.recorder.add({"type": "post_process", "id": i, "data": {"content": output}})
-            
+            self.recorder.add(
+                {"type": "post_process", "id": i, "data": {"content": output}}
+            )
+
             return i, output, doc, 0
         except Exception:
             error_traceback = traceback.format_exc()
-            self.recorder.add({"type": "error", "id": i, "data": {"info": error_traceback}})
+            self.recorder.add(
+                {"type": "error", "id": i, "data": {"info": error_traceback}}
+            )
             print(error_traceback)
             return i, None, doc, 1
 
@@ -120,7 +129,9 @@ class EvalTask:
             return i, score, output, 0
         except Exception:
             error_traceback = traceback.format_exc()
-            self.recorder.add({"type": "error", "id": i, "data": {"info": error_traceback}})
+            self.recorder.add(
+                {"type": "error", "id": i, "data": {"info": error_traceback}}
+            )
             print(error_traceback)
             return i, None, output, 1
 
@@ -128,7 +139,7 @@ class EvalTask:
         """释放推理模型占用的 GPU 显存"""
         try:
             # 尝试调用模型的释放方法（如果有的话）
-            if hasattr(self.predictor, 'release') and callable(self.predictor.release):
+            if hasattr(self.predictor, "release") and callable(self.predictor.release):
                 self.predictor.release()
                 # 删除模型引用
                 del self.predictor
@@ -136,7 +147,9 @@ class EvalTask:
                 print("Predictor released successfully, GPU memory freed.")
             else:
                 predictor_type = type(self.predictor).__name__
-                print(f"Predictor ({predictor_type}) does not have a release method, skipping GPU memory release.")
+                print(
+                    f"Predictor ({predictor_type}) does not have a release method, skipping GPU memory release."
+                )
         except Exception as e:
             print(f"Warning: Failed to release GPU memory: {e}")
 
@@ -155,6 +168,7 @@ class EvalTask:
             quiz = quiz[:limit]
         if rand_size:
             import random
+
             quiz = random.sample(quiz, rand_size)
 
         # 第一阶段：并发推理
@@ -165,9 +179,12 @@ class EvalTask:
 
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
             future_to_index = [
-                executor.submit(self._inference_only, i, doc) for i, doc in enumerate(quiz)
+                executor.submit(self._inference_only, i, doc)
+                for i, doc in enumerate(quiz)
             ]
-            for future in tqdm(as_completed(future_to_index), total=len(quiz), desc="Inference"):
+            for future in tqdm(
+                as_completed(future_to_index), total=len(quiz), desc="Inference"
+            ):
                 index, output, doc, has_error = future.result()
                 inference_error_count += has_error
                 if output is not None:
@@ -183,8 +200,9 @@ class EvalTask:
         res = [None] * len(quiz)
         answers = [None] * len(quiz)
         eval_error_count = 0
-        
+
         from audio_evals.registry import registry
+
         self.evaluator = registry.get_evaluator(self.evaluator)
 
         # 构建需要评测的任务列表
@@ -193,13 +211,15 @@ class EvalTask:
             for i in range(len(quiz))
             if inference_results[i] is not None
         ]
-        
+
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
             future_to_index = [
                 executor.submit(self._evaluate_only, i, output, doc)
                 for i, output, doc in eval_tasks
             ]
-            for future in tqdm(as_completed(future_to_index), total=len(eval_tasks), desc="Evaluation"):
+            for future in tqdm(
+                as_completed(future_to_index), total=len(eval_tasks), desc="Evaluation"
+            ):
                 index, score, output, has_error = future.result()
                 eval_error_count += has_error
                 if score is not None:
@@ -233,7 +253,7 @@ class EvalTask:
         """
         if two_phase:
             return self.run_two_phase(limit, rand_size, max_workers)
-            
+
         quiz = self.dataset.load(limit)
         if limit:
             quiz = quiz[:limit]
@@ -246,6 +266,7 @@ class EvalTask:
         answers = [None] * len(quiz)
         error_count = 0
         from audio_evals.registry import registry
+
         self.evaluator = registry.get_evaluator(self.evaluator)
 
         # 使用进程池并控制最大并发量

@@ -33,6 +33,10 @@ UltraEval-Audio — The world's first open-source framework supporting both spee
 
 # Changelog🔥
 
+- [2026/07/13]
+  - Support **[InstructTTSEval](replication/InstructTTSEval.md)** for evaluating complex natural-language instruction following in TTS systems.
+  - Includes English and Chinese subsets and evaluates fine-grained acoustic control (APS), descriptive style following (DSD), and role-play/scenario style following (RP) with a Gemini judge.
+  - Provides reference-audio alignment results and one-command evaluation examples for the integrated benchmark.
 - [2026/06/10]
   - Support **[Qwen3-ASR](replication/qwen3_asr.md)** evaluation (`qwen3-asr-1.7b`, `qwen3-asr-0.6b`), with replication results and commands for English, Chinese, and Chinese dialect ASR benchmarks.
 - [2026/04/20]

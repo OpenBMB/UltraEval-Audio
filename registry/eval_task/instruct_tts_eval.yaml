@@ -1,0 +1,45 @@
+# InstructTTSEval tasks.
+# Replace `model: qwen-audio-chat` with your target TTS model registry name.
+# The TTS model is expected to return a JSON string containing an "audio" key
+# with a local file path; the `extract_audio` post-processor extracts it.
+
+instruct_tts_eval_en:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: instruct-tts-eval-en
+    prompt: instruct-tts
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: instruct-tts-eval-gemini
+    agg: instruct-tts-eval-agg
+
+instruct_tts_eval_zh:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: instruct-tts-eval-zh
+    prompt: instruct-tts
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: instruct-tts-eval-gemini
+    agg: instruct-tts-eval-agg
+
+# Voice-clone variants: include reference audio in the prompt
+instruct_tts_eval_vc_en:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: instruct-tts-eval-en
+    prompt: instruct-tts-vc
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: instruct-tts-eval-gemini
+    agg: instruct-tts-eval-agg
+
+instruct_tts_eval_vc_zh:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: instruct-tts-eval-zh
+    prompt: instruct-tts-vc
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: instruct-tts-eval-gemini
+    agg: instruct-tts-eval-agg

@@ -1,0 +1,18 @@
+# Prompt for instruction-following TTS models (text + style instruction only).
+# Use this when the TTS model does NOT require a reference audio.
+instruct-tts:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      instruction: "{{instruction}}"
+
+# Prompt for instruction-following TTS models that also accept a reference audio
+# (voice-clone + instruction).
+instruct-tts-vc:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      instruction: "{{instruction}}"
+      prompt_audio: "{{WavPath}}"

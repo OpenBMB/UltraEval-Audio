@@ -1,0 +1,11 @@
+# Gemini-based style-consistency evaluator for InstructTTSEval.
+# Requires GOOGLE_API_KEY environment variable (used by audio_evals.models.google.Gemini).
+instruct-tts-eval-gemini:
+  class: audio_evals.evaluator.instruct_tts_eval.InstructTTSEvalGemini
+  args:
+    model_name: gemini-2.5-pro
+
+instruct-tts-eval-gemini-flash:
+  class: audio_evals.evaluator.instruct_tts_eval.InstructTTSEvalGemini
+  args:
+    model_name: gemini-2.5-flash
