@@ -7,8 +7,10 @@ Evaluation of Audio Foundation Models
 <p>
         <b>中文</b> | <a href="README.md">English</a> |
 <a href="https://discord.gg/Qrsbft4e" target="_blank">💬Discord</a>|
-<a href="https://arxiv.org/abs/2601.01373">UltraEval-Audio Paper</a>
+<a href="https://aclanthology.org/2026.acl-demo.56/">UltraEval-Audio Paper</a>
  </h4>
+
+> 🎉 恭喜 **UltraEval-Audio 论文在 ACL 2026 正式发表**！欢迎前往 [ACL Anthology](https://aclanthology.org/2026.acl-demo.56/) 阅读论文。
 
 # v1.1 亮点
 
@@ -232,16 +234,32 @@ python audio_evals/main.py --dataset <dataset_name> --model <model_name>
 
 # 工作引用
 
-如果觉得UltraEval-Audio有助于您的工作，请引用我们的论文：[UltraEval-Audio](https://arxiv.org/abs/2601.01373)
+如果觉得UltraEval-Audio有助于您的工作，请引用我们的论文：[UltraEval-Audio](https://aclanthology.org/2026.acl-demo.56/)
 
-```txt
-@article{ultraevalaudio,
-      title={UltraEval-Audio: A Unified Framework for Comprehensive Evaluation of Audio Foundation Models},
-      author={Qundong Shi and Jie Zhou and Biyuan Lin and Junbo Cui and Guoyang Zeng and Yixuan Zhou and Ziyang Wang and Xin Liu and Zhen Luo and Yudong Wang and Zhiyuan Liu},
-      year={2026},
-      eprint={2601.01373},
-      archivePrefix={arXiv},
-      primaryClass={cs.SD},
-      url={https://arxiv.org/abs/2601.01373},
+```bibtex
+@inproceedings{shi-etal-2026-ultraeval,
+    title = "{U}ltra{E}val-Audio: A Unified Framework for Comprehensive Evaluation of Audio Foundation Models",
+    author = "Shi, Qundong  and
+      Zhou, Jie  and
+      Lin, Biyuan  and
+      Cui, Junbo  and
+      Zeng, Guoyang  and
+      Zhou, Yixuan  and
+      Wang, Ziyang  and
+      Liu, Xin  and
+      Luo, Zhen  and
+      Wang, Yudong  and
+      Liu, Zhiyuan",
+    editor = "Durrett, Greg  and
+      Jian, Ping",
+    booktitle = "Proceedings of the 64th Annual Meeting of the {A}ssociation for {C}omputational {L}inguistics (Volume 3: System Demonstrations)",
+    month = jul,
+    year = "2026",
+    address = "San Diego, California, United States",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.acl-demo.56/",
+    doi = "10.18653/v1/2026.acl-demo.56",
+    pages = "566--577",
+    ISBN = "979-8-89176-392-0",
 }
 ```
