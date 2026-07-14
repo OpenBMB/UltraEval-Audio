@@ -59,18 +59,18 @@ official repository.
 
 | Metric | Official result | UltraEval-Audio result | Difference |
 | --- | ---: | ---: | ---: |
-| APS | 92.09% | 89.80% | -2.29 pp |
-| DSD | 84.00% | 84.80% | +0.80 pp |
-| RP | 65.40% | 65.50% | +0.10 pp |
-| AVG | 80.50% | 80.03% | -0.47 pp |
+| APS | 92.00% | 89.80% | -2.20 pp |
+| DSD | 84.10% | 84.80% | +0.70 pp |
+| RP | 66.00% | 65.50% | -0.50 pp |
+| AVG | 80.70% | 80.03% | -0.67 pp |
 
 
 ## Conclusion
 
 The integrated results are broadly aligned with the official results. The
-absolute difference is at most 2.29 percentage points for an individual metric;
+absolute difference is at most 2.20 percentage points for an individual metric;
 the average-score differences are 1.43 percentage points on the English subset
-and 0.47 percentage points on the Chinese subset.
+and 0.67 percentage points on the Chinese subset.
 
 Exact numerical agreement is not expected because the original preview judge
 has been retired and the reproduction uses `gemini-2.5-pro`. The two runs also
