@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 @isolated(
     "audio_evals/lib/utmos/main.py",
-    pre_command="pip install pip==24.0 &&export SACREBLEU_ROOT=envs/utmos/.sacrebleu",
+    pre_command="export SACREBLEU_ROOT=envs/utmos/.sacrebleu",
 )
 class UTMOS(OfflineModel):
     def __init__(
