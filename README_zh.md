@@ -35,6 +35,8 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
 
 # 更新日志🔥
 
+- [2026/07/27]
+  - 支持 **[VoxCPM2](replication/VoxCPM2.md)** 评测（`voxcpm2`, `voxcpm2-denoise`），覆盖 Seed-TTS-Eval、CV3-Eval zero-shot 以及 MiniMax 多语言 TTS Benchmark
 - [2026/07/13]
   - 支持 **[InstructTTSEval](replication/InstructTTSEval.md)**，用于评测 TTS 系统对复杂自然语言指令的遵循能力
   - 支持中英文子集，使用 Gemini 评测细粒度声学控制（APS）、描述性风格遵循（DSD）以及角色扮演/场景风格遵循（RP）

@@ -6,6 +6,9 @@ voxcpm2:
     denoise: False
     env_path: envs/VoxCPM2
     requirements_path: audio_evals/lib/VoxCPM2/requirements.txt
+    sample_params:
+      cfg_value: 2.0
+      inference_timesteps: 10
 
 # VoxCPM2: controllable voice cloning with denoising pre-processing
 voxcpm2-denoise:
@@ -15,3 +18,6 @@ voxcpm2-denoise:
     denoise: True
     env_path: envs/VoxCPM2
     requirements_path: audio_evals/lib/VoxCPM2/requirements.txt
+    sample_params:
+      cfg_value: 2.0
+      inference_timesteps: 10

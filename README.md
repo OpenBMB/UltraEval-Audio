@@ -35,6 +35,8 @@ UltraEval-Audio — The world's first open-source framework supporting both spee
 
 # Changelog🔥
 
+- [2026/07/27]
+  - Support **[VoxCPM2](replication/VoxCPM2.md)** evaluation (`voxcpm2`, `voxcpm2-denoise`), covering Seed-TTS-Eval, CV3-Eval zero-shot, and MiniMax multilingual TTS benchmarks
 - [2026/07/13]
   - Support **[InstructTTSEval](replication/InstructTTSEval.md)** for evaluating complex natural-language instruction following in TTS systems.
   - Includes English and Chinese subsets and evaluates fine-grained acoustic control (APS), descriptive style following (DSD), and role-play/scenario style following (RP) with a Gemini judge.
