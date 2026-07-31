@@ -6,14 +6,33 @@ import tempfile
 
 import soundfile as sf
 import torch
+import torch_npu
 from transformers import Qwen3OmniMoeForConditionalGeneration, Qwen3OmniMoeProcessor
 from qwen_omni_utils import process_mm_info
-
+import subprocess
+import os
 
 device = "cuda"
+def load_ascend_env(script_path="/usr/local/Ascend/ascend-toolkit/latest/bin/set_env.sh"):
+    # 执行 shell 脚本并在执行后通过 env 命令打印所有变量
+    command = f"source {script_path} && env"
+    proc = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, executable="/bin/bash")
+    
+    for line in proc.stdout:
+        line = line.decode("utf-8").strip()
+        if "=" in line:
+            key, value = line.split("=", 1)
+            # 只有当变量名包含 ASCEND 或涉及库路径时才注入，避免污染
+            if "ASCEND" in key or key in ["LD_LIBRARY_PATH", "PYTHONPATH"]:
+                os.environ[key] = value
+
+# 在 import torch 之前调用
 
 
 def load_model(path, **kwargs):
+    # 1. 设置昇腾底层库路径 (把 libhccl.so 所在的路径加进去)
+    # 注意：路径需要根据你环境的实际位置微调，通常是 latest/lib64
+    load_ascend_env()
     model = Qwen3OmniMoeForConditionalGeneration.from_pretrained(
         path,
         torch_dtype="auto",
