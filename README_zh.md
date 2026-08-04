@@ -35,6 +35,8 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
 
 # 更新日志🔥
 
+- [2026/07/31]
+  - 支持 **[MOSS-TTS-v1.5](replication/moss-tts-v1.5.md)** 评测（`moss-tts-v1.5`），覆盖 Seed-TTS-Eval、CV3 zero-shot 以及 MiniMax 多语言 TTS Benchmark（22 种语言）
 - [2026/07/27]
   - 支持 **[VoxCPM2](replication/VoxCPM2.md)** 评测（`voxcpm2`, `voxcpm2-denoise`），覆盖 Seed-TTS-Eval、CV3-Eval zero-shot 以及 MiniMax 多语言 TTS Benchmark
 - [2026/07/13]

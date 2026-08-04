@@ -97,20 +97,19 @@ def main():
         registry.add_registry_paths(paths)
 
     dataset = registry.get_dataset(args.dataset)
-    if args.resume:
-        if args.resume == "latest":
-            if os.path.exists(args.save):
-                args.resume = args.save
-            else:
-                save_path = os.path.dirname(args.save)
-                last_file = find_latest_jsonl(save_path)
-                if last_file is None:
-                    raise ValueError(
-                        "No previous results found, make {} exist `jsonl` file".format(
-                            save_path
-                        )
+    if args.resume == "latest":
+        if os.path.exists(args.save):
+            args.resume = args.save
+        else:
+            save_path = os.path.dirname(args.save)
+            args.resume = find_latest_jsonl(save_path)
+            if args.resume is None:
+                logger.warning(
+                    "No previous results found in {}, starting without resume".format(
+                        save_path
                     )
-                args.resume = last_file
+                )
+    if args.resume:
         logger.info(f"Resuming from {args.resume}")
         dataset = dataset.resume_from(args.resume)
     if args.dataset_ref_col:

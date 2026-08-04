@@ -1,0 +1,71 @@
+# MOSS-TTS Model Configurations
+# Reference: https://huggingface.co/OpenMOSS-Team
+
+# Generation params follow each model card's recommended values; they differ
+# across checkpoints so they must not be shared. Extra keys beyond
+# max_new_tokens are forwarded verbatim to model.generate() by
+# audio_evals/lib/MossTTS/main.py.
+moss-tts:
+  class: audio_evals.models.TTS.moss_tts.MossTTS
+  args:
+    path: OpenMOSS-Team/MOSS-TTS
+    dtype: bfloat16
+    env_path: envs/MossTTS
+    requirements_path: audio_evals/lib/MossTTS/requirements.txt
+    sample_params:
+      max_new_tokens: 3000
+      audio_temperature: 0.7
+      audio_top_p: 0.8
+      audio_top_k: 50
+
+# Continued from MossTTSDelay-8B; same generate API. Card example uses
+# max_new_tokens=4096; decoding defaults match Delay-8B (temp 1.7 / top_k 25).
+moss-tts-v1.5:
+  class: audio_evals.models.TTS.moss_tts.MossTTS
+  args:
+    path: OpenMOSS-Team/MOSS-TTS-v1.5
+    dtype: bfloat16
+    env_path: envs/MossTTS
+    requirements_path: audio_evals/lib/MossTTS/requirements.txt
+    sample_params:
+      max_new_tokens: 4096
+      audio_temperature: 1.7
+      audio_top_p: 0.8
+      audio_top_k: 25
+
+moss-tts-local-transformer-v1.5:
+  class: audio_evals.models.TTS.moss_tts.MossTTS
+  args:
+    path: OpenMOSS-Team/MOSS-TTS-Local-Transformer-v1.5
+    dtype: bfloat16
+    env_path: envs/MossTTS
+    requirements_path: audio_evals/lib/MossTTS/requirements.txt
+    sample_params:
+      max_new_tokens: 4096
+      do_sample: true
+      audio_temperature: 1.7
+      audio_top_p: 0.8
+      audio_top_k: 25
+
+# MOSS-TTS-Nano-100M is intentionally not registered here: its HF repo has no
+# AutoProcessor registration (no processor_config.json / processing_*.py) and
+# requires a separate GitHub-clone-based integration
+# (github.com/OpenMOSS/MOSS-TTS-Nano), incompatible with the AutoProcessor/
+# build_user_message flow used by the checkpoints above.
+
+# Instruction-driven voice design (no reference audio). Use with
+# `--prompt instruct-tts` / MINT-Bench. Decoding defaults follow the model card:
+# https://huggingface.co/OpenMOSS-Team/MOSS-VoiceGenerator
+moss-voice-generator:
+  class: audio_evals.models.TTS.moss_tts.MossTTS
+  args:
+    path: OpenMOSS-Team/MOSS-VoiceGenerator
+    dtype: bfloat16
+    env_path: envs/MossTTS
+    requirements_path: audio_evals/lib/MossTTS/requirements.txt
+    sample_params:
+      max_new_tokens: 4096
+      audio_temperature: 1.5
+      audio_top_p: 0.6
+      audio_top_k: 50
+      audio_repetition_penalty: 1.1

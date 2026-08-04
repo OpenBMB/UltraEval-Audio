@@ -11,7 +11,6 @@ qwen3-tts-1.7b-custom-voice:
     path: Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice
     mode: custom_voice
     dtype: bfloat16
-    device: cuda:0
     env_path: envs/qwen3_tts
     requirements_path: audio_evals/lib/Qwen3TTS/requirements.txt
     sample_params:  # ref: https://github.com/QwenLM/Qwen3-TTS/blob/main/examples/test_model_12hz_custom_voice.py
@@ -23,7 +22,6 @@ qwen3-tts-0.6b-custom-voice:
     path: Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice
     mode: custom_voice
     dtype: bfloat16
-    device: cuda:0
     env_path: envs/qwen3_tts
     requirements_path: audio_evals/lib/Qwen3TTS/requirements.txt
     sample_params:  # ref: https://github.com/QwenLM/Qwen3-TTS/blob/main/examples/test_model_12hz_custom_voice.py
@@ -39,7 +37,6 @@ qwen3-tts-1.7b-voice-design:
     path: Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign
     mode: voice_design
     dtype: bfloat16
-    device: cuda:0
     env_path: envs/qwen3_tts
     requirements_path: audio_evals/lib/Qwen3TTS/requirements.txt
 
@@ -53,7 +50,6 @@ qwen3-tts-1.7b-base:
     path: Qwen/Qwen3-TTS-12Hz-1.7B-Base
     mode: voice_clone
     dtype: bfloat16
-    device: cuda:0
     env_path: envs/qwen3_tts
     requirements_path: audio_evals/lib/Qwen3TTS/requirements.txt
     sample_params:  # ref: https://github.com/QwenLM/Qwen3-TTS/blob/main/examples/test_model_12hz_base.py
@@ -74,7 +70,6 @@ qwen3-tts-12hz-1.7b-base-xvec_only:
     path: Qwen/Qwen3-TTS-12Hz-1.7B-Base
     mode: voice_clone
     dtype: bfloat16
-    device: cuda:0
     env_path: envs/qwen3_tts
     requirements_path: audio_evals/lib/Qwen3TTS/requirements.txt
     sample_params:
@@ -96,7 +91,6 @@ qwen3-tts-0.6b-base:
     path: Qwen/Qwen3-TTS-12Hz-0.6B-Base
     mode: voice_clone
     dtype: bfloat16
-    device: cuda:0
     env_path: envs/qwen3_tts
     requirements_path: audio_evals/lib/Qwen3TTS/requirements.txt
     sample_params:

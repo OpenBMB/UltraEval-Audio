@@ -1,0 +1,9 @@
+accelerate
+soundfile
+# Matches the upstream torch-runtime extra (torch==2.9.1+cu128). PyPI's plain
+# 2.9.1 is that same CUDA 12.8 build; 2.11.0 would pull CUDA 13 wheels, which
+# need a 580+ driver, while cluster nodes cap out at CUDA 12.6.
+torch==2.9.1
+torchaudio==2.9.1
+# Upstream pins this exactly; the repo's remote code targets 5.0.0's API.
+transformers==5.0.0

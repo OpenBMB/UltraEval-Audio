@@ -35,6 +35,8 @@ UltraEval-Audio — The world's first open-source framework supporting both spee
 
 # Changelog🔥
 
+- [2026/07/31]
+  - Support **[MOSS-TTS-v1.5](replication/moss-tts-v1.5.md)** evaluation (`moss-tts-v1.5`), including Seed-TTS-Eval, CV3 zero-shot, and MiniMax multilingual TTS benchmarks (22 languages)
 - [2026/07/27]
   - Support **[VoxCPM2](replication/VoxCPM2.md)** evaluation (`voxcpm2`, `voxcpm2-denoise`), covering Seed-TTS-Eval, CV3-Eval zero-shot, and MiniMax multilingual TTS benchmarks
 - [2026/07/13]
