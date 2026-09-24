@@ -1,0 +1,20 @@
+# Qwen-Audio-3.0-TTS hosted models (DashScope API).
+# Required: DASHSCOPE_API_KEY
+# Optional: DASHSCOPE_WORKSPACE_ID, DASHSCOPE_BASE_HTTP_URL,
+#           DASHSCOPE_BASE_WEBSOCKET_URL
+
+qwen-audio-3.0-tts-plus:
+  class: audio_evals.models.TTS.qwen_audio_tts.QwenAudioTTS
+  args:
+    model_name: qwen-audio-3.0-tts-plus
+    voice: longanlingxin
+    audio_format: wav
+    sample_rate: 24000
+
+qwen-audio-3.0-tts-flash:
+  class: audio_evals.models.TTS.qwen_audio_tts.QwenAudioTTS
+  args:
+    model_name: qwen-audio-3.0-tts-flash
+    voice: longanhuan_v3.6
+    audio_format: wav
+    sample_rate: 24000

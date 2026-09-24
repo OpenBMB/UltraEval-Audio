@@ -1,0 +1,42 @@
+# qwen-audio-3.1-tts-next prompts
+# (audio_evals/models/TTS/qwen_audio_tts_next.py).
+#
+# This model takes a free-form `text_prompt` scene description, not a `text`
+# field plus a voice ID like Qwen-Audio-3.0-TTS
+# (`registry/prompt/qwen_audio_tts.yaml`). Reference audio is addressed
+# positionally from inside the prompt as `@voice1`.
+#
+# Only Chinese and English are supported -- there are deliberately no prompts
+# for the other minimax-tts languages, since the model would silently
+# synthesize wrong-language speech.
+#
+# `prompt_text` (reference-audio transcript) is accepted for schema parity with
+# other voice-clone prompts, but the model itself ignores it.
+
+qwen-audio-tts-next-voice-clone-chinese:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text_prompt: "@voice1 用与参考音频完全相同的音色、口音和语气，清晰、自然地用中文读出：“{{text}}”。不要添加任何额外内容、背景音或音效。"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+qwen-audio-tts-next-voice-clone-english:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text_prompt: "@voice1 speaks the following English sentence clearly and naturally, using exactly the same timbre, accent and tone as the reference audio: “{{text}}”. Add nothing else -- no extra words, background sound or effects."
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+qwen-audio-tts-next-chinese:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text_prompt: "一位中文母语者用清晰、自然的语气读出：“{{text}}”。不要添加任何额外内容、背景音或音效。"
+
+qwen-audio-tts-next-english:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text_prompt: "A native English speaker reads the following sentence clearly and naturally: “{{text}}”. Add nothing else -- no extra words, background sound or effects."

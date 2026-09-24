@@ -1,0 +1,225 @@
+# Qwen-Audio-3.0-TTS (DashScope, audio_evals/models/TTS/qwen_audio_tts.py) prompts.
+#
+# Unlike Qwen3-TTS (`registry/prompt/qwen3-tts.yaml`), which takes a
+# free-form `language` string (e.g. "Chinese"), Qwen-Audio-3.0-TTS expects
+# `language_hints`: a list of short ISO codes (only the first element is
+# honored). Codes align with minimax-tts-eval language coverage.
+#
+# `prompt_text` (reference-audio transcript) is accepted for schema parity
+# with other voice-clone prompts, but Qwen-Audio-3.0-TTS itself ignores it.
+
+qwen-audio-tts-voice-clone-arabic:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["ar"]
+
+qwen-audio-tts-voice-clone-cantonese:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["yue"]
+
+qwen-audio-tts-voice-clone-chinese:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["zh"]
+
+qwen-audio-tts-voice-clone-czech:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["cs"]
+
+qwen-audio-tts-voice-clone-dutch:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["nl"]
+
+qwen-audio-tts-voice-clone-english:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["en"]
+
+qwen-audio-tts-voice-clone-finnish:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["fi"]
+
+qwen-audio-tts-voice-clone-french:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["fr"]
+
+qwen-audio-tts-voice-clone-german:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["de"]
+
+qwen-audio-tts-voice-clone-greek:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["el"]
+
+qwen-audio-tts-voice-clone-hindi:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["hi"]
+
+qwen-audio-tts-voice-clone-indonesian:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["id"]
+
+qwen-audio-tts-voice-clone-italian:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["it"]
+
+qwen-audio-tts-voice-clone-japanese:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["ja"]
+
+qwen-audio-tts-voice-clone-korean:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["ko"]
+
+qwen-audio-tts-voice-clone-polish:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["pl"]
+
+qwen-audio-tts-voice-clone-portuguese:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["pt"]
+
+qwen-audio-tts-voice-clone-romanian:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["ro"]
+
+qwen-audio-tts-voice-clone-russian:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["ru"]
+
+qwen-audio-tts-voice-clone-spanish:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["es"]
+
+qwen-audio-tts-voice-clone-thai:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["th"]
+
+qwen-audio-tts-voice-clone-turkish:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["tr"]
+
+qwen-audio-tts-voice-clone-ukrainian:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["uk"]
+
+qwen-audio-tts-voice-clone-vietnamese:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+      language_hints: ["vi"]

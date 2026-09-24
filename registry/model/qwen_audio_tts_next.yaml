@@ -1,0 +1,15 @@
+# qwen-audio-3.1-tts-next hosted model (DashScope audio generation).
+#
+# Required: DASHSCOPE_API_KEY, DASHSCOPE_WORKSPACE_ID
+#           (audio generation is only served on the workspace-scoped host)
+# Optional: DASHSCOPE_BASE_HTTP_URL
+#
+# Beijing RPS is 3, so keep --workers at or below 3.
+
+qwen-audio-3.1-tts-next:
+  class: audio_evals.models.TTS.qwen_audio_tts_next.QwenAudioTTSNext
+  args:
+    model_name: qwen-audio-3.1-tts-next
+    audio_format: wav
+    sample_rate: 24000
+    channels: 1
