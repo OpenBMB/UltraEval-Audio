@@ -113,4 +113,27 @@ class Gemini(APIModel):
                 f"请求失败，状态码: {response.status_code}, {response.text}"
             )
 
-        return msg_data["candidates"][0]["content"]["parts"][0]["text"]
+        candidates = msg_data.get("candidates") or []
+        if not candidates:
+            # A blocked prompt still answers 200, just without any candidate.
+            # Raising keeps the sample out of the metric instead of scoring it
+            # as an empty transcription.
+            raise RuntimeError(
+                "响应中没有 candidates: {}".format(
+                    msg_data.get("promptFeedback", msg_data)
+                )
+            )
+
+        parts = candidates[0].get("content", {}).get("parts") or []
+        # Thinking models prepend a `thought: true` part, whose text is empty
+        # whenever no thought summary was produced, and the answer lands in a
+        # later part. Taking parts[0] blindly would return "". Concatenate the
+        # non-thought text parts, the way the genai SDK builds response.text.
+        text = "".join(p["text"] for p in parts if "text" in p and not p.get("thought"))
+        if not text:
+            raise RuntimeError(
+                "响应中没有文本内容, finishReason: {}, {}".format(
+                    candidates[0].get("finishReason"), msg_data
+                )
+            )
+        return text
