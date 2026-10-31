@@ -9,6 +9,19 @@ import librosa
 from modelscope.pipelines import pipeline
 from modelscope.utils.constant import Tasks
 
+
+def pick_device(device):
+    """Fall back to CPU when the requested CUDA device is unavailable."""
+    try:
+        import torch
+    except ImportError:
+        return device
+    if str(device).startswith("cuda") and not torch.cuda.is_available():
+        print(f"CUDA is not available, running on cpu instead of {device}", flush=True)
+        return "cpu"
+    return device
+
+
 # Emotion labels used by emotion2vec_plus_large
 EMOTION_LABELS = [
     "angry",
@@ -40,7 +53,9 @@ def main():
 
     # Initialize the emotion recognition pipeline
     inference_pipeline = pipeline(
-        task=Tasks.emotion_recognition, model=args.model, device=args.device
+        task=Tasks.emotion_recognition,
+        model=args.model,
+        device=pick_device(args.device),
     )
 
     print(f"Successfully loaded emotion2vec model", flush=True)

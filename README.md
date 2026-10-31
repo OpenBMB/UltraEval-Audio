@@ -216,6 +216,17 @@ python audio_evals/main.py --dataset seed_tts_eval_zh --model seed-audio-1.0 --p
 
 If you encounter errors or cannot reproduce Mini-CPM-o 2.6 results, please check [FAQ](FAQ.md).
 
+### Running on CPU only
+
+API models (`gpt4o_audio`, `gemini-pro`, `seed-audio-1.0`, ...) and most evaluators do not need a GPU.
+Local models and scoring models (WavLM speaker similarity, emotion2vec, Fun-ASR-Nano, ...) default to `cuda:0` when CUDA is available and fall back to `cpu` otherwise.
+To force a device, pass `--device` (or set `AUDIO_EVALS_DEVICE`); it also applies to the isolated model processes:
+
+```bash
+python audio_evals/main.py --dataset sample --model gpt4o_audio --device cpu
+# equivalent: export AUDIO_EVALS_DEVICE=cpu
+```
+
 ## Res
 
 Evaluation complete, results are as follows:

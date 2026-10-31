@@ -6,6 +6,7 @@ import transformers
 import librosa
 
 from audio_evals.base import PromptStruct
+from audio_evals.device import resolve_device
 from audio_evals.models.model import Model
 
 logger = logging.getLogger(__name__)
@@ -15,7 +16,9 @@ class UltraVOX(Model):
     def __init__(self, path: str, sample_params: Dict[str, any] = None):
         super().__init__(True, sample_params)  # as a chat model
         logger.debug("start load model from {}".format(path))
-        self.pipe = transformers.pipeline(model=path, trust_remote_code=True, device=0)
+        self.pipe = transformers.pipeline(
+            model=path, trust_remote_code=True, device=resolve_device()
+        )
         logger.debug("model loaded")
         self.max_new_tokens = 30
 

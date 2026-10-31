@@ -5,6 +5,7 @@ import select
 from typing import Dict
 
 from audio_evals.base import PromptStruct
+from audio_evals.device import resolve_device
 from audio_evals.isolate import isolated
 from audio_evals.models.model import OfflineModel
 
@@ -29,6 +30,9 @@ class Qwen3ASR(OfflineModel):
         ]:
             if kwargs.get(key) is not None:
                 self.command_args[key] = kwargs[key]
+        self.command_args["device_map"] = resolve_device(
+            self.command_args.get("device_map")
+        )
 
         super().__init__(is_chat=False, sample_params=sample_params)
 

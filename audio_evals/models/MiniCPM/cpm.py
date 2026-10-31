@@ -1,5 +1,6 @@
 from typing import Dict, List
 from audio_evals.base import PromptStruct
+from audio_evals.device import resolve_device
 from audio_evals.models.model import Model
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, AutoModel
@@ -14,7 +15,8 @@ class CPM(Model):
             trust_remote_code=True,
         )
 
-        self.model = model.eval().cuda()
+        self.device = resolve_device()
+        self.model = model.eval().to(self.device)
         self.model.generation_config.do_sample = False
         self.tokenizer = AutoTokenizer.from_pretrained(path, trust_remote_code=True)
 
@@ -72,13 +74,14 @@ class CpmPretrain(Model):
             trust_remote_code=True,
         )
 
-        self.model = model.eval().cuda()
+        self.device = resolve_device()
+        self.model = model.eval().to(self.device)
         self.model.generation_config.do_sample = False
         self.tokenizer = AutoTokenizer.from_pretrained(path, trust_remote_code=True)
 
     def _inference(self, prompt: PromptStruct, **kwargs) -> str:
 
-        inputs = self.tokenizer(prompt, return_tensors="pt").to("cuda")
+        inputs = self.tokenizer(prompt, return_tensors="pt").to(self.device)
         if "stopping_criteria" in kwargs:
             stopping_criteria = _get_stopping_criteria(
                 kwargs["stopping_criteria"], self.tokenizer, inputs.input_ids.shape[0]
