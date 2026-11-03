@@ -6,6 +6,7 @@ import uuid
 from typing import Dict
 
 from audio_evals.base import PromptStruct
+from audio_evals.device import resolve_device
 from audio_evals.isolate import isolated
 from audio_evals.models.model import OfflineModel
 
@@ -40,7 +41,7 @@ class FunASRNano(OfflineModel):
             "path": path,
             "hub": hub,
             "model_revision": model_revision,
-            "device": device,
+            "device": resolve_device(device),
         }
         super().__init__(is_chat=False, sample_params=sample_params)
 

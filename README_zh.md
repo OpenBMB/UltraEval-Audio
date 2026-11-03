@@ -220,6 +220,17 @@ python audio_evals/main.py --dataset seed_tts_eval_zh --model seed-audio-1.0 --p
 
 遇到报错或者不能复现Mini-CPM-o 2.6的结果，可以先看[常见问题](FAQ.md)。
 
+### 仅 CPU 运行
+
+API 模型（`gpt4o_audio`、`gemini-pro`、`seed-audio-1.0` 等）和大部分评估器不需要 GPU。
+本地模型和打分模型（WavLM 说话人相似度、emotion2vec、Fun-ASR-Nano 等）在有 CUDA 时默认使用 `cuda:0`，否则自动回退到 `cpu`。
+需要显式指定设备时使用 `--device`（或设置环境变量 `AUDIO_EVALS_DEVICE`），隔离进程中的模型同样生效：
+
+```bash
+python audio_evals/main.py --dataset sample --model gpt4o_audio --device cpu
+# 等价于 export AUDIO_EVALS_DEVICE=cpu
+```
+
 ## 结果
 
 评测完毕，结果文件如下:

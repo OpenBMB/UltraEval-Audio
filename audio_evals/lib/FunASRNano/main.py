@@ -5,6 +5,18 @@ import sys
 import traceback
 
 
+def pick_device(device):
+    """Fall back to CPU when the requested CUDA device is unavailable."""
+    try:
+        import torch
+    except ImportError:
+        return device
+    if str(device).startswith("cuda") and not torch.cuda.is_available():
+        print(f"CUDA is not available, running on cpu instead of {device}", flush=True)
+        return "cpu"
+    return device
+
+
 def get_model(path, hub="hf", model_revision="main", device="cuda:0"):
     from funasr import AutoModel
 
@@ -44,7 +56,7 @@ def main():
         path=config.path,
         hub=config.hub,
         model_revision=config.model_revision,
-        device=config.device,
+        device=pick_device(config.device),
     )
     print(f"Model loaded from checkpoint: {config.path}", flush=True)
 
