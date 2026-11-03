@@ -46,3 +46,17 @@ gpt4o_transcribe:
   class: audio_evals.models.openai.AudioTranscribe
   args:
     model_name: gpt-4o-transcribe
+
+gpt4o_mini_tts:
+  class: audio_evals.models.TTS.openai_tts.OpenAITTS
+  args:
+    model_name: gpt-4o-mini-tts
+    voice: alloy
+    response_format: mp3
+
+gpt4o_mini_tts_ballad:
+  class: audio_evals.models.TTS.openai_tts.OpenAITTS
+  args:
+    model_name: gpt-4o-mini-tts
+    voice: ballad
+    response_format: mp3

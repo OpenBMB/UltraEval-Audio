@@ -1,0 +1,13 @@
+# EmergentTTS-Eval: 1,645 English test cases across six categories.
+# https://huggingface.co/datasets/bosonai/EmergentTTS-Eval
+#
+# `audio` (the gpt-4o-mini-tts alloy baseline) is saved to a local WavPath and
+# used as the reference in the pairwise judge; `text_to_synthesize` is exposed
+# as `text`.
+emergent-tts-eval:
+  class: audio_evals.dataset.emergent_tts_eval.EmergentTTSEvalDataset
+  args:
+    default_task: emergent_tts_eval
+    subset: default
+    split: train
+    ref_col: text

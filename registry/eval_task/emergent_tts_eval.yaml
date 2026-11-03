@@ -1,0 +1,23 @@
+# EmergentTTS-Eval task, matching the official benchmark: win rate against
+# the gpt-4o-mini-tts baseline.
+#
+# Default prompting is the benchmark's strong prompting (the official
+# --text_speech_strong_prompting): the dataset's per-category guidance is
+# passed to the TTS model as `instruction`.
+#
+# Replace `model: qwen-audio-chat` with your target TTS model registry name.
+# The TTS model returns a local audio path; `extract_audio` extracts it from
+# JSON output (or passes a raw path through unchanged).
+#
+# Variants override the task from the CLI:
+#   raw text only : --prompt tts
+
+emergent_tts_eval:
+  class: audio_evals.base.EvalTaskCfg
+  args:
+    dataset: emergent-tts-eval
+    prompt: instruct-tts
+    model: qwen-audio-chat
+    post_process: ['extract_audio']
+    evaluator: emergent-tts-eval-gemini
+    agg: emergent-tts-eval-agg

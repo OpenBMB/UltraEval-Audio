@@ -35,6 +35,10 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
 
 # 更新日志🔥
 
+- [2026/10/28]
+  - 支持 **[EmergentTTS-Eval](replication/EmergentTTS-Eval.md)**，用于评测 TTS 系统在复杂韵律、表现力和语言学挑战上的能力
+  - 覆盖六大类共 1,645 条英文测试用例，使用 Gemini 成对评测（对比 `gpt-4o-mini-tts` 基线的胜率）
+  - 默认使用 benchmark 的强提示并输出胜率；纯文本运行通过 CLI 覆盖切换
 - [2026/09/16]
   - 支持 **Seed Audio** API TTS 评测：`seed-audio-1.0`、`seed-audio-1.0-multilingual`
   - 覆盖普通 TTS、音色克隆（`prompt_audio`）以及指令遵循 TTS（`instruction`）三种模式

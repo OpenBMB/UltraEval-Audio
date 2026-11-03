@@ -35,6 +35,10 @@ UltraEval-Audio — The world's first open-source framework supporting both spee
 
 # Changelog🔥
 
+- [2026/10/28]
+  - Support **[EmergentTTS-Eval](replication/EmergentTTS-Eval.md)** for evaluating complex prosodic, expressive, and linguistic challenges in TTS systems.
+  - Covers 1,645 English cases across six categories with a Gemini pairwise judge (win rate vs the `gpt-4o-mini-tts` baseline).
+  - Uses the benchmark's strong prompting by default and reports win rate; a raw-text run is available as a CLI override.
 - [2026/09/16]
   - Support **Seed Audio** API TTS evaluation: `seed-audio-1.0`, `seed-audio-1.0-multilingual`
   - Covers plain TTS, voice cloning (`prompt_audio`), and instruction-following TTS (`instruction`)

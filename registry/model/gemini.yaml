@@ -26,9 +26,19 @@ gemini-2.5-flash:
 gemini-2.5-pro:
   class: audio_evals.models.google.Gemini
   args:
-    model_name: 'Gemini-2.5-pro'
+    model_name: 'gemini-2.5-pro'
 
 gemini-3.1-pro:
   class: audio_evals.models.openai.AdvancedGPT
   args:
     model_name: 'gemini-3-pro-preview'
+
+gemini-4-argon:
+  class: audio_evals.models.google.Gemini
+  args:
+    model_name: 'gemini-4-argon'
+
+gemini-3.8-flash:
+  class: audio_evals.models.google.Gemini
+  args:
+    model_name: 'gemini-3.8-flash'

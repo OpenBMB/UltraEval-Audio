@@ -1,0 +1,10 @@
+# Win-rate evaluator for EmergentTTS-Eval.
+# Requires GOOGLE_API_KEY (audio_evals.models.google.Gemini).
+emergent-tts-eval-gemini:
+  class: audio_evals.evaluator.emergent_tts_eval.EmergentTTSEvalGemini
+  args:
+    # Pinned deployment used by the official score_existing_results.py run.
+    # Request config matches it: temp 0, topP 0.9, 32768 output tokens,
+    # no thinkingConfig, no safetySettings, 16 kHz mono WAV inputs.
+    model_name: gemini-3.8-flash
+    max_output_tokens: 32768

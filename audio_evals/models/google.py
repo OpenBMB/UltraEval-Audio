@@ -84,18 +84,25 @@ class Gemini(APIModel):
             del content["contents"]
             payload["contents"].append(content)
 
-        inf_args = {}
         if system_instruct:
-            inf_args["systemInstruction"] = system_instruct
+            # The REST API expects a Content object; a bare string is rejected
+            # with "Invalid value at 'system_instruction'".
+            payload["systemInstruction"] = (
+                system_instruct
+                if isinstance(system_instruct, dict)
+                else {"parts": [{"text": system_instruct}]}
+            )
         if kwargs:
             if "safetySettings" in kwargs:
                 payload["safetySettings"] = kwargs.pop("safetySettings")
             payload["generationConfig"] = kwargs
 
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer {}".format(self.key),
-        }
+        headers = {"Content-Type": "application/json"}
+        # The public Gemini endpoint authenticates via the `key` query
+        # parameter.  Sending the API key as a Bearer token makes Google
+        # reject the request with 401, so only do that for custom gateways.
+        if self.base_url != "https://generativelanguage.googleapis.com":
+            headers["Authorization"] = "Bearer {}".format(self.key)
         url = "{}/v1beta/models/{}:generateContent?key={}".format(
             self.base_url, self.model, self.key
         )

@@ -1,0 +1,3 @@
+emergent-tts-eval-agg:
+  class: audio_evals.agg.emergent_tts_eval.EmergentTTSEvalAgg
+  args: {}
