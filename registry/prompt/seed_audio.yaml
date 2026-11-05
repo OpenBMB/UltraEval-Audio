@@ -1,0 +1,69 @@
+# Volcengine Seed Audio prompts (audio_evals/models/TTS/seed_audio.py).
+#
+# The Seed Audio API takes a single free-form `text_prompt` scene description
+# (max 3,000 characters); reference audio is addressed positionally from
+# inside the prompt as `@音频1`..`@音频3`. There is no separate `instruction`
+# or reference-transcript request field, so dataset columns are rewritten into
+# `text_prompt` here instead of being composed by the model wrapper.
+#
+# `prompt_text` (the reference-audio transcript) is deliberately never
+# referenced: the API has no use for it.
+#
+# The wrapper accepts only `text_prompt`, `prompt_audio`, `references`,
+# `speaker` plus the documented request fields (`audio_config`, `watermark`).
+#
+# seed-audio-1.0 also supports ja/ko/es/de/fr/pt-BR/th/vi/ms/fil/it/ru/nl/pl/
+# tr; add per-language variants of the voice-clone prompts here when a
+# benchmark needs them (see fireredtts3.yaml for the pattern).
+
+# Plain TTS: the API generates speech directly from bare text, so pass it
+# through verbatim without any framing.
+seed-audio-tts:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text_prompt: "{{text}}"
+
+# Voice cloning (Seed-TTS-Eval zh/en).
+seed-audio-vc-zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text_prompt: "请使用与@音频1相同的音色、口音和说话风格朗读：“{{text}}”"
+      prompt_audio: "{{WavPath}}"
+
+seed-audio-vc-en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text_prompt: "@音频1 reads the following English sentence in exactly the same timbre, accent and speaking style as the reference audio: “{{text}}”"
+      prompt_audio: "{{WavPath}}"
+
+# Instruction-following TTS (InstructTTSEval zh/en; no reference audio).
+seed-audio-instruct-zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text_prompt: "{{instruction | trim}}\n朗读内容：“{{text}}”"
+
+seed-audio-instruct-en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text_prompt: "{{instruction | trim}}\nRead the following text aloud: “{{text}}”"
+
+# Voice cloning with an instruction (InstructTTSEval reference-audio-aligned
+# mode; the dataset has no `prompt_text` column, so none is referenced here).
+seed-audio-instruct-vc-zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text_prompt: "参考@音频1的音色、口音和说话风格。{{instruction | trim}}\n朗读内容：“{{text}}”"
+      prompt_audio: "{{WavPath}}"
+
+seed-audio-instruct-vc-en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text_prompt: "@音频1 Speak with the timbre, accent and speaking style of the reference audio. {{instruction | trim}}\nRead the following text aloud: “{{text}}”"
+      prompt_audio: "{{WavPath}}"

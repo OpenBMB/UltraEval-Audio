@@ -35,6 +35,9 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
 
 # 更新日志🔥
 
+- [2026/11/05]
+  - Seed Audio 提示词从模型代码内硬编码模板迁移至 [registry/prompt/seed_audio.yaml](registry/prompt/seed_audio.yaml)（`seed-audio-tts`、`seed-audio-vc-zh/en`、`seed-audio-instruct*-zh/en`）
+  - 模型封装只接受 Seed Audio 请求字段（`text_prompt`、`prompt_audio`、`references`、`speaker`、`audio_config`、`watermark`）；音色克隆改用 `--prompt seed-audio-vc-zh`（原 `voice-clone` 不再适用）
 - [2026/10/28]
   - 支持 **[EmergentTTS-Eval](replication/EmergentTTS-Eval.md)**，用于评测 TTS 系统在复杂韵律、表现力和语言学挑战上的能力
   - 覆盖六大类共 1,645 条英文测试用例，使用 Gemini 成对评测（对比 `gpt-4o-mini-tts` 基线的胜率）
@@ -215,7 +218,7 @@ CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset sample --model qwen2
 
 # 测试 Seed Audio 音色克隆能力
 export SEED_AUDIO_API_KEY=$your-key
-python audio_evals/main.py --dataset seed_tts_eval_zh --model seed-audio-1.0 --prompt voice-clone
+python audio_evals/main.py --dataset seed_tts_eval_zh --model seed-audio-1.0 --prompt seed-audio-vc-zh
 ```
 
 遇到报错或者不能复现Mini-CPM-o 2.6的结果，可以先看[常见问题](FAQ.md)。

@@ -1,3 +1,9 @@
+"""Volcengine Seed Audio (Doubao audio generation 1.0) HTTP API model.
+
+Official documentation:
+https://docs.volcengine.com/docs/doubao-voice/audio-generation-http
+"""
+
 import base64
 import os
 import tempfile
@@ -12,6 +18,8 @@ from audio_evals.models.model import APIModel
 
 
 DEFAULT_API_URL = "https://openspeech.bytedance.com/api/v3/tts/create"
+# The API rejects longer prompts server-side; fail fast with a clear message.
+MAX_TEXT_PROMPT_CHARS = 3000
 SUPPORTED_REFERENCE_SUFFIXES = {".wav", ".mp3", ".pcm", ".ogg", ".opus"}
 OUTPUT_SUFFIXES = {
     "mp3": ".mp3",
@@ -20,16 +28,32 @@ OUTPUT_SUFFIXES = {
     "pcm": ".pcm",
     "wav": ".wav",
 }
+# Prompt keys the wrapper consumes itself, beyond the raw request fields.
+PROMPT_FIELDS = ("text_prompt", "prompt_audio", "references", "speaker")
+# Remaining request-body fields per the API reference. Anything else in the
+# rendered prompt is a dataset column that must be rewritten into
+# ``text_prompt`` by a prompt from registry/prompt/seed_audio.yaml.
+SUPPORTED_REQUEST_FIELDS = frozenset({"model", "audio_config", "watermark"})
 
 
 class SeedAudio(APIModel):
     """Volcengine Seed Audio HTTP API model.
 
-    The rendered prompt determines the generation mode:
-    - ``text``: text-to-speech
-    - ``text`` + ``prompt_audio``: voice cloning
-    - ``text`` + ``instruction``: instruction-following TTS
-    - all three fields: voice cloning with an instruction
+    The rendered prompt must already speak the Seed Audio request schema:
+    - ``text_prompt`` (required): the free-form scene description the API
+      expects; reference audio is addressed positionally from inside it as
+      ``@音频1``..``@音频3``.
+    - ``prompt_audio``: local reference-audio file, base64-inlined into
+      ``references[0].audio_data``.
+    - ``references``: raw ``references`` entries (``speaker`` / ``audio_data``
+      / ``audio_url`` / ``image_data`` / ``image_url``).
+    - ``speaker``: Doubao-2.0 or voice-clone speaker ID, sent as
+      ``references[0].speaker``.
+
+    Dataset columns such as ``text``, ``instruction`` and ``prompt_text``
+    are not request fields; the prompts in registry/prompt/seed_audio.yaml
+    rewrite them into ``text_prompt``. Passing them here is an error, as is
+    any key outside the documented request body.
     """
 
     def __init__(
@@ -56,7 +80,7 @@ class SeedAudio(APIModel):
         if isinstance(prompt, dict):
             return dict(prompt)
         if isinstance(prompt, str):
-            return {"text": prompt}
+            return {"text_prompt": prompt}
         raise TypeError("Seed Audio expects a string or dictionary prompt.")
 
     @staticmethod
@@ -74,54 +98,59 @@ class SeedAudio(APIModel):
             raise ValueError("Seed Audio reference audio must not exceed 10 MB.")
         return base64.b64encode(path.read_bytes()).decode("ascii")
 
-    @staticmethod
-    def _compose_text_prompt(
-        text: str, instruction: Optional[str], has_reference_audio: bool
-    ) -> str:
-        if instruction and has_reference_audio:
-            return (
-                f"参考@音频1的音色、口音和说话风格。{instruction.strip()}\n"
-                f'朗读内容："{text}"'
-            )
-        if has_reference_audio:
-            return f'请使用与@音频1相同的音色、口音和说话风格朗读："{text}"'
-        if instruction:
-            return f'{instruction.strip()}\n朗读内容："{text}"'
-        return text
-
     def _build_request(
         self, prompt: PromptStruct, inference_params: Dict[str, Any]
     ) -> Dict[str, Any]:
         values = self._prompt_to_payload(prompt)
         values.update(inference_params)
 
-        text = str(values.pop("text", "")).strip()
-        if not text:
-            raise ValueError("Seed Audio requires non-empty `text`.")
-
-        instruction = values.pop("instruction", None)
+        text_prompt = values.pop("text_prompt", None)
         prompt_audio = values.pop("prompt_audio", None)
-        # The Seed Audio API does not require a transcript of the reference audio.
-        values.pop("prompt_text", None)
-
-        explicit_text_prompt = values.pop("text_prompt", None)
         references = values.pop("references", None)
         speaker = values.pop("speaker", None)
 
-        if prompt_audio and references:
+        unsupported = sorted(set(values) - SUPPORTED_REQUEST_FIELDS)
+        if unsupported:
             raise ValueError(
-                "Use either `prompt_audio` or `references`, not both, for Seed Audio."
-            )
-        if prompt_audio and speaker:
-            raise ValueError(
-                "Use either `prompt_audio` or `speaker`, not both, for Seed Audio."
+                "Seed Audio does not accept {} in the prompt. Supported "
+                "fields: {}, or the request fields ({}). Rewrite dataset "
+                "columns with a prompt from registry/prompt/seed_audio.yaml.".format(
+                    ", ".join(unsupported),
+                    ", ".join(PROMPT_FIELDS),
+                    ", ".join(sorted(SUPPORTED_REQUEST_FIELDS)),
+                )
             )
 
-        has_reference_audio = bool(prompt_audio or references or speaker)
+        reference_sources = sorted(
+            name
+            for name, value in (
+                ("prompt_audio", prompt_audio),
+                ("references", references),
+                ("speaker", speaker),
+            )
+            if value
+        )
+        if len(reference_sources) > 1:
+            raise ValueError(
+                "Use at most one of `prompt_audio`, `references`, `speaker` "
+                f"for Seed Audio; got: {', '.join(reference_sources)}."
+            )
+
+        if not isinstance(text_prompt, str) or not text_prompt.strip():
+            raise ValueError(
+                "Seed Audio requires a non-empty `text_prompt`. Use a prompt "
+                "from registry/prompt/seed_audio.yaml to build one from "
+                "dataset columns."
+            )
+        if len(text_prompt) > MAX_TEXT_PROMPT_CHARS:
+            raise ValueError(
+                "text_prompt is {} characters, over the {} character API "
+                "limit.".format(len(text_prompt), MAX_TEXT_PROMPT_CHARS)
+            )
+
         request: Dict[str, Any] = {
             "model": self.model_name,
-            "text_prompt": explicit_text_prompt
-            or self._compose_text_prompt(text, instruction, has_reference_audio),
+            "text_prompt": text_prompt,
             **values,
         }
 
@@ -188,8 +217,12 @@ class SeedAudio(APIModel):
 
         if not response.ok:
             message = response_data.get("message", response.text)
+            logid = response.headers.get("X-Tt-Logid")
+            detail = f" (logid: {logid})" if logid else ""
             raise RuntimeError(
-                f"Seed Audio request failed (HTTP {response.status_code}): {message}"
+                "Seed Audio request failed (HTTP {}): {}{}".format(
+                    response.status_code, message, detail
+                )
             )
 
         code = response_data.get("code")

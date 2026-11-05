@@ -35,6 +35,9 @@ UltraEval-Audio — The world's first open-source framework supporting both spee
 
 # Changelog🔥
 
+- [2026/11/05]
+  - Seed Audio prompts moved from hardcoded wrapper templates to [registry/prompt/seed_audio.yaml](registry/prompt/seed_audio.yaml) (`seed-audio-tts`, `seed-audio-vc-zh/en`, `seed-audio-instruct*-zh/en`)
+  - The wrapper now only accepts Seed Audio request fields (`text_prompt`, `prompt_audio`, `references`, `speaker`, `audio_config`, `watermark`); run voice cloning with `--prompt seed-audio-vc-zh` instead of `voice-clone`
 - [2026/10/28]
   - Support **[EmergentTTS-Eval](replication/EmergentTTS-Eval.md)** for evaluating complex prosodic, expressive, and linguistic challenges in TTS systems.
   - Covers 1,645 English cases across six categories with a Gemini pairwise judge (win rate vs the `gpt-4o-mini-tts` baseline).
@@ -215,7 +218,7 @@ CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset sample --model qwen2
 
 # Test Seed Audio voice cloning capability
 export SEED_AUDIO_API_KEY=$your-key
-python audio_evals/main.py --dataset seed_tts_eval_zh --model seed-audio-1.0 --prompt voice-clone
+python audio_evals/main.py --dataset seed_tts_eval_zh --model seed-audio-1.0 --prompt seed-audio-vc-zh
 ```
 
 If you encounter errors or cannot reproduce Mini-CPM-o 2.6 results, please check [FAQ](FAQ.md).

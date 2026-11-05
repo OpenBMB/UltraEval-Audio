@@ -156,11 +156,12 @@ class QwenAudioTTSNext(APIModel):
     ) -> str:
         """Fold an optional speaking instruction into the single free-form prompt.
 
-        Mirrors ``audio_evals.models.TTS.seed_audio.SeedAudio._compose_text_prompt``
-        -- the same vendor-agnostic problem, so the same shape. Two differences:
-        reference clips are addressed as ``@voice1`` rather than ``@音频1``, and
-        the read-aloud text keeps the curly quotes used everywhere else in this
-        module (ASCII quotes are ambiguous when the text itself contains one).
+        Seed Audio's wrapper (``audio_evals/models/TTS/seed_audio.py``) solves
+        the same vendor-agnostic problem in its prompt registry instead. Two
+        differences here: reference clips are addressed as ``@voice1`` rather
+        than ``@音频1``, and the read-aloud text keeps the curly quotes used
+        everywhere else in this module (ASCII quotes are ambiguous when the
+        text itself contains one).
         """
         instruction = (instruction or "").strip()
         if instruction and has_reference_audio:
