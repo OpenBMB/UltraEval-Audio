@@ -6,6 +6,237 @@ voice-clone:
       prompt_audio: "{{WavPath}}"
       prompt_text: "{{prompt_text}}"
 
+# A/B variant: forwards `lang: en` so DotsTtsRuntime attaches an [EN]
+# language tag to the prompt_text (see audio_evals/lib/DotsTTS/main.py,
+# which maps `lang` -> `language` and lists it in _GENERATE_KWARGS).
+# Isolates language tagging as the single changed variable against the
+# tag-less `voice-clone` baseline.
+voice-clone-en:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "en"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+# Symmetric counterpart of voice-clone-en for the zh subset. Forwards
+# `lang: zh` so DotsTtsRuntime attaches a [ZH] language tag. Used to
+# verify the language-tag fix does not regress the already-matching
+# zh result (CER 0.916 / SIM 80.83 vs official 0.94 / 81.0).
+voice-clone-zh:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "zh"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+# Generalization of voice-clone-en/zh to the remaining languages covered by
+# the multilingual benchmarks (minimax_tts_* / cv3_*). Same single changed
+# variable as the en experiment: only `lang` differs from the tag-less
+# `voice-clone` baseline. Codes follow the eval_task naming in
+# registry/eval_task/minimax.yaml (ISO 639-1, Cantonese as `yue`); the
+# dots.tts runtime normalizes codes/names itself.
+voice-clone-ar:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "ar"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-yue:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "yue"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-cs:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "cs"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-nl:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "nl"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-fi:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "fi"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-fr:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "fr"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-de:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "de"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-el:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "el"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-hi:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "hi"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-id:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "id"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-it:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "it"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-ja:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "ja"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-ko:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "ko"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-pl:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "pl"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-pt:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "pt"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-ro:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "ro"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-ru:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "ru"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-es:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "es"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-th:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "th"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-tr:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "tr"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-uk:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "uk"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
+voice-clone-vi:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      lang: "vi"
+      prompt_audio: "{{WavPath}}"
+      prompt_text: "{{prompt_text}}"
+
 cosyvoice3-vc:
   class: audio_evals.prompt.base.Prompt
   args:

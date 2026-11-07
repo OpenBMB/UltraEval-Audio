@@ -1,0 +1,35 @@
+# dots.tts model configurations
+# Reference: https://huggingface.co/dots-studio/dots.tts-soar
+# Technical report: arXiv:2606.07080
+#
+# All checkpoints are served by the official PyPI package `dots.tts`
+# (DotsTtsRuntime.generate) in audio_evals/lib/DotsTTS/main.py. Sampling
+# params below follow the SOAR checkpoint's documented recommended settings
+# (NFE 10, CFG 1.2) and nothing else -- speaker_scale is deliberately left at
+# the library default, since neither the model card nor the repo README lists
+# a recommended value for it; extra keys are forwarded to generate() only if
+# they are in its signature.
+dots-tts-soar:
+  class: audio_evals.models.TTS.dots_tts.DotsTTS
+  args:
+    path: dots-studio/dots.tts-soar
+    dtype: bfloat16
+    env_path: envs/DotsTTS
+    requirements_path: audio_evals/lib/DotsTTS/requirements.txt
+    sample_params:
+      num_steps: 10
+      guidance_scale: 1.2
+
+# A/B variant: float32 per the technical report §3.3.1 ("All runs use
+# float32 and have torch.compile disabled"). Isolates precision as the
+# single changed variable against the bf16 baseline above.
+dots-tts-soar-fp32:
+  class: audio_evals.models.TTS.dots_tts.DotsTTS
+  args:
+    path: dots-studio/dots.tts-soar
+    dtype: float32
+    env_path: envs/DotsTTS
+    requirements_path: audio_evals/lib/DotsTTS/requirements.txt
+    sample_params:
+      num_steps: 10
+      guidance_scale: 1.2
