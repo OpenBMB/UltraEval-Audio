@@ -5,11 +5,10 @@ from audio_evals.dataset.huggingface import Huggingface
 
 logger = logging.getLogger(__name__)
 
-# Category-level guidance from the official benchmark
+# Per-category guidance from the official benchmark
 # (https://github.com/boson-ai/EmergentTTS-Eval-public, Apache-2.0).
-# It is exposed as an `instruction` column so the same dataset can be used
-# with the benchmark's "strong prompting" mode through the shared
-# `instruct-tts` prompt.
+# It is exposed as a `description` column; the prompting templates that wrap
+# it live in `registry/prompt/emergent_tts_eval.yaml`.
 CATEGORY_DESCRIPTIONS = {
     "Emotions": (
         "Emotional expressiveness: Ensure a clear and distinct transition "
@@ -69,7 +68,9 @@ class EmergentTTSEvalDataset(Huggingface):
     Two extra columns are added by :meth:`load`:
 
         id           : source row index (also seeds the A/B order)
-        instruction  : official strong-prompting description
+        description  : official per-category guidance (ALL_DESCRIPTIONS),
+                       consumed by the prompt templates in
+                       `registry/prompt/emergent_tts_eval.yaml`
     """
 
     NAME = "bosonai/EmergentTTS-Eval"
@@ -100,7 +101,7 @@ class EmergentTTSEvalDataset(Huggingface):
         rows = super().load()
         for index, row in enumerate(rows):
             row["id"] = index
-            row["instruction"] = CATEGORY_DESCRIPTIONS.get(row.get("category", ""), "")
+            row["description"] = CATEGORY_DESCRIPTIONS.get(row.get("category", ""), "")
         logger.info(
             "Loaded %d rows from %s (subset=%s, split=%s)",
             len(rows),

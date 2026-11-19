@@ -149,25 +149,26 @@ def main():
     else:
         use_pool = args.use_model_pool == "on"
 
-    if use_pool:
-        gpu_ids = get_available_gpu_ids()
-        num_instances = args.workers if args.workers > 1 else len(gpu_ids)
+    # The predictor is built lazily on the first real inference call. When
+    # ``-r`` / ``--inf_file`` already covers the whole dataset with inference
+    # records, no model instance is ever started (no GPU VRAM / startup cost).
+    def build_predictor():
+        if use_pool:
+            gpu_ids = get_available_gpu_ids()
+            num_instances = args.workers if args.workers > 1 else len(gpu_ids)
 
-        model_kwargs = model_spec.get("args", {})
+            model_kwargs = model_spec.get("args", {})
 
-        logger.info(
-            f"Using IsolatedModelPool with {num_instances} instances on GPUs {gpu_ids}"
-        )
-        predictor = IsolatedModelPool(
-            model_factory=lambda **kw: registry.get_model(task_cfg.model, **kw),
-            model_kwargs=model_kwargs,
-            gpu_ids=gpu_ids,
-            num_instances=num_instances,
-        )
-    else:
-        predictor = registry.get_model(task_cfg.model)
-
-    # evaluator = registry.get_evaluator(task_cfg.evaluator)
+            logger.info(
+                f"Using IsolatedModelPool with {num_instances} instances on GPUs {gpu_ids}"
+            )
+            return IsolatedModelPool(
+                model_factory=lambda **kw: registry.get_model(task_cfg.model, **kw),
+                model_kwargs=model_kwargs,
+                gpu_ids=gpu_ids,
+                num_instances=num_instances,
+            )
+        return registry.get_model(task_cfg.model)
 
     if args.two_phase:
         logger.info(
@@ -177,7 +178,8 @@ def main():
     t = EvalTask(
         dataset=dataset,
         prompt=registry.get_prompt(task_cfg.prompt),
-        predictor=predictor,
+        predictor=None,
+        predictor_factory=build_predictor,
         evaluator=task_cfg.evaluator,
         post_process=[registry.get_process(item) for item in task_cfg.post_process],
         agg=registry.get_agg(task_cfg.agg),

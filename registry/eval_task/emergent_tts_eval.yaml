@@ -2,21 +2,31 @@
 # the gpt-4o-mini-tts baseline.
 #
 # Default prompting is the benchmark's strong prompting (the official
-# --text_speech_strong_prompting): the dataset's per-category guidance is
-# passed to the TTS model as `instruction`.
+# --text_speech_strong_prompting): the model receives the official
+# SYSTEM_PROMPT_DEFAULT system message plus USER_MESSAGE_STRONG_TEMPLATE with
+# the dataset's per-category guidance. Templates live in
+# `registry/prompt/emergent_tts_eval.yaml`.
 #
 # Replace `model: qwen-audio-chat` with your target TTS model registry name.
 # The TTS model returns a local audio path; `extract_audio` extracts it from
 # JSON output (or passes a raw path through unchanged).
 #
 # Variants override the task from the CLI:
-#   raw text only : --prompt tts
+#   chat strong (default)    : --prompt emergent-tts-chat-strong
+#   chat default template    : --prompt emergent-tts-chat-default
+#   chat, no system (Gemini; also Qwen2.5-Omni, the adapter injects its system
+#   prompt)                  : --prompt emergent-tts-chat-strong-no-system
+#                              --prompt emergent-tts-chat-default-no-system
+#   TTS API strong           : --prompt emergent-tts-strong-api
+#   TTS API default/raw text : --prompt tts
+#   single-prompt TTS APIs   : --prompt emergent-tts-strong-text-prompt
+#   `instruct` style slot    : --prompt emergent-tts-strong-instruct
 
 emergent_tts_eval:
   class: audio_evals.base.EvalTaskCfg
   args:
     dataset: emergent-tts-eval
-    prompt: instruct-tts
+    prompt: emergent-tts-chat-strong
     model: qwen-audio-chat
     post_process: ['extract_audio']
     evaluator: emergent-tts-eval-gemini

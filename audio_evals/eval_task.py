@@ -34,14 +34,30 @@ class EvalTask:
         post_process: List[Process],
         agg: AggPolicy,
         recorder: Recorder,
+        predictor_factory=None,
     ):
         self.dataset = dataset
         self.prompt = prompt
         self.predictor = predictor
+        self.predictor_factory = predictor_factory
+        self._predictor_lock = threading.Lock()
         self.evaluator = evaluator
         self.post_process = post_process
         self.agg = agg
         self.recorder = recorder
+
+    def _ensure_predictor(self) -> Model:
+        """Build the predictor lazily on the first real inference call.
+
+        With ``-r`` / ``--inf_file`` reuse, existing inference records may
+        already cover the whole dataset; in that case no model instance is
+        ever started (saves GPU VRAM, host RAM and startup time).
+        """
+        if self.predictor is None and self.predictor_factory is not None:
+            with self._predictor_lock:
+                if self.predictor is None:
+                    self.predictor = self.predictor_factory()
+        return self.predictor
 
     def _eval(
         self, idx, prompt: Union[str, List[Dict[str, str]]], reference: str, **kwargs
@@ -50,7 +66,7 @@ class EvalTask:
         if "eval_info" in kwargs and "inference" in kwargs["eval_info"]:
             output = kwargs["eval_info"]["inference"]["content"]
         else:
-            output = self.predictor.inference(prompt)
+            output = self._ensure_predictor().inference(prompt)
         self.recorder.add({"type": "inference", "id": idx, "data": {"content": output}})
 
         if "eval_info" in kwargs and "post_process" in kwargs["eval_info"]:
@@ -97,7 +113,7 @@ class EvalTask:
             if "eval_info" in doc and "inference" in doc["eval_info"]:
                 output = doc["eval_info"]["inference"]["content"]
             else:
-                output = self.predictor.inference(real_prompt)
+                output = self._ensure_predictor().inference(real_prompt)
             self.recorder.add(
                 {"type": "inference", "id": i, "data": {"content": output}}
             )
@@ -123,6 +139,13 @@ class EvalTask:
     def _evaluate_only(self, i, output, doc):
         """仅执行评测，假设推理已完成"""
         try:
+            # Reuse the judgement recorded by a previous (crashed) run, exactly
+            # like the non-two-phase `_eval` path does; without this, every
+            # two-phase resume would re-judge the whole dataset from scratch.
+            if "eval_info" in doc and "eval" in doc["eval_info"]:
+                score = doc["eval_info"]["eval"]
+                self.recorder.add({"type": "eval", "id": i, "data": score})
+                return i, score, output, 0
             reference = doc.get(self.dataset.ref_col, "")
             score = self.evaluator(output, reference, **doc)
             self.recorder.add({"type": "eval", "id": i, "data": score})
@@ -137,6 +160,11 @@ class EvalTask:
 
     def _release_predictor(self):
         """释放推理模型占用的 GPU 显存"""
+        if self.predictor is None:
+            print(
+                "Predictor was never started (inference fully reused); nothing to release."
+            )
+            return
         try:
             # 尝试调用模型的释放方法（如果有的话）
             if hasattr(self.predictor, "release") and callable(self.predictor.release):

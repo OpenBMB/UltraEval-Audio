@@ -121,17 +121,17 @@ class EmergentTTSEvalGemini(Evaluator):
 
     The request mirrors the official ``score_existing_results.py``: both audios
     are resampled to 16 kHz mono PCM-16 WAV, the judge runs at temperature 0
-    with ``topP=0.9`` and ``maxOutputTokens=32768``, no ``thinkingConfig`` and
-    no ``safetySettings``.  Deviating from any of these changes the score
+    with ``topP=0.9``, ``thinkingBudget=256`` and ``maxOutputTokens=131072``
+    (see ``registry/evaluator/emergent_tts_eval.yaml``), no ``safetySettings``.  Deviating from any of these changes the score
     calibration and makes results incomparable with the official file.
 
     Args:
         model_name       : Registry name of the judge model.  Use the pinned
                            ``gemini-3.8-flash`` entry so the gateway serves
                            the same deployment as the official run.
-        thinking_budget  : Gemini thinking budget.  ``None`` (default) omits
-                           ``thinkingConfig``, matching the official scorer.
-        max_output_tokens: Output token budget for the judge (official: 32768).
+        thinking_budget  : Gemini thinking budget.  ``None`` omits
+                           ``thinkingConfig`` entirely.
+        max_output_tokens: Output token budget for the judge.
         max_retries      : Attempts before giving up on one sample.
         randomize_order  : Randomize which system is presented first.
     """

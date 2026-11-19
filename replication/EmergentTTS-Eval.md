@@ -17,8 +17,9 @@ test cases in the `default` / `train` split. Every row provides:
 
 UltraEval-Audio renames `text_to_synthesize` to `text`, saves the embedded
 baseline audio to disk as `WavPath`, and adds `id` (source row index, used as
-the A/B randomization seed) plus `instruction` (the official strong prompting
-guidance for the row's category).
+the A/B randomization seed) plus `description` (the official per-category
+guidance from `ALL_DESCRIPTIONS`). The prompting templates are not part of the
+dataset; they live in `registry/prompt/emergent_tts_eval.yaml`.
 
 ## Metrics
 
@@ -50,8 +51,21 @@ python audio_evals/main.py \
 Variants override the same task from the CLI:
 
 ```bash
-# Raw text only (no category guidance)
---prompt tts
+# Chat-style TTS models (message list: system + user)
+--prompt emergent-tts-chat-strong            # default: official strong prompting
+--prompt emergent-tts-chat-default           # same wrapper, without the category description
+--prompt emergent-tts-chat-strong-no-system  # empty system message (official Gemini client)
+--prompt emergent-tts-chat-default-no-system
+
+# Pure TTS APIs (raw text as input, category description as the instructions/style slot)
+--prompt emergent-tts-strong-api             # description -> `instruction` (e.g. OpenAI TTS)
+--prompt tts                                 # raw text only (`registry/prompt/tts.yaml`)
+
+# TTS APIs with a single free-form prompt field (SeedAudio, qwen-audio-tts-next)
+--prompt emergent-tts-strong-text-prompt     # description + text folded into `text_prompt`
+
+# TTS APIs whose style slot is spelled `instruct` (Qwen3-TTS VoiceDesign / CustomVoice)
+--prompt emergent-tts-strong-instruct        # description -> `instruct`
 
 # Explicit win-rate evaluator
 --evaluator emergent-tts-eval-gemini
@@ -59,21 +73,53 @@ Variants override the same task from the CLI:
 
 ## Prompting
 
-The benchmark has two prompting modes. For pure TTS APIs the official
-implementation sends the raw text by default, or the category description when
-`--text_speech_strong_prompting` is passed. UltraEval-Audio maps these to the
-`text` and `instruction` fields of the TTS prompt:
+The benchmark's prompting templates are prompt configs in
+`registry/prompt/emergent_tts_eval.yaml`, rendered by the framework's shared
+`Prompt` loader with the dataset row as Jinja context (`text`, `description`,
+`category`, ...):
 
-- strong (default here): the shared `instruct-tts` prompt
-  (`{text: "{{text}}", instruction: "{{instruction}}"}`), fed by the
-  dataset's `instruction` column.
-- raw text: the generic `tts` prompt (`{text: "{{text}}"}` in
-  `registry/prompt/tts.yaml`), selected with `--prompt tts`.
+Chat-style clients receive a system message followed by one templated user
+message. The official clients differ in the system message:
 
-Chat-style TTS APIs in the official repository additionally wrap the text in a
-"generate verbatim speech" chat message. That wrapper is model-client specific
-and is not applied here; use the raw-text or instruction prompt that matches
-your model's native interface.
+- `emergent-tts-chat-strong` (default here) / `emergent-tts-chat-default`:
+  the official `SYSTEM_PROMPT_DEFAULT` system message plus
+  `USER_MESSAGE_STRONG_TEMPLATE` (per-category description followed by the
+  text) or `USER_MESSAGE_DEFAULT_TEMPLATE` (same wrapper without the
+  description). This matches the official OpenAI chat-completions client.
+- Qwen2.5-Omni needs no dedicated prompt config: use the `-no-system`
+  variants below, and the adapter (`qwen2_5.py`) injects the official Qwen
+  system prompt when the template carries no system message, matching
+  `Qwen2_5OmniClient` (`model_clients.py`).
+- `emergent-tts-chat-strong-no-system` /
+  `emergent-tts-chat-default-no-system`: the user message alone, matching the
+  official Gemini client (empty system instruction).
+
+These templates are `role`/`contents` message lists, the shape chat models
+consume.
+
+Pure TTS APIs mirror the official `api_clients.py:116-121` clients: the
+`instructions`/style slot receives the category description (not
+`SYSTEM_PROMPT_DEFAULT`), and `input` carries the raw text:
+
+- `emergent-tts-strong-api`: `text` plus `instruction: "{{description}}"`.
+- `tts` (`registry/prompt/tts.yaml`): raw `text` only (no instruction) — the
+  default mode, which is also what the official clients that pass the text
+  unchanged use (Sesame1B, Orpheus, ElevenLabs, Deepgram).
+
+TTS APIs that take a single free-form prompt instead of separate text and
+instruction fields (SeedAudio, qwen-audio-tts-next) fold both into
+`text_prompt`:
+
+- `emergent-tts-strong-text-prompt`: category description followed by the
+  text, in one read-aloud prompt. For the no-description mode use the generic
+  `tts` prompt, which already passes the raw text alone.
+
+Select any of the variants with `--prompt <name>`.
+
+Note: the chat-style templates are message lists meant for chat models. Models
+that take separate `text` + style/instruction parameters (for example OpenAI
+TTS `instructions`) must use `emergent-tts-strong-api` (strong) or `tts`
+(default), which match the official pure-TTS-API prompting.
 
 ## Outputs
 
@@ -98,7 +144,7 @@ compared.
 
 | Model | WinRate/% ↑ |
 | --- | ---: |
-| gpt-4o-mini-tts (alloy) | 56.01 (54.92) |
+| gpt-4o-mini-tts (alloy) | 54.83 (54.92) |
 | gpt-4o-mini-tts (ballad) | 55.11 (56.05) |
 
 ## Local Validation

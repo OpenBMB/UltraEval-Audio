@@ -1,0 +1,133 @@
+# Prompting modes from the official benchmark
+# (https://github.com/boson-ai/EmergentTTS-Eval-public: prompts.py,
+# model_clients.py and api_clients.py).
+#
+# `description` is the per-category guidance injected by the dataset
+# (EmergentTTSEvalDataset); `text` is the text to synthesize.
+#
+# The official code assembles prompts per client. All variants reduce to:
+#
+# 1. Chat-style clients — a system message plus one templated user message
+#    (USER_MESSAGE_STRONG_TEMPLATE / USER_MESSAGE_DEFAULT_TEMPLATE). The system
+#    message is client-specific:
+#      SYSTEM_PROMPT_DEFAULT   OpenAIClient (chat completions)
+#                              -> emergent-tts-chat-strong / -chat-default
+#      adapter default         Qwen2_5OmniClient (model_clients.py); qwen2_5.py
+#                              injects the official Qwen system prompt when the
+#                              template has no system message, so Qwen2.5-Omni
+#                              reuses the -no-system variants
+#      empty                   GeminiClient
+#                              -> emergent-tts-chat-strong-no-system /
+#                                 -chat-default-no-system
+#
+# 2. Pure TTS APIs — the instructions/style slot receives the category
+#    description (strong) or "" (default); input receives the raw text. The
+#    default mode is the same prompt as the raw-text-only clients (Sesame1B,
+#    Orpheus, ElevenLabs, Deepgram), so both use the generic `tts` prompt:
+#      emergent-tts-strong-api  -> input=text, instructions=ALL_DESCRIPTIONS[cat]
+#      tts                      -> input=text, no instruction / raw text only
+#
+# 3. TTS APIs that take a single free-form prompt instead of separate text and
+#    instruction fields (SeedAudio, qwen-audio-tts-next) fold both into
+#    `text_prompt`:
+#      emergent-tts-strong-text-prompt  -> description + text
+#      tts                              -> text only
+emergent-tts-chat-strong:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: system
+        contents:
+          - type: text
+            value: >-
+              You are an AI audio assistant specialized in high-quality
+              text-to-speech (TTS) synthesis. Your goal is to generate
+              human-like speech that accurately captures linguistic nuances,
+              prosody, and expressiveness.
+      - role: user
+        contents:
+          - type: text
+            value: |
+              Your goal is to synthesize speech that exactly matches the text under **text_to_synthesize** tag.
+              The generation has to be human-like and realistic. To excel in this task, you must pay attention to the following aspect of the text:
+              {{description}}
+              Now, you will be provided with the **text_to_synthesize**, after that generate **ONLY** the **VERBATIM** speech matching the text. Do not add any additional information or text in your response.
+              ***text_to_synthesize***:
+              {{text}}
+
+emergent-tts-chat-default:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: system
+        contents:
+          - type: text
+            value: >-
+              You are an AI audio assistant specialized in high-quality
+              text-to-speech (TTS) synthesis. Your goal is to generate
+              human-like speech that accurately captures linguistic nuances,
+              prosody, and expressiveness.
+      - role: user
+        contents:
+          - type: text
+            value: |
+              Your goal is to synthesize speech that exactly matches the text under **text_to_synthesize** tag.
+              You will be provided with the **text_to_synthesize**, after that generate **ONLY** the **VERBATIM** speech matching the text. Do not add any additional information or text in your response.
+              ***text_to_synthesize***:
+              {{text}}
+
+emergent-tts-chat-strong-no-system:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: text
+            value: |
+              Your goal is to synthesize speech that exactly matches the text under **text_to_synthesize** tag.
+              The generation has to be human-like and realistic. To excel in this task, you must pay attention to the following aspect of the text:
+              {{description}}
+              Now, you will be provided with the **text_to_synthesize**, after that generate **ONLY** the **VERBATIM** speech matching the text. Do not add any additional information or text in your response.
+              ***text_to_synthesize***:
+              {{text}}
+
+emergent-tts-chat-default-no-system:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      - role: user
+        contents:
+          - type: text
+            value: |
+              Your goal is to synthesize speech that exactly matches the text under **text_to_synthesize** tag.
+              You will be provided with the **text_to_synthesize**, after that generate **ONLY** the **VERBATIM** speech matching the text. Do not add any additional information or text in your response.
+              ***text_to_synthesize***:
+              {{text}}
+
+emergent-tts-strong-api:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      instruction: "{{description}}"
+
+emergent-tts-strong-text-prompt:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text_prompt: |
+              Your goal is to synthesize speech that exactly matches the text under **text_to_synthesize** tag.
+              The generation has to be human-like and realistic. To excel in this task, you must pay attention to the following aspect of the text:
+              {{description}}
+              Now, you will be provided with the **text_to_synthesize**, after that generate **ONLY** the **VERBATIM** speech matching the text. Do not add any additional information or text in your response.
+              ***text_to_synthesize***:
+              {{text}}
+
+# TTS models whose style slot is spelled `instruct` instead of `instruction`
+# (Qwen3-TTS VoiceDesign / CustomVoice: audio_evals/lib/Qwen3TTS/main.py).
+emergent-tts-strong-instruct:
+  class: audio_evals.prompt.base.Prompt
+  args:
+    template:
+      text: "{{text}}"
+      instruct: "{{description}}"
