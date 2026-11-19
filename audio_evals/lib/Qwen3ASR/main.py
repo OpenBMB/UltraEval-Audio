@@ -9,6 +9,18 @@ import torch
 from qwen_asr import Qwen3ASRModel
 
 
+def pick_device(device):
+    """Fall back to CPU when the requested CUDA device is unavailable."""
+    try:
+        import torch
+    except ImportError:
+        return device
+    if str(device).startswith("cuda") and not torch.cuda.is_available():
+        print(f"CUDA is not available, running on cpu instead of {device}", flush=True)
+        return "cpu"
+    return device
+
+
 def get_model(
     path,
     dtype="bfloat16",
@@ -41,7 +53,7 @@ if __name__ == "__main__":
     model = get_model(
         config.path,
         dtype=config.dtype,
-        device_map=config.device_map,
+        device_map=pick_device(config.device_map),
         max_new_tokens=config.max_new_tokens,
         max_inference_batch_size=config.max_inference_batch_size,
     )

@@ -16,6 +16,7 @@ import select
 from typing import Dict, Optional
 
 from audio_evals.base import PromptStruct
+from audio_evals.device import resolve_device
 from audio_evals.isolate import isolated
 from audio_evals.models.model import OfflineModel
 
@@ -26,12 +27,12 @@ logger = logging.getLogger(__name__)
 class Qwen3TTS(OfflineModel):
     """
     Qwen3-TTS unified model.
-    
+
     Supports three modes via the `mode` parameter:
     - custom_voice: Use preset speakers with optional style control
     - voice_design: Create voices from natural language descriptions
     - voice_clone: Clone voices from reference audio
-    
+
     Available speakers (for custom_voice mode):
     - Vivian: Bright, slightly edgy young female voice (Chinese)
     - Serena: Warm, gentle young female voice (Chinese)
@@ -56,7 +57,7 @@ class Qwen3TTS(OfflineModel):
     ):
         """
         Initialize Qwen3-TTS model.
-        
+
         Args:
             path: Model path or HuggingFace model ID
             mode: Generation mode - "custom_voice", "voice_design", or "voice_clone"
@@ -65,8 +66,10 @@ class Qwen3TTS(OfflineModel):
             sample_params: Additional sampling parameters
         """
         if mode not in ("custom_voice", "voice_design", "voice_clone"):
-            raise ValueError(f"Invalid mode: {mode}. Must be one of: custom_voice, voice_design, voice_clone")
-        
+            raise ValueError(
+                f"Invalid mode: {mode}. Must be one of: custom_voice, voice_design, voice_clone"
+            )
+
         if not os.path.exists(path):
             path = self._download_model(path)
 
@@ -74,7 +77,7 @@ class Qwen3TTS(OfflineModel):
             "path": path,
             "mode": mode,
             "dtype": dtype,
-            "device": device,
+            "device": resolve_device(device),
         }
         super().__init__(is_chat=True, sample_params=sample_params)
 
@@ -83,7 +86,7 @@ class Qwen3TTS(OfflineModel):
 
         uid = str(uuid.uuid4())
         prefix = f"{uid}->"
-        
+
         # Merge prompt dict with kwargs
         if isinstance(prompt, dict):
             prompt.update(kwargs)
@@ -122,7 +125,7 @@ class Qwen3TTS(OfflineModel):
                         if result.startswith(prefix):
                             self.process.stdin.write(f"{prefix}close\n")
                             self.process.stdin.flush()
-                            return result[len(prefix):]
+                            return result[len(prefix) :]
                         elif result.startswith("Error:"):
                             raise RuntimeError(f"Qwen3-TTS failed: {result}")
                         else:

@@ -7,6 +7,7 @@ import librosa
 from transformers import AutoProcessor, Qwen2AudioForConditionalGeneration
 
 from audio_evals.base import PromptStruct
+from audio_evals.device import resolve_device
 from audio_evals.models.model import Model
 
 logger = logging.getLogger(__name__)
@@ -34,9 +35,10 @@ class Qwen2audio(Model):
     def __init__(self, path: str, sample_params: Dict[str, any] = None):
         super().__init__(True, sample_params)
         logger.debug("start load model from {}".format(path))
+        self.device = resolve_device()
         self.model = Qwen2AudioForConditionalGeneration.from_pretrained(
             path,
-            device_map="cuda",
+            device_map=self.device,
             trust_remote_code=True,
         ).eval()
         logger.debug("successfully load model from {}".format(path))
@@ -66,8 +68,8 @@ class Qwen2audio(Model):
             text=text, audios=audios, return_tensors="pt", padding=True
         )
         for k, v in inputs.items():
-            inputs[k] = v.to("cuda")
-        inputs.input_ids = inputs.input_ids.to("cuda")
+            inputs[k] = v.to(self.device)
+        inputs.input_ids = inputs.input_ids.to(self.device)
         generate_ids = self.model.generate(**inputs, **kwargs)
         generate_ids = generate_ids[:, inputs.input_ids.size(1) :]
 
@@ -81,9 +83,10 @@ class Qwen2audioPretrain(Model):
     def __init__(self, path: str, sample_params: Dict[str, any] = None):
         super().__init__(False, sample_params)
         logger.debug("start load model from {}".format(path))
+        self.device = resolve_device()
         self.model = Qwen2AudioForConditionalGeneration.from_pretrained(
             path,
-            device_map="cuda",
+            device_map=self.device,
             trust_remote_code=True,
         ).eval()
         logger.debug("successfully load model from {}".format(path))
@@ -102,8 +105,8 @@ class Qwen2audioPretrain(Model):
         inputs = self.processor(text=prompt, audios=audio, return_tensors="pt")
 
         for k, v in inputs.items():
-            inputs[k] = v.to("cuda")
-        inputs.input_ids = inputs.input_ids.to("cuda")
+            inputs[k] = v.to(self.device)
+        inputs.input_ids = inputs.input_ids.to(self.device)
         generated_ids = self.model.generate(**inputs, **kwargs)
         generated_ids = generated_ids[:, inputs.input_ids.size(1) :]
         response = self.processor.batch_decode(

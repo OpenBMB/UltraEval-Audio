@@ -42,3 +42,17 @@ If this code runs successfully, you can proceed with the evaluation.
 3. AST 2zh: --prompt mini-cpm-omni-asr-zh
 4. AST 2en: --prompt mini-cpm-omni-ast-en
 5. emotion analysis: --prompt mini-cpm-omni-emotion_analysis
+
+## 5. AssertionError: Torch not compiled with CUDA enabled (CPU-only machine)
+
+Your PyTorch build has no CUDA support, but a model or scoring model was asked to run on `cuda:0`.
+API models and most evaluators run fine on CPU; local models and scoring models default to `cuda:0` only when CUDA is available and otherwise use `cpu`.
+To force CPU explicitly (the flag also reaches the isolated model processes):
+
+```bash
+python audio_evals/main.py --dataset sample --model gpt4o_audio --device cpu
+# or
+export AUDIO_EVALS_DEVICE=cpu
+```
+
+Note that large local models (e.g. MiniCPM-o 2.6, Qwen2-Audio) are very slow on CPU; prefer API models for CPU-only runs.

@@ -7,6 +7,7 @@ from audio_evals.eval_task import EvalTask
 from audio_evals.recorder import Recorder
 from audio_evals.registry import registry
 from audio_evals.utils import find_latest_jsonl
+from audio_evals.device import DEVICE_ENV_VAR
 from audio_evals.models.model_pool import (
     IsolatedModelPool,
     get_available_gpu_ids,
@@ -30,6 +31,13 @@ def get_args():
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--rand", type=int, default=0)
     parser.add_argument("--workers", type=int, default=1)
+    parser.add_argument(
+        "--device",
+        default="",
+        help="Torch device for local models and scoring models, e.g. `cpu` or "
+        "`cuda:1`. Default: `cuda:0` when CUDA is available, otherwise `cpu`. "
+        f"Sets {DEVICE_ENV_VAR}, which isolated model processes inherit.",
+    )
     parser.add_argument(
         "--use_model_pool",
         nargs="?",
@@ -71,6 +79,10 @@ def get_args():
 def main():
     time_id = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     args = get_args()
+    if args.device:
+        # Propagate to in-process adapters and to isolated model subprocesses.
+        os.environ[DEVICE_ENV_VAR] = args.device
+    cpu_only = os.environ.get(DEVICE_ENV_VAR, "").strip().lower() == "cpu"
     os.makedirs("log/", exist_ok=True)
     logging.basicConfig(
         level=logging.DEBUG if args.debug_mode else logging.INFO,
@@ -134,7 +146,12 @@ def main():
     model_spec = registry._model.get(task_cfg.model, {})
     if args.use_model_pool == "auto":
         cls_path = model_spec.get("cls")
-        if cls_path and model_supports_pool(cls_path):
+        if cpu_only:
+            use_pool = False
+            logger.info(
+                f"{DEVICE_ENV_VAR}=cpu: skipping IsolatedModelPool (no GPUs to assign)."
+            )
+        elif cls_path and model_supports_pool(cls_path):
             use_pool = True
             logger.info(
                 f"Auto-detected GPU/isolated model '{task_cfg.model}' ({cls_path}); "

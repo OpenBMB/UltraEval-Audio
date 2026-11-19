@@ -17,6 +17,7 @@ import select
 from typing import Dict, Optional
 
 from audio_evals.base import PromptStruct
+from audio_evals.device import resolve_device
 from audio_evals.isolate import isolated
 from audio_evals.models.model import OfflineModel
 
@@ -40,7 +41,7 @@ class MossTTS(OfflineModel):
         self.command_args = {
             "path": path,
             "dtype": dtype,
-            "device": device,
+            "device": resolve_device(device),
         }
         super().__init__(is_chat=True, sample_params=sample_params)
 

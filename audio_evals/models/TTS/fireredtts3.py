@@ -8,6 +8,7 @@ import uuid
 from typing import Dict, Optional
 
 from audio_evals.base import PromptStruct
+from audio_evals.device import resolve_device
 from audio_evals.isolate import isolated
 from audio_evals.models.model import OfflineModel
 
@@ -46,7 +47,7 @@ class FireRedTTS3(OfflineModel):
             "path": path,
             "source-path": "./third_party/FireRedTTS3",
             "mode": mode,
-            "device": device,
+            "device": resolve_device(device),
         }
         if use_wetext:
             self.command_args["use-wetext"] = ""

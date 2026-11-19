@@ -31,7 +31,19 @@ def init_model(model_name, checkpoint=None):
     return model
 
 
+def pick_device(device="cuda:0"):
+    """Fall back to CPU when the requested CUDA device is unavailable."""
+    if device.startswith("cuda") and not torch.cuda.is_available():
+        print(
+            f"CUDA is not available, running wavlm on cpu instead of {device}",
+            flush=True,
+        )
+        return "cpu"
+    return device
+
+
 def verification(wav1, wav2, model=None, wav2_cut_wav1=False, device="cuda:0"):
+    device = pick_device(device)
 
     wav1, sr1 = librosa.load(wav1, sr=None, mono=False)
     if len(wav1.shape) == 2:
@@ -47,8 +59,8 @@ def verification(wav1, wav2, model=None, wav2_cut_wav1=False, device="cuda:0"):
     wav1 = resample1(wav1)
     wav2 = resample2(wav2)
 
-    wav1 = wav1.cuda(device)
-    wav2 = wav2.cuda(device)
+    wav1 = wav1.to(device)
+    wav2 = wav2.to(device)
 
     with torch.no_grad():
         emb1 = model(wav1)
@@ -69,13 +81,15 @@ if __name__ == "__main__":
     parser.add_argument(
         "--path", type=str, required=True, help="Path to checkpoint file"
     )
+    parser.add_argument("--device", type=str, default="cuda:0")
     config = parser.parse_args()
+    device = pick_device(config.device)
 
     # now just compare two audios similarity
     model_name = "wavlm_large"
     checkpoint = config.path
     model = init_model(model_name, checkpoint)
-    model = model.cuda("cuda:0").eval()
+    model = model.to(device).eval()
 
     print(f"successfully loaded wavlm_large model from {checkpoint}", flush=True)
 
@@ -93,7 +107,7 @@ if __name__ == "__main__":
                 continue
             prefix = prompt[:anchor].strip() + "->"
             wavs = prompt[anchor + 2 :].split(",")
-            sim = verification(wavs[0], wavs[1], model=model)
+            sim = verification(wavs[0], wavs[1], model=model, device=device)
             retry = 3
             while retry:
                 print("{}{}".format(prefix, str(sim)), flush=True)
