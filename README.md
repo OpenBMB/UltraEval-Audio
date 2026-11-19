@@ -35,6 +35,9 @@ UltraEval-Audio — The world's first open-source framework supporting both spee
 
 # Changelog🔥
 
+- [2026/11/07]
+  - Support **[DotsTTS](replication/DotsTTS.md)** evaluation: `dots-tts-soar` (bf16) and `dots-tts-soar-fp32`, serving the official PyPI package `dots.tts` through a pinned isolated runtime
+  - Covers Seed-TTS-Eval, CV3-Eval zero-shot and cross-lingual, MiniMax multilingual TTS, and InstructTTSEval
 - [2026/11/05]
   - Seed Audio prompts moved from hardcoded wrapper templates to [registry/prompt/seed_audio.yaml](registry/prompt/seed_audio.yaml) (`seed-audio-tts`, `seed-audio-vc-zh/en`, `seed-audio-instruct*-zh/en`)
   - The wrapper now only accepts Seed Audio request fields (`text_prompt`, `prompt_audio`, `references`, `speaker`, `audio_config`, `watermark`); run voice cloning with `--prompt seed-audio-vc-zh` instead of `voice-clone`

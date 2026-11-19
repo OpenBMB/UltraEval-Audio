@@ -35,6 +35,9 @@ UltraEval-Audio——全球首个同时支持语音理解和语音生成评估�
 
 # 更新日志🔥
 
+- [2026/11/07]
+  - 支持 **[DotsTTS](replication/DotsTTS.md)** 评测：`dots-tts-soar`（bf16）与 `dots-tts-soar-fp32`，通过固定版本的隔离运行时调用官方 PyPI 包 `dots.tts`
+  - 覆盖 Seed-TTS-Eval、CV3-Eval zero-shot 与跨语言、MiniMax 多语言 TTS 以及 InstructTTSEval
 - [2026/11/05]
   - Seed Audio 提示词从模型代码内硬编码模板迁移至 [registry/prompt/seed_audio.yaml](registry/prompt/seed_audio.yaml)（`seed-audio-tts`、`seed-audio-vc-zh/en`、`seed-audio-instruct*-zh/en`）
   - 模型封装只接受 Seed Audio 请求字段（`text_prompt`、`prompt_audio`、`references`、`speaker`、`audio_config`、`watermark`）；音色克隆改用 `--prompt seed-audio-vc-zh`（原 `voice-clone` 不再适用）
