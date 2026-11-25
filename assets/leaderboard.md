@@ -48,6 +48,7 @@
 | Mini-Omni               | gpt-omni     | Yes         | ❌                   | ✅                | English          |                                                                                                                                 |
 | Moshi                   | Kyutai       | Yes         | ❌                   | ✅                | English          |                                                                                                                                 |
 | Step-Audio-Chat         | stepfun      | Yes         | ✅                   | ✅                | Chinese, English |                                                                                                                                 |
+| Oruk-Fourier-2B         | Oruk         | Yes (CC BY-NC 4.0) | ✅ (EN ASR)   | ❌                | English          | Fine-tuned from Qwen3-ASR-1.7B (`8c2a8871`); published 3-beam decoding; evaluated 2026-11-25 ([replication](../replication/oruk_fourier_2b.md)) |
 
 
 > [AudioArena](https://huggingface.co/spaces/openbmb/AudioArena) an open platform that enables users
@@ -76,19 +77,19 @@
 
 
 #  Audio Understanding Model Performance
-| Metric | Dataset-Split          | GPT-4o-Realtime | Gemini-1.5-Pro | Gemini-1.5-Flash | Qwen2-Audio-Instruction | Qwen-Audio-Chat | MiniCPM-o 2.6 | Step-Audio-Chat |
-|:-------|:-----------------------|----------------:|---------------:|-----------------:|------------------------:|----------------:|--------------:|-----------------|
-| CER↓   | AIshell-1              |             7.3 |            4.5 |                9 |                     2.6 |           227.6 |           1.6 | 2.1             |
-| CER↓   | Fleurs-zh              |             5.4 |            5.9 |             85.9 |                     6.9 |            80.2 |           4.4 | 6.0             |
-| CER↓   | WenetSpeech-test-net)  |            28.9 |           14.3 |            279.9 |                    10.3 |          227.84 |           6.9 | 10.3            |
-| WER↓   | librispeech-test-clean |             2.6 |            2.9 |             21.9 |                     3.1 |              54 |           1.7 | 3.11            |
-| WER↓   | librispeech-test-other |             5.5 |            4.9 |             16.3 |                     5.7 |            62.3 |           4.4 | 8.4             |
-| WER↓   | librispeech-dev-clean  |             2.3 |            2.6 |              5.9 |                     2.9 |            53.9 |           1.6 | 3.0             |
-| WER↓   | librispeech-dev-other  |             5.6 |            4.4 |              7.2 |                     5.5 |            61.9 |           3.4 | 9.8             |
-| WER↓   | Gigaspeech             |            12.9 |           10.6 |             24.7 |                     9.7 |              62 |           8.7 | 16.72           |
-| WER↓   | Tedlium                |             4.8 |              3 |              6.9 |                     5.9 |            40.5 |             3 | 6.28            |
-| BLEU↑  | covost2-en2zh          |            37.1 |           47.3 |             33.4 |                    39.5 |            15.7 |          48.2 | 26.45           |
-| BLEU↑  | covost2-zh2en          |            15.7 |           22.6 |              8.2 |                    22.9 |              10 |          27.2 | 25.97           |
+| Metric | Dataset-Split          | GPT-4o-Realtime | Gemini-1.5-Pro | Gemini-1.5-Flash | Qwen2-Audio-Instruction | Qwen-Audio-Chat | MiniCPM-o 2.6 | Step-Audio-Chat | Oruk-Fourier-2B |
+|:-------|:-----------------------|----------------:|---------------:|-----------------:|------------------------:|----------------:|--------------:|-----------------|----------------:|
+| CER↓   | AIshell-1              |             7.3 |            4.5 |                9 |                     2.6 |           227.6 |           1.6 | 2.1             |               - |
+| CER↓   | Fleurs-zh              |             5.4 |            5.9 |             85.9 |                     6.9 |            80.2 |           4.4 | 6.0             |               - |
+| CER↓   | WenetSpeech-test-net)  |            28.9 |           14.3 |            279.9 |                    10.3 |          227.84 |           6.9 | 10.3            |               - |
+| WER↓   | librispeech-test-clean |             2.6 |            2.9 |             21.9 |                     3.1 |              54 |           1.7 | 3.11            |            1.41 |
+| WER↓   | librispeech-test-other |             5.5 |            4.9 |             16.3 |                     5.7 |            62.3 |           4.4 | 8.4             |            2.60 |
+| WER↓   | librispeech-dev-clean  |             2.3 |            2.6 |              5.9 |                     2.9 |            53.9 |           1.6 | 3.0             |            1.57 |
+| WER↓   | librispeech-dev-other  |             5.6 |            4.4 |              7.2 |                     5.5 |            61.9 |           3.4 | 9.8             |            3.03 |
+| WER↓   | Gigaspeech             |            12.9 |           10.6 |             24.7 |                     9.7 |              62 |           8.7 | 16.72           |            7.54 |
+| WER↓   | Tedlium                |             4.8 |              3 |              6.9 |                     5.9 |            40.5 |             3 | 6.28            |            2.33 |
+| BLEU↑  | covost2-en2zh          |            37.1 |           47.3 |             33.4 |                    39.5 |            15.7 |          48.2 | 26.45           |               - |
+| BLEU↑  | covost2-zh2en          |            15.7 |           22.6 |              8.2 |                    22.9 |              10 |          27.2 | 25.97           |               - |
 
 
 # Speech Generation Model Performance

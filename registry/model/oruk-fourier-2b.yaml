@@ -1,0 +1,11 @@
+oruk-fourier-2b:
+  class: audio_evals.models.asr.oruk_fourier.OrukFourierASR
+  args:
+    path: oruk/oruk-fourier-2b
+    model_revision: 8c2a8871f1304aa2f634da4fb95e24438c4945b9
+    dtype: bfloat16
+    device_map: cuda:0
+    max_new_tokens: 512
+    language: en
+    env_path: envs/oruk_fourier
+    requirements_path: audio_evals/lib/OrukFourier/requirements.txt
