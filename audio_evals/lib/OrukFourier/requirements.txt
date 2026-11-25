@@ -1,0 +1,6 @@
+huggingface_hub
+numpy
+soundfile
+soxr
+torch>=2.5.1
+transformers>=5.24.0

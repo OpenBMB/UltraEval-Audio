@@ -35,6 +35,8 @@ UltraEval-Audio — The world's first open-source framework supporting both spee
 
 # Changelog🔥
 
+- [2026/11/25]
+  - Support **[Oruk-Fourier-2B](replication/oruk_fourier_2b.md)** evaluation (`oruk-fourier-2b`, pinned `oruk/oruk-fourier-2b@8c2a8871`, CC BY-NC 4.0) through a native Hugging Face `transformers` isolated runtime, with English ASR replication results across all 7 English benchmarks.
 - [2026/11/07]
   - Support **[DotsTTS](replication/DotsTTS.md)** evaluation: `dots-tts-soar` (bf16) and `dots-tts-soar-fp32`, serving the official PyPI package `dots.tts` through a pinned isolated runtime
   - Covers Seed-TTS-Eval, CV3-Eval zero-shot and cross-lingual, MiniMax multilingual TTS, and InstructTTSEval
@@ -215,6 +217,10 @@ CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset librispeech-test-cle
 
 # Test Fun-ASR-Nano multilingual speech recognition capability
 CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset librispeech-test-clean --model fun-asr-nano-2512 --prompt simple-asr
+
+# Test Oruk-Fourier-2B English speech recognition capability
+CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset librispeech-test-clean --model oruk-fourier-2b --prompt simple-asr
+# See full replication results and commands: replication/oruk_fourier_2b.md
 
 # Test qwen2-audio-offline speech understanding capability
 CUDA_VISIBLE_DEVICES=0 python audio_evals/main.py --dataset sample --model qwen2-audio-chat
